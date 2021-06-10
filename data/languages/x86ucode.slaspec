@@ -1,0 +1,39 @@
+# Basic ================================================================================
+define endian=little;
+define alignment=1;
+
+define space register	type=register_space size=2;
+define space ram		type=ram_space size=8;
+define space ucode		type=ram_space	size=2  default;
+define space crbus type=ram_space size=2 wordsize=8;
+
+# fake a stack pointer for the decompilation
+define space dummy_space type=ram_space size=2;
+define register offset=0xf000 size=8 [dummy_reg];
+
+# Registers ============================================================================
+define register offset=0x00 size=8 [
+	rax rbx rcx rdx rsp rbp rsi rdi r8 r9 r10 r11 r12 r13 r14 r15 
+	tmp0 tmp1 tmp2 tmp3 tmp4 tmp5 tmp6 tmp7 tmp8 tmp9 tmp10 tmp11 tmp12 tmp13 tmp14 tmp15 
+	tmpv0 tmpv1 tmpv2 tmpv3 
+];
+
+define register offset=0x1000 size=16 [
+	xmm0 xmm1 xmm2 xmm3 xmm4 xmm5 xmm6 xmm7 xmm8 xmm9 xmm10 xmm11 xmm12 xmm13 xmm14 xmm15 
+	mm0 mm1 mm2 mm3 mm4 mm5 mm6 mm7 
+	tmm0 tmm1 tmm2 tmm3 tmm4 tmm5 tmm6 tmm7 
+	tmmv0 tmmv1 tmmv2 tmmv3
+];
+
+# Fields =================================================================================
+define token uop(48)
+	full_uop=(0, 47)
+;
+
+define token seqword(32)
+	full_seqword=(0, 31)
+;
+
+:> full_uop full_seqword is full_uop; full_seqword {
+	
+}

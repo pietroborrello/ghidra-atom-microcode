@@ -1,0 +1,278 @@
+<sleigh version="2" bigendian="false" align="1" uniqbase="0x0">
+<spaces defaultspace="ucode">
+<space_other name="OTHER" index="1" bigendian="false" delay="0" size="8" physical="false"/>
+<space_unique name="unique" index="2" bigendian="false" delay="0" size="4" physical="true"/>
+<space name="register" index="3" bigendian="false" delay="0" size="2" physical="true"/>
+<space name="ram" index="4" bigendian="false" delay="1" size="8" physical="true"/>
+<space name="ucode" index="5" bigendian="false" delay="1" size="2" physical="true"/>
+<space name="crbus" index="6" bigendian="false" delay="1" size="2" wordsize="8" physical="true"/>
+<space name="dummy_space" index="7" bigendian="false" delay="1" size="2" physical="true"/>
+</spaces>
+<symbol_table scopesize="2" symbolsize="80">
+<scope id="0x0" parent="0x0"/>
+<scope id="0x1" parent="0x0"/>
+<subtable_sym_head name="instruction" id="0x0" scope="0x0"/>
+<start_sym_head name="inst_start" id="0x1" scope="0x0"/>
+<end_sym_head name="inst_next" id="0x2" scope="0x0"/>
+<varnode_sym_head name="dummy_reg" id="0x3" scope="0x0"/>
+<varnode_sym_head name="rax" id="0x4" scope="0x0"/>
+<varnode_sym_head name="rbx" id="0x5" scope="0x0"/>
+<varnode_sym_head name="rcx" id="0x6" scope="0x0"/>
+<varnode_sym_head name="rdx" id="0x7" scope="0x0"/>
+<varnode_sym_head name="rsp" id="0x8" scope="0x0"/>
+<varnode_sym_head name="rbp" id="0x9" scope="0x0"/>
+<varnode_sym_head name="rsi" id="0xa" scope="0x0"/>
+<varnode_sym_head name="rdi" id="0xb" scope="0x0"/>
+<varnode_sym_head name="r8" id="0xc" scope="0x0"/>
+<varnode_sym_head name="r9" id="0xd" scope="0x0"/>
+<varnode_sym_head name="r10" id="0xe" scope="0x0"/>
+<varnode_sym_head name="r11" id="0xf" scope="0x0"/>
+<varnode_sym_head name="r12" id="0x10" scope="0x0"/>
+<varnode_sym_head name="r13" id="0x11" scope="0x0"/>
+<varnode_sym_head name="r14" id="0x12" scope="0x0"/>
+<varnode_sym_head name="r15" id="0x13" scope="0x0"/>
+<varnode_sym_head name="tmp0" id="0x14" scope="0x0"/>
+<varnode_sym_head name="tmp1" id="0x15" scope="0x0"/>
+<varnode_sym_head name="tmp2" id="0x16" scope="0x0"/>
+<varnode_sym_head name="tmp3" id="0x17" scope="0x0"/>
+<varnode_sym_head name="tmp4" id="0x18" scope="0x0"/>
+<varnode_sym_head name="tmp5" id="0x19" scope="0x0"/>
+<varnode_sym_head name="tmp6" id="0x1a" scope="0x0"/>
+<varnode_sym_head name="tmp7" id="0x1b" scope="0x0"/>
+<varnode_sym_head name="tmp8" id="0x1c" scope="0x0"/>
+<varnode_sym_head name="tmp9" id="0x1d" scope="0x0"/>
+<varnode_sym_head name="tmp10" id="0x1e" scope="0x0"/>
+<varnode_sym_head name="tmp11" id="0x1f" scope="0x0"/>
+<varnode_sym_head name="tmp12" id="0x20" scope="0x0"/>
+<varnode_sym_head name="tmp13" id="0x21" scope="0x0"/>
+<varnode_sym_head name="tmp14" id="0x22" scope="0x0"/>
+<varnode_sym_head name="tmp15" id="0x23" scope="0x0"/>
+<varnode_sym_head name="tmpv0" id="0x24" scope="0x0"/>
+<varnode_sym_head name="tmpv1" id="0x25" scope="0x0"/>
+<varnode_sym_head name="tmpv2" id="0x26" scope="0x0"/>
+<varnode_sym_head name="tmpv3" id="0x27" scope="0x0"/>
+<varnode_sym_head name="xmm0" id="0x28" scope="0x0"/>
+<varnode_sym_head name="xmm1" id="0x29" scope="0x0"/>
+<varnode_sym_head name="xmm2" id="0x2a" scope="0x0"/>
+<varnode_sym_head name="xmm3" id="0x2b" scope="0x0"/>
+<varnode_sym_head name="xmm4" id="0x2c" scope="0x0"/>
+<varnode_sym_head name="xmm5" id="0x2d" scope="0x0"/>
+<varnode_sym_head name="xmm6" id="0x2e" scope="0x0"/>
+<varnode_sym_head name="xmm7" id="0x2f" scope="0x0"/>
+<varnode_sym_head name="xmm8" id="0x30" scope="0x0"/>
+<varnode_sym_head name="xmm9" id="0x31" scope="0x0"/>
+<varnode_sym_head name="xmm10" id="0x32" scope="0x0"/>
+<varnode_sym_head name="xmm11" id="0x33" scope="0x0"/>
+<varnode_sym_head name="xmm12" id="0x34" scope="0x0"/>
+<varnode_sym_head name="xmm13" id="0x35" scope="0x0"/>
+<varnode_sym_head name="xmm14" id="0x36" scope="0x0"/>
+<varnode_sym_head name="xmm15" id="0x37" scope="0x0"/>
+<varnode_sym_head name="mm0" id="0x38" scope="0x0"/>
+<varnode_sym_head name="mm1" id="0x39" scope="0x0"/>
+<varnode_sym_head name="mm2" id="0x3a" scope="0x0"/>
+<varnode_sym_head name="mm3" id="0x3b" scope="0x0"/>
+<varnode_sym_head name="mm4" id="0x3c" scope="0x0"/>
+<varnode_sym_head name="mm5" id="0x3d" scope="0x0"/>
+<varnode_sym_head name="mm6" id="0x3e" scope="0x0"/>
+<varnode_sym_head name="mm7" id="0x3f" scope="0x0"/>
+<varnode_sym_head name="tmm0" id="0x40" scope="0x0"/>
+<varnode_sym_head name="tmm1" id="0x41" scope="0x0"/>
+<varnode_sym_head name="tmm2" id="0x42" scope="0x0"/>
+<varnode_sym_head name="tmm3" id="0x43" scope="0x0"/>
+<varnode_sym_head name="tmm4" id="0x44" scope="0x0"/>
+<varnode_sym_head name="tmm5" id="0x45" scope="0x0"/>
+<varnode_sym_head name="tmm6" id="0x46" scope="0x0"/>
+<varnode_sym_head name="tmm7" id="0x47" scope="0x0"/>
+<varnode_sym_head name="tmmv0" id="0x48" scope="0x0"/>
+<varnode_sym_head name="tmmv1" id="0x49" scope="0x0"/>
+<varnode_sym_head name="tmmv2" id="0x4a" scope="0x0"/>
+<varnode_sym_head name="tmmv3" id="0x4b" scope="0x0"/>
+<value_sym_head name="full_uop" id="0x4c" scope="0x0"/>
+<value_sym_head name="full_seqword" id="0x4d" scope="0x0"/>
+<operand_sym_head name="full_uop" id="0x4e" scope="0x1"/>
+<operand_sym_head name="full_seqword" id="0x4f" scope="0x1"/>
+<subtable_sym name="instruction" id="0x0" scope="0x0" numct="1">
+<constructor parent="0x0" first="1" length="10" line="37">
+<oper id="0x4e"/>
+<oper id="0x4f"/>
+<print piece="&gt;"/>
+<print piece=" "/>
+<opprint id="0"/>
+<print piece=" "/>
+<opprint id="1"/>
+<construct_tpl>
+<null/></construct_tpl>
+</constructor>
+<decision number="1" context="false" start="0" size="0">
+<pair id="0">
+<instruct_pat>
+<pat_block offset="0" nonzero="0">
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
+</subtable_sym>
+<start_sym name="inst_start" id="0x1" scope="0x0"/>
+<end_sym name="inst_next" id="0x2" scope="0x0"/>
+<varnode_sym name="dummy_reg" id="0x3" scope="0x0" space="register" offset="0xf000" size="8">
+</varnode_sym>
+<varnode_sym name="rax" id="0x4" scope="0x0" space="register" offset="0x0" size="8">
+</varnode_sym>
+<varnode_sym name="rbx" id="0x5" scope="0x0" space="register" offset="0x8" size="8">
+</varnode_sym>
+<varnode_sym name="rcx" id="0x6" scope="0x0" space="register" offset="0x10" size="8">
+</varnode_sym>
+<varnode_sym name="rdx" id="0x7" scope="0x0" space="register" offset="0x18" size="8">
+</varnode_sym>
+<varnode_sym name="rsp" id="0x8" scope="0x0" space="register" offset="0x20" size="8">
+</varnode_sym>
+<varnode_sym name="rbp" id="0x9" scope="0x0" space="register" offset="0x28" size="8">
+</varnode_sym>
+<varnode_sym name="rsi" id="0xa" scope="0x0" space="register" offset="0x30" size="8">
+</varnode_sym>
+<varnode_sym name="rdi" id="0xb" scope="0x0" space="register" offset="0x38" size="8">
+</varnode_sym>
+<varnode_sym name="r8" id="0xc" scope="0x0" space="register" offset="0x40" size="8">
+</varnode_sym>
+<varnode_sym name="r9" id="0xd" scope="0x0" space="register" offset="0x48" size="8">
+</varnode_sym>
+<varnode_sym name="r10" id="0xe" scope="0x0" space="register" offset="0x50" size="8">
+</varnode_sym>
+<varnode_sym name="r11" id="0xf" scope="0x0" space="register" offset="0x58" size="8">
+</varnode_sym>
+<varnode_sym name="r12" id="0x10" scope="0x0" space="register" offset="0x60" size="8">
+</varnode_sym>
+<varnode_sym name="r13" id="0x11" scope="0x0" space="register" offset="0x68" size="8">
+</varnode_sym>
+<varnode_sym name="r14" id="0x12" scope="0x0" space="register" offset="0x70" size="8">
+</varnode_sym>
+<varnode_sym name="r15" id="0x13" scope="0x0" space="register" offset="0x78" size="8">
+</varnode_sym>
+<varnode_sym name="tmp0" id="0x14" scope="0x0" space="register" offset="0x80" size="8">
+</varnode_sym>
+<varnode_sym name="tmp1" id="0x15" scope="0x0" space="register" offset="0x88" size="8">
+</varnode_sym>
+<varnode_sym name="tmp2" id="0x16" scope="0x0" space="register" offset="0x90" size="8">
+</varnode_sym>
+<varnode_sym name="tmp3" id="0x17" scope="0x0" space="register" offset="0x98" size="8">
+</varnode_sym>
+<varnode_sym name="tmp4" id="0x18" scope="0x0" space="register" offset="0xa0" size="8">
+</varnode_sym>
+<varnode_sym name="tmp5" id="0x19" scope="0x0" space="register" offset="0xa8" size="8">
+</varnode_sym>
+<varnode_sym name="tmp6" id="0x1a" scope="0x0" space="register" offset="0xb0" size="8">
+</varnode_sym>
+<varnode_sym name="tmp7" id="0x1b" scope="0x0" space="register" offset="0xb8" size="8">
+</varnode_sym>
+<varnode_sym name="tmp8" id="0x1c" scope="0x0" space="register" offset="0xc0" size="8">
+</varnode_sym>
+<varnode_sym name="tmp9" id="0x1d" scope="0x0" space="register" offset="0xc8" size="8">
+</varnode_sym>
+<varnode_sym name="tmp10" id="0x1e" scope="0x0" space="register" offset="0xd0" size="8">
+</varnode_sym>
+<varnode_sym name="tmp11" id="0x1f" scope="0x0" space="register" offset="0xd8" size="8">
+</varnode_sym>
+<varnode_sym name="tmp12" id="0x20" scope="0x0" space="register" offset="0xe0" size="8">
+</varnode_sym>
+<varnode_sym name="tmp13" id="0x21" scope="0x0" space="register" offset="0xe8" size="8">
+</varnode_sym>
+<varnode_sym name="tmp14" id="0x22" scope="0x0" space="register" offset="0xf0" size="8">
+</varnode_sym>
+<varnode_sym name="tmp15" id="0x23" scope="0x0" space="register" offset="0xf8" size="8">
+</varnode_sym>
+<varnode_sym name="tmpv0" id="0x24" scope="0x0" space="register" offset="0x100" size="8">
+</varnode_sym>
+<varnode_sym name="tmpv1" id="0x25" scope="0x0" space="register" offset="0x108" size="8">
+</varnode_sym>
+<varnode_sym name="tmpv2" id="0x26" scope="0x0" space="register" offset="0x110" size="8">
+</varnode_sym>
+<varnode_sym name="tmpv3" id="0x27" scope="0x0" space="register" offset="0x118" size="8">
+</varnode_sym>
+<varnode_sym name="xmm0" id="0x28" scope="0x0" space="register" offset="0x1000" size="16">
+</varnode_sym>
+<varnode_sym name="xmm1" id="0x29" scope="0x0" space="register" offset="0x1010" size="16">
+</varnode_sym>
+<varnode_sym name="xmm2" id="0x2a" scope="0x0" space="register" offset="0x1020" size="16">
+</varnode_sym>
+<varnode_sym name="xmm3" id="0x2b" scope="0x0" space="register" offset="0x1030" size="16">
+</varnode_sym>
+<varnode_sym name="xmm4" id="0x2c" scope="0x0" space="register" offset="0x1040" size="16">
+</varnode_sym>
+<varnode_sym name="xmm5" id="0x2d" scope="0x0" space="register" offset="0x1050" size="16">
+</varnode_sym>
+<varnode_sym name="xmm6" id="0x2e" scope="0x0" space="register" offset="0x1060" size="16">
+</varnode_sym>
+<varnode_sym name="xmm7" id="0x2f" scope="0x0" space="register" offset="0x1070" size="16">
+</varnode_sym>
+<varnode_sym name="xmm8" id="0x30" scope="0x0" space="register" offset="0x1080" size="16">
+</varnode_sym>
+<varnode_sym name="xmm9" id="0x31" scope="0x0" space="register" offset="0x1090" size="16">
+</varnode_sym>
+<varnode_sym name="xmm10" id="0x32" scope="0x0" space="register" offset="0x10a0" size="16">
+</varnode_sym>
+<varnode_sym name="xmm11" id="0x33" scope="0x0" space="register" offset="0x10b0" size="16">
+</varnode_sym>
+<varnode_sym name="xmm12" id="0x34" scope="0x0" space="register" offset="0x10c0" size="16">
+</varnode_sym>
+<varnode_sym name="xmm13" id="0x35" scope="0x0" space="register" offset="0x10d0" size="16">
+</varnode_sym>
+<varnode_sym name="xmm14" id="0x36" scope="0x0" space="register" offset="0x10e0" size="16">
+</varnode_sym>
+<varnode_sym name="xmm15" id="0x37" scope="0x0" space="register" offset="0x10f0" size="16">
+</varnode_sym>
+<varnode_sym name="mm0" id="0x38" scope="0x0" space="register" offset="0x1100" size="16">
+</varnode_sym>
+<varnode_sym name="mm1" id="0x39" scope="0x0" space="register" offset="0x1110" size="16">
+</varnode_sym>
+<varnode_sym name="mm2" id="0x3a" scope="0x0" space="register" offset="0x1120" size="16">
+</varnode_sym>
+<varnode_sym name="mm3" id="0x3b" scope="0x0" space="register" offset="0x1130" size="16">
+</varnode_sym>
+<varnode_sym name="mm4" id="0x3c" scope="0x0" space="register" offset="0x1140" size="16">
+</varnode_sym>
+<varnode_sym name="mm5" id="0x3d" scope="0x0" space="register" offset="0x1150" size="16">
+</varnode_sym>
+<varnode_sym name="mm6" id="0x3e" scope="0x0" space="register" offset="0x1160" size="16">
+</varnode_sym>
+<varnode_sym name="mm7" id="0x3f" scope="0x0" space="register" offset="0x1170" size="16">
+</varnode_sym>
+<varnode_sym name="tmm0" id="0x40" scope="0x0" space="register" offset="0x1180" size="16">
+</varnode_sym>
+<varnode_sym name="tmm1" id="0x41" scope="0x0" space="register" offset="0x1190" size="16">
+</varnode_sym>
+<varnode_sym name="tmm2" id="0x42" scope="0x0" space="register" offset="0x11a0" size="16">
+</varnode_sym>
+<varnode_sym name="tmm3" id="0x43" scope="0x0" space="register" offset="0x11b0" size="16">
+</varnode_sym>
+<varnode_sym name="tmm4" id="0x44" scope="0x0" space="register" offset="0x11c0" size="16">
+</varnode_sym>
+<varnode_sym name="tmm5" id="0x45" scope="0x0" space="register" offset="0x11d0" size="16">
+</varnode_sym>
+<varnode_sym name="tmm6" id="0x46" scope="0x0" space="register" offset="0x11e0" size="16">
+</varnode_sym>
+<varnode_sym name="tmm7" id="0x47" scope="0x0" space="register" offset="0x11f0" size="16">
+</varnode_sym>
+<varnode_sym name="tmmv0" id="0x48" scope="0x0" space="register" offset="0x1200" size="16">
+</varnode_sym>
+<varnode_sym name="tmmv1" id="0x49" scope="0x0" space="register" offset="0x1210" size="16">
+</varnode_sym>
+<varnode_sym name="tmmv2" id="0x4a" scope="0x0" space="register" offset="0x1220" size="16">
+</varnode_sym>
+<varnode_sym name="tmmv3" id="0x4b" scope="0x0" space="register" offset="0x1230" size="16">
+</varnode_sym>
+<value_sym name="full_uop" id="0x4c" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="0" bitend="47" bytestart="0" byteend="5" shift="0"/>
+</value_sym>
+<value_sym name="full_seqword" id="0x4d" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="0" bitend="31" bytestart="0" byteend="3" shift="0"/>
+</value_sym>
+<operand_sym name="full_uop" id="0x4e" scope="0x1" off="0" base="-1" minlen="6" index="0">
+<operand_exp index="0" table="0x0" ct="0x0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="0" bitend="47" bytestart="0" byteend="5" shift="0"/>
+</operand_sym>
+<operand_sym name="full_seqword" id="0x4f" scope="0x1" off="6" base="-1" minlen="4" index="1">
+<operand_exp index="1" table="0x0" ct="0x0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="0" bitend="31" bytestart="0" byteend="3" shift="0"/>
+</operand_sym>
+</symbol_table>
+</sleigh>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- See Relax specification: Ghidra/Framework/SoftwareModeling/data/languages/processor_spec.rxg -->
+
+<processor_spec>
+	<default_memory_blocks>
+        <memory_block name="ram" start_address="ram:0x0000" length="0x10000" mode="rw"/>
+        <memory_block name="crbus" start_address="crbus:0x0000" length="0x10000" mode="rw"/>
+    </default_memory_blocks>
+    
+	<default_symbols>
+	    <symbol name="start" address="ucode:0x0000" type="code" entry="true"/>
+	</default_symbols>
+</processor_spec>

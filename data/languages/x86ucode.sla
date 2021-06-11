@@ -8,9 +8,10 @@
 <space name="crbus" index="6" bigendian="false" delay="1" size="2" wordsize="8" physical="true"/>
 <space name="dummy_space" index="7" bigendian="false" delay="1" size="2" physical="true"/>
 </spaces>
-<symbol_table scopesize="2" symbolsize="80">
+<symbol_table scopesize="3" symbolsize="110">
 <scope id="0x0" parent="0x0"/>
 <scope id="0x1" parent="0x0"/>
+<scope id="0x2" parent="0x0"/>
 <subtable_sym_head name="instruction" id="0x0" scope="0x0"/>
 <start_sym_head name="inst_start" id="0x1" scope="0x0"/>
 <end_sym_head name="inst_next" id="0x2" scope="0x0"/>
@@ -88,20 +89,70 @@
 <varnode_sym_head name="tmmv2" id="0x4a" scope="0x0"/>
 <varnode_sym_head name="tmmv3" id="0x4b" scope="0x0"/>
 <value_sym_head name="full_uop" id="0x4c" scope="0x0"/>
-<value_sym_head name="full_seqword" id="0x4d" scope="0x0"/>
-<operand_sym_head name="full_uop" id="0x4e" scope="0x1"/>
-<operand_sym_head name="full_seqword" id="0x4f" scope="0x1"/>
+<value_sym_head name="src0" id="0x4d" scope="0x0"/>
+<value_sym_head name="src1" id="0x4e" scope="0x0"/>
+<value_sym_head name="dst" id="0x4f" scope="0x0"/>
+<value_sym_head name="imm1" id="0x50" scope="0x0"/>
+<value_sym_head name="m0" id="0x51" scope="0x0"/>
+<value_sym_head name="imm0" id="0x52" scope="0x0"/>
+<value_sym_head name="opcode" id="0x53" scope="0x0"/>
+<value_sym_head name="m1" id="0x54" scope="0x0"/>
+<value_sym_head name="m2" id="0x55" scope="0x0"/>
+<value_sym_head name="uknown" id="0x56" scope="0x0"/>
+<value_sym_head name="full_seqword" id="0x57" scope="0x0"/>
+<value_sym_head name="up0" id="0x58" scope="0x0"/>
+<value_sym_head name="eflow" id="0x59" scope="0x0"/>
+<value_sym_head name="up1" id="0x5a" scope="0x0"/>
+<value_sym_head name="next_uaddr" id="0x5b" scope="0x0"/>
+<value_sym_head name="up2" id="0x5c" scope="0x0"/>
+<value_sym_head name="sync" id="0x5d" scope="0x0"/>
+<value_sym_head name="unknown2" id="0x5e" scope="0x0"/>
+<value_sym_head name="pad" id="0x5f" scope="0x0"/>
+<subtable_sym_head name="seqword" id="0x60" scope="0x0"/>
+<operand_sym_head name="up0" id="0x61" scope="0x1"/>
+<operand_sym_head name="eflow" id="0x62" scope="0x1"/>
+<operand_sym_head name="up1" id="0x63" scope="0x1"/>
+<operand_sym_head name="next_uaddr" id="0x64" scope="0x1"/>
+<operand_sym_head name="up2" id="0x65" scope="0x1"/>
+<operand_sym_head name="sync" id="0x66" scope="0x1"/>
+<operand_sym_head name="opcode" id="0x67" scope="0x2"/>
+<operand_sym_head name="dst" id="0x68" scope="0x2"/>
+<operand_sym_head name="src0" id="0x69" scope="0x2"/>
+<operand_sym_head name="src1" id="0x6a" scope="0x2"/>
+<operand_sym_head name="imm0" id="0x6b" scope="0x2"/>
+<operand_sym_head name="imm1" id="0x6c" scope="0x2"/>
+<operand_sym_head name="seqword" id="0x6d" scope="0x2"/>
 <subtable_sym name="instruction" id="0x0" scope="0x0" numct="1">
-<constructor parent="0x0" first="1" length="10" line="37">
-<oper id="0x4e"/>
-<oper id="0x4f"/>
-<print piece="&gt;"/>
+<constructor parent="0x0" first="1" length="10" line="58">
+<oper id="0x67"/>
+<oper id="0x68"/>
+<oper id="0x69"/>
+<oper id="0x6a"/>
+<oper id="0x6b"/>
+<oper id="0x6c"/>
+<oper id="0x6d"/>
+<print piece="UNKNOWN"/>
 <print piece=" "/>
 <opprint id="0"/>
+<print piece=":"/>
 <print piece=" "/>
 <opprint id="1"/>
-<construct_tpl>
-<null/></construct_tpl>
+<print piece=" "/>
+<print piece="&lt;-"/>
+<print piece=" "/>
+<opprint id="2"/>
+<print piece=","/>
+<print piece=" "/>
+<opprint id="3"/>
+<print piece=","/>
+<print piece=" "/>
+<opprint id="4"/>
+<print piece=" "/>
+<print piece=","/>
+<print piece=" "/>
+<opprint id="5"/>
+<print piece=" "/>
+<opprint id="6"/>
 </constructor>
 <decision number="1" context="false" start="0" size="0">
 <pair id="0">
@@ -263,16 +314,150 @@
 <value_sym name="full_uop" id="0x4c" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="0" bitend="47" bytestart="0" byteend="5" shift="0"/>
 </value_sym>
-<value_sym name="full_seqword" id="0x4d" scope="0x0">
+<value_sym name="src0" id="0x4d" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="0" bitend="5" bytestart="0" byteend="0" shift="0"/>
+</value_sym>
+<value_sym name="src1" id="0x4e" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="6" bitend="11" bytestart="0" byteend="1" shift="6"/>
+</value_sym>
+<value_sym name="dst" id="0x4f" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="12" bitend="17" bytestart="1" byteend="2" shift="4"/>
+</value_sym>
+<value_sym name="imm1" id="0x50" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="18" bitend="22" bytestart="2" byteend="2" shift="2"/>
+</value_sym>
+<value_sym name="m0" id="0x51" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="23" bitend="23" bytestart="2" byteend="2" shift="7"/>
+</value_sym>
+<value_sym name="imm0" id="0x52" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="24" bitend="31" bytestart="3" byteend="3" shift="0"/>
+</value_sym>
+<value_sym name="opcode" id="0x53" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="32" bitend="43" bytestart="4" byteend="5" shift="0"/>
+</value_sym>
+<value_sym name="m1" id="0x54" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="44" bitend="44" bytestart="5" byteend="5" shift="4"/>
+</value_sym>
+<value_sym name="m2" id="0x55" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="45" bitend="45" bytestart="5" byteend="5" shift="5"/>
+</value_sym>
+<value_sym name="uknown" id="0x56" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="46" bitend="47" bytestart="5" byteend="5" shift="6"/>
+</value_sym>
+<value_sym name="full_seqword" id="0x57" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="0" bitend="31" bytestart="0" byteend="3" shift="0"/>
 </value_sym>
-<operand_sym name="full_uop" id="0x4e" scope="0x1" off="0" base="-1" minlen="6" index="0">
-<operand_exp index="0" table="0x0" ct="0x0"/>
-<tokenfield bigendian="false" signbit="false" bitstart="0" bitend="47" bytestart="0" byteend="5" shift="0"/>
+<value_sym name="up0" id="0x58" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="0" bitend="1" bytestart="0" byteend="0" shift="0"/>
+</value_sym>
+<value_sym name="eflow" id="0x59" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="2" bitend="5" bytestart="0" byteend="0" shift="2"/>
+</value_sym>
+<value_sym name="up1" id="0x5a" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="6" bitend="7" bytestart="0" byteend="0" shift="6"/>
+</value_sym>
+<value_sym name="next_uaddr" id="0x5b" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="8" bitend="22" bytestart="1" byteend="2" shift="0"/>
+</value_sym>
+<value_sym name="up2" id="0x5c" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="23" bitend="24" bytestart="2" byteend="3" shift="7"/>
+</value_sym>
+<value_sym name="sync" id="0x5d" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="25" bitend="27" bytestart="3" byteend="3" shift="1"/>
+</value_sym>
+<value_sym name="unknown2" id="0x5e" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="28" bitend="29" bytestart="3" byteend="3" shift="4"/>
+</value_sym>
+<value_sym name="pad" id="0x5f" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="30" bitend="31" bytestart="3" byteend="3" shift="6"/>
+</value_sym>
+<subtable_sym name="seqword" id="0x60" scope="0x0" numct="1">
+<constructor parent="0x60" first="1" length="4" line="56">
+<oper id="0x61"/>
+<oper id="0x62"/>
+<oper id="0x63"/>
+<oper id="0x64"/>
+<oper id="0x65"/>
+<oper id="0x66"/>
+<print piece="|"/>
+<print piece=" "/>
+<opprint id="0"/>
+<print piece="["/>
+<opprint id="1"/>
+<print piece="],"/>
+<print piece=" "/>
+<opprint id="2"/>
+<print piece="[goto"/>
+<print piece=" "/>
+<opprint id="3"/>
+<print piece="],"/>
+<print piece=" "/>
+<opprint id="4"/>
+<print piece="["/>
+<opprint id="5"/>
+<print piece="]"/>
+<construct_tpl>
+<null/></construct_tpl>
+</constructor>
+<decision number="1" context="false" start="0" size="0">
+<pair id="0">
+<instruct_pat>
+<pat_block offset="0" nonzero="0">
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
+</subtable_sym>
+<operand_sym name="up0" id="0x61" scope="0x1" off="0" base="-1" minlen="4" index="0">
+<operand_exp index="0" table="0x60" ct="0x0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="0" bitend="1" bytestart="0" byteend="0" shift="0"/>
 </operand_sym>
-<operand_sym name="full_seqword" id="0x4f" scope="0x1" off="6" base="-1" minlen="4" index="1">
+<operand_sym name="eflow" id="0x62" scope="0x1" off="0" base="-1" minlen="4" index="1">
+<operand_exp index="1" table="0x60" ct="0x0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="2" bitend="5" bytestart="0" byteend="0" shift="2"/>
+</operand_sym>
+<operand_sym name="up1" id="0x63" scope="0x1" off="0" base="-1" minlen="4" index="2">
+<operand_exp index="2" table="0x60" ct="0x0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="6" bitend="7" bytestart="0" byteend="0" shift="6"/>
+</operand_sym>
+<operand_sym name="next_uaddr" id="0x64" scope="0x1" off="0" base="-1" minlen="4" index="3">
+<operand_exp index="3" table="0x60" ct="0x0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="8" bitend="22" bytestart="1" byteend="2" shift="0"/>
+</operand_sym>
+<operand_sym name="up2" id="0x65" scope="0x1" off="0" base="-1" minlen="4" index="4">
+<operand_exp index="4" table="0x60" ct="0x0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="23" bitend="24" bytestart="2" byteend="3" shift="7"/>
+</operand_sym>
+<operand_sym name="sync" id="0x66" scope="0x1" off="0" base="-1" minlen="4" index="5">
+<operand_exp index="5" table="0x60" ct="0x0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="25" bitend="27" bytestart="3" byteend="3" shift="1"/>
+</operand_sym>
+<operand_sym name="opcode" id="0x67" scope="0x2" off="0" base="-1" minlen="6" index="0">
+<operand_exp index="0" table="0x0" ct="0x0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="32" bitend="43" bytestart="4" byteend="5" shift="0"/>
+</operand_sym>
+<operand_sym name="dst" id="0x68" scope="0x2" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x0"/>
-<tokenfield bigendian="false" signbit="false" bitstart="0" bitend="31" bytestart="0" byteend="3" shift="0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="12" bitend="17" bytestart="1" byteend="2" shift="4"/>
+</operand_sym>
+<operand_sym name="src0" id="0x69" scope="0x2" off="0" base="-1" minlen="6" index="2">
+<operand_exp index="2" table="0x0" ct="0x0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="0" bitend="5" bytestart="0" byteend="0" shift="0"/>
+</operand_sym>
+<operand_sym name="src1" id="0x6a" scope="0x2" off="0" base="-1" minlen="6" index="3">
+<operand_exp index="3" table="0x0" ct="0x0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="6" bitend="11" bytestart="0" byteend="1" shift="6"/>
+</operand_sym>
+<operand_sym name="imm0" id="0x6b" scope="0x2" off="0" base="-1" minlen="6" index="4">
+<operand_exp index="4" table="0x0" ct="0x0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="24" bitend="31" bytestart="3" byteend="3" shift="0"/>
+</operand_sym>
+<operand_sym name="imm1" id="0x6c" scope="0x2" off="0" base="-1" minlen="6" index="5">
+<operand_exp index="5" table="0x0" ct="0x0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="18" bitend="22" bytestart="2" byteend="2" shift="2"/>
+</operand_sym>
+<operand_sym name="seqword" id="0x6d" scope="0x2" subsym="0x60" off="6" base="-1" minlen="4" index="6">
+<operand_exp index="6" table="0x0" ct="0x0"/>
 </operand_sym>
 </symbol_table>
 </sleigh>

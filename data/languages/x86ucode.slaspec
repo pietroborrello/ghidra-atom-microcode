@@ -26,14 +26,35 @@ define register offset=0x1000 size=16 [
 ];
 
 # Fields =================================================================================
-define token uop(48)
-	full_uop=(0, 47)
+define token _uop(48)
+	full_uop = (0, 47)
+	src0   = (0,  5)
+	src1   = (6,  11)
+	dst    = (12, 17)
+	imm1   = (18, 22)
+	m0     = (23, 23)
+	imm0   = (24, 31)
+	opcode = (32, 43)
+	m1     = (44, 44)
+	m2     = (45, 45)
+	uknown = (46, 47)
 ;
 
-define token seqword(32)
-	full_seqword=(0, 31)
+define token _seqword(32)
+	full_seqword = (0, 31)
+	up0        = (0, 1)
+	eflow      = (2, 5)
+	up1        = (6, 7)
+	next_uaddr = (8, 22)
+	up2        = (23, 24)
+	sync       = (25, 27)
+	unknown2   = (28, 29)
+	pad        = (30 ,31)
 ;
 
-:> full_uop full_seqword is full_uop; full_seqword {
-	
-}
+# DEFAULT PRINT =================================================
+seqword: | up0[eflow], up1["goto" next_uaddr], up2[sync] is up0 & eflow & up1 & next_uaddr & up2 & sync {}
+
+:UNKNOWN opcode: dst <- src0, src1, imm0 , imm1 seqword is opcode & dst & src0 & src1 & imm0 & imm1; seqword unimpl
+
+

@@ -204,6 +204,7 @@ dest: dst is dst { export dst; }
 
 # DEFAULT PRINT =================================================
 seqword: | up0[eflow], up1["goto" next_uaddr], up2[sync] is up0 & eflow & up1 & next_uaddr & up2 & sync {}
+seqword:"" is full_seqword=0 {}
 
 :UNKNOWN opcode: dst_sel <- src0_sel, src1_sel, imm0 , imm1 seqword is opcode & dst_sel & src0_sel & src1_sel & imm0 & imm1; seqword unimpl
 

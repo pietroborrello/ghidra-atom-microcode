@@ -226,7 +226,7 @@
 <operand_sym_head name="source0" id="0xbd" scope="0x18"/>
 <operand_sym_head name="seqword" id="0xbe" scope="0x18"/>
 <subtable_sym name="instruction" id="0x0" scope="0x0" numct="10">
-<constructor parent="0x0" first="1" length="10" line="208">
+<constructor parent="0x0" first="1" length="10" line="209">
 <oper id="0x91"/>
 <oper id="0x92"/>
 <oper id="0x93"/>
@@ -257,13 +257,13 @@
 <print piece=" "/>
 <opprint id="6"/>
 </constructor>
-<constructor parent="0x0" first="1" length="10" line="212">
+<constructor parent="0x0" first="1" length="10" line="213">
 <oper id="0x98"/>
 <print piece="nop"/>
 <construct_tpl>
 <null/></construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="214">
+<constructor parent="0x0" first="2" length="10" line="215">
 <oper id="0x9a"/>
 <oper id="0x9b"/>
 <oper id="0x9c"/>
@@ -300,7 +300,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="218">
+<constructor parent="0x0" first="2" length="10" line="219">
 <oper id="0x9f"/>
 <oper id="0xa0"/>
 <oper id="0xa1"/>
@@ -337,7 +337,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="222">
+<constructor parent="0x0" first="2" length="10" line="223">
 <oper id="0xa4"/>
 <oper id="0xa5"/>
 <oper id="0xa6"/>
@@ -374,7 +374,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="226">
+<constructor parent="0x0" first="2" length="10" line="227">
 <oper id="0xa9"/>
 <oper id="0xaa"/>
 <oper id="0xab"/>
@@ -411,7 +411,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="230">
+<constructor parent="0x0" first="2" length="10" line="231">
 <oper id="0xae"/>
 <oper id="0xaf"/>
 <oper id="0xb0"/>
@@ -448,7 +448,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="234">
+<constructor parent="0x0" first="2" length="10" line="235">
 <oper id="0xb3"/>
 <oper id="0xb4"/>
 <oper id="0xb5"/>
@@ -488,7 +488,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="238">
+<constructor parent="0x0" first="2" length="10" line="239">
 <oper id="0xb8"/>
 <oper id="0xb9"/>
 <oper id="0xb7"/>
@@ -517,7 +517,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="242">
+<constructor parent="0x0" first="2" length="10" line="243">
 <oper id="0xbc"/>
 <oper id="0xbd"/>
 <oper id="0xbb"/>
@@ -5527,7 +5527,7 @@
 <operand_sym name="dst" id="0x89" scope="0xd" subsym="0x59" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x88" ct="0x0"/>
 </operand_sym>
-<subtable_sym name="seqword" id="0x8a" scope="0x0" numct="1">
+<subtable_sym name="seqword" id="0x8a" scope="0x0" numct="2">
 <constructor parent="0x8a" first="1" length="4" line="206">
 <oper id="0x8b"/>
 <oper id="0x8c"/>
@@ -5555,7 +5555,18 @@
 <construct_tpl>
 <null/></construct_tpl>
 </constructor>
-<decision number="1" context="false" start="0" size="0">
+<constructor parent="0x8a" first="0" length="4" line="207">
+<construct_tpl>
+<null/></construct_tpl>
+</constructor>
+<decision number="2" context="false" start="0" size="0">
+<pair id="1">
+<instruct_pat>
+<pat_block offset="0" nonzero="4">
+  <mask_word mask="0xffffffff" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
 <pair id="0">
 <instruct_pat>
 <pat_block offset="0" nonzero="0">

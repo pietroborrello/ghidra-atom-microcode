@@ -4,11 +4,11 @@
 <space_unique name="unique" index="2" bigendian="false" delay="0" size="4" physical="true"/>
 <space name="register" index="3" bigendian="false" delay="0" size="2" physical="true"/>
 <space name="ram" index="4" bigendian="false" delay="1" size="8" physical="true"/>
-<space name="ucode" index="5" bigendian="false" delay="1" size="2" physical="true"/>
+<space name="ucode" index="5" bigendian="false" delay="1" size="8" physical="true"/>
 <space name="crbus" index="6" bigendian="false" delay="1" size="2" wordsize="8" physical="true"/>
 <space name="dummy_space" index="7" bigendian="false" delay="1" size="2" physical="true"/>
 </spaces>
-<symbol_table scopesize="16" symbolsize="179">
+<symbol_table scopesize="25" symbolsize="193">
 <scope id="0x0" parent="0x0"/>
 <scope id="0x1" parent="0x0"/>
 <scope id="0x2" parent="0x0"/>
@@ -25,6 +25,15 @@
 <scope id="0xd" parent="0x0"/>
 <scope id="0xe" parent="0x0"/>
 <scope id="0xf" parent="0x0"/>
+<scope id="0x10" parent="0x0"/>
+<scope id="0x11" parent="0x0"/>
+<scope id="0x12" parent="0x0"/>
+<scope id="0x13" parent="0x0"/>
+<scope id="0x14" parent="0x0"/>
+<scope id="0x15" parent="0x0"/>
+<scope id="0x16" parent="0x0"/>
+<scope id="0x17" parent="0x0"/>
+<scope id="0x18" parent="0x0"/>
 <subtable_sym_head name="instruction" id="0x0" scope="0x0"/>
 <start_sym_head name="inst_start" id="0x1" scope="0x0"/>
 <end_sym_head name="inst_next" id="0x2" scope="0x0"/>
@@ -118,101 +127,115 @@
 <varlist_sym_head name="dst_xmm" id="0x5a" scope="0x0"/>
 <value_sym_head name="dst_sel" id="0x5b" scope="0x0"/>
 <value_sym_head name="imm1" id="0x5c" scope="0x0"/>
-<value_sym_head name="m0" id="0x5d" scope="0x0"/>
-<value_sym_head name="imm0" id="0x5e" scope="0x0"/>
-<value_sym_head name="opcode" id="0x5f" scope="0x0"/>
-<name_sym_head name="dst_size" id="0x60" scope="0x0"/>
-<value_sym_head name="m1" id="0x61" scope="0x0"/>
-<value_sym_head name="m2" id="0x62" scope="0x0"/>
-<value_sym_head name="uknown" id="0x63" scope="0x0"/>
-<value_sym_head name="full_seqword" id="0x64" scope="0x0"/>
-<value_sym_head name="up0" id="0x65" scope="0x0"/>
-<value_sym_head name="eflow" id="0x66" scope="0x0"/>
-<value_sym_head name="up1" id="0x67" scope="0x0"/>
-<value_sym_head name="next_uaddr" id="0x68" scope="0x0"/>
-<value_sym_head name="up2" id="0x69" scope="0x0"/>
-<value_sym_head name="sync" id="0x6a" scope="0x0"/>
-<value_sym_head name="unknown2" id="0x6b" scope="0x0"/>
-<value_sym_head name="pad" id="0x6c" scope="0x0"/>
-<subtable_sym_head name="source0" id="0x6d" scope="0x0"/>
-<operand_sym_head name="src0" id="0x6e" scope="0x1"/>
-<operand_sym_head name="src0_sel" id="0x6f" scope="0x1"/>
-<operand_sym_head name="immediate" id="0x70" scope="0x2"/>
-<operand_sym_head name="imm0" id="0x71" scope="0x2"/>
-<operand_sym_head name="imm1" id="0x72" scope="0x2"/>
-<operand_sym_head name="src0_sel" id="0x73" scope="0x2"/>
-<subtable_sym_head name="source1" id="0x74" scope="0x0"/>
-<operand_sym_head name="src1" id="0x75" scope="0x3"/>
-<operand_sym_head name="src1_sel" id="0x76" scope="0x3"/>
-<operand_sym_head name="immediate" id="0x77" scope="0x4"/>
-<operand_sym_head name="imm0" id="0x78" scope="0x4"/>
-<operand_sym_head name="imm1" id="0x79" scope="0x4"/>
-<operand_sym_head name="src1_sel" id="0x7a" scope="0x4"/>
-<subtable_sym_head name="dest" id="0x7b" scope="0x0"/>
-<operand_sym_head name="dst" id="0x7c" scope="0x5"/>
-<subtable_sym_head name="seqword" id="0x7d" scope="0x0"/>
-<operand_sym_head name="up0" id="0x7e" scope="0x6"/>
-<operand_sym_head name="eflow" id="0x7f" scope="0x6"/>
-<operand_sym_head name="up1" id="0x80" scope="0x6"/>
-<operand_sym_head name="next_uaddr" id="0x81" scope="0x6"/>
-<operand_sym_head name="up2" id="0x82" scope="0x6"/>
-<operand_sym_head name="sync" id="0x83" scope="0x6"/>
-<operand_sym_head name="opcode" id="0x84" scope="0x7"/>
-<operand_sym_head name="dst_sel" id="0x85" scope="0x7"/>
-<operand_sym_head name="src0_sel" id="0x86" scope="0x7"/>
-<operand_sym_head name="src1_sel" id="0x87" scope="0x7"/>
-<operand_sym_head name="imm0" id="0x88" scope="0x7"/>
-<operand_sym_head name="imm1" id="0x89" scope="0x7"/>
-<operand_sym_head name="seqword" id="0x8a" scope="0x7"/>
-<operand_sym_head name="dst_size" id="0x8b" scope="0x8"/>
-<operand_sym_head name="dest" id="0x8c" scope="0x8"/>
-<operand_sym_head name="source0" id="0x8d" scope="0x8"/>
-<operand_sym_head name="source1" id="0x8e" scope="0x8"/>
-<operand_sym_head name="seqword" id="0x8f" scope="0x8"/>
-<operand_sym_head name="dst_size" id="0x90" scope="0x9"/>
-<operand_sym_head name="dest" id="0x91" scope="0x9"/>
-<operand_sym_head name="source0" id="0x92" scope="0x9"/>
-<operand_sym_head name="source1" id="0x93" scope="0x9"/>
-<operand_sym_head name="seqword" id="0x94" scope="0x9"/>
-<operand_sym_head name="dst_size" id="0x95" scope="0xa"/>
-<operand_sym_head name="dest" id="0x96" scope="0xa"/>
-<operand_sym_head name="source0" id="0x97" scope="0xa"/>
-<operand_sym_head name="source1" id="0x98" scope="0xa"/>
-<operand_sym_head name="seqword" id="0x99" scope="0xa"/>
-<operand_sym_head name="dst_size" id="0x9a" scope="0xb"/>
-<operand_sym_head name="dest" id="0x9b" scope="0xb"/>
-<operand_sym_head name="source0" id="0x9c" scope="0xb"/>
-<operand_sym_head name="source1" id="0x9d" scope="0xb"/>
-<operand_sym_head name="seqword" id="0x9e" scope="0xb"/>
-<operand_sym_head name="dst_size" id="0x9f" scope="0xc"/>
-<operand_sym_head name="dest" id="0xa0" scope="0xc"/>
-<operand_sym_head name="source0" id="0xa1" scope="0xc"/>
-<operand_sym_head name="source1" id="0xa2" scope="0xc"/>
-<operand_sym_head name="seqword" id="0xa3" scope="0xc"/>
-<operand_sym_head name="dst_size" id="0xa4" scope="0xd"/>
-<operand_sym_head name="dest" id="0xa5" scope="0xd"/>
-<operand_sym_head name="source0" id="0xa6" scope="0xd"/>
-<operand_sym_head name="source1" id="0xa7" scope="0xd"/>
-<operand_sym_head name="seqword" id="0xa8" scope="0xd"/>
-<operand_sym_head name="dst_size" id="0xa9" scope="0xe"/>
-<operand_sym_head name="dest" id="0xaa" scope="0xe"/>
-<operand_sym_head name="source0" id="0xab" scope="0xe"/>
-<operand_sym_head name="seqword" id="0xac" scope="0xe"/>
-<operand_sym_head name="source1" id="0xad" scope="0xe"/>
-<operand_sym_head name="dst_size" id="0xae" scope="0xf"/>
-<operand_sym_head name="dest" id="0xaf" scope="0xf"/>
-<operand_sym_head name="source0" id="0xb0" scope="0xf"/>
-<operand_sym_head name="seqword" id="0xb1" scope="0xf"/>
-<operand_sym_head name="source1" id="0xb2" scope="0xf"/>
+<value_sym_head name="imm1_sel" id="0x5d" scope="0x0"/>
+<value_sym_head name="m0" id="0x5e" scope="0x0"/>
+<value_sym_head name="imm0" id="0x5f" scope="0x0"/>
+<valuemap_sym_head name="imm0_sel0" id="0x60" scope="0x0"/>
+<valuemap_sym_head name="imm0_sel1" id="0x61" scope="0x0"/>
+<valuemap_sym_head name="imm0_sel2" id="0x62" scope="0x0"/>
+<valuemap_sym_head name="imm0_sel3" id="0x63" scope="0x0"/>
+<value_sym_head name="opcode" id="0x64" scope="0x0"/>
+<name_sym_head name="dst_size" id="0x65" scope="0x0"/>
+<value_sym_head name="m1" id="0x66" scope="0x0"/>
+<value_sym_head name="m2" id="0x67" scope="0x0"/>
+<value_sym_head name="uknown" id="0x68" scope="0x0"/>
+<value_sym_head name="full_seqword" id="0x69" scope="0x0"/>
+<value_sym_head name="up0" id="0x6a" scope="0x0"/>
+<value_sym_head name="eflow" id="0x6b" scope="0x0"/>
+<value_sym_head name="up1" id="0x6c" scope="0x0"/>
+<value_sym_head name="next_uaddr" id="0x6d" scope="0x0"/>
+<value_sym_head name="up2" id="0x6e" scope="0x0"/>
+<value_sym_head name="sync" id="0x6f" scope="0x0"/>
+<value_sym_head name="unknown2" id="0x70" scope="0x0"/>
+<value_sym_head name="pad" id="0x71" scope="0x0"/>
+<subtable_sym_head name="source0" id="0x72" scope="0x0"/>
+<operand_sym_head name="src0" id="0x73" scope="0x1"/>
+<operand_sym_head name="src0_sel" id="0x74" scope="0x1"/>
+<operand_sym_head name="imm0_sel0" id="0x75" scope="0x2"/>
+<operand_sym_head name="imm0_sel1" id="0x76" scope="0x3"/>
+<operand_sym_head name="imm0_sel2" id="0x77" scope="0x4"/>
+<operand_sym_head name="imm0_sel3" id="0x78" scope="0x5"/>
+<operand_sym_head name="immediate" id="0x79" scope="0x6"/>
+<operand_sym_head name="imm0" id="0x7a" scope="0x6"/>
+<operand_sym_head name="imm1" id="0x7b" scope="0x6"/>
+<operand_sym_head name="src0_sel" id="0x7c" scope="0x6"/>
+<subtable_sym_head name="source1" id="0x7d" scope="0x0"/>
+<operand_sym_head name="src1" id="0x7e" scope="0x7"/>
+<operand_sym_head name="src1_sel" id="0x7f" scope="0x7"/>
+<operand_sym_head name="imm0_sel0" id="0x80" scope="0x8"/>
+<operand_sym_head name="imm0_sel1" id="0x81" scope="0x9"/>
+<operand_sym_head name="imm0_sel2" id="0x82" scope="0xa"/>
+<operand_sym_head name="imm0_sel3" id="0x83" scope="0xb"/>
+<operand_sym_head name="immediate" id="0x84" scope="0xc"/>
+<operand_sym_head name="imm0" id="0x85" scope="0xc"/>
+<operand_sym_head name="imm1" id="0x86" scope="0xc"/>
+<operand_sym_head name="src1_sel" id="0x87" scope="0xc"/>
+<subtable_sym_head name="dest" id="0x88" scope="0x0"/>
+<operand_sym_head name="dst" id="0x89" scope="0xd"/>
+<subtable_sym_head name="seqword" id="0x8a" scope="0x0"/>
+<operand_sym_head name="up0" id="0x8b" scope="0xe"/>
+<operand_sym_head name="eflow" id="0x8c" scope="0xe"/>
+<operand_sym_head name="up1" id="0x8d" scope="0xe"/>
+<operand_sym_head name="next_uaddr" id="0x8e" scope="0xe"/>
+<operand_sym_head name="up2" id="0x8f" scope="0xe"/>
+<operand_sym_head name="sync" id="0x90" scope="0xe"/>
+<operand_sym_head name="opcode" id="0x91" scope="0xf"/>
+<operand_sym_head name="dst_sel" id="0x92" scope="0xf"/>
+<operand_sym_head name="src0_sel" id="0x93" scope="0xf"/>
+<operand_sym_head name="src1_sel" id="0x94" scope="0xf"/>
+<operand_sym_head name="imm0" id="0x95" scope="0xf"/>
+<operand_sym_head name="imm1" id="0x96" scope="0xf"/>
+<operand_sym_head name="seqword" id="0x97" scope="0xf"/>
+<operand_sym_head name="full_seqword" id="0x98" scope="0x10"/>
+<operand_sym_head name="dst_size" id="0x99" scope="0x11"/>
+<operand_sym_head name="dest" id="0x9a" scope="0x11"/>
+<operand_sym_head name="source0" id="0x9b" scope="0x11"/>
+<operand_sym_head name="source1" id="0x9c" scope="0x11"/>
+<operand_sym_head name="seqword" id="0x9d" scope="0x11"/>
+<operand_sym_head name="dst_size" id="0x9e" scope="0x12"/>
+<operand_sym_head name="dest" id="0x9f" scope="0x12"/>
+<operand_sym_head name="source0" id="0xa0" scope="0x12"/>
+<operand_sym_head name="source1" id="0xa1" scope="0x12"/>
+<operand_sym_head name="seqword" id="0xa2" scope="0x12"/>
+<operand_sym_head name="dst_size" id="0xa3" scope="0x13"/>
+<operand_sym_head name="dest" id="0xa4" scope="0x13"/>
+<operand_sym_head name="source0" id="0xa5" scope="0x13"/>
+<operand_sym_head name="source1" id="0xa6" scope="0x13"/>
+<operand_sym_head name="seqword" id="0xa7" scope="0x13"/>
+<operand_sym_head name="dst_size" id="0xa8" scope="0x14"/>
+<operand_sym_head name="dest" id="0xa9" scope="0x14"/>
+<operand_sym_head name="source0" id="0xaa" scope="0x14"/>
+<operand_sym_head name="source1" id="0xab" scope="0x14"/>
+<operand_sym_head name="seqword" id="0xac" scope="0x14"/>
+<operand_sym_head name="dst_size" id="0xad" scope="0x15"/>
+<operand_sym_head name="dest" id="0xae" scope="0x15"/>
+<operand_sym_head name="source0" id="0xaf" scope="0x15"/>
+<operand_sym_head name="source1" id="0xb0" scope="0x15"/>
+<operand_sym_head name="seqword" id="0xb1" scope="0x15"/>
+<operand_sym_head name="dst_size" id="0xb2" scope="0x16"/>
+<operand_sym_head name="dest" id="0xb3" scope="0x16"/>
+<operand_sym_head name="source0" id="0xb4" scope="0x16"/>
+<operand_sym_head name="source1" id="0xb5" scope="0x16"/>
+<operand_sym_head name="seqword" id="0xb6" scope="0x16"/>
+<operand_sym_head name="dst_size" id="0xb7" scope="0x17"/>
+<operand_sym_head name="dest" id="0xb8" scope="0x17"/>
+<operand_sym_head name="source0" id="0xb9" scope="0x17"/>
+<operand_sym_head name="seqword" id="0xba" scope="0x17"/>
+<operand_sym_head name="source1" id="0xbb" scope="0x17"/>
+<operand_sym_head name="dst_size" id="0xbc" scope="0x18"/>
+<operand_sym_head name="dest" id="0xbd" scope="0x18"/>
+<operand_sym_head name="source0" id="0xbe" scope="0x18"/>
+<operand_sym_head name="seqword" id="0xbf" scope="0x18"/>
+<operand_sym_head name="source1" id="0xc0" scope="0x18"/>
 <subtable_sym name="instruction" id="0x0" scope="0x0" numct="10">
-<constructor parent="0x0" first="1" length="10" line="114">
-<oper id="0x84"/>
-<oper id="0x85"/>
-<oper id="0x86"/>
-<oper id="0x87"/>
-<oper id="0x88"/>
-<oper id="0x89"/>
-<oper id="0x8a"/>
+<constructor parent="0x0" first="1" length="10" line="200">
+<oper id="0x91"/>
+<oper id="0x92"/>
+<oper id="0x93"/>
+<oper id="0x94"/>
+<oper id="0x95"/>
+<oper id="0x96"/>
+<oper id="0x97"/>
 <print piece="UNKNOWN"/>
 <print piece=" "/>
 <opprint id="0"/>
@@ -236,17 +259,18 @@
 <print piece=" "/>
 <opprint id="6"/>
 </constructor>
-<constructor parent="0x0" first="1" length="6" line="118">
+<constructor parent="0x0" first="1" length="10" line="204">
+<oper id="0x98"/>
 <print piece="nop"/>
 <construct_tpl>
 <null/></construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="120">
-<oper id="0x8c"/>
-<oper id="0x8d"/>
-<oper id="0x8e"/>
-<oper id="0x8b"/>
-<oper id="0x8f"/>
+<constructor parent="0x0" first="2" length="10" line="206">
+<oper id="0x9a"/>
+<oper id="0x9b"/>
+<oper id="0x9c"/>
+<oper id="0x99"/>
+<oper id="0x9d"/>
 <print piece="add_"/>
 <opprint id="3"/>
 <print piece=" "/>
@@ -278,12 +302,12 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="124">
-<oper id="0x91"/>
-<oper id="0x92"/>
-<oper id="0x93"/>
-<oper id="0x90"/>
-<oper id="0x94"/>
+<constructor parent="0x0" first="2" length="10" line="210">
+<oper id="0x9f"/>
+<oper id="0xa0"/>
+<oper id="0xa1"/>
+<oper id="0x9e"/>
+<oper id="0xa2"/>
 <print piece="or_"/>
 <opprint id="3"/>
 <print piece=" "/>
@@ -315,12 +339,12 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="128">
-<oper id="0x96"/>
-<oper id="0x97"/>
-<oper id="0x98"/>
-<oper id="0x95"/>
-<oper id="0x99"/>
+<constructor parent="0x0" first="2" length="10" line="214">
+<oper id="0xa4"/>
+<oper id="0xa5"/>
+<oper id="0xa6"/>
+<oper id="0xa3"/>
+<oper id="0xa7"/>
 <print piece="and_"/>
 <opprint id="3"/>
 <print piece=" "/>
@@ -352,12 +376,12 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="132">
-<oper id="0x9b"/>
-<oper id="0x9c"/>
-<oper id="0x9d"/>
-<oper id="0x9a"/>
-<oper id="0x9e"/>
+<constructor parent="0x0" first="2" length="10" line="218">
+<oper id="0xa9"/>
+<oper id="0xaa"/>
+<oper id="0xab"/>
+<oper id="0xa8"/>
+<oper id="0xac"/>
 <print piece="sub_"/>
 <opprint id="3"/>
 <print piece=" "/>
@@ -389,12 +413,12 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="136">
-<oper id="0xa0"/>
-<oper id="0xa1"/>
-<oper id="0xa2"/>
-<oper id="0x9f"/>
-<oper id="0xa3"/>
+<constructor parent="0x0" first="2" length="10" line="222">
+<oper id="0xae"/>
+<oper id="0xaf"/>
+<oper id="0xb0"/>
+<oper id="0xad"/>
+<oper id="0xb1"/>
 <print piece="xor_"/>
 <opprint id="3"/>
 <print piece=" "/>
@@ -426,12 +450,12 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="140">
-<oper id="0xa5"/>
-<oper id="0xa6"/>
-<oper id="0xa7"/>
-<oper id="0xa4"/>
-<oper id="0xa8"/>
+<constructor parent="0x0" first="2" length="10" line="226">
+<oper id="0xb3"/>
+<oper id="0xb4"/>
+<oper id="0xb5"/>
+<oper id="0xb2"/>
+<oper id="0xb6"/>
 <print piece="notand_"/>
 <opprint id="3"/>
 <print piece=" "/>
@@ -466,12 +490,12 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="144">
-<oper id="0xaa"/>
-<oper id="0xab"/>
-<oper id="0xad"/>
-<oper id="0xa9"/>
-<oper id="0xac"/>
+<constructor parent="0x0" first="2" length="10" line="230">
+<oper id="0xb8"/>
+<oper id="0xb9"/>
+<oper id="0xbb"/>
+<oper id="0xb7"/>
+<oper id="0xba"/>
 <print piece="zeroext_"/>
 <opprint id="3"/>
 <print piece=" "/>
@@ -499,12 +523,12 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="148">
-<oper id="0xaf"/>
-<oper id="0xb0"/>
-<oper id="0xb2"/>
-<oper id="0xae"/>
-<oper id="0xb1"/>
+<constructor parent="0x0" first="2" length="10" line="234">
+<oper id="0xbd"/>
+<oper id="0xbe"/>
+<oper id="0xc0"/>
+<oper id="0xbc"/>
+<oper id="0xbf"/>
 <print piece="mov_"/>
 <opprint id="3"/>
 <print piece=" "/>
@@ -3378,80 +3402,1147 @@
 <value_sym name="imm1" id="0x5c" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="18" bitend="22" bytestart="2" byteend="2" shift="2"/>
 </value_sym>
-<value_sym name="m0" id="0x5d" scope="0x0">
+<value_sym name="imm1_sel" id="0x5d" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="18" bitend="19" bytestart="2" byteend="2" shift="2"/>
+</value_sym>
+<value_sym name="m0" id="0x5e" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="23" bitend="23" bytestart="2" byteend="2" shift="7"/>
 </value_sym>
-<value_sym name="imm0" id="0x5e" scope="0x0">
+<value_sym name="imm0" id="0x5f" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="24" bitend="31" bytestart="3" byteend="3" shift="0"/>
 </value_sym>
-<value_sym name="opcode" id="0x5f" scope="0x0">
+<valuemap_sym name="imm0_sel0" id="0x60" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="24" bitend="31" bytestart="3" byteend="3" shift="0"/>
+<valuetab val="1"/>
+<valuetab val="2"/>
+<valuetab val="3"/>
+<valuetab val="4"/>
+<valuetab val="8"/>
+<valuetab val="16"/>
+<valuetab val="31"/>
+<valuetab val="32"/>
+<valuetab val="36"/>
+<valuetab val="64"/>
+<valuetab val="127"/>
+<valuetab val="128"/>
+<valuetab val="256"/>
+<valuetab val="447"/>
+<valuetab val="512"/>
+<valuetab val="769"/>
+<valuetab val="833"/>
+<valuetab val="897"/>
+<valuetab val="1024"/>
+<valuetab val="1028"/>
+<valuetab val="1284"/>
+<valuetab val="2048"/>
+<valuetab val="2495"/>
+<valuetab val="4095"/>
+<valuetab val="4096"/>
+<valuetab val="4603"/>
+<valuetab val="8064"/>
+<valuetab val="8192"/>
+<valuetab val="16384"/>
+<valuetab val="22812"/>
+<valuetab val="24576"/>
+<valuetab val="28672"/>
+<valuetab val="30720"/>
+<valuetab val="31744"/>
+<valuetab val="31748"/>
+<valuetab val="32256"/>
+<valuetab val="32512"/>
+<valuetab val="32640"/>
+<valuetab val="32768"/>
+<valuetab val="32769"/>
+<valuetab val="32776"/>
+<valuetab val="32777"/>
+<valuetab val="32896"/>
+<valuetab val="41115"/>
+<valuetab val="46613"/>
+<valuetab val="49152"/>
+<valuetab val="49153"/>
+<valuetab val="49307"/>
+<valuetab val="51202"/>
+<valuetab val="57344"/>
+<valuetab val="59652"/>
+<valuetab val="61440"/>
+<valuetab val="63488"/>
+<valuetab val="64222"/>
+<valuetab val="64512"/>
+<valuetab val="64513"/>
+<valuetab val="65024"/>
+<valuetab val="65280"/>
+<valuetab val="65408"/>
+<valuetab val="65409"/>
+<valuetab val="65465"/>
+<valuetab val="65467"/>
+<valuetab val="65472"/>
+<valuetab val="65495"/>
+<valuetab val="65504"/>
+<valuetab val="65520"/>
+<valuetab val="65528"/>
+<valuetab val="65532"/>
+<valuetab val="65533"/>
+<valuetab val="65534"/>
+<valuetab val="65535"/>
+<valuetab val="65536"/>
+<valuetab val="65539"/>
+<valuetab val="65540"/>
+<valuetab val="65542"/>
+<valuetab val="65543"/>
+<valuetab val="65544"/>
+<valuetab val="65546"/>
+<valuetab val="65547"/>
+<valuetab val="65549"/>
+<valuetab val="65550"/>
+<valuetab val="65551"/>
+<valuetab val="65553"/>
+<valuetab val="65555"/>
+<valuetab val="65556"/>
+<valuetab val="65557"/>
+<valuetab val="65560"/>
+<valuetab val="65566"/>
+<valuetab val="65594"/>
+<valuetab val="65598"/>
+<valuetab val="66051"/>
+<valuetab val="66304"/>
+<valuetab val="67584"/>
+<valuetab val="69632"/>
+<valuetab val="81919"/>
+<valuetab val="81920"/>
+<valuetab val="83977"/>
+<valuetab val="92169"/>
+<valuetab val="98304"/>
+<valuetab val="98313"/>
+<valuetab val="106494"/>
+<valuetab val="114688"/>
+<valuetab val="122880"/>
+<valuetab val="126976"/>
+<valuetab val="129024"/>
+<valuetab val="130048"/>
+<valuetab val="130560"/>
+<valuetab val="130816"/>
+<valuetab val="130944"/>
+<valuetab val="131008"/>
+<valuetab val="131040"/>
+<valuetab val="131056"/>
+<valuetab val="131064"/>
+<valuetab val="131068"/>
+<valuetab val="131070"/>
+<valuetab val="131071"/>
+<valuetab val="131072"/>
+<valuetab val="131075"/>
+<valuetab val="131099"/>
+<valuetab val="131100"/>
+<valuetab val="131104"/>
+<valuetab val="131329"/>
+<valuetab val="131584"/>
+<valuetab val="196608"/>
+<valuetab val="196626"/>
+<valuetab val="196662"/>
+<valuetab val="196671"/>
+<valuetab val="196865"/>
+<valuetab val="196991"/>
+<valuetab val="197120"/>
+<valuetab val="197376"/>
+<valuetab val="197632"/>
+<valuetab val="198144"/>
+<valuetab val="213248"/>
+<valuetab val="224763"/>
+<valuetab val="224767"/>
+<valuetab val="229376"/>
+<valuetab val="229379"/>
+<valuetab val="245760"/>
+<valuetab val="253952"/>
+<valuetab val="257988"/>
+<valuetab val="258048"/>
+<valuetab val="260096"/>
+<valuetab val="261120"/>
+<valuetab val="261632"/>
+<valuetab val="261888"/>
+<valuetab val="262016"/>
+<valuetab val="262080"/>
+<valuetab val="262081"/>
+<valuetab val="262112"/>
+<valuetab val="262128"/>
+<valuetab val="262136"/>
+<valuetab val="262140"/>
+<valuetab val="262143"/>
+<valuetab val="262144"/>
+<valuetab val="262145"/>
+<valuetab val="327680"/>
+<valuetab val="328448"/>
+<valuetab val="329408"/>
+<valuetab val="393216"/>
+<valuetab val="397569"/>
+<valuetab val="458752"/>
+<valuetab val="491520"/>
+<valuetab val="507904"/>
+<valuetab val="516096"/>
+<valuetab val="520192"/>
+<valuetab val="522240"/>
+<valuetab val="523264"/>
+<valuetab val="523776"/>
+<valuetab val="524032"/>
+<valuetab val="524160"/>
+<valuetab val="524224"/>
+<valuetab val="524256"/>
+<valuetab val="524272"/>
+<valuetab val="524280"/>
+<valuetab val="524288"/>
+<valuetab val="524289"/>
+<valuetab val="524303"/>
+<valuetab val="541696"/>
+<valuetab val="589824"/>
+<valuetab val="590080"/>
+<valuetab val="642557"/>
+<valuetab val="786432"/>
+<valuetab val="917504"/>
+<valuetab val="952520"/>
+<valuetab val="983040"/>
+<valuetab val="1015808"/>
+<valuetab val="1032192"/>
+<valuetab val="1040384"/>
+<valuetab val="1044480"/>
+<valuetab val="1046528"/>
+<valuetab val="1047552"/>
+<valuetab val="1048064"/>
+<valuetab val="1048320"/>
+<valuetab val="1048448"/>
+<valuetab val="1048512"/>
+<valuetab val="1048544"/>
+<valuetab val="1048560"/>
+<valuetab val="1048568"/>
+<valuetab val="1048575"/>
+<valuetab val="1048576"/>
+<valuetab val="1048752"/>
+<valuetab val="1114134"/>
+<valuetab val="1114135"/>
+<valuetab val="1115142"/>
+<valuetab val="1310720"/>
+<valuetab val="1419263"/>
+<valuetab val="1572864"/>
+<valuetab val="1716738"/>
+<valuetab val="1835008"/>
+<valuetab val="1953791"/>
+<valuetab val="1966080"/>
+<valuetab val="2031616"/>
+<valuetab val="2064384"/>
+<valuetab val="2080768"/>
+<valuetab val="2088960"/>
+<valuetab val="2093056"/>
+<valuetab val="2095104"/>
+<valuetab val="2096128"/>
+<valuetab val="2096640"/>
+<valuetab val="2096896"/>
+<valuetab val="2097024"/>
+<valuetab val="2097088"/>
+<valuetab val="2097120"/>
+<valuetab val="2097151"/>
+<valuetab val="2097152"/>
+<valuetab val="2097601"/>
+<valuetab val="2097665"/>
+<valuetab val="2442496"/>
+<valuetab val="2444757"/>
+<valuetab val="2445269"/>
+<valuetab val="2455296"/>
+<valuetab val="2457557"/>
+<valuetab val="2908160"/>
+<valuetab val="2910208"/>
+<valuetab val="3145728"/>
+<valuetab val="3670016"/>
+<valuetab val="3932160"/>
+<valuetab val="3952087"/>
+<valuetab val="3964887"/>
+<valuetab val="4050943"/>
+<valuetab val="4063232"/>
+<valuetab val="4128768"/>
+<valuetab val="4145111"/>
+<valuetab val="4159232"/>
+<valuetab val="4161493"/>
+<valuetab val="4161536"/>
+<valuetab val="4177920"/>
+<valuetab val="4186112"/>
+<valuetab val="4190208"/>
+<valuetab val="4192256"/>
+<valuetab val="4193280"/>
+<valuetab val="4193792"/>
+<valuetab val="4194048"/>
+<valuetab val="4194176"/>
+<valuetab val="4194240"/>
+</valuemap_sym>
+<valuemap_sym name="imm0_sel1" id="0x61" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="24" bitend="31" bytestart="3" byteend="3" shift="0"/>
+<valuetab val="4194304"/>
+<valuetab val="4194305"/>
+<valuetab val="4194753"/>
+<valuetab val="4194945"/>
+<valuetab val="4195009"/>
+<valuetab val="4195521"/>
+<valuetab val="4195585"/>
+<valuetab val="4195649"/>
+<valuetab val="4195841"/>
+<valuetab val="4259840"/>
+<valuetab val="5374465"/>
+<valuetab val="5386240"/>
+<valuetab val="5387008"/>
+<valuetab val="5388032"/>
+<valuetab val="5898753"/>
+<valuetab val="6291456"/>
+<valuetab val="6291969"/>
+<valuetab val="6557600"/>
+<valuetab val="7340032"/>
+<valuetab val="7340164"/>
+<valuetab val="7864320"/>
+<valuetab val="7931012"/>
+<valuetab val="8126464"/>
+<valuetab val="8237023"/>
+<valuetab val="8257536"/>
+<valuetab val="8323072"/>
+<valuetab val="8355840"/>
+<valuetab val="8372224"/>
+<valuetab val="8376268"/>
+<valuetab val="8380416"/>
+<valuetab val="8384512"/>
+<valuetab val="8386560"/>
+<valuetab val="8387584"/>
+<valuetab val="8388096"/>
+<valuetab val="8388352"/>
+<valuetab val="8388480"/>
+<valuetab val="8388607"/>
+<valuetab val="8388608"/>
+<valuetab val="8388610"/>
+<valuetab val="8388626"/>
+<valuetab val="8458376"/>
+<valuetab val="8588288"/>
+<valuetab val="8589056"/>
+<valuetab val="12582912"/>
+<valuetab val="12849289"/>
+<valuetab val="14287872"/>
+<valuetab val="14680064"/>
+<valuetab val="15728640"/>
+<valuetab val="16252928"/>
+<valuetab val="16515072"/>
+<valuetab val="16646144"/>
+<valuetab val="16711680"/>
+<valuetab val="16744448"/>
+<valuetab val="16760832"/>
+<valuetab val="16769024"/>
+<valuetab val="16773120"/>
+<valuetab val="16775168"/>
+<valuetab val="16776192"/>
+<valuetab val="16776704"/>
+<valuetab val="16776960"/>
+<valuetab val="16777215"/>
+<valuetab val="16777216"/>
+<valuetab val="25165824"/>
+<valuetab val="29360128"/>
+<valuetab val="31457280"/>
+<valuetab val="32505856"/>
+<valuetab val="33030144"/>
+<valuetab val="33292288"/>
+<valuetab val="33423360"/>
+<valuetab val="33488896"/>
+<valuetab val="33521664"/>
+<valuetab val="33538048"/>
+<valuetab val="33546240"/>
+<valuetab val="33550336"/>
+<valuetab val="33552384"/>
+<valuetab val="33553408"/>
+<valuetab val="33553920"/>
+<valuetab val="33554431"/>
+<valuetab val="33554432"/>
+<valuetab val="50331648"/>
+<valuetab val="50529027"/>
+<valuetab val="51363840"/>
+<valuetab val="58720256"/>
+<valuetab val="59304204"/>
+<valuetab val="62914560"/>
+<valuetab val="65011712"/>
+<valuetab val="65536400"/>
+<valuetab val="66060288"/>
+<valuetab val="66584576"/>
+<valuetab val="66846720"/>
+<valuetab val="66977792"/>
+<valuetab val="67043328"/>
+<valuetab val="67076096"/>
+<valuetab val="67092480"/>
+<valuetab val="67100672"/>
+<valuetab val="67104768"/>
+<valuetab val="67106816"/>
+<valuetab val="67107840"/>
+<valuetab val="67108864"/>
+<valuetab val="67133810"/>
+<valuetab val="67232114"/>
+<valuetab val="67372036"/>
+<valuetab val="67438087"/>
+<valuetab val="67527027"/>
+<valuetab val="71304577"/>
+<valuetab val="71304641"/>
+<valuetab val="71369025"/>
+<valuetab val="100663296"/>
+<valuetab val="104022337"/>
+<valuetab val="117440512"/>
+<valuetab val="125829120"/>
+<valuetab val="130023424"/>
+<valuetab val="132120576"/>
+<valuetab val="133169152"/>
+<valuetab val="133693440"/>
+<valuetab val="133955584"/>
+<valuetab val="134086656"/>
+<valuetab val="134152192"/>
+<valuetab val="134184960"/>
+<valuetab val="134201344"/>
+<valuetab val="134209536"/>
+<valuetab val="134213632"/>
+<valuetab val="134215680"/>
+<valuetab val="134217728"/>
+<valuetab val="134217792"/>
+<valuetab val="134810123"/>
+<valuetab val="186122240"/>
+<valuetab val="186253312"/>
+<valuetab val="201326592"/>
+<valuetab val="202182159"/>
+<valuetab val="234881024"/>
+<valuetab val="238359058"/>
+<valuetab val="251658240"/>
+<valuetab val="260046848"/>
+<valuetab val="264241152"/>
+<valuetab val="266338304"/>
+<valuetab val="267386880"/>
+<valuetab val="267911168"/>
+<valuetab val="268173312"/>
+<valuetab val="268304384"/>
+<valuetab val="268369920"/>
+<valuetab val="268402688"/>
+<valuetab val="268419072"/>
+<valuetab val="268427264"/>
+<valuetab val="268431360"/>
+<valuetab val="268435455"/>
+<valuetab val="268435456"/>
+<valuetab val="268697591"/>
+<valuetab val="287580192"/>
+<valuetab val="287580448"/>
+<valuetab val="402653184"/>
+<valuetab val="469762048"/>
+<valuetab val="495994170"/>
+<valuetab val="503316480"/>
+<valuetab val="520093696"/>
+<valuetab val="528482304"/>
+<valuetab val="528734635"/>
+<valuetab val="532676608"/>
+<valuetab val="534773760"/>
+<valuetab val="535822336"/>
+<valuetab val="536346624"/>
+<valuetab val="536608768"/>
+<valuetab val="536739840"/>
+<valuetab val="536805376"/>
+<valuetab val="536838144"/>
+<valuetab val="536854528"/>
+<valuetab val="536862720"/>
+<valuetab val="536870912"/>
+<valuetab val="537919487"/>
+<valuetab val="538976351"/>
+<valuetab val="671088640"/>
+<valuetab val="773064584"/>
+<valuetab val="805306368"/>
+<valuetab val="939524096"/>
+<valuetab val="1006632960"/>
+<valuetab val="1013904242"/>
+<valuetab val="1040187392"/>
+<valuetab val="1056964608"/>
+<valuetab val="1058375371"/>
+<valuetab val="1065353216"/>
+<valuetab val="1069547520"/>
+<valuetab val="1071644672"/>
+<valuetab val="1072693248"/>
+<valuetab val="1073217536"/>
+<valuetab val="1073479680"/>
+<valuetab val="1073610752"/>
+<valuetab val="1073676288"/>
+<valuetab val="1073709056"/>
+<valuetab val="1073725440"/>
+<valuetab val="1073737728"/>
+<valuetab val="1073741824"/>
+<valuetab val="1073741827"/>
+<valuetab val="1073741900"/>
+<valuetab val="1073759832"/>
+<valuetab val="1073759872"/>
+<valuetab val="1073759984"/>
+<valuetab val="1073761792"/>
+<valuetab val="1073761920"/>
+<valuetab val="1073762412"/>
+<valuetab val="1073762464"/>
+<valuetab val="1073762532"/>
+<valuetab val="1073762576"/>
+<valuetab val="1073762580"/>
+<valuetab val="1073762624"/>
+<valuetab val="1073762628"/>
+<valuetab val="1102558369"/>
+<valuetab val="1102670209"/>
+<valuetab val="1107230976"/>
+<valuetab val="1107231231"/>
+<valuetab val="1230631520"/>
+<valuetab val="1231384169"/>
+<valuetab val="1342177280"/>
+<valuetab val="1359893119"/>
+<valuetab val="1414088287"/>
+<valuetab val="1541459225"/>
+<valuetab val="248610512"/>
+<valuetab val="1610612736"/>
+<valuetab val="1610875367"/>
+<valuetab val="1610924519"/>
+<valuetab val="1779001148"/>
+<valuetab val="1779033703"/>
+<valuetab val="1818588270"/>
+<valuetab val="1856170511"/>
+<valuetab val="1879048192"/>
+<valuetab val="1970169159"/>
+<valuetab val="2013265920"/>
+<valuetab val="2080374784"/>
+<valuetab val="2113929216"/>
+<valuetab val="2130706432"/>
+<valuetab val="2139095040"/>
+<valuetab val="2143289344"/>
+<valuetab val="2145386496"/>
+<valuetab val="2146435072"/>
+<valuetab val="2146959360"/>
+<valuetab val="2147221504"/>
+<valuetab val="2147352576"/>
+<valuetab val="2147418112"/>
+<valuetab val="2147450880"/>
+<valuetab val="2147479552"/>
+<valuetab val="2147482624"/>
+<valuetab val="2147483648"/>
+<valuetab val="2147483649"/>
+<valuetab val="2147483661"/>
+<valuetab val="2147483681"/>
+<valuetab val="2147483699"/>
+<valuetab val="2147484417"/>
+<valuetab val="2147484929"/>
+<valuetab val="2147485187"/>
+<valuetab val="2147485440"/>
+<valuetab val="2147485441"/>
+<valuetab val="2147486478"/>
+<valuetab val="2147545280"/>
+<valuetab val="2147545312"/>
+<valuetab val="2147811391"/>
+<valuetab val="2164260860"/>
+<valuetab val="2172592352"/>
+</valuemap_sym>
+<valuemap_sym name="imm0_sel2" id="0x62" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="24" bitend="31" bytestart="3" byteend="3" shift="0"/>
+<valuetab val="2172600512"/>
+<valuetab val="2172600544"/>
+<valuetab val="2424375072"/>
+<valuetab val="248610512"/>
+<valuetab val="2600822924"/>
+<valuetab val="248610512"/>
+<valuetab val="2684354560"/>
+<valuetab val="2685337630"/>
+<valuetab val="2773480762"/>
+<valuetab val="2818572352"/>
+<valuetab val="2852126720"/>
+<valuetab val="248610512"/>
+<valuetab val="2927938549"/>
+<valuetab val="2995763125"/>
+<valuetab val="3144134277"/>
+<valuetab val="3196809490"/>
+<valuetab val="3221225472"/>
+<valuetab val="3221225536"/>
+<valuetab val="3221225728"/>
+<valuetab val="3221229440"/>
+<valuetab val="3221233663"/>
+<valuetab val="3688632191"/>
+<valuetab val="3758096384"/>
+<valuetab val="3758096385"/>
+<valuetab val="3758424127"/>
+<valuetab val="3870093442"/>
+<valuetab val="3898172190"/>
+<valuetab val="4026531840"/>
+<valuetab val="4031608430"/>
+<valuetab val="4035186800"/>
+<valuetab val="4046315503"/>
+<valuetab val="4069766662"/>
+<valuetab val="4073038297"/>
+<valuetab val="4144025600"/>
+<valuetab val="4160749568"/>
+<valuetab val="4177066232"/>
+<valuetab val="4181535316"/>
+<valuetab val="4227858432"/>
+<valuetab val="4261412864"/>
+<valuetab val="4261637627"/>
+<valuetab val="4272947200"/>
+<valuetab val="4273471488"/>
+<valuetab val="4273486720"/>
+<valuetab val="4273486752"/>
+<valuetab val="4275179008"/>
+<valuetab val="4278190080"/>
+<valuetab val="4286578688"/>
+<valuetab val="4290772992"/>
+<valuetab val="4290805802"/>
+<valuetab val="4291450880"/>
+<valuetab val="4291459072"/>
+<valuetab val="4292588074"/>
+<valuetab val="4292870144"/>
+<valuetab val="4293005312"/>
+<valuetab val="4293038080"/>
+<valuetab val="4293580800"/>
+<valuetab val="4293918720"/>
+<valuetab val="4293984767"/>
+<valuetab val="4294443008"/>
+<valuetab val="4294574078"/>
+<valuetab val="4294639615"/>
+<valuetab val="4294705152"/>
+<valuetab val="4294709755"/>
+<valuetab val="4294836224"/>
+<valuetab val="4294901759"/>
+<valuetab val="4294901760"/>
+<valuetab val="4294905840"/>
+<valuetab val="4294913023"/>
+<valuetab val="4294950912"/>
+<valuetab val="4294961420"/>
+<valuetab val="4294967040"/>
+<valuetab val="4294967216"/>
+<valuetab val="4294967232"/>
+<valuetab val="4294967240"/>
+<valuetab val="4294967295"/>
+<valuetab val="12"/>
+<valuetab val="131080"/>
+<valuetab val="133120"/>
+<valuetab val="141355"/>
+<valuetab val="1049608"/>
+<valuetab val="3950876"/>
+<valuetab val="5387136"/>
+<valuetab val="34308096"/>
+<valuetab val="1073774591"/>
+<valuetab val="2424373760"/>
+<valuetab val="3590377472"/>
+<valuetab val="4035182704"/>
+<valuetab val="4290908160"/>
+<valuetab val="4294115576"/>
+<valuetab val="4294902144"/>
+<valuetab val="536870911"/>
+<valuetab val="4294924252"/>
+<valuetab val="4294917886"/>
+<valuetab val="4294955504"/>
+<valuetab val="2113929215"/>
+<valuetab val="4294965214"/>
+<valuetab val="4294967295"/>
+<valuetab val="4294965257"/>
+<valuetab val="4286546000"/>
+<valuetab val="4294965503"/>
+<valuetab val="4294967294"/>
+<valuetab val="4294952960"/>
+<valuetab val="4294959104"/>
+<valuetab val="4294967291"/>
+<valuetab val="4294967232"/>
+<valuetab val="4294967240"/>
+<valuetab val="4294967289"/>
+<valuetab val="4273602476"/>
+<valuetab val="4275306376"/>
+<valuetab val="4278452160"/>
+<valuetab val="4286840809"/>
+<valuetab val="4291952632"/>
+<valuetab val="1073610750"/>
+<valuetab val="1071382524"/>
+<valuetab val="4291559418"/>
+<valuetab val="4292607999"/>
+<valuetab val="3219325440"/>
+<valuetab val="4293054467"/>
+<valuetab val="4293300347"/>
+<valuetab val="4293580828"/>
+<valuetab val="4294115576"/>
+<valuetab val="4294902271"/>
+<valuetab val="4294967293"/>
+<valuetab val="4294959102"/>
+<valuetab val="4294643454"/>
+<valuetab val="4294955446"/>
+<valuetab val="4294934015"/>
+<valuetab val="4294923741"/>
+<valuetab val="2172600831"/>
+<valuetab val="2172601056"/>
+<valuetab val="2424506144"/>
+<valuetab val="2571855522"/>
+<valuetab val="2600955532"/>
+<valuetab val="2645784334"/>
+<valuetab val="2684579323"/>
+<valuetab val="2685365759"/>
+<valuetab val="2773480762"/>
+<valuetab val="2818801667"/>
+<valuetab val="2852372480"/>
+<valuetab val="2870208523"/>
+<valuetab val="2928144373"/>
+<valuetab val="2995779253"/>
+<valuetab val="3144154245"/>
+<valuetab val="3196845330"/>
+<valuetab val="3221487104"/>
+<valuetab val="3221487424"/>
+<valuetab val="3221487488"/>
+<valuetab val="3221487552"/>
+<valuetab val="3221487611"/>
+<valuetab val="3688890367"/>
+<valuetab val="3758358512"/>
+<valuetab val="3758358513"/>
+<valuetab val="3758620671"/>
+<valuetab val="3870294015"/>
+<valuetab val="3898434334"/>
+<valuetab val="4026793985"/>
+<valuetab val="4031592046"/>
+<valuetab val="4035253104"/>
+<valuetab val="4046299119"/>
+<valuetab val="4070028806"/>
+<valuetab val="4073173465"/>
+<valuetab val="4144484352"/>
+<valuetab val="4161241088"/>
+<valuetab val="4177516792"/>
+<valuetab val="4181715540"/>
+<valuetab val="4228378624"/>
+<valuetab val="4261935104"/>
+<valuetab val="4261936635"/>
+<valuetab val="4273470976"/>
+<valuetab val="4273995520"/>
+<valuetab val="4273995648"/>
+<valuetab val="4273995744"/>
+<valuetab val="4275568608"/>
+<valuetab val="4278714352"/>
+<valuetab val="4287102968"/>
+<valuetab val="4291297280"/>
+<valuetab val="4291330091"/>
+<valuetab val="4291450895"/>
+<valuetab val="4291460096"/>
+<valuetab val="4292579882"/>
+<valuetab val="4293460224"/>
+<valuetab val="4293645821"/>
+<valuetab val="4293824512"/>
+<valuetab val="4293842944"/>
+<valuetab val="4294871240"/>
+<valuetab val="4294902271"/>
+<valuetab val="4294934528"/>
+<valuetab val="4294958846"/>
+<valuetab val="4294962758"/>
+<valuetab val="4294963200"/>
+<valuetab val="4294965755"/>
+<valuetab val="4294966272"/>
+<valuetab val="4294967295"/>
+<valuetab val="4294967040"/>
+<valuetab val="4294967280"/>
+<valuetab val="4294967295"/>
+<valuetab val="4294967264"/>
+<valuetab val="4294967280"/>
+<valuetab val="4294967288"/>
+<valuetab val="4294967295"/>
+<valuetab val="4294967232"/>
+<valuetab val="4294967288"/>
+<valuetab val="4294967295"/>
+<valuetab val="1048604"/>
+<valuetab val="1246222"/>
+<valuetab val="1443840"/>
+<valuetab val="1552383"/>
+<valuetab val="1573896"/>
+<valuetab val="4094750"/>
+<valuetab val="6173568"/>
+<valuetab val="35639278"/>
+<valuetab val="1075740671"/>
+<valuetab val="2426339840"/>
+<valuetab val="3592409088"/>
+<valuetab val="4037001328"/>
+<valuetab val="4292866048"/>
+<valuetab val="4294963448"/>
+<valuetab val="4294965632"/>
+<valuetab val="536870397"/>
+<valuetab val="4294967260"/>
+<valuetab val="4294967294"/>
+<valuetab val="4294967280"/>
+<valuetab val="2113929215"/>
+<valuetab val="4294967294"/>
+<valuetab val="4294967295"/>
+<valuetab val="4294955008"/>
+<valuetab val="4286448081"/>
+<valuetab val="4294966015"/>
+<valuetab val="4294963028"/>
+<valuetab val="4294954453"/>
+<valuetab val="4294954965"/>
+<valuetab val="4294967291"/>
+<valuetab val="4294967253"/>
+<valuetab val="4294967240"/>
+<valuetab val="4294967289"/>
+<valuetab val="4273486764"/>
+<valuetab val="4277800456"/>
+<valuetab val="4282255360"/>
+<valuetab val="4290670079"/>
+<valuetab val="4294737887"/>
+<valuetab val="1073598463"/>
+<valuetab val="1073642368"/>
+<valuetab val="4294965248"/>
+<valuetab val="4294967295"/>
+<valuetab val="3221190400"/>
+<valuetab val="4294967253"/>
+<valuetab val="4294938736"/>
+<valuetab val="4294957056"/>
+<valuetab val="4294959352"/>
+<valuetab val="4294963711"/>
+<valuetab val="4294966781"/>
+<valuetab val="4294967294"/>
+<valuetab val="4294967038"/>
+<valuetab val="4294967168"/>
+<valuetab val="4294967295"/>
+<valuetab val="4294967260"/>
+</valuemap_sym>
+<valuemap_sym name="imm0_sel3" id="0x63" scope="0x0">
+<tokenfield bigendian="false" signbit="false" bitstart="24" bitend="31" bytestart="3" byteend="3" shift="0"/>
+<valuetab val="2172600512"/>
+<valuetab val="2172600545"/>
+<valuetab val="2428569569"/>
+<valuetab val="2571658915"/>
+<valuetab val="2605017805"/>
+<valuetab val="2649913295"/>
+<valuetab val="2688550145"/>
+<valuetab val="2689533279"/>
+<valuetab val="2773481275"/>
+<valuetab val="2822832128"/>
+<valuetab val="2857501185"/>
+<valuetab val="2874374155"/>
+<valuetab val="2933324789"/>
+<valuetab val="3001006005"/>
+<valuetab val="3145707141"/>
+<valuetab val="3203100946"/>
+<valuetab val="3227517441"/>
+<valuetab val="3227783136"/>
+<valuetab val="3228565760"/>
+<valuetab val="3228569472"/>
+<valuetab val="3229096699"/>
+<valuetab val="3690795007"/>
+<valuetab val="3766222848"/>
+<valuetab val="3766333407"/>
+<valuetab val="3766419519"/>
+<valuetab val="3875532930"/>
+<valuetab val="3900695326"/>
+<valuetab val="4034904064"/>
+<valuetab val="4034920430"/>
+<valuetab val="4043305072"/>
+<valuetab val="4051689455"/>
+<valuetab val="4076862982"/>
+<valuetab val="4076840409"/>
+<valuetab val="4152350208"/>
+<valuetab val="4169107200"/>
+<valuetab val="4177518584"/>
+<valuetab val="4185893631"/>
+<valuetab val="4236247040"/>
+<valuetab val="4269801474"/>
+<valuetab val="4270026235"/>
+<valuetab val="4273016968"/>
+<valuetab val="4273671168"/>
+<valuetab val="4273684352"/>
+<valuetab val="4277681056"/>
+<valuetab val="4275445385"/>
+<valuetab val="4292477952"/>
+<valuetab val="4292870144"/>
+<valuetab val="4293918720"/>
+<valuetab val="4294475818"/>
+<valuetab val="4294858752"/>
+<valuetab val="4294866944"/>
+<valuetab val="4294939178"/>
+<valuetab val="4294934528"/>
+<valuetab val="4294955008"/>
+<valuetab val="4294963200"/>
+<valuetab val="4294965248"/>
+<valuetab val="4294965248"/>
+<valuetab val="4294966783"/>
+<valuetab val="4294966784"/>
+<valuetab val="4294967294"/>
+<valuetab val="4294967295"/>
+<valuetab val="4294705152"/>
+<valuetab val="4294709755"/>
+<valuetab val="4294836224"/>
+<valuetab val="4294901759"/>
+<valuetab val="4294901760"/>
+<valuetab val="4294903664"/>
+<valuetab val="4294910079"/>
+<valuetab val="4294950912"/>
+<valuetab val="4294952960"/>
+<valuetab val="4294950912"/>
+<valuetab val="4294967216"/>
+<valuetab val="4294967232"/>
+<valuetab val="4294967240"/>
+<valuetab val="4294967289"/>
+<valuetab val="33553420"/>
+<valuetab val="33553928"/>
+<valuetab val="33554431"/>
+<valuetab val="33695785"/>
+<valuetab val="51381256"/>
+<valuetab val="54479647"/>
+<valuetab val="56619904"/>
+<valuetab val="59473920"/>
+<valuetab val="1133051903"/>
+<valuetab val="2478899712"/>
+<valuetab val="3621834752"/>
+<valuetab val="4092330480"/>
+<valuetab val="4294053888"/>
+<valuetab val="4294639864"/>
+<valuetab val="4294902144"/>
+<valuetab val="536870397"/>
+<valuetab val="4294923740"/>
+<valuetab val="4294948606"/>
+<valuetab val="4294955504"/>
+<valuetab val="2147483647"/>
+<valuetab val="4294965214"/>
+<valuetab val="4294967295"/>
+<valuetab val="4294966272"/>
+<valuetab val="4286447696"/>
+<valuetab val="4294965759"/>
+<valuetab val="4294962038"/>
+<valuetab val="4294953988"/>
+<valuetab val="4294952455"/>
+<valuetab val="4294967291"/>
+<valuetab val="4294967233"/>
+<valuetab val="4294967241"/>
+<valuetab val="4294967289"/>
+<valuetab val="4273486764"/>
+<valuetab val="4277358409"/>
+<valuetab val="4278323200"/>
+<valuetab val="4286720041"/>
+<valuetab val="4291822600"/>
+<valuetab val="1073531198"/>
+<valuetab val="1073380224"/>
+<valuetab val="4294703104"/>
+<valuetab val="4294963839"/>
+<valuetab val="3221160448"/>
+<valuetab val="4294955008"/>
+<valuetab val="4294938736"/>
+<valuetab val="4294957056"/>
+<valuetab val="4294959352"/>
+<valuetab val="4294963711"/>
+<valuetab val="4294966781"/>
+<valuetab val="4294959102"/>
+<valuetab val="4294643454"/>
+<valuetab val="4294957963"/>
+<valuetab val="4294868479"/>
+<valuetab val="4294923740"/>
+<valuetab val="2373927104"/>
+<valuetab val="2373930735"/>
+<valuetab val="2659256096"/>
+<valuetab val="2675799730"/>
+<valuetab val="2667931788"/>
+<valuetab val="2679273230"/>
+<valuetab val="2948595712"/>
+<valuetab val="2951675934"/>
+<valuetab val="2952787258"/>
+<valuetab val="2952265728"/>
+<valuetab val="2952527872"/>
+<valuetab val="2952751115"/>
+<valuetab val="2952776437"/>
+<valuetab val="3221206709"/>
+<valuetab val="3221220485"/>
+<valuetab val="3221221650"/>
+<valuetab val="3489656832"/>
+<valuetab val="3489660927"/>
+<valuetab val="3489661184"/>
+<valuetab val="3489923063"/>
+<valuetab val="3508812539"/>
+<valuetab val="3690737535"/>
+<valuetab val="4160749568"/>
+<valuetab val="4227858433"/>
+<valuetab val="4254418239"/>
+<valuetab val="4272746626"/>
+<valuetab val="4284048158"/>
+<valuetab val="4286578688"/>
+<valuetab val="4291821551"/>
+<valuetab val="4291039344"/>
+<valuetab val="4293763055"/>
+<valuetab val="4294161926"/>
+<valuetab val="4294812121"/>
+<valuetab val="4294758400"/>
+<valuetab val="4294836224"/>
+<valuetab val="4294957304"/>
+<valuetab val="4294945364"/>
+<valuetab val="4294950912"/>
+<valuetab val="4294959104"/>
+<valuetab val="4261637627"/>
+<valuetab val="4273995775"/>
+<valuetab val="4273479775"/>
+<valuetab val="4273486720"/>
+<valuetab val="4273749928"/>
+<valuetab val="4275179008"/>
+<valuetab val="4278190080"/>
+<valuetab val="4286578688"/>
+<valuetab val="4293849970"/>
+<valuetab val="4290805802"/>
+<valuetab val="4291450880"/>
+<valuetab val="4292869835"/>
+<valuetab val="4292579882"/>
+<valuetab val="4292870144"/>
+<valuetab val="4293005312"/>
+<valuetab val="4294086656"/>
+<valuetab val="4294629376"/>
+<valuetab val="4294705152"/>
+<valuetab val="4294902271"/>
+<valuetab val="4294901760"/>
+<valuetab val="4294958846"/>
+<valuetab val="4294954566"/>
+<valuetab val="4294963200"/>
+<valuetab val="4294709755"/>
+<valuetab val="4294836227"/>
+<valuetab val="4294901759"/>
+<valuetab val="4294919768"/>
+<valuetab val="4294920176"/>
+<valuetab val="4294928127"/>
+<valuetab val="4294954496"/>
+<valuetab val="4294954624"/>
+<valuetab val="4294955116"/>
+<valuetab val="4294967216"/>
+<valuetab val="4294967268"/>
+<valuetab val="4294967256"/>
+<valuetab val="4294967293"/>
+<valuetab val="1073762636"/>
+<valuetab val="1073893708"/>
+<valuetab val="1102560417"/>
+<valuetab val="1102801321"/>
+<valuetab val="1107232008"/>
+<valuetab val="1107249663"/>
+<valuetab val="1230762976"/>
+<valuetab val="1265626729"/>
+<valuetab val="1342210047"/>
+<valuetab val="3515830911"/>
+<valuetab val="3595163231"/>
+<valuetab val="4226076025"/>
+<valuetab val="4294349214"/>
+<valuetab val="4294115576"/>
+<valuetab val="4294902247"/>
+<valuetab val="2147483135"/>
+<valuetab val="4294932476"/>
+<valuetab val="4294964991"/>
+<valuetab val="4294964734"/>
+<valuetab val="2147483647"/>
+<valuetab val="4294965214"/>
+<valuetab val="4294967295"/>
+<valuetab val="4294955008"/>
+<valuetab val="4286447696"/>
+<valuetab val="4294965503"/>
+<valuetab val="4294961748"/>
+<valuetab val="4294952960"/>
+<valuetab val="4294950912"/>
+<valuetab val="4294967291"/>
+<valuetab val="4294967232"/>
+<valuetab val="4294967240"/>
+<valuetab val="4294967289"/>
+<valuetab val="4294851500"/>
+<valuetab val="4294905352"/>
+<valuetab val="4294936576"/>
+<valuetab val="4294965289"/>
+<valuetab val="4294966280"/>
+<valuetab val="3221014846"/>
+<valuetab val="3218766721"/>
+<valuetab val="4291557389"/>
+<valuetab val="4292604543"/>
+<valuetab val="3219194419"/>
+<valuetab val="4293055233"/>
+<valuetab val="4293301617"/>
+<valuetab val="4293582339"/>
+<valuetab val="4294117368"/>
+<valuetab val="4294903807"/>
+<valuetab val="4294967295"/>
+<valuetab val="4294967294"/>
+<valuetab val="4294704894"/>
+<valuetab val="4294955455"/>
+<valuetab val="4294967295"/>
+<valuetab val="4294931964"/>
+</valuemap_sym>
+<value_sym name="opcode" id="0x64" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="32" bitend="43" bytestart="4" byteend="5" shift="0"/>
 </value_sym>
-<name_sym name="dst_size" id="0x60" scope="0x0">
+<name_sym name="dst_size" id="0x65" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="38" bitend="39" bytestart="4" byteend="4" shift="6"/>
 <nametab name="32"/>
 <nametab name="64"/>
 <nametab name="16"/>
 <nametab name="8"/>
 </name_sym>
-<value_sym name="m1" id="0x61" scope="0x0">
+<value_sym name="m1" id="0x66" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="44" bitend="44" bytestart="5" byteend="5" shift="4"/>
 </value_sym>
-<value_sym name="m2" id="0x62" scope="0x0">
+<value_sym name="m2" id="0x67" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="45" bitend="45" bytestart="5" byteend="5" shift="5"/>
 </value_sym>
-<value_sym name="uknown" id="0x63" scope="0x0">
+<value_sym name="uknown" id="0x68" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="46" bitend="47" bytestart="5" byteend="5" shift="6"/>
 </value_sym>
-<value_sym name="full_seqword" id="0x64" scope="0x0">
+<value_sym name="full_seqword" id="0x69" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="0" bitend="31" bytestart="0" byteend="3" shift="0"/>
 </value_sym>
-<value_sym name="up0" id="0x65" scope="0x0">
+<value_sym name="up0" id="0x6a" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="0" bitend="1" bytestart="0" byteend="0" shift="0"/>
 </value_sym>
-<value_sym name="eflow" id="0x66" scope="0x0">
+<value_sym name="eflow" id="0x6b" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="2" bitend="5" bytestart="0" byteend="0" shift="2"/>
 </value_sym>
-<value_sym name="up1" id="0x67" scope="0x0">
+<value_sym name="up1" id="0x6c" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="6" bitend="7" bytestart="0" byteend="0" shift="6"/>
 </value_sym>
-<value_sym name="next_uaddr" id="0x68" scope="0x0">
+<value_sym name="next_uaddr" id="0x6d" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="8" bitend="22" bytestart="1" byteend="2" shift="0"/>
 </value_sym>
-<value_sym name="up2" id="0x69" scope="0x0">
+<value_sym name="up2" id="0x6e" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="23" bitend="24" bytestart="2" byteend="3" shift="7"/>
 </value_sym>
-<value_sym name="sync" id="0x6a" scope="0x0">
+<value_sym name="sync" id="0x6f" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="25" bitend="27" bytestart="3" byteend="3" shift="1"/>
 </value_sym>
-<value_sym name="unknown2" id="0x6b" scope="0x0">
+<value_sym name="unknown2" id="0x70" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="28" bitend="29" bytestart="3" byteend="3" shift="4"/>
 </value_sym>
-<value_sym name="pad" id="0x6c" scope="0x0">
+<value_sym name="pad" id="0x71" scope="0x0">
 <tokenfield bigendian="false" signbit="false" bitstart="30" bitend="31" bytestart="3" byteend="3" shift="6"/>
 </value_sym>
-<subtable_sym name="source0" id="0x6d" scope="0x0" numct="2">
-<constructor parent="0x6d" first="1" length="6" line="97">
-<oper id="0x6e"/>
-<oper id="0x6f"/>
+<subtable_sym name="source0" id="0x72" scope="0x0" numct="6">
+<constructor parent="0x72" first="1" length="6" line="176">
+<oper id="0x73"/>
+<oper id="0x74"/>
 <opprint id="0"/>
 <construct_tpl>
 <handle_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="size"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x6d" first="1" length="6" line="98">
-<oper id="0x71"/>
-<oper id="0x72"/>
-<oper id="0x73"/>
-<oper id="0x70"/>
+<constructor parent="0x72" first="1" length="6" line="177">
+<oper id="0x75"/>
+<opprint id="0"/>
+<construct_tpl>
+<handle_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
+</construct_tpl>
+</constructor>
+<constructor parent="0x72" first="1" length="6" line="178">
+<oper id="0x76"/>
+<opprint id="0"/>
+<construct_tpl>
+<handle_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
+</construct_tpl>
+</constructor>
+<constructor parent="0x72" first="1" length="6" line="179">
+<oper id="0x77"/>
+<opprint id="0"/>
+<construct_tpl>
+<handle_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
+</construct_tpl>
+</constructor>
+<constructor parent="0x72" first="1" length="6" line="180">
+<oper id="0x78"/>
+<opprint id="0"/>
+<construct_tpl>
+<handle_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
+</construct_tpl>
+</constructor>
+<constructor parent="0x72" first="1" length="6" line="181">
+<oper id="0x7a"/>
+<oper id="0x7b"/>
+<oper id="0x7c"/>
+<oper id="0x79"/>
 <opprint id="3"/>
 <construct_tpl>
 <handle_tpl><const_tpl type="handle" val="3" s="space"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
 </construct_tpl>
 </constructor>
-<decision number="18" context="false" start="3" size="5">
+<decision number="22" context="false" start="3" size="5">
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="1">
   <mask_word mask="0x3f000000" val="0x0"/>
@@ -3522,7 +4613,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="1">
   <mask_word mask="0x3f000000" val="0x8000000"/>
@@ -3537,7 +4628,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="1">
   <mask_word mask="0x3f000000" val="0x9000000"/>
@@ -3551,7 +4642,14 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="1" context="false" start="0" size="0">
+<decision number="2" context="false" start="0" size="0">
+<pair id="5">
+<instruct_pat>
+<pat_block offset="0" nonzero="1">
+  <mask_word mask="0x3f000000" val="0xa000000"/>
+</pat_block>
+</instruct_pat>
+</pair>
 <pair id="0">
 <instruct_pat>
 <pat_block offset="0" nonzero="0">
@@ -3560,7 +4658,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="1">
   <mask_word mask="0x3f000000" val="0xb000000"/>
@@ -3575,7 +4673,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="1">
   <mask_word mask="0x3f000000" val="0xc000000"/>
@@ -3590,7 +4688,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="1">
   <mask_word mask="0x3f000000" val="0xd000000"/>
@@ -3605,7 +4703,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="1">
   <mask_word mask="0x3f000000" val="0xe000000"/>
@@ -3620,7 +4718,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="1">
   <mask_word mask="0x3f000000" val="0xf000000"/>
@@ -3634,70 +4732,15 @@
 </instruct_pat>
 </pair>
 </decision>
+<decision number="5" context="false" start="20" size="2">
 <decision number="2" context="false" start="0" size="0">
 <pair id="1">
 <instruct_pat>
-<pat_block offset="0" nonzero="1">
-  <mask_word mask="0x3f000000" val="0x10000000"/>
+<pat_block offset="0" nonzero="3">
+  <mask_word mask="0x3f000c00" val="0x10000000"/>
 </pat_block>
 </instruct_pat>
 </pair>
-<pair id="0">
-<instruct_pat>
-<pat_block offset="0" nonzero="0">
-</pat_block>
-</instruct_pat>
-</pair>
-</decision>
-<decision number="1" context="false" start="0" size="0">
-<pair id="0">
-<instruct_pat>
-<pat_block offset="0" nonzero="0">
-</pat_block>
-</instruct_pat>
-</pair>
-</decision>
-<decision number="1" context="false" start="0" size="0">
-<pair id="0">
-<instruct_pat>
-<pat_block offset="0" nonzero="0">
-</pat_block>
-</instruct_pat>
-</pair>
-</decision>
-<decision number="1" context="false" start="0" size="0">
-<pair id="0">
-<instruct_pat>
-<pat_block offset="0" nonzero="0">
-</pat_block>
-</instruct_pat>
-</pair>
-</decision>
-<decision number="1" context="false" start="0" size="0">
-<pair id="0">
-<instruct_pat>
-<pat_block offset="0" nonzero="0">
-</pat_block>
-</instruct_pat>
-</pair>
-</decision>
-<decision number="1" context="false" start="0" size="0">
-<pair id="0">
-<instruct_pat>
-<pat_block offset="0" nonzero="0">
-</pat_block>
-</instruct_pat>
-</pair>
-</decision>
-<decision number="1" context="false" start="0" size="0">
-<pair id="0">
-<instruct_pat>
-<pat_block offset="0" nonzero="0">
-</pat_block>
-</instruct_pat>
-</pair>
-</decision>
-<decision number="1" context="false" start="0" size="0">
 <pair id="0">
 <instruct_pat>
 <pat_block offset="0" nonzero="0">
@@ -3706,7 +4749,109 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="2">
+<instruct_pat>
+<pat_block offset="0" nonzero="3">
+  <mask_word mask="0x3f000c00" val="0x10000400"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="0">
+<instruct_pat>
+<pat_block offset="0" nonzero="0">
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
+<decision number="2" context="false" start="0" size="0">
+<pair id="3">
+<instruct_pat>
+<pat_block offset="0" nonzero="3">
+  <mask_word mask="0x3f000c00" val="0x10000800"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="0">
+<instruct_pat>
+<pat_block offset="0" nonzero="0">
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
+<decision number="2" context="false" start="0" size="0">
+<pair id="4">
+<instruct_pat>
+<pat_block offset="0" nonzero="3">
+  <mask_word mask="0x3f000c00" val="0x10000c00"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="0">
+<instruct_pat>
+<pat_block offset="0" nonzero="0">
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
+</decision>
+<decision number="1" context="false" start="0" size="0">
+<pair id="0">
+<instruct_pat>
+<pat_block offset="0" nonzero="0">
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
+<decision number="1" context="false" start="0" size="0">
+<pair id="0">
+<instruct_pat>
+<pat_block offset="0" nonzero="0">
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
+<decision number="1" context="false" start="0" size="0">
+<pair id="0">
+<instruct_pat>
+<pat_block offset="0" nonzero="0">
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
+<decision number="1" context="false" start="0" size="0">
+<pair id="0">
+<instruct_pat>
+<pat_block offset="0" nonzero="0">
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
+<decision number="1" context="false" start="0" size="0">
+<pair id="0">
+<instruct_pat>
+<pat_block offset="0" nonzero="0">
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
+<decision number="1" context="false" start="0" size="0">
+<pair id="0">
+<instruct_pat>
+<pat_block offset="0" nonzero="0">
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
+<decision number="1" context="false" start="0" size="0">
+<pair id="0">
+<instruct_pat>
+<pat_block offset="0" nonzero="0">
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
+<decision number="2" context="false" start="0" size="0">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="1">
   <mask_word mask="0x3f000000" val="0x18000000"/>
@@ -3721,7 +4866,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="1">
   <mask_word mask="0x3f000000" val="0x19000000"/>
@@ -3736,7 +4881,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="1">
   <mask_word mask="0x3f000000" val="0x1a000000"/>
@@ -3751,7 +4896,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="1">
   <mask_word mask="0x3f000000" val="0x1b000000"/>
@@ -3766,7 +4911,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="1">
   <mask_word mask="0x3f000000" val="0x1c000000"/>
@@ -3781,7 +4926,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="1">
   <mask_word mask="0x3f000000" val="0x1d000000"/>
@@ -3796,7 +4941,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="1">
   <mask_word mask="0x3f000000" val="0x1e000000"/>
@@ -3811,7 +4956,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="1">
   <mask_word mask="0x3f000000" val="0x1f000000"/>
@@ -3827,15 +4972,27 @@
 </decision>
 </decision>
 </subtable_sym>
-<operand_sym name="src0" id="0x6e" scope="0x1" subsym="0x53" off="0" base="-1" minlen="6" index="0">
-<operand_exp index="0" table="0x6d" ct="0x0"/>
+<operand_sym name="src0" id="0x73" scope="0x1" subsym="0x53" off="0" base="-1" minlen="6" index="0">
+<operand_exp index="0" table="0x72" ct="0x0"/>
 </operand_sym>
-<operand_sym name="src0_sel" id="0x6f" scope="0x1" off="0" base="-1" minlen="6" index="1">
-<operand_exp index="1" table="0x6d" ct="0x0"/>
+<operand_sym name="src0_sel" id="0x74" scope="0x1" off="0" base="-1" minlen="6" index="1">
+<operand_exp index="1" table="0x72" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="0" bitend="5" bytestart="0" byteend="0" shift="0"/>
 </operand_sym>
-<operand_sym name="immediate" id="0x70" scope="0x2" off="0" base="-1" minlen="0" index="3">
-<operand_exp index="3" table="0x6d" ct="0x1"/>
+<operand_sym name="imm0_sel0" id="0x75" scope="0x2" subsym="0x60" off="0" base="-1" minlen="6" index="0">
+<operand_exp index="0" table="0x72" ct="0x1"/>
+</operand_sym>
+<operand_sym name="imm0_sel1" id="0x76" scope="0x3" subsym="0x61" off="0" base="-1" minlen="6" index="0">
+<operand_exp index="0" table="0x72" ct="0x2"/>
+</operand_sym>
+<operand_sym name="imm0_sel2" id="0x77" scope="0x4" subsym="0x62" off="0" base="-1" minlen="6" index="0">
+<operand_exp index="0" table="0x72" ct="0x3"/>
+</operand_sym>
+<operand_sym name="imm0_sel3" id="0x78" scope="0x5" subsym="0x63" off="0" base="-1" minlen="6" index="0">
+<operand_exp index="0" table="0x72" ct="0x4"/>
+</operand_sym>
+<operand_sym name="immediate" id="0x79" scope="0x6" off="0" base="-1" minlen="0" index="3">
+<operand_exp index="3" table="0x72" ct="0x5"/>
 <or_exp>
 <or_exp>
 <or_exp>
@@ -3843,7 +5000,7 @@
 <intb val="-65536"/>
 <rshift_exp>
 <and_exp>
-<operand_exp index="2" table="0x6d" ct="0x1"/>
+<operand_exp index="2" table="0x72" ct="0x5"/>
 <intb val="16"/>
 </and_exp>
 <intb val="4"/>
@@ -3851,54 +5008,82 @@
 </mult_exp>
 <lshift_exp>
 <and_exp>
-<operand_exp index="2" table="0x6d" ct="0x1"/>
+<operand_exp index="2" table="0x72" ct="0x5"/>
 <intb val="7"/>
 </and_exp>
 <intb val="13"/>
 </lshift_exp>
 </or_exp>
 <lshift_exp>
-<operand_exp index="1" table="0x6d" ct="0x1"/>
+<operand_exp index="1" table="0x72" ct="0x5"/>
 <intb val="8"/>
 </lshift_exp>
 </or_exp>
-<operand_exp index="0" table="0x6d" ct="0x1"/>
+<operand_exp index="0" table="0x72" ct="0x5"/>
 </or_exp>
 </operand_sym>
-<operand_sym name="imm0" id="0x71" scope="0x2" off="0" base="-1" minlen="6" index="0">
-<operand_exp index="0" table="0x6d" ct="0x1"/>
+<operand_sym name="imm0" id="0x7a" scope="0x6" off="0" base="-1" minlen="6" index="0">
+<operand_exp index="0" table="0x72" ct="0x5"/>
 <tokenfield bigendian="false" signbit="false" bitstart="24" bitend="31" bytestart="3" byteend="3" shift="0"/>
 </operand_sym>
-<operand_sym name="imm1" id="0x72" scope="0x2" off="0" base="-1" minlen="6" index="1">
-<operand_exp index="1" table="0x6d" ct="0x1"/>
+<operand_sym name="imm1" id="0x7b" scope="0x6" off="0" base="-1" minlen="6" index="1">
+<operand_exp index="1" table="0x72" ct="0x5"/>
 <tokenfield bigendian="false" signbit="false" bitstart="18" bitend="22" bytestart="2" byteend="2" shift="2"/>
 </operand_sym>
-<operand_sym name="src0_sel" id="0x73" scope="0x2" off="0" base="-1" minlen="6" index="2">
-<operand_exp index="2" table="0x6d" ct="0x1"/>
+<operand_sym name="src0_sel" id="0x7c" scope="0x6" off="0" base="-1" minlen="6" index="2">
+<operand_exp index="2" table="0x72" ct="0x5"/>
 <tokenfield bigendian="false" signbit="false" bitstart="0" bitend="5" bytestart="0" byteend="0" shift="0"/>
 </operand_sym>
-<subtable_sym name="source1" id="0x74" scope="0x0" numct="2">
-<constructor parent="0x74" first="1" length="6" line="102">
-<oper id="0x75"/>
-<oper id="0x76"/>
+<subtable_sym name="source1" id="0x7d" scope="0x0" numct="6">
+<constructor parent="0x7d" first="1" length="6" line="185">
+<oper id="0x7e"/>
+<oper id="0x7f"/>
 <opprint id="0"/>
 <construct_tpl>
 <handle_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="size"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x74" first="1" length="6" line="103">
-<oper id="0x78"/>
-<oper id="0x79"/>
-<oper id="0x7a"/>
-<oper id="0x77"/>
+<constructor parent="0x7d" first="1" length="6" line="186">
+<oper id="0x80"/>
+<opprint id="0"/>
+<construct_tpl>
+<handle_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
+</construct_tpl>
+</constructor>
+<constructor parent="0x7d" first="1" length="6" line="187">
+<oper id="0x81"/>
+<opprint id="0"/>
+<construct_tpl>
+<handle_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
+</construct_tpl>
+</constructor>
+<constructor parent="0x7d" first="1" length="6" line="188">
+<oper id="0x82"/>
+<opprint id="0"/>
+<construct_tpl>
+<handle_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
+</construct_tpl>
+</constructor>
+<constructor parent="0x7d" first="1" length="6" line="189">
+<oper id="0x83"/>
+<opprint id="0"/>
+<construct_tpl>
+<handle_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
+</construct_tpl>
+</constructor>
+<constructor parent="0x7d" first="1" length="6" line="190">
+<oper id="0x85"/>
+<oper id="0x86"/>
+<oper id="0x87"/>
+<oper id="0x84"/>
 <opprint id="3"/>
 <construct_tpl>
 <handle_tpl><const_tpl type="handle" val="3" s="space"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
 </construct_tpl>
 </constructor>
-<decision number="18" context="false" start="13" size="3">
+<decision number="22" context="false" start="13" size="3">
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="2">
   <mask_word mask="0xc00f0000" val="0x0"/>
@@ -3920,9 +5105,9 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="4" context="false" start="0" size="2">
+<decision number="5" context="false" start="0" size="2">
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="2">
   <mask_word mask="0xc00f0000" val="0x20000"/>
@@ -3937,7 +5122,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="2">
   <mask_word mask="0xc00f0000" val="0x40020000"/>
@@ -3951,7 +5136,14 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="1" context="false" start="0" size="0">
+<decision number="2" context="false" start="0" size="0">
+<pair id="5">
+<instruct_pat>
+<pat_block offset="0" nonzero="2">
+  <mask_word mask="0xc00f0000" val="0x80020000"/>
+</pat_block>
+</instruct_pat>
+</pair>
 <pair id="0">
 <instruct_pat>
 <pat_block offset="0" nonzero="0">
@@ -3960,7 +5152,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="2">
   <mask_word mask="0xc00f0000" val="0xc0020000"/>
@@ -3977,7 +5169,7 @@
 </decision>
 <decision number="5" context="false" start="0" size="2">
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="2">
   <mask_word mask="0xc00f0000" val="0x30000"/>
@@ -3992,7 +5184,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="2">
   <mask_word mask="0xc00f0000" val="0x40030000"/>
@@ -4007,7 +5199,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="2">
   <mask_word mask="0xc00f0000" val="0x80030000"/>
@@ -4022,7 +5214,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="2">
   <mask_word mask="0xc00f0000" val="0xc0030000"/>
@@ -4037,11 +5229,12 @@
 </pair>
 </decision>
 </decision>
+<decision number="5" context="false" start="20" size="2">
 <decision number="2" context="false" start="0" size="0">
 <pair id="1">
 <instruct_pat>
-<pat_block offset="0" nonzero="2">
-  <mask_word mask="0xc00f0000" val="0x40000"/>
+<pat_block offset="0" nonzero="3">
+  <mask_word mask="0xc00f0c00" val="0x40000"/>
 </pat_block>
 </instruct_pat>
 </pair>
@@ -4051,6 +5244,52 @@
 </pat_block>
 </instruct_pat>
 </pair>
+</decision>
+<decision number="2" context="false" start="0" size="0">
+<pair id="2">
+<instruct_pat>
+<pat_block offset="0" nonzero="3">
+  <mask_word mask="0xc00f0c00" val="0x40400"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="0">
+<instruct_pat>
+<pat_block offset="0" nonzero="0">
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
+<decision number="2" context="false" start="0" size="0">
+<pair id="3">
+<instruct_pat>
+<pat_block offset="0" nonzero="3">
+  <mask_word mask="0xc00f0c00" val="0x40800"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="0">
+<instruct_pat>
+<pat_block offset="0" nonzero="0">
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
+<decision number="2" context="false" start="0" size="0">
+<pair id="4">
+<instruct_pat>
+<pat_block offset="0" nonzero="3">
+  <mask_word mask="0xc00f0c00" val="0x40c00"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="0">
+<instruct_pat>
+<pat_block offset="0" nonzero="0">
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
 </decision>
 <decision number="1" context="false" start="0" size="0">
 <pair id="0">
@@ -4062,7 +5301,7 @@
 </decision>
 <decision number="5" context="false" start="0" size="2">
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="2">
   <mask_word mask="0xc00f0000" val="0x60000"/>
@@ -4077,7 +5316,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="2">
   <mask_word mask="0xc00f0000" val="0x40060000"/>
@@ -4092,7 +5331,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="2">
   <mask_word mask="0xc00f0000" val="0x80060000"/>
@@ -4107,7 +5346,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="2">
   <mask_word mask="0xc00f0000" val="0xc0060000"/>
@@ -4124,7 +5363,7 @@
 </decision>
 <decision number="5" context="false" start="0" size="2">
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="2">
   <mask_word mask="0xc00f0000" val="0x70000"/>
@@ -4139,7 +5378,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="2">
   <mask_word mask="0xc00f0000" val="0x40070000"/>
@@ -4154,7 +5393,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="2">
   <mask_word mask="0xc00f0000" val="0x80070000"/>
@@ -4169,7 +5408,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="1">
+<pair id="5">
 <instruct_pat>
 <pat_block offset="0" nonzero="2">
   <mask_word mask="0xc00f0000" val="0xc0070000"/>
@@ -4186,15 +5425,27 @@
 </decision>
 </decision>
 </subtable_sym>
-<operand_sym name="src1" id="0x75" scope="0x3" subsym="0x56" off="0" base="-1" minlen="6" index="0">
-<operand_exp index="0" table="0x74" ct="0x0"/>
+<operand_sym name="src1" id="0x7e" scope="0x7" subsym="0x56" off="0" base="-1" minlen="6" index="0">
+<operand_exp index="0" table="0x7d" ct="0x0"/>
 </operand_sym>
-<operand_sym name="src1_sel" id="0x76" scope="0x3" off="0" base="-1" minlen="6" index="1">
-<operand_exp index="1" table="0x74" ct="0x0"/>
+<operand_sym name="src1_sel" id="0x7f" scope="0x7" off="0" base="-1" minlen="6" index="1">
+<operand_exp index="1" table="0x7d" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="6" bitend="11" bytestart="0" byteend="1" shift="6"/>
 </operand_sym>
-<operand_sym name="immediate" id="0x77" scope="0x4" off="0" base="-1" minlen="0" index="3">
-<operand_exp index="3" table="0x74" ct="0x1"/>
+<operand_sym name="imm0_sel0" id="0x80" scope="0x8" subsym="0x60" off="0" base="-1" minlen="6" index="0">
+<operand_exp index="0" table="0x7d" ct="0x1"/>
+</operand_sym>
+<operand_sym name="imm0_sel1" id="0x81" scope="0x9" subsym="0x61" off="0" base="-1" minlen="6" index="0">
+<operand_exp index="0" table="0x7d" ct="0x2"/>
+</operand_sym>
+<operand_sym name="imm0_sel2" id="0x82" scope="0xa" subsym="0x62" off="0" base="-1" minlen="6" index="0">
+<operand_exp index="0" table="0x7d" ct="0x3"/>
+</operand_sym>
+<operand_sym name="imm0_sel3" id="0x83" scope="0xb" subsym="0x63" off="0" base="-1" minlen="6" index="0">
+<operand_exp index="0" table="0x7d" ct="0x4"/>
+</operand_sym>
+<operand_sym name="immediate" id="0x84" scope="0xc" off="0" base="-1" minlen="0" index="3">
+<operand_exp index="3" table="0x7d" ct="0x5"/>
 <or_exp>
 <or_exp>
 <or_exp>
@@ -4202,7 +5453,7 @@
 <intb val="-65536"/>
 <rshift_exp>
 <and_exp>
-<operand_exp index="2" table="0x74" ct="0x1"/>
+<operand_exp index="2" table="0x7d" ct="0x5"/>
 <intb val="16"/>
 </and_exp>
 <intb val="4"/>
@@ -4210,35 +5461,35 @@
 </mult_exp>
 <lshift_exp>
 <and_exp>
-<operand_exp index="2" table="0x74" ct="0x1"/>
+<operand_exp index="2" table="0x7d" ct="0x5"/>
 <intb val="7"/>
 </and_exp>
 <intb val="13"/>
 </lshift_exp>
 </or_exp>
 <lshift_exp>
-<operand_exp index="1" table="0x74" ct="0x1"/>
+<operand_exp index="1" table="0x7d" ct="0x5"/>
 <intb val="8"/>
 </lshift_exp>
 </or_exp>
-<operand_exp index="0" table="0x74" ct="0x1"/>
+<operand_exp index="0" table="0x7d" ct="0x5"/>
 </or_exp>
 </operand_sym>
-<operand_sym name="imm0" id="0x78" scope="0x4" off="0" base="-1" minlen="6" index="0">
-<operand_exp index="0" table="0x74" ct="0x1"/>
+<operand_sym name="imm0" id="0x85" scope="0xc" off="0" base="-1" minlen="6" index="0">
+<operand_exp index="0" table="0x7d" ct="0x5"/>
 <tokenfield bigendian="false" signbit="false" bitstart="24" bitend="31" bytestart="3" byteend="3" shift="0"/>
 </operand_sym>
-<operand_sym name="imm1" id="0x79" scope="0x4" off="0" base="-1" minlen="6" index="1">
-<operand_exp index="1" table="0x74" ct="0x1"/>
+<operand_sym name="imm1" id="0x86" scope="0xc" off="0" base="-1" minlen="6" index="1">
+<operand_exp index="1" table="0x7d" ct="0x5"/>
 <tokenfield bigendian="false" signbit="false" bitstart="18" bitend="22" bytestart="2" byteend="2" shift="2"/>
 </operand_sym>
-<operand_sym name="src1_sel" id="0x7a" scope="0x4" off="0" base="-1" minlen="6" index="2">
-<operand_exp index="2" table="0x74" ct="0x1"/>
+<operand_sym name="src1_sel" id="0x87" scope="0xc" off="0" base="-1" minlen="6" index="2">
+<operand_exp index="2" table="0x7d" ct="0x5"/>
 <tokenfield bigendian="false" signbit="false" bitstart="6" bitend="11" bytestart="0" byteend="1" shift="6"/>
 </operand_sym>
-<subtable_sym name="dest" id="0x7b" scope="0x0" numct="1">
-<constructor parent="0x7b" first="1" length="6" line="107">
-<oper id="0x7c"/>
+<subtable_sym name="dest" id="0x88" scope="0x0" numct="1">
+<constructor parent="0x88" first="1" length="6" line="194">
+<oper id="0x89"/>
 <opprint id="0"/>
 <construct_tpl>
 <handle_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="size"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
@@ -4253,17 +5504,17 @@
 </pair>
 </decision>
 </subtable_sym>
-<operand_sym name="dst" id="0x7c" scope="0x5" subsym="0x59" off="0" base="-1" minlen="6" index="0">
-<operand_exp index="0" table="0x7b" ct="0x0"/>
+<operand_sym name="dst" id="0x89" scope="0xd" subsym="0x59" off="0" base="-1" minlen="6" index="0">
+<operand_exp index="0" table="0x88" ct="0x0"/>
 </operand_sym>
-<subtable_sym name="seqword" id="0x7d" scope="0x0" numct="1">
-<constructor parent="0x7d" first="1" length="4" line="112">
-<oper id="0x7e"/>
-<oper id="0x7f"/>
-<oper id="0x80"/>
-<oper id="0x81"/>
-<oper id="0x82"/>
-<oper id="0x83"/>
+<subtable_sym name="seqword" id="0x8a" scope="0x0" numct="1">
+<constructor parent="0x8a" first="1" length="4" line="198">
+<oper id="0x8b"/>
+<oper id="0x8c"/>
+<oper id="0x8d"/>
+<oper id="0x8e"/>
+<oper id="0x8f"/>
+<oper id="0x90"/>
 <print piece="|"/>
 <print piece=" "/>
 <opprint id="0"/>
@@ -4293,175 +5544,179 @@
 </pair>
 </decision>
 </subtable_sym>
-<operand_sym name="up0" id="0x7e" scope="0x6" off="0" base="-1" minlen="4" index="0">
-<operand_exp index="0" table="0x7d" ct="0x0"/>
+<operand_sym name="up0" id="0x8b" scope="0xe" off="0" base="-1" minlen="4" index="0">
+<operand_exp index="0" table="0x8a" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="0" bitend="1" bytestart="0" byteend="0" shift="0"/>
 </operand_sym>
-<operand_sym name="eflow" id="0x7f" scope="0x6" off="0" base="-1" minlen="4" index="1">
-<operand_exp index="1" table="0x7d" ct="0x0"/>
+<operand_sym name="eflow" id="0x8c" scope="0xe" off="0" base="-1" minlen="4" index="1">
+<operand_exp index="1" table="0x8a" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="2" bitend="5" bytestart="0" byteend="0" shift="2"/>
 </operand_sym>
-<operand_sym name="up1" id="0x80" scope="0x6" off="0" base="-1" minlen="4" index="2">
-<operand_exp index="2" table="0x7d" ct="0x0"/>
+<operand_sym name="up1" id="0x8d" scope="0xe" off="0" base="-1" minlen="4" index="2">
+<operand_exp index="2" table="0x8a" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="6" bitend="7" bytestart="0" byteend="0" shift="6"/>
 </operand_sym>
-<operand_sym name="next_uaddr" id="0x81" scope="0x6" off="0" base="-1" minlen="4" index="3">
-<operand_exp index="3" table="0x7d" ct="0x0"/>
+<operand_sym name="next_uaddr" id="0x8e" scope="0xe" off="0" base="-1" minlen="4" index="3">
+<operand_exp index="3" table="0x8a" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="8" bitend="22" bytestart="1" byteend="2" shift="0"/>
 </operand_sym>
-<operand_sym name="up2" id="0x82" scope="0x6" off="0" base="-1" minlen="4" index="4">
-<operand_exp index="4" table="0x7d" ct="0x0"/>
+<operand_sym name="up2" id="0x8f" scope="0xe" off="0" base="-1" minlen="4" index="4">
+<operand_exp index="4" table="0x8a" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="23" bitend="24" bytestart="2" byteend="3" shift="7"/>
 </operand_sym>
-<operand_sym name="sync" id="0x83" scope="0x6" off="0" base="-1" minlen="4" index="5">
-<operand_exp index="5" table="0x7d" ct="0x0"/>
+<operand_sym name="sync" id="0x90" scope="0xe" off="0" base="-1" minlen="4" index="5">
+<operand_exp index="5" table="0x8a" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="25" bitend="27" bytestart="3" byteend="3" shift="1"/>
 </operand_sym>
-<operand_sym name="opcode" id="0x84" scope="0x7" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="opcode" id="0x91" scope="0xf" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="32" bitend="43" bytestart="4" byteend="5" shift="0"/>
 </operand_sym>
-<operand_sym name="dst_sel" id="0x85" scope="0x7" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="dst_sel" id="0x92" scope="0xf" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="12" bitend="17" bytestart="1" byteend="2" shift="4"/>
 </operand_sym>
-<operand_sym name="src0_sel" id="0x86" scope="0x7" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="src0_sel" id="0x93" scope="0xf" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="0" bitend="5" bytestart="0" byteend="0" shift="0"/>
 </operand_sym>
-<operand_sym name="src1_sel" id="0x87" scope="0x7" off="0" base="-1" minlen="6" index="3">
+<operand_sym name="src1_sel" id="0x94" scope="0xf" off="0" base="-1" minlen="6" index="3">
 <operand_exp index="3" table="0x0" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="6" bitend="11" bytestart="0" byteend="1" shift="6"/>
 </operand_sym>
-<operand_sym name="imm0" id="0x88" scope="0x7" off="0" base="-1" minlen="6" index="4">
+<operand_sym name="imm0" id="0x95" scope="0xf" off="0" base="-1" minlen="6" index="4">
 <operand_exp index="4" table="0x0" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="24" bitend="31" bytestart="3" byteend="3" shift="0"/>
 </operand_sym>
-<operand_sym name="imm1" id="0x89" scope="0x7" off="0" base="-1" minlen="6" index="5">
+<operand_sym name="imm1" id="0x96" scope="0xf" off="0" base="-1" minlen="6" index="5">
 <operand_exp index="5" table="0x0" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="18" bitend="22" bytestart="2" byteend="2" shift="2"/>
 </operand_sym>
-<operand_sym name="seqword" id="0x8a" scope="0x7" subsym="0x7d" off="6" base="-1" minlen="4" index="6">
+<operand_sym name="seqword" id="0x97" scope="0xf" subsym="0x8a" off="6" base="-1" minlen="4" index="6">
 <operand_exp index="6" table="0x0" ct="0x0"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0x8b" scope="0x8" subsym="0x60" off="0" base="-1" minlen="6" index="3">
+<operand_sym name="full_seqword" id="0x98" scope="0x10" off="6" base="-1" minlen="4" index="0">
+<operand_exp index="0" table="0x0" ct="0x1"/>
+<tokenfield bigendian="false" signbit="false" bitstart="0" bitend="31" bytestart="0" byteend="3" shift="0"/>
+</operand_sym>
+<operand_sym name="dst_size" id="0x99" scope="0x11" subsym="0x65" off="0" base="-1" minlen="6" index="3">
 <operand_exp index="3" table="0x0" ct="0x2"/>
 </operand_sym>
-<operand_sym name="dest" id="0x8c" scope="0x8" subsym="0x7b" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="dest" id="0x9a" scope="0x11" subsym="0x88" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x2"/>
 </operand_sym>
-<operand_sym name="source0" id="0x8d" scope="0x8" subsym="0x6d" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="source0" id="0x9b" scope="0x11" subsym="0x72" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x2"/>
 </operand_sym>
-<operand_sym name="source1" id="0x8e" scope="0x8" subsym="0x74" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="source1" id="0x9c" scope="0x11" subsym="0x7d" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x2"/>
 </operand_sym>
-<operand_sym name="seqword" id="0x8f" scope="0x8" subsym="0x7d" off="6" base="-1" minlen="4" index="4">
+<operand_sym name="seqword" id="0x9d" scope="0x11" subsym="0x8a" off="6" base="-1" minlen="4" index="4">
 <operand_exp index="4" table="0x0" ct="0x2"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0x90" scope="0x9" subsym="0x60" off="0" base="-1" minlen="6" index="3">
+<operand_sym name="dst_size" id="0x9e" scope="0x12" subsym="0x65" off="0" base="-1" minlen="6" index="3">
 <operand_exp index="3" table="0x0" ct="0x3"/>
 </operand_sym>
-<operand_sym name="dest" id="0x91" scope="0x9" subsym="0x7b" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="dest" id="0x9f" scope="0x12" subsym="0x88" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x3"/>
 </operand_sym>
-<operand_sym name="source0" id="0x92" scope="0x9" subsym="0x6d" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="source0" id="0xa0" scope="0x12" subsym="0x72" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x3"/>
 </operand_sym>
-<operand_sym name="source1" id="0x93" scope="0x9" subsym="0x74" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="source1" id="0xa1" scope="0x12" subsym="0x7d" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x3"/>
 </operand_sym>
-<operand_sym name="seqword" id="0x94" scope="0x9" subsym="0x7d" off="6" base="-1" minlen="4" index="4">
+<operand_sym name="seqword" id="0xa2" scope="0x12" subsym="0x8a" off="6" base="-1" minlen="4" index="4">
 <operand_exp index="4" table="0x0" ct="0x3"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0x95" scope="0xa" subsym="0x60" off="0" base="-1" minlen="6" index="3">
+<operand_sym name="dst_size" id="0xa3" scope="0x13" subsym="0x65" off="0" base="-1" minlen="6" index="3">
 <operand_exp index="3" table="0x0" ct="0x4"/>
 </operand_sym>
-<operand_sym name="dest" id="0x96" scope="0xa" subsym="0x7b" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="dest" id="0xa4" scope="0x13" subsym="0x88" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x4"/>
 </operand_sym>
-<operand_sym name="source0" id="0x97" scope="0xa" subsym="0x6d" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="source0" id="0xa5" scope="0x13" subsym="0x72" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x4"/>
 </operand_sym>
-<operand_sym name="source1" id="0x98" scope="0xa" subsym="0x74" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="source1" id="0xa6" scope="0x13" subsym="0x7d" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x4"/>
 </operand_sym>
-<operand_sym name="seqword" id="0x99" scope="0xa" subsym="0x7d" off="6" base="-1" minlen="4" index="4">
+<operand_sym name="seqword" id="0xa7" scope="0x13" subsym="0x8a" off="6" base="-1" minlen="4" index="4">
 <operand_exp index="4" table="0x0" ct="0x4"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0x9a" scope="0xb" subsym="0x60" off="0" base="-1" minlen="6" index="3">
+<operand_sym name="dst_size" id="0xa8" scope="0x14" subsym="0x65" off="0" base="-1" minlen="6" index="3">
 <operand_exp index="3" table="0x0" ct="0x5"/>
 </operand_sym>
-<operand_sym name="dest" id="0x9b" scope="0xb" subsym="0x7b" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="dest" id="0xa9" scope="0x14" subsym="0x88" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x5"/>
 </operand_sym>
-<operand_sym name="source0" id="0x9c" scope="0xb" subsym="0x6d" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="source0" id="0xaa" scope="0x14" subsym="0x72" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x5"/>
 </operand_sym>
-<operand_sym name="source1" id="0x9d" scope="0xb" subsym="0x74" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="source1" id="0xab" scope="0x14" subsym="0x7d" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x5"/>
 </operand_sym>
-<operand_sym name="seqword" id="0x9e" scope="0xb" subsym="0x7d" off="6" base="-1" minlen="4" index="4">
+<operand_sym name="seqword" id="0xac" scope="0x14" subsym="0x8a" off="6" base="-1" minlen="4" index="4">
 <operand_exp index="4" table="0x0" ct="0x5"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0x9f" scope="0xc" subsym="0x60" off="0" base="-1" minlen="6" index="3">
+<operand_sym name="dst_size" id="0xad" scope="0x15" subsym="0x65" off="0" base="-1" minlen="6" index="3">
 <operand_exp index="3" table="0x0" ct="0x6"/>
 </operand_sym>
-<operand_sym name="dest" id="0xa0" scope="0xc" subsym="0x7b" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="dest" id="0xae" scope="0x15" subsym="0x88" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x6"/>
 </operand_sym>
-<operand_sym name="source0" id="0xa1" scope="0xc" subsym="0x6d" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="source0" id="0xaf" scope="0x15" subsym="0x72" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x6"/>
 </operand_sym>
-<operand_sym name="source1" id="0xa2" scope="0xc" subsym="0x74" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="source1" id="0xb0" scope="0x15" subsym="0x7d" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x6"/>
 </operand_sym>
-<operand_sym name="seqword" id="0xa3" scope="0xc" subsym="0x7d" off="6" base="-1" minlen="4" index="4">
+<operand_sym name="seqword" id="0xb1" scope="0x15" subsym="0x8a" off="6" base="-1" minlen="4" index="4">
 <operand_exp index="4" table="0x0" ct="0x6"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0xa4" scope="0xd" subsym="0x60" off="0" base="-1" minlen="6" index="3">
+<operand_sym name="dst_size" id="0xb2" scope="0x16" subsym="0x65" off="0" base="-1" minlen="6" index="3">
 <operand_exp index="3" table="0x0" ct="0x7"/>
 </operand_sym>
-<operand_sym name="dest" id="0xa5" scope="0xd" subsym="0x7b" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="dest" id="0xb3" scope="0x16" subsym="0x88" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x7"/>
 </operand_sym>
-<operand_sym name="source0" id="0xa6" scope="0xd" subsym="0x6d" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="source0" id="0xb4" scope="0x16" subsym="0x72" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x7"/>
 </operand_sym>
-<operand_sym name="source1" id="0xa7" scope="0xd" subsym="0x74" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="source1" id="0xb5" scope="0x16" subsym="0x7d" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x7"/>
 </operand_sym>
-<operand_sym name="seqword" id="0xa8" scope="0xd" subsym="0x7d" off="6" base="-1" minlen="4" index="4">
+<operand_sym name="seqword" id="0xb6" scope="0x16" subsym="0x8a" off="6" base="-1" minlen="4" index="4">
 <operand_exp index="4" table="0x0" ct="0x7"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0xa9" scope="0xe" subsym="0x60" off="0" base="-1" minlen="6" index="3">
+<operand_sym name="dst_size" id="0xb7" scope="0x17" subsym="0x65" off="0" base="-1" minlen="6" index="3">
 <operand_exp index="3" table="0x0" ct="0x8"/>
 </operand_sym>
-<operand_sym name="dest" id="0xaa" scope="0xe" subsym="0x7b" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="dest" id="0xb8" scope="0x17" subsym="0x88" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x8"/>
 </operand_sym>
-<operand_sym name="source0" id="0xab" scope="0xe" subsym="0x6d" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="source0" id="0xb9" scope="0x17" subsym="0x72" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x8"/>
 </operand_sym>
-<operand_sym name="seqword" id="0xac" scope="0xe" subsym="0x7d" off="6" base="-1" minlen="4" index="4">
+<operand_sym name="seqword" id="0xba" scope="0x17" subsym="0x8a" off="6" base="-1" minlen="4" index="4">
 <operand_exp index="4" table="0x0" ct="0x8"/>
 </operand_sym>
-<operand_sym name="source1" id="0xad" scope="0xe" subsym="0x74" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="source1" id="0xbb" scope="0x17" subsym="0x7d" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x8"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0xae" scope="0xf" subsym="0x60" off="0" base="-1" minlen="6" index="3">
+<operand_sym name="dst_size" id="0xbc" scope="0x18" subsym="0x65" off="0" base="-1" minlen="6" index="3">
 <operand_exp index="3" table="0x0" ct="0x9"/>
 </operand_sym>
-<operand_sym name="dest" id="0xaf" scope="0xf" subsym="0x7b" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="dest" id="0xbd" scope="0x18" subsym="0x88" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x9"/>
 </operand_sym>
-<operand_sym name="source0" id="0xb0" scope="0xf" subsym="0x6d" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="source0" id="0xbe" scope="0x18" subsym="0x72" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x9"/>
 </operand_sym>
-<operand_sym name="seqword" id="0xb1" scope="0xf" subsym="0x7d" off="6" base="-1" minlen="4" index="4">
+<operand_sym name="seqword" id="0xbf" scope="0x18" subsym="0x8a" off="6" base="-1" minlen="4" index="4">
 <operand_exp index="4" table="0x0" ct="0x9"/>
 </operand_sym>
-<operand_sym name="source1" id="0xb2" scope="0xf" subsym="0x74" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="source1" id="0xc0" scope="0x18" subsym="0x7d" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x9"/>
 </operand_sym>
 </symbol_table>

@@ -2,9 +2,9 @@
 define endian=little;
 define alignment=1;
 
+define space ucode		type=ram_space size=8 default;
 define space register	type=register_space size=2;
 define space ram		type=ram_space size=8;
-define space ucode		type=ram_space size=8 default;
 define space crbus type=ram_space size=2 wordsize=8;
 
 # fake a stack pointer for the decompilation
@@ -180,7 +180,11 @@ source0: imm0_sel2 is imm0_sel2 & imm1_sel=2 & src0_sel = 16 {export imm0_sel2;}
 source0: imm0_sel3 is imm0_sel3 & imm1_sel=3 & src0_sel = 16 {export imm0_sel3;}
 source0: immediate is imm0 & imm1 & (src0_sel = 0 | src0_sel = 8 | src0_sel = 9 | src0_sel = 10 | src0_sel = 11 | src0_sel = 12 | src0_sel = 13 | src0_sel = 14 | src0_sel = 15 | src0_sel = 24 | src0_sel = 25 | src0_sel = 26 | src0_sel = 27 | src0_sel = 28 | src0_sel = 29 | src0_sel = 30 | src0_sel = 31) & src0_sel [
 	immediate = 0xffffffffffff0000 * ((src0_sel & 0x10) >> 4) | ((src0_sel & 0x07) << 13) | (imm1 << 8) | imm0;
-] { export immediate; }
+] { 
+	# ghidra needs explicit size
+	local tmp:8 = immediate;
+	export tmp;
+}
 
 source1: src1 is src1 & src1_sel { export src1; }
 source1: imm0_sel0 is imm0_sel0 & imm1_sel=0 & src1_sel = 16 {export imm0_sel0;}
@@ -189,7 +193,11 @@ source1: imm0_sel2 is imm0_sel2 & imm1_sel=2 & src1_sel = 16 {export imm0_sel2;}
 source1: imm0_sel3 is imm0_sel3 & imm1_sel=3 & src1_sel = 16 {export imm0_sel3;}
 source1: immediate is imm0 & imm1 & (src1_sel = 0 | src1_sel = 8 | src1_sel = 9 | src1_sel = 10 | src1_sel = 11 | src1_sel = 12 | src1_sel = 13 | src1_sel = 14 | src1_sel = 15 | src1_sel = 24 | src1_sel = 25 | src1_sel = 26 | src1_sel = 27 | src1_sel = 28 | src1_sel = 29 | src1_sel = 30 | src1_sel = 31) & src1_sel [
 	immediate = 0xffffffffffff0000 * ((src1_sel & 0x10) >> 4) | ((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0;
-] { export immediate; }
+] { 
+	# ghidra needs explicit size
+	local tmp:8 = immediate;
+	export tmp;
+}
 
 dest: dst is dst { export dst; }
 
@@ -227,11 +235,11 @@ seqword: | up0[eflow], up1["goto" next_uaddr], up2[sync] is up0 & eflow & up1 & 
 	dest = ~(source0 & source1);
 }
 
-:zeroext^"_"^dst_size dest, source0 seqword is (opcode = 0x008 | opcode = 0x048 | opcode = 0x088 | opcode = 0x0c8) & dest & source0 & source1 & dst_size; seqword {
+:zeroext^"_"^dst_size dest, source0 seqword is (opcode = 0x008 | opcode = 0x048 | opcode = 0x088 | opcode = 0x0c8) & dest & source0 & dst_size; seqword {
 	dest = source0;
 }
 
-:mov^"_"^dst_size dest, source0 seqword is (opcode = 0x009 | opcode = 0x049) & dest & source0 & source1 & dst_size; seqword {
+:mov^"_"^dst_size dest, source0 seqword is (opcode = 0x009 | opcode = 0x049) & dest & source0 & dst_size; seqword {
 	dest = source0;
 }
 

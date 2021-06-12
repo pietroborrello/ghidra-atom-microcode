@@ -16,6 +16,7 @@ define register offset=0x00 size=8 [
 	rax rbx rcx rdx rsp rbp rsi rdi r8 r9 r10 r11 r12 r13 r14 r15 
 	tmp0 tmp1 tmp2 tmp3 tmp4 tmp5 tmp6 tmp7 tmp8 tmp9 tmp10 tmp11 tmp12 tmp13 tmp14 tmp15 
 	tmpv0 tmpv1 tmpv2 tmpv3 
+	r64dst r64src r64base r64idx
 ];
 
 define register offset=0x1000 size=16 [
@@ -23,22 +24,57 @@ define register offset=0x1000 size=16 [
 	mm0 mm1 mm2 mm3 mm4 mm5 mm6 mm7 
 	tmm0 tmm1 tmm2 tmm3 tmm4 tmm5 tmm6 tmm7 
 	tmmv0 tmmv1 tmmv2 tmmv3
+	xmmdst xmmsrc
 ];
 
 # Fields =================================================================================
 define token _uop(48)
 	full_uop = (0, 47)
 	src0   = (0,  5)
+		src0_xmm   = (0,  5)
+		src0_sel   = (0,  5)
 	src1   = (6,  11)
+		src1_xmm   = (6,  11)
+		src1_sel   = (6,  11)
 	dst    = (12, 17)
+		dst_xmm    = (12, 17)
+		dst_sel    = (12, 17)
 	imm1   = (18, 22)
 	m0     = (23, 23)
 	imm0   = (24, 31)
 	opcode = (32, 43)
+		dest_size = (38, 39)
 	m1     = (44, 44)
 	m2     = (45, 45)
 	uknown = (46, 47)
 ;
+
+# ATTACH REGISTER NAMES
+attach variables [ src0 src1 ] [ 
+	_ r64dst r64src rdi r64base r64idx rdx rdx _ _ _ _ _ _ _ _ _ 
+	tmp2 tmp0 tmp7 tmpv0 tmpv1 tmpv2 tmpv3 _ _ _ _ _ _ _ _ 
+	rax rcx rdx rbx rsp rbp rsi rdi r8 r9 r10 r11 r12 r13 r14 r15 
+	tmp0 tmp1 tmp2 tmp3 tmp4 tmp5 tmp6 tmp7 tmp8 tmp9 tmp10 tmp11 tmp12 tmp13 tmp14 tmp15
+];
+attach variables [ src0_xmm src1_xmm ] [ 
+	_ xmmdst xmmsrc xmm7 _ _ xmm2 xmm2 _ _ _ _ _ _ _ _ _ 
+	mm2 mm0 mm7 tmmv0 tmmv1 tmmv2 tmmv3 _ _ _ _ _ _ _ _ 
+	xmm0 xmm1 xmm2 xmm3 xmm4 xmm5 xmm6 xmm7 xmm8 xmm9 xmm10 xmm11 xmm12 xmm13 xmm14 xmm15 
+	mm0 mm1 mm2 mm3 mm4 mm5 mm6 mm7 tmm0 tmm1 tmm2 tmm3 tmm4 tmm5 tmm6 tmm7
+];
+
+attach variables [ dst ] [ 
+	_ r64dst rax rdi rax rax rdx rdx tmp0 tmp7 tmp0 tmp0 tmp0 tmp7 tmp0 tmp0 
+	_ tmp2 tmp0 tmp7 tmpv0 tmpv1 tmpv2 tmpv3 tmp0 tmp7 tmp0 tmp0 tmp0 tmp7 tmp0 tmp0 
+	rax rcx rdx rbx rsp rbp rsi rdi r8 r9 r10 r11 r12 r13 r14 r15 
+	tmp0 tmp1 tmp2 tmp3 tmp4 tmp5 tmp6 tmp7 tmp8 tmp9 tmp10 tmp11 tmp12 tmp13 tmp14 tmp15
+];
+attach variables [ dst_xmm ] [ 
+	_ xmm2 xmm0 xmm7 xmm0 xmm0 xmm2 xmm2 mm0 mm7 mm0 mm0 mm0 mm7 mm0 mm0 _ 
+	mm2 mm0 mm7 tmmv0 tmmv1 tmmv2 tmmv3 mm0 mm7 mm0 mm0 mm0 mm7 mm0 mm0 
+	xmm0 xmm1 xmm2 xmm3 xmm4 xmm5 xmm6 xmm7 xmm8 xmm9 xmm10 xmm11 xmm12 xmm13 xmm14 xmm15 
+	mm0 mm1 mm2 mm3 mm4 mm5 mm6 mm7 tmm0 tmm1 tmm2 tmm3 tmm4 tmm5 tmm6 tmm7
+];
 
 define token _seqword(32)
 	full_seqword = (0, 31)
@@ -52,9 +88,31 @@ define token _seqword(32)
 	pad        = (30 ,31)
 ;
 
+
+# deal with sources or immediates
+source0: src0 is src0 & src0_sel { export src0; }
+source0: immediate is imm0 & imm1 & (src0_sel = 0 | src0_sel = 8 | src0_sel = 9 | src0_sel = 11 | src0_sel = 12 | src0_sel = 13 | src0_sel = 14 | src0_sel = 15 | src0_sel = 16 | src0_sel = 24 | src0_sel = 25 | src0_sel = 26 | src0_sel = 27 | src0_sel = 28 | src0_sel = 29 | src0_sel = 30 | src0_sel = 31) & src0_sel [
+	immediate = 0xffffffffffff0000 * ((src0_sel & 0x10) >> 4) | ((src0_sel & 0x07) << 13) | (imm1 << 8) | imm0;
+] { export immediate; }
+
+source1: src1 is src1 & src1_sel { export src1; }
+source1: immediate is imm0 & imm1 & (src1_sel = 0 | src1_sel = 8 | src1_sel = 9 | src1_sel = 11 | src1_sel = 12 | src1_sel = 13 | src1_sel = 14 | src1_sel = 15 | src1_sel = 16 | src1_sel = 24 | src1_sel = 25 | src1_sel = 26 | src1_sel = 27 | src1_sel = 28 | src1_sel = 29 | src1_sel = 30 | src1_sel = 31) & src1_sel [
+	immediate = 0xffffffffffff0000 * ((src1_sel & 0x10) >> 4) | ((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0;
+] { export immediate; }
+
+dest: dst is dst { export dst; }
+
+
 # DEFAULT PRINT =================================================
 seqword: | up0[eflow], up1["goto" next_uaddr], up2[sync] is up0 & eflow & up1 & next_uaddr & up2 & sync {}
 
 :UNKNOWN opcode: dst <- src0, src1, imm0 , imm1 seqword is opcode & dst & src0 & src1 & imm0 & imm1; seqword unimpl
+
+
+# instructions
+
+:add dest, source0, source1 seqword is (opcode = 0x000 | opcode = 0x040 | opcode = 0x080 | opcode = 0x0c0) & dest & source0 & source1; seqword {
+	dest = source0 + source1;
+}
 
 

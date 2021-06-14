@@ -2,6 +2,8 @@
 define endian=little;
 define alignment=1;
 
+@define INSTR_LEN 10
+
 define space ucode		type=ram_space size=8 default;
 define space register	type=register_space size=2;
 define space ram		type=ram_space size=8;
@@ -163,13 +165,23 @@ define token _seqword(32)
 	full_seqword = (0, 31)
 	up0        = (0, 1)
 	eflow      = (2, 5)
+		eflow_cmd = (2, 5)
 	up1        = (6, 7)
 	next_uaddr = (8, 22)
 	up2        = (23, 24)
 	sync       = (25, 27)
+		sync_cmd  = (25, 27)
 	unknown2   = (28, 29)
 	pad        = (30 ,31)
 ;
+attach names [sync_cmd] [
+	"UNKNOWN_SYNC" "LFNCEWAIT" "LFNCEMARK" "LFNCEWTMRK" "SYNCFULL" "SYNCWAIT" "SYNCMARK" "SYNCWTMRK"
+];
+# TODO: with strings you cannot express pcode semantics
+attach names [eflow_cmd] [
+	"UNKNOWN_EFLOW" "UNKNOWN_EFLOW" "SEQW URET0" "SEQW URET1" "SEQW SAVEUIP0" "SEQW SAVEUIP1" "SEQW SAVEUIP0" "SEQW SAVEUIP1"
+	"WRTAGW" "MSLOOP" "UNKNOWN_EFLOW" "MSSTOP" "SEQW UEND0" "SEQW UEND1" "SEQW UEND2" "SEQW UEND3"
+];
 
 
 # deal with sources or immediates
@@ -203,14 +215,30 @@ dest: dst is dst { export dst; }
 
 
 # DEFAULT PRINT =================================================
-seqword: | up0[eflow], up1["goto" next_uaddr], up2[sync] is up0 & eflow & up1 & next_uaddr & up2 & sync {}
+seqword_sync: [sync_cmd] is up2=1 & sync_cmd {}
+seqword_sync:"" is up2=0 & sync {}
+
+# TODO: implement the address calculation for saveuip
+seqword_eflow:"; "^eflow_cmd is up0=1 & (eflow=4 | eflow=5) & eflow_cmd {}
+seqword_eflow:"; ROVR<-"^eflow_cmd is up0=1 & (eflow=6 | eflow=7) & eflow_cmd {}
+seqword_eflow:"; "^eflow_cmd is up0=1 & eflow_cmd {}
+seqword_eflow:"" is up0=1 & eflow=0 {}
+seqword_eflow:"" is up0=0 & eflow {}
+
+# TODO: express conditional execution of goto with testustate
+seqword_goto:"; SEQW GOTO" target is up1=1 & next_uaddr [
+	target = next_uaddr*$(INSTR_LEN);
+]{}
+seqword_goto:"" is up1=0 & next_uaddr {}
+
+seqword:""^seqword_eflow^seqword_goto^seqword_sync is seqword_eflow & seqword_goto & seqword_sync {}
 seqword:"" is full_seqword=0 {}
 
-:UNKNOWN opcode: dst_sel <- src0_sel, src1_sel, imm0 , imm1 seqword is opcode & dst_sel & src0_sel & src1_sel & imm0 & imm1; seqword unimpl
+:UNKNOWN opcode: dst_sel <- src0_sel, src1_sel, imm0, imm1 seqword is opcode & dst_sel & src0_sel & src1_sel & imm0 & imm1; seqword unimpl
 
 
 # instructions TODO: fix semantics
-:nop is full_uop=0; full_seqword {}
+:nop seqword is full_uop=0; seqword {}
 
 :add^"_"^dst_size dest, source0, source1 seqword is (opcode = 0x000 | opcode = 0x040 | opcode = 0x080 | opcode = 0x0c0) & dest & source0 & source1 & dst_size; seqword {
 	dest = source0 + source1;

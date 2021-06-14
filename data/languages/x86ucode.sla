@@ -1,4 +1,4 @@
-<sleigh version="2" bigendian="false" align="1" uniqbase="0x110">
+<sleigh version="2" bigendian="false" align="1" uniqbase="0x120">
 <spaces defaultspace="ucode">
 <space_other name="OTHER" index="1" bigendian="false" delay="0" size="8" physical="false"/>
 <space_unique name="unique" index="2" bigendian="false" delay="0" size="4" physical="true"/>
@@ -8,7 +8,7 @@
 <space name="crbus" index="6" bigendian="false" delay="1" size="2" wordsize="8" physical="true"/>
 <space name="dummy_space" index="7" bigendian="false" delay="1" size="2" physical="true"/>
 </spaces>
-<symbol_table scopesize="33" symbolsize="202">
+<symbol_table scopesize="34" symbolsize="204">
 <scope id="0x0" parent="0x0"/>
 <scope id="0x1" parent="0x0"/>
 <scope id="0x2" parent="0x0"/>
@@ -42,6 +42,7 @@
 <scope id="0x1e" parent="0x0"/>
 <scope id="0x1f" parent="0x0"/>
 <scope id="0x20" parent="0x0"/>
+<scope id="0x21" parent="0x0"/>
 <subtable_sym_head name="instruction" id="0x0" scope="0x0"/>
 <start_sym_head name="inst_start" id="0x1" scope="0x0"/>
 <end_sym_head name="inst_next" id="0x2" scope="0x0"/>
@@ -190,69 +191,71 @@
 <operand_sym_head name="eflow_cmd" id="0x91" scope="0x11"/>
 <operand_sym_head name="eflow_cmd" id="0x92" scope="0x12"/>
 <operand_sym_head name="eflow" id="0x93" scope="0x13"/>
-<subtable_sym_head name="seqword_goto" id="0x94" scope="0x0"/>
+<subtable_sym_head name="seqword_target" id="0x94" scope="0x0"/>
 <operand_sym_head name="target" id="0x95" scope="0x14"/>
 <operand_sym_head name="next_uaddr" id="0x96" scope="0x14"/>
-<operand_sym_head name="next_uaddr" id="0x97" scope="0x15"/>
-<subtable_sym_head name="seqword" id="0x98" scope="0x0"/>
-<operand_sym_head name="seqword_eflow" id="0x99" scope="0x16"/>
-<operand_sym_head name="seqword_goto" id="0x9a" scope="0x16"/>
-<operand_sym_head name="seqword_sync" id="0x9b" scope="0x16"/>
-<operand_sym_head name="opcode" id="0x9c" scope="0x17"/>
-<operand_sym_head name="dst_sel" id="0x9d" scope="0x17"/>
-<operand_sym_head name="src0_sel" id="0x9e" scope="0x17"/>
-<operand_sym_head name="src1_sel" id="0x9f" scope="0x17"/>
-<operand_sym_head name="imm0" id="0xa0" scope="0x17"/>
-<operand_sym_head name="imm1" id="0xa1" scope="0x17"/>
-<operand_sym_head name="seqword" id="0xa2" scope="0x17"/>
-<operand_sym_head name="seqword" id="0xa3" scope="0x18"/>
-<operand_sym_head name="dst_size" id="0xa4" scope="0x19"/>
-<operand_sym_head name="dest" id="0xa5" scope="0x19"/>
-<operand_sym_head name="source0" id="0xa6" scope="0x19"/>
-<operand_sym_head name="source1" id="0xa7" scope="0x19"/>
-<operand_sym_head name="seqword" id="0xa8" scope="0x19"/>
-<operand_sym_head name="dst_size" id="0xa9" scope="0x1a"/>
-<operand_sym_head name="dest" id="0xaa" scope="0x1a"/>
-<operand_sym_head name="source0" id="0xab" scope="0x1a"/>
-<operand_sym_head name="source1" id="0xac" scope="0x1a"/>
-<operand_sym_head name="seqword" id="0xad" scope="0x1a"/>
-<operand_sym_head name="dst_size" id="0xae" scope="0x1b"/>
-<operand_sym_head name="dest" id="0xaf" scope="0x1b"/>
-<operand_sym_head name="source0" id="0xb0" scope="0x1b"/>
-<operand_sym_head name="source1" id="0xb1" scope="0x1b"/>
-<operand_sym_head name="seqword" id="0xb2" scope="0x1b"/>
-<operand_sym_head name="dst_size" id="0xb3" scope="0x1c"/>
-<operand_sym_head name="dest" id="0xb4" scope="0x1c"/>
-<operand_sym_head name="source0" id="0xb5" scope="0x1c"/>
-<operand_sym_head name="source1" id="0xb6" scope="0x1c"/>
-<operand_sym_head name="seqword" id="0xb7" scope="0x1c"/>
-<operand_sym_head name="dst_size" id="0xb8" scope="0x1d"/>
-<operand_sym_head name="dest" id="0xb9" scope="0x1d"/>
-<operand_sym_head name="source0" id="0xba" scope="0x1d"/>
-<operand_sym_head name="source1" id="0xbb" scope="0x1d"/>
-<operand_sym_head name="seqword" id="0xbc" scope="0x1d"/>
-<operand_sym_head name="dst_size" id="0xbd" scope="0x1e"/>
-<operand_sym_head name="dest" id="0xbe" scope="0x1e"/>
-<operand_sym_head name="source0" id="0xbf" scope="0x1e"/>
-<operand_sym_head name="source1" id="0xc0" scope="0x1e"/>
-<operand_sym_head name="seqword" id="0xc1" scope="0x1e"/>
-<operand_sym_head name="dst_size" id="0xc2" scope="0x1f"/>
-<operand_sym_head name="dest" id="0xc3" scope="0x1f"/>
-<operand_sym_head name="source0" id="0xc4" scope="0x1f"/>
-<operand_sym_head name="seqword" id="0xc5" scope="0x1f"/>
-<operand_sym_head name="dst_size" id="0xc6" scope="0x20"/>
-<operand_sym_head name="dest" id="0xc7" scope="0x20"/>
-<operand_sym_head name="source0" id="0xc8" scope="0x20"/>
-<operand_sym_head name="seqword" id="0xc9" scope="0x20"/>
+<subtable_sym_head name="seqword_goto" id="0x97" scope="0x0"/>
+<operand_sym_head name="seqword_target" id="0x98" scope="0x15"/>
+<operand_sym_head name="next_uaddr" id="0x99" scope="0x16"/>
+<subtable_sym_head name="seqword" id="0x9a" scope="0x0"/>
+<operand_sym_head name="seqword_eflow" id="0x9b" scope="0x17"/>
+<operand_sym_head name="seqword_goto" id="0x9c" scope="0x17"/>
+<operand_sym_head name="seqword_sync" id="0x9d" scope="0x17"/>
+<operand_sym_head name="opcode" id="0x9e" scope="0x18"/>
+<operand_sym_head name="dst_sel" id="0x9f" scope="0x18"/>
+<operand_sym_head name="src0_sel" id="0xa0" scope="0x18"/>
+<operand_sym_head name="src1_sel" id="0xa1" scope="0x18"/>
+<operand_sym_head name="imm0" id="0xa2" scope="0x18"/>
+<operand_sym_head name="imm1" id="0xa3" scope="0x18"/>
+<operand_sym_head name="seqword" id="0xa4" scope="0x18"/>
+<operand_sym_head name="seqword" id="0xa5" scope="0x19"/>
+<operand_sym_head name="dst_size" id="0xa6" scope="0x1a"/>
+<operand_sym_head name="dest" id="0xa7" scope="0x1a"/>
+<operand_sym_head name="source0" id="0xa8" scope="0x1a"/>
+<operand_sym_head name="source1" id="0xa9" scope="0x1a"/>
+<operand_sym_head name="seqword" id="0xaa" scope="0x1a"/>
+<operand_sym_head name="dst_size" id="0xab" scope="0x1b"/>
+<operand_sym_head name="dest" id="0xac" scope="0x1b"/>
+<operand_sym_head name="source0" id="0xad" scope="0x1b"/>
+<operand_sym_head name="source1" id="0xae" scope="0x1b"/>
+<operand_sym_head name="seqword" id="0xaf" scope="0x1b"/>
+<operand_sym_head name="dst_size" id="0xb0" scope="0x1c"/>
+<operand_sym_head name="dest" id="0xb1" scope="0x1c"/>
+<operand_sym_head name="source0" id="0xb2" scope="0x1c"/>
+<operand_sym_head name="source1" id="0xb3" scope="0x1c"/>
+<operand_sym_head name="seqword" id="0xb4" scope="0x1c"/>
+<operand_sym_head name="dst_size" id="0xb5" scope="0x1d"/>
+<operand_sym_head name="dest" id="0xb6" scope="0x1d"/>
+<operand_sym_head name="source0" id="0xb7" scope="0x1d"/>
+<operand_sym_head name="source1" id="0xb8" scope="0x1d"/>
+<operand_sym_head name="seqword" id="0xb9" scope="0x1d"/>
+<operand_sym_head name="dst_size" id="0xba" scope="0x1e"/>
+<operand_sym_head name="dest" id="0xbb" scope="0x1e"/>
+<operand_sym_head name="source0" id="0xbc" scope="0x1e"/>
+<operand_sym_head name="source1" id="0xbd" scope="0x1e"/>
+<operand_sym_head name="seqword" id="0xbe" scope="0x1e"/>
+<operand_sym_head name="dst_size" id="0xbf" scope="0x1f"/>
+<operand_sym_head name="dest" id="0xc0" scope="0x1f"/>
+<operand_sym_head name="source0" id="0xc1" scope="0x1f"/>
+<operand_sym_head name="source1" id="0xc2" scope="0x1f"/>
+<operand_sym_head name="seqword" id="0xc3" scope="0x1f"/>
+<operand_sym_head name="dst_size" id="0xc4" scope="0x20"/>
+<operand_sym_head name="dest" id="0xc5" scope="0x20"/>
+<operand_sym_head name="source0" id="0xc6" scope="0x20"/>
+<operand_sym_head name="seqword" id="0xc7" scope="0x20"/>
+<operand_sym_head name="dst_size" id="0xc8" scope="0x21"/>
+<operand_sym_head name="dest" id="0xc9" scope="0x21"/>
+<operand_sym_head name="source0" id="0xca" scope="0x21"/>
+<operand_sym_head name="seqword" id="0xcb" scope="0x21"/>
 <subtable_sym name="instruction" id="0x0" scope="0x0" numct="10">
-<constructor parent="0x0" first="1" length="10" line="237">
-<oper id="0x9c"/>
-<oper id="0x9d"/>
+<constructor parent="0x0" first="1" length="10" line="244">
 <oper id="0x9e"/>
 <oper id="0x9f"/>
 <oper id="0xa0"/>
 <oper id="0xa1"/>
 <oper id="0xa2"/>
+<oper id="0xa3"/>
+<oper id="0xa4"/>
 <print piece="UNKNOWN"/>
 <print piece=" "/>
 <opprint id="0"/>
@@ -275,8 +278,8 @@
 <print piece=" "/>
 <opprint id="6"/>
 </constructor>
-<constructor parent="0x0" first="1" length="10" line="241">
-<oper id="0xa3"/>
+<constructor parent="0x0" first="1" length="10" line="248">
+<oper id="0xa5"/>
 <print piece="nop"/>
 <print piece=" "/>
 <opprint id="0"/>
@@ -286,12 +289,12 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="243">
-<oper id="0xa5"/>
-<oper id="0xa6"/>
+<constructor parent="0x0" first="2" length="10" line="250">
 <oper id="0xa7"/>
-<oper id="0xa4"/>
 <oper id="0xa8"/>
+<oper id="0xa9"/>
+<oper id="0xa6"/>
+<oper id="0xaa"/>
 <print piece="add_"/>
 <opprint id="3"/>
 <print piece=" "/>
@@ -306,9 +309,6 @@
 <opprint id="4"/>
 <construct_tpl>
 <null/><op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x2"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
@@ -321,14 +321,17 @@
 <varnode_tpl><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="2" s="space"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
 </op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="247">
-<oper id="0xaa"/>
-<oper id="0xab"/>
+<constructor parent="0x0" first="2" length="10" line="255">
 <oper id="0xac"/>
-<oper id="0xa9"/>
 <oper id="0xad"/>
+<oper id="0xae"/>
+<oper id="0xab"/>
+<oper id="0xaf"/>
 <print piece="or_"/>
 <opprint id="3"/>
 <print piece=" "/>
@@ -343,9 +346,6 @@
 <opprint id="4"/>
 <construct_tpl>
 <null/><op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x2"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
@@ -358,14 +358,17 @@
 <varnode_tpl><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="2" s="space"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
 </op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="251">
-<oper id="0xaf"/>
-<oper id="0xb0"/>
+<constructor parent="0x0" first="2" length="10" line="260">
 <oper id="0xb1"/>
-<oper id="0xae"/>
 <oper id="0xb2"/>
+<oper id="0xb3"/>
+<oper id="0xb0"/>
+<oper id="0xb4"/>
 <print piece="and_"/>
 <opprint id="3"/>
 <print piece=" "/>
@@ -380,9 +383,6 @@
 <opprint id="4"/>
 <construct_tpl>
 <null/><op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x2"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
@@ -395,14 +395,17 @@
 <varnode_tpl><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="2" s="space"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
 </op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="255">
-<oper id="0xb4"/>
-<oper id="0xb5"/>
+<constructor parent="0x0" first="2" length="10" line="265">
 <oper id="0xb6"/>
-<oper id="0xb3"/>
 <oper id="0xb7"/>
+<oper id="0xb8"/>
+<oper id="0xb5"/>
+<oper id="0xb9"/>
 <print piece="sub_"/>
 <opprint id="3"/>
 <print piece=" "/>
@@ -417,9 +420,6 @@
 <opprint id="4"/>
 <construct_tpl>
 <null/><op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x2"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
@@ -432,14 +432,17 @@
 <varnode_tpl><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="2" s="space"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
 </op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="259">
-<oper id="0xb9"/>
-<oper id="0xba"/>
+<constructor parent="0x0" first="2" length="10" line="270">
 <oper id="0xbb"/>
-<oper id="0xb8"/>
 <oper id="0xbc"/>
+<oper id="0xbd"/>
+<oper id="0xba"/>
+<oper id="0xbe"/>
 <print piece="xor_"/>
 <opprint id="3"/>
 <print piece=" "/>
@@ -454,9 +457,6 @@
 <opprint id="4"/>
 <construct_tpl>
 <null/><op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x2"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
@@ -469,14 +469,17 @@
 <varnode_tpl><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="2" s="space"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
 </op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="263">
-<oper id="0xbe"/>
-<oper id="0xbf"/>
+<constructor parent="0x0" first="2" length="10" line="275">
 <oper id="0xc0"/>
-<oper id="0xbd"/>
 <oper id="0xc1"/>
+<oper id="0xc2"/>
+<oper id="0xbf"/>
+<oper id="0xc3"/>
 <print piece="notand_"/>
 <opprint id="3"/>
 <print piece=" "/>
@@ -491,9 +494,6 @@
 <opprint id="4"/>
 <construct_tpl>
 <null/><op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x2"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
@@ -502,20 +502,23 @@
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_AND"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0xf0"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
+<op_tpl code="INT_AND"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x100"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="2" s="space"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="INT_NEGATE"><varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0xf0"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x100"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="267">
-<oper id="0xc3"/>
-<oper id="0xc4"/>
-<oper id="0xc2"/>
+<constructor parent="0x0" first="2" length="10" line="280">
 <oper id="0xc5"/>
+<oper id="0xc6"/>
+<oper id="0xc4"/>
+<oper id="0xc7"/>
 <print piece="zeroext_"/>
 <opprint id="2"/>
 <print piece=" "/>
@@ -527,9 +530,6 @@
 <opprint id="3"/>
 <construct_tpl>
 <null/><op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x3"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
@@ -538,13 +538,16 @@
 <op_tpl code="COPY"><varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
 </op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x3"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="10" line="271">
-<oper id="0xc7"/>
-<oper id="0xc8"/>
-<oper id="0xc6"/>
+<constructor parent="0x0" first="2" length="10" line="285">
 <oper id="0xc9"/>
+<oper id="0xca"/>
+<oper id="0xc8"/>
+<oper id="0xcb"/>
 <print piece="mov_"/>
 <opprint id="2"/>
 <print piece=" "/>
@@ -556,9 +559,6 @@
 <opprint id="3"/>
 <construct_tpl>
 <null/><op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x3"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
@@ -566,6 +566,9 @@
 </op_tpl>
 <op_tpl code="COPY"><varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x3"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 </construct_tpl>
 </constructor>
@@ -6074,18 +6077,52 @@
 <operand_exp index="0" table="0x8f" ct="0x4"/>
 <tokenfield bigendian="false" signbit="false" bitstart="2" bitend="5" bytestart="0" byteend="0" shift="2"/>
 </operand_sym>
-<subtable_sym name="seqword_goto" id="0x94" scope="0x0" numct="2">
+<subtable_sym name="seqword_target" id="0x94" scope="0x0" numct="1">
 <constructor parent="0x94" first="1" length="4" line="229">
 <oper id="0x96"/>
 <oper id="0x95"/>
-<print piece="; SEQW GOTO"/>
-<print piece=" "/>
 <opprint id="1"/>
 <construct_tpl>
-<null/></construct_tpl>
+<handle_tpl><const_tpl type="spaceid" name="ucode"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0xa0"/></handle_tpl>
+</construct_tpl>
 </constructor>
-<constructor parent="0x94" first="0" length="4" line="232">
-<oper id="0x97"/>
+<decision number="1" context="false" start="0" size="0">
+<pair id="0">
+<instruct_pat>
+<pat_block offset="0" nonzero="0">
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
+</subtable_sym>
+<operand_sym name="target" id="0x95" scope="0x14" off="0" base="-1" minlen="0" index="1">
+<operand_exp index="1" table="0x94" ct="0x0"/>
+<mult_exp>
+<operand_exp index="0" table="0x94" ct="0x0"/>
+<intb val="10"/>
+</mult_exp>
+</operand_sym>
+<operand_sym name="next_uaddr" id="0x96" scope="0x14" off="0" base="-1" minlen="4" index="0">
+<operand_exp index="0" table="0x94" ct="0x0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="8" bitend="22" bytestart="1" byteend="2" shift="0"/>
+</operand_sym>
+<subtable_sym name="seqword_goto" id="0x97" scope="0x0" numct="2">
+<constructor parent="0x97" first="1" length="4" line="232">
+<oper id="0x98"/>
+<print piece="; SEQW GOTO"/>
+<print piece=" "/>
+<opprint id="0"/>
+<construct_tpl>
+<null/><op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BRANCH"><null/>
+<varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
+</op_tpl>
+</construct_tpl>
+</constructor>
+<constructor parent="0x97" first="0" length="4" line="235">
+<oper id="0x99"/>
 <construct_tpl>
 <null/></construct_tpl>
 </constructor>
@@ -6110,26 +6147,18 @@
 </decision>
 </decision>
 </subtable_sym>
-<operand_sym name="target" id="0x95" scope="0x14" off="0" base="-1" minlen="0" index="1">
-<operand_exp index="1" table="0x94" ct="0x0"/>
-<mult_exp>
-<operand_exp index="0" table="0x94" ct="0x0"/>
-<intb val="10"/>
-</mult_exp>
+<operand_sym name="seqword_target" id="0x98" scope="0x15" subsym="0x94" off="0" base="-1" minlen="4" code="true" index="0">
+<operand_exp index="0" table="0x97" ct="0x0"/>
 </operand_sym>
-<operand_sym name="next_uaddr" id="0x96" scope="0x14" off="0" base="-1" minlen="4" index="0">
-<operand_exp index="0" table="0x94" ct="0x0"/>
+<operand_sym name="next_uaddr" id="0x99" scope="0x16" off="0" base="-1" minlen="4" index="0">
+<operand_exp index="0" table="0x97" ct="0x1"/>
 <tokenfield bigendian="false" signbit="false" bitstart="8" bitend="22" bytestart="1" byteend="2" shift="0"/>
 </operand_sym>
-<operand_sym name="next_uaddr" id="0x97" scope="0x15" off="0" base="-1" minlen="4" index="0">
-<operand_exp index="0" table="0x94" ct="0x1"/>
-<tokenfield bigendian="false" signbit="false" bitstart="8" bitend="22" bytestart="1" byteend="2" shift="0"/>
-</operand_sym>
-<subtable_sym name="seqword" id="0x98" scope="0x0" numct="2">
-<constructor parent="0x98" first="3" length="4" line="234">
-<oper id="0x99"/>
-<oper id="0x9a"/>
+<subtable_sym name="seqword" id="0x9a" scope="0x0" numct="2">
+<constructor parent="0x9a" first="3" length="4" line="237">
 <oper id="0x9b"/>
+<oper id="0x9c"/>
+<oper id="0x9d"/>
 <opprint id="0"/>
 <opprint id="1"/>
 <opprint id="2"/>
@@ -6138,14 +6167,14 @@
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x2"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x98" first="0" length="4" line="235">
+<constructor parent="0x9a" first="0" length="4" line="242">
 <construct_tpl>
 <null/></construct_tpl>
 </constructor>
@@ -6166,157 +6195,157 @@
 </pair>
 </decision>
 </subtable_sym>
-<operand_sym name="seqword_eflow" id="0x99" scope="0x16" subsym="0x8f" off="0" base="-1" minlen="4" index="0">
-<operand_exp index="0" table="0x98" ct="0x0"/>
+<operand_sym name="seqword_eflow" id="0x9b" scope="0x17" subsym="0x8f" off="0" base="-1" minlen="4" index="0">
+<operand_exp index="0" table="0x9a" ct="0x0"/>
 </operand_sym>
-<operand_sym name="seqword_goto" id="0x9a" scope="0x16" subsym="0x94" off="0" base="-1" minlen="4" index="1">
-<operand_exp index="1" table="0x98" ct="0x0"/>
+<operand_sym name="seqword_goto" id="0x9c" scope="0x17" subsym="0x97" off="0" base="-1" minlen="4" index="1">
+<operand_exp index="1" table="0x9a" ct="0x0"/>
 </operand_sym>
-<operand_sym name="seqword_sync" id="0x9b" scope="0x16" subsym="0x8c" off="0" base="-1" minlen="4" index="2">
-<operand_exp index="2" table="0x98" ct="0x0"/>
+<operand_sym name="seqword_sync" id="0x9d" scope="0x17" subsym="0x8c" off="0" base="-1" minlen="4" index="2">
+<operand_exp index="2" table="0x9a" ct="0x0"/>
 </operand_sym>
-<operand_sym name="opcode" id="0x9c" scope="0x17" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="opcode" id="0x9e" scope="0x18" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="32" bitend="43" bytestart="4" byteend="5" shift="0"/>
 </operand_sym>
-<operand_sym name="dst_sel" id="0x9d" scope="0x17" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="dst_sel" id="0x9f" scope="0x18" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="12" bitend="17" bytestart="1" byteend="2" shift="4"/>
 </operand_sym>
-<operand_sym name="src0_sel" id="0x9e" scope="0x17" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="src0_sel" id="0xa0" scope="0x18" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="0" bitend="5" bytestart="0" byteend="0" shift="0"/>
 </operand_sym>
-<operand_sym name="src1_sel" id="0x9f" scope="0x17" off="0" base="-1" minlen="6" index="3">
+<operand_sym name="src1_sel" id="0xa1" scope="0x18" off="0" base="-1" minlen="6" index="3">
 <operand_exp index="3" table="0x0" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="6" bitend="11" bytestart="0" byteend="1" shift="6"/>
 </operand_sym>
-<operand_sym name="imm0" id="0xa0" scope="0x17" off="0" base="-1" minlen="6" index="4">
+<operand_sym name="imm0" id="0xa2" scope="0x18" off="0" base="-1" minlen="6" index="4">
 <operand_exp index="4" table="0x0" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="24" bitend="31" bytestart="3" byteend="3" shift="0"/>
 </operand_sym>
-<operand_sym name="imm1" id="0xa1" scope="0x17" off="0" base="-1" minlen="6" index="5">
+<operand_sym name="imm1" id="0xa3" scope="0x18" off="0" base="-1" minlen="6" index="5">
 <operand_exp index="5" table="0x0" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="18" bitend="22" bytestart="2" byteend="2" shift="2"/>
 </operand_sym>
-<operand_sym name="seqword" id="0xa2" scope="0x17" subsym="0x98" off="6" base="-1" minlen="4" index="6">
+<operand_sym name="seqword" id="0xa4" scope="0x18" subsym="0x9a" off="6" base="-1" minlen="4" index="6">
 <operand_exp index="6" table="0x0" ct="0x0"/>
 </operand_sym>
-<operand_sym name="seqword" id="0xa3" scope="0x18" subsym="0x98" off="6" base="-1" minlen="4" index="0">
+<operand_sym name="seqword" id="0xa5" scope="0x19" subsym="0x9a" off="6" base="-1" minlen="4" index="0">
 <operand_exp index="0" table="0x0" ct="0x1"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0xa4" scope="0x19" subsym="0x65" off="0" base="-1" minlen="6" index="3">
+<operand_sym name="dst_size" id="0xa6" scope="0x1a" subsym="0x65" off="0" base="-1" minlen="6" index="3">
 <operand_exp index="3" table="0x0" ct="0x2"/>
 </operand_sym>
-<operand_sym name="dest" id="0xa5" scope="0x19" subsym="0x8a" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="dest" id="0xa7" scope="0x1a" subsym="0x8a" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x2"/>
 </operand_sym>
-<operand_sym name="source0" id="0xa6" scope="0x19" subsym="0x74" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="source0" id="0xa8" scope="0x1a" subsym="0x74" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x2"/>
 </operand_sym>
-<operand_sym name="source1" id="0xa7" scope="0x19" subsym="0x7f" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="source1" id="0xa9" scope="0x1a" subsym="0x7f" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x2"/>
 </operand_sym>
-<operand_sym name="seqword" id="0xa8" scope="0x19" subsym="0x98" off="6" base="-1" minlen="4" index="4">
+<operand_sym name="seqword" id="0xaa" scope="0x1a" subsym="0x9a" off="6" base="-1" minlen="4" index="4">
 <operand_exp index="4" table="0x0" ct="0x2"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0xa9" scope="0x1a" subsym="0x65" off="0" base="-1" minlen="6" index="3">
+<operand_sym name="dst_size" id="0xab" scope="0x1b" subsym="0x65" off="0" base="-1" minlen="6" index="3">
 <operand_exp index="3" table="0x0" ct="0x3"/>
 </operand_sym>
-<operand_sym name="dest" id="0xaa" scope="0x1a" subsym="0x8a" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="dest" id="0xac" scope="0x1b" subsym="0x8a" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x3"/>
 </operand_sym>
-<operand_sym name="source0" id="0xab" scope="0x1a" subsym="0x74" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="source0" id="0xad" scope="0x1b" subsym="0x74" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x3"/>
 </operand_sym>
-<operand_sym name="source1" id="0xac" scope="0x1a" subsym="0x7f" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="source1" id="0xae" scope="0x1b" subsym="0x7f" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x3"/>
 </operand_sym>
-<operand_sym name="seqword" id="0xad" scope="0x1a" subsym="0x98" off="6" base="-1" minlen="4" index="4">
+<operand_sym name="seqword" id="0xaf" scope="0x1b" subsym="0x9a" off="6" base="-1" minlen="4" index="4">
 <operand_exp index="4" table="0x0" ct="0x3"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0xae" scope="0x1b" subsym="0x65" off="0" base="-1" minlen="6" index="3">
+<operand_sym name="dst_size" id="0xb0" scope="0x1c" subsym="0x65" off="0" base="-1" minlen="6" index="3">
 <operand_exp index="3" table="0x0" ct="0x4"/>
 </operand_sym>
-<operand_sym name="dest" id="0xaf" scope="0x1b" subsym="0x8a" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="dest" id="0xb1" scope="0x1c" subsym="0x8a" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x4"/>
 </operand_sym>
-<operand_sym name="source0" id="0xb0" scope="0x1b" subsym="0x74" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="source0" id="0xb2" scope="0x1c" subsym="0x74" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x4"/>
 </operand_sym>
-<operand_sym name="source1" id="0xb1" scope="0x1b" subsym="0x7f" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="source1" id="0xb3" scope="0x1c" subsym="0x7f" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x4"/>
 </operand_sym>
-<operand_sym name="seqword" id="0xb2" scope="0x1b" subsym="0x98" off="6" base="-1" minlen="4" index="4">
+<operand_sym name="seqword" id="0xb4" scope="0x1c" subsym="0x9a" off="6" base="-1" minlen="4" index="4">
 <operand_exp index="4" table="0x0" ct="0x4"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0xb3" scope="0x1c" subsym="0x65" off="0" base="-1" minlen="6" index="3">
+<operand_sym name="dst_size" id="0xb5" scope="0x1d" subsym="0x65" off="0" base="-1" minlen="6" index="3">
 <operand_exp index="3" table="0x0" ct="0x5"/>
 </operand_sym>
-<operand_sym name="dest" id="0xb4" scope="0x1c" subsym="0x8a" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="dest" id="0xb6" scope="0x1d" subsym="0x8a" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x5"/>
 </operand_sym>
-<operand_sym name="source0" id="0xb5" scope="0x1c" subsym="0x74" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="source0" id="0xb7" scope="0x1d" subsym="0x74" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x5"/>
 </operand_sym>
-<operand_sym name="source1" id="0xb6" scope="0x1c" subsym="0x7f" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="source1" id="0xb8" scope="0x1d" subsym="0x7f" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x5"/>
 </operand_sym>
-<operand_sym name="seqword" id="0xb7" scope="0x1c" subsym="0x98" off="6" base="-1" minlen="4" index="4">
+<operand_sym name="seqword" id="0xb9" scope="0x1d" subsym="0x9a" off="6" base="-1" minlen="4" index="4">
 <operand_exp index="4" table="0x0" ct="0x5"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0xb8" scope="0x1d" subsym="0x65" off="0" base="-1" minlen="6" index="3">
+<operand_sym name="dst_size" id="0xba" scope="0x1e" subsym="0x65" off="0" base="-1" minlen="6" index="3">
 <operand_exp index="3" table="0x0" ct="0x6"/>
 </operand_sym>
-<operand_sym name="dest" id="0xb9" scope="0x1d" subsym="0x8a" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="dest" id="0xbb" scope="0x1e" subsym="0x8a" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x6"/>
 </operand_sym>
-<operand_sym name="source0" id="0xba" scope="0x1d" subsym="0x74" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="source0" id="0xbc" scope="0x1e" subsym="0x74" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x6"/>
 </operand_sym>
-<operand_sym name="source1" id="0xbb" scope="0x1d" subsym="0x7f" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="source1" id="0xbd" scope="0x1e" subsym="0x7f" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x6"/>
 </operand_sym>
-<operand_sym name="seqword" id="0xbc" scope="0x1d" subsym="0x98" off="6" base="-1" minlen="4" index="4">
+<operand_sym name="seqword" id="0xbe" scope="0x1e" subsym="0x9a" off="6" base="-1" minlen="4" index="4">
 <operand_exp index="4" table="0x0" ct="0x6"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0xbd" scope="0x1e" subsym="0x65" off="0" base="-1" minlen="6" index="3">
+<operand_sym name="dst_size" id="0xbf" scope="0x1f" subsym="0x65" off="0" base="-1" minlen="6" index="3">
 <operand_exp index="3" table="0x0" ct="0x7"/>
 </operand_sym>
-<operand_sym name="dest" id="0xbe" scope="0x1e" subsym="0x8a" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="dest" id="0xc0" scope="0x1f" subsym="0x8a" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x7"/>
 </operand_sym>
-<operand_sym name="source0" id="0xbf" scope="0x1e" subsym="0x74" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="source0" id="0xc1" scope="0x1f" subsym="0x74" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x7"/>
 </operand_sym>
-<operand_sym name="source1" id="0xc0" scope="0x1e" subsym="0x7f" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="source1" id="0xc2" scope="0x1f" subsym="0x7f" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x7"/>
 </operand_sym>
-<operand_sym name="seqword" id="0xc1" scope="0x1e" subsym="0x98" off="6" base="-1" minlen="4" index="4">
+<operand_sym name="seqword" id="0xc3" scope="0x1f" subsym="0x9a" off="6" base="-1" minlen="4" index="4">
 <operand_exp index="4" table="0x0" ct="0x7"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0xc2" scope="0x1f" subsym="0x65" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="dst_size" id="0xc4" scope="0x20" subsym="0x65" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x8"/>
 </operand_sym>
-<operand_sym name="dest" id="0xc3" scope="0x1f" subsym="0x8a" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="dest" id="0xc5" scope="0x20" subsym="0x8a" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x8"/>
 </operand_sym>
-<operand_sym name="source0" id="0xc4" scope="0x1f" subsym="0x74" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="source0" id="0xc6" scope="0x20" subsym="0x74" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x8"/>
 </operand_sym>
-<operand_sym name="seqword" id="0xc5" scope="0x1f" subsym="0x98" off="6" base="-1" minlen="4" index="3">
+<operand_sym name="seqword" id="0xc7" scope="0x20" subsym="0x9a" off="6" base="-1" minlen="4" index="3">
 <operand_exp index="3" table="0x0" ct="0x8"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0xc6" scope="0x20" subsym="0x65" off="0" base="-1" minlen="6" index="2">
+<operand_sym name="dst_size" id="0xc8" scope="0x21" subsym="0x65" off="0" base="-1" minlen="6" index="2">
 <operand_exp index="2" table="0x0" ct="0x9"/>
 </operand_sym>
-<operand_sym name="dest" id="0xc7" scope="0x20" subsym="0x8a" off="0" base="-1" minlen="6" index="0">
+<operand_sym name="dest" id="0xc9" scope="0x21" subsym="0x8a" off="0" base="-1" minlen="6" index="0">
 <operand_exp index="0" table="0x0" ct="0x9"/>
 </operand_sym>
-<operand_sym name="source0" id="0xc8" scope="0x20" subsym="0x74" off="0" base="-1" minlen="6" index="1">
+<operand_sym name="source0" id="0xca" scope="0x21" subsym="0x74" off="0" base="-1" minlen="6" index="1">
 <operand_exp index="1" table="0x0" ct="0x9"/>
 </operand_sym>
-<operand_sym name="seqword" id="0xc9" scope="0x20" subsym="0x98" off="6" base="-1" minlen="4" index="3">
+<operand_sym name="seqword" id="0xcb" scope="0x21" subsym="0x9a" off="6" base="-1" minlen="4" index="3">
 <operand_exp index="3" table="0x0" ct="0x9"/>
 </operand_sym>
 </symbol_table>

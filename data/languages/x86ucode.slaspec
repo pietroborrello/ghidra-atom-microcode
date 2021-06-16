@@ -184,18 +184,24 @@ attach names [eflow_cmd] [
 	"WRTAGW" "MSLOOP" "UNKNOWN_EFLOW" "MSSTOP" "SEQW UEND0" "SEQW UEND1" "SEQW UEND2" "SEQW UEND3"
 ];
 
-# DEFAULT PRINT =================================================
+# ======= SEQWORD =======
 seqword_sync: [sync_cmd] is up2=1 & sync_cmd {}
 seqword_sync:"" is up2=0 & sync {}
+
+# UEND: think of a better way to express end
+seqword_eflow:"; "^eflow_cmd is up0=1 & (eflow=12 | eflow=13 | eflow=14 |eflow=15) & eflow_cmd { }
 
 seqword_eflow:"; SEQW URET0" is up0=1 & eflow=2 { return [uip0]; }
 seqword_eflow:"; SEQW URET1" is up0=1 & eflow=3 { return [uip1]; }
 # SAVEUIP
-seqword_eflow:"; SEQW SAVEUIP0" next is up0=1 & eflow=4 [ next = inst_next; ] { uip0 = inst_next; }
-seqword_eflow:"; SEQW SAVEUIP1" next is up0=1 & eflow=5 [ next = inst_next; ] { uip1 = inst_next; }
+seqword_next:next is up0=1 [ next = inst_next; ] {
+  export *[ucode]:8 next;
+}
+seqword_eflow:"; SEQW SAVEUIP0" seqword_next is up0=1 & eflow=4 & seqword_next { uip0 = inst_next; }
+seqword_eflow:"; SEQW SAVEUIP1" seqword_next is up0=1 & eflow=5 & seqword_next { uip1 = inst_next; }
 # TODO: what does ROVR do?
-seqword_eflow:"; ROVR<- SEQW SAVEUIP0" next is up0=1 & eflow=6 [ next = inst_next; ] { uip0 = inst_next; }
-seqword_eflow:"; ROVR<- SEQW SAVEUIP1" next is up0=1 & eflow=7 [ next = inst_next; ] { uip1 = inst_next; }
+seqword_eflow:"; ROVR<- SEQW SAVEUIP0" seqword_next is up0=1 & eflow=6 & seqword_next{ uip0 = inst_next; }
+seqword_eflow:"; ROVR<- SEQW SAVEUIP1" seqword_next is up0=1 & eflow=7 & seqword_next { uip1 = inst_next; }
 
 seqword_eflow:"; "^eflow_cmd is up0=1 & eflow_cmd {}
 seqword_eflow:"" is up0=1 & eflow=0 {}
@@ -217,32 +223,26 @@ seqword:""^seqword_eflow^seqword_goto^seqword_sync is seqword_eflow & seqword_go
 }
 seqword:"" is full_seqword=0 {}
 
+
+# ======= UOP =======
 # deal with sources or immediates
 source0: src0 is src0 & src0_sel { export src0; }
-source0: imm0_sel0 is imm0_sel0 & imm1_sel=0 & src0_sel = 16 {local tmp:8 = imm0_sel0; export tmp;}
-source0: imm0_sel1 is imm0_sel1 & imm1_sel=1 & src0_sel = 16 {local tmp:8 = imm0_sel1; export tmp;}
-source0: imm0_sel2 is imm0_sel2 & imm1_sel=2 & src0_sel = 16 {local tmp:8 = imm0_sel2; export tmp;}
-source0: imm0_sel3 is imm0_sel3 & imm1_sel=3 & src0_sel = 16 {local tmp:8 = imm0_sel3; export tmp;}
+source0: imm0_sel0 is imm0_sel0 & imm1_sel=0 & src0_sel = 16 {export *[const]:8 imm0_sel0;}
+source0: imm0_sel1 is imm0_sel1 & imm1_sel=1 & src0_sel = 16 {export *[const]:8 imm0_sel1;}
+source0: imm0_sel2 is imm0_sel2 & imm1_sel=2 & src0_sel = 16 {export *[const]:8 imm0_sel2;}
+source0: imm0_sel3 is imm0_sel3 & imm1_sel=3 & src0_sel = 16 {export *[const]:8 imm0_sel3;}
 source0: immediate is imm0 & imm1 & (src0_sel = 0 | src0_sel = 8 | src0_sel = 9 | src0_sel = 10 | src0_sel = 11 | src0_sel = 12 | src0_sel = 13 | src0_sel = 14 | src0_sel = 15 | src0_sel = 24 | src0_sel = 25 | src0_sel = 26 | src0_sel = 27 | src0_sel = 28 | src0_sel = 29 | src0_sel = 30 | src0_sel = 31) & src0_sel [
 	immediate = 0xffffffffffff0000 * ((src0_sel & 0x10) >> 4) | ((src0_sel & 0x07) << 13) | (imm1 << 8) | imm0;
-] { 
-	# ghidra needs explicit size
-	local tmp:8 = immediate;
-	export tmp;
-}
+] { export *[const]:8 immediate; }
 
 source1: src1 is src1 & src1_sel { export src1; }
-source1: imm0_sel0 is imm0_sel0 & imm1_sel=0 & src1_sel = 16 {local tmp:8 = imm0_sel0; export tmp;}
-source1: imm0_sel1 is imm0_sel1 & imm1_sel=1 & src1_sel = 16 {local tmp:8 = imm0_sel1; export tmp;}
-source1: imm0_sel2 is imm0_sel2 & imm1_sel=2 & src1_sel = 16 {local tmp:8 = imm0_sel2; export tmp;}
-source1: imm0_sel3 is imm0_sel3 & imm1_sel=3 & src1_sel = 16 {local tmp:8 = imm0_sel3; export tmp;}
+source1: imm0_sel0 is imm0_sel0 & imm1_sel=0 & src1_sel = 16 {export *[const]:8 imm0_sel0;}
+source1: imm0_sel1 is imm0_sel1 & imm1_sel=1 & src1_sel = 16 {export *[const]:8 imm0_sel1;}
+source1: imm0_sel2 is imm0_sel2 & imm1_sel=2 & src1_sel = 16 {export *[const]:8 imm0_sel2;}
+source1: imm0_sel3 is imm0_sel3 & imm1_sel=3 & src1_sel = 16 {export *[const]:8 imm0_sel3;}
 source1: immediate is imm0 & imm1 & (src1_sel = 0 | src1_sel = 8 | src1_sel = 9 | src1_sel = 10 | src1_sel = 11 | src1_sel = 12 | src1_sel = 13 | src1_sel = 14 | src1_sel = 15 | src1_sel = 24 | src1_sel = 25 | src1_sel = 26 | src1_sel = 27 | src1_sel = 28 | src1_sel = 29 | src1_sel = 30 | src1_sel = 31) & src1_sel [
 	immediate = 0xffffffffffff0000 * ((src1_sel & 0x10) >> 4) | ((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0;
-] { 
-	# ghidra needs explicit size
-	local tmp:8 = immediate;
-	export tmp;
-}
+] { export *[const]:8 immediate; }
 
 dest: dst is dst { export dst; }
 

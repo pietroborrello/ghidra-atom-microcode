@@ -301,7 +301,7 @@ dest: is dst & dst_sel=0 { export dst; }
 ucode_target: target is imm0 & imm1 & src1_sel [
 	target = (((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0) * $(INSTR_LEN);
 ] { export *[ucode]:8 target; }
-#TODO: saveuip misses the third source case, and the semantics of the third source and dest
+#TODO: saveuip misses the semantics of the third source and dest
 :saveuip uip_reg, ucode_target seqword is dst_sel=0 & is_src0_imm=1 & dest & (opcode = 0x00c | opcode = 0x04c | opcode = 0x08c | opcode = 0x0cc) & uip_reg & ucode_target; seqword {
 	uip_reg = &ucode_target;
 	build seqword;
@@ -317,4 +317,28 @@ ucode_target: target is imm0 & imm1 & src1_sel [
 :saveuip dest source0, uip_reg, ucode_target seqword is dest & is_src0_imm=0 & source0 & (opcode = 0x00c | opcode = 0x04c | opcode = 0x08c | opcode = 0x0cc) & uip_reg & ucode_target; seqword {
 	uip_reg = &ucode_target;
 	build seqword;
+}
+
+ucode_next:next is opcode [ next = inst_next; ] {
+  export *[ucode]:8 next;
+}
+saveuip_ov_imm: value is imm0 & imm1 & src1_sel [
+	value = (((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0);
+] { export value; }
+:saveuip_ov uip_reg, ucode_next, saveuip_ov_imm seqword is dst_sel=0 & saveuip_ov_imm & dest & opcode = 0x00d & uip_reg & ucode_next; seqword {
+	uip_reg = &ucode_next;
+	build seqword;
+}
+# TODO: third_imm of SAVEUIP_REGOVR (no idea on semantics)
+:saveuip_ov dest uip_reg, ucode_next, saveuip_ov_imm seqword is saveuip_ov_imm & dest & opcode = 0x00d & uip_reg & ucode_next; seqword {
+	uip_reg = &ucode_next;
+	build seqword;
+}
+
+:uret uip_reg seqword is dst_sel=0 & dest & uip_reg & opcode=0x148; seqword {
+	return [uip_reg];
+}
+#TODO: what is the semantics here?
+:uret dest uip_reg, source0 seqword is dest & source0 & uip_reg & opcode=0x148; seqword {
+	return [uip_reg];
 }

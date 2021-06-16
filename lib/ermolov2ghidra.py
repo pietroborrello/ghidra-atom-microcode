@@ -107,7 +107,38 @@ def filter_seqword(uaddr, uop, seqword):
 
     return (enable_ctrl << 0) | (out_ctrl << 2) | (enable_tetrad_ctrl << 6) | (out_tetrad_ctrl <<  8) | (enable_sync << 23) | (out_sync << 25)
 
+def get_uop_opcode(uop):
+    return (uop >> 32) & 0xfff
 
+def get_src0_sel(uop):
+    return uop & 0x3f
+
+def get_src1_sel(uop):
+    return (uop >> 6) & 0x3f
+
+def get_dst_sel(uop):
+    return (uop >> 12) & 0x3f
+
+def is_src_imm_sel(sel):
+    imm_sels = [0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10, \
+                0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f]
+    return sel in imm_sels
+
+# collect some metadata that will go in the upper 16 bits of the uop
+def get_metadata(uop):
+    src0_sel = get_src0_sel(uop)
+    src1_sel = get_src1_sel(uop)
+    dst_sel = get_dst_sel(uop)
+    
+    is_src0 = src0_sel != 0x00
+    is_src1 = src1_sel != 0x00
+    # is_src2 = is_uop_dst_src2(uop)
+    # is_dst = not is_src2 and dst_sel != 0x00 and dst_sel != 0x10
+    
+    is_src0_imm = 1 if is_src_imm_sel(src0_sel) else 0
+    is_src1_imm = 1 if is_src_imm_sel(src1_sel) else 0
+
+    return (is_src0_imm << 0) | (is_src0_imm << 1)
     
 
 def ucode_dump(arrays_dump_dir):
@@ -126,13 +157,16 @@ def ucode_dump(arrays_dump_dir):
             filtered_seqword = filter_seqword(uaddr, uop, seqword)
             # print(dump_seqword(filtered_seqword))
 
-            # 48 bits for the uop
-            packed_uop = pack('<Q', uop)[:6]
+            # collect uop medatata to ease ghidra disassembly
+            meta_uop = get_metadata(uop)
 
-            # 30 bits rounded to 32 for sanity for the seqword
-            packed_seqword = pack('<I', filtered_seqword)
+            # 48 bits for the uop rounded up to 64
+            packed_uop = pack('<Q', uop | (meta_uop << 48))
 
-            # 80 bit per uop
+            # 30 bits rounded to 64 for sanity for the seqword
+            packed_seqword = pack('<Q', filtered_seqword)
+
+            # 128 bit per uop to have nicer addresses
             f.write(packed_uop + packed_seqword)
     
     print(f"[+] written {len(ucode)} uops")

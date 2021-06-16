@@ -19,6 +19,7 @@ define register offset=0x00 size=8 [
 	tmp0 tmp1 tmp2 tmp3 tmp4 tmp5 tmp6 tmp7 tmp8 tmp9 tmp10 tmp11 tmp12 tmp13 tmp14 tmp15 
 	tmpv0 tmpv1 tmpv2 tmpv3 
 	r64dst r64src r64base r64idx
+	uip0 uip1
 ];
 
 define register offset=0x1000 size=16 [
@@ -71,7 +72,7 @@ attach variables [ src0_xmm src1_xmm ] [
 ];
 
 attach variables [ dst ] [ 
-	_ r64dst rax rdi rax rax rdx rdx tmp0 tmp7 tmp0 tmp0 tmp0 tmp7 tmp0 tmp0 
+	dummy_reg r64dst rax rdi rax rax rdx rdx tmp0 tmp7 tmp0 tmp0 tmp0 tmp7 tmp0 tmp0 
 	_ tmp2 tmp0 tmp7 tmpv0 tmpv1 tmpv2 tmpv3 tmp0 tmp7 tmp0 tmp0 tmp0 tmp7 tmp0 tmp0 
 	rax rcx rdx rbx rsp rbp rsi rdi r8 r9 r10 r11 r12 r13 r14 r15 
 	tmp0 tmp1 tmp2 tmp3 tmp4 tmp5 tmp6 tmp7 tmp8 tmp9 tmp10 tmp11 tmp12 tmp13 tmp14 tmp15
@@ -218,9 +219,17 @@ dest: dst is dst { export dst; }
 seqword_sync: [sync_cmd] is up2=1 & sync_cmd {}
 seqword_sync:"" is up2=0 & sync {}
 
-# TODO: implement the address calculation for saveuip
-seqword_eflow:"; "^eflow_cmd is up0=1 & (eflow=4 | eflow=5) & eflow_cmd {}
-seqword_eflow:"; ROVR<-"^eflow_cmd is up0=1 & (eflow=6 | eflow=7) & eflow_cmd {}
+seqword_eflow:"; SEQW URET0" is up0=1 & eflow=2 { return [uip0]; }
+seqword_eflow:"; SEQW URET1" is up0=1 & eflow=3 { return [uip1]; }
+# SAVEUIP
+#seqword_next:^next is up0=1 [ next = inst_next; ] {
+#  export *[ucode]:8 inst_next;
+#}
+seqword_eflow:"; SEQW SAVEUIP0" next is up0=1 & eflow=4 [ next = inst_next; ] { uip0 = inst_next; }
+seqword_eflow:"; SEQW SAVEUIP1" next is up0=1 & eflow=5 [ next = inst_next; ] { uip1 = inst_next; }
+seqword_eflow:"; ROVR<- SEQW SAVEUIP0" next is up0=1 & eflow=6 [ next = inst_next; ] { uip0 = inst_next; }
+seqword_eflow:"; ROVR<- SEQW SAVEUIP1" next is up0=1 & eflow=7 [ next = inst_next; ] { uip1 = inst_next; }
+
 seqword_eflow:"; "^eflow_cmd is up0=1 & eflow_cmd {}
 seqword_eflow:"" is up0=1 & eflow=0 {}
 seqword_eflow:"" is up0=0 & eflow {}

@@ -184,6 +184,38 @@ attach names [eflow_cmd] [
 	"WRTAGW" "MSLOOP" "UNKNOWN_EFLOW" "MSSTOP" "SEQW UEND0" "SEQW UEND1" "SEQW UEND2" "SEQW UEND3"
 ];
 
+# DEFAULT PRINT =================================================
+seqword_sync: [sync_cmd] is up2=1 & sync_cmd {}
+seqword_sync:"" is up2=0 & sync {}
+
+seqword_eflow:"; SEQW URET0" is up0=1 & eflow=2 { return [uip0]; }
+seqword_eflow:"; SEQW URET1" is up0=1 & eflow=3 { return [uip1]; }
+# SAVEUIP
+seqword_eflow:"; SEQW SAVEUIP0" next is up0=1 & eflow=4 [ next = inst_next; ] { uip0 = inst_next; }
+seqword_eflow:"; SEQW SAVEUIP1" next is up0=1 & eflow=5 [ next = inst_next; ] { uip1 = inst_next; }
+# TODO: what does ROVR do?
+seqword_eflow:"; ROVR<- SEQW SAVEUIP0" next is up0=1 & eflow=6 [ next = inst_next; ] { uip0 = inst_next; }
+seqword_eflow:"; ROVR<- SEQW SAVEUIP1" next is up0=1 & eflow=7 [ next = inst_next; ] { uip1 = inst_next; }
+
+seqword_eflow:"; "^eflow_cmd is up0=1 & eflow_cmd {}
+seqword_eflow:"" is up0=1 & eflow=0 {}
+seqword_eflow:"" is up0=0 & eflow {}
+
+# TODO: express conditional execution of goto with testustate
+seqword_target: target is next_uaddr [ target = next_uaddr*$(INSTR_LEN); ] {
+  export *[ucode]:8 target;
+}
+seqword_goto:"; SEQW GOTO" seqword_target is up1=1 & seqword_target {
+	goto seqword_target;
+}
+seqword_goto:"" is up1=0 & next_uaddr {}
+
+seqword:""^seqword_eflow^seqword_goto^seqword_sync is seqword_eflow & seqword_goto & seqword_sync {
+	build seqword_sync;
+	build seqword_eflow;
+	build seqword_goto;
+}
+seqword:"" is full_seqword=0 {}
 
 # deal with sources or immediates
 source0: src0 is src0 & src0_sel { export src0; }
@@ -214,44 +246,7 @@ source1: immediate is imm0 & imm1 & (src1_sel = 0 | src1_sel = 8 | src1_sel = 9 
 
 dest: dst is dst { export dst; }
 
-
-# DEFAULT PRINT =================================================
-seqword_sync: [sync_cmd] is up2=1 & sync_cmd {}
-seqword_sync:"" is up2=0 & sync {}
-
-seqword_eflow:"; SEQW URET0" is up0=1 & eflow=2 { return [uip0]; }
-seqword_eflow:"; SEQW URET1" is up0=1 & eflow=3 { return [uip1]; }
-# SAVEUIP
-#seqword_next:^next is up0=1 [ next = inst_next; ] {
-#  export *[ucode]:8 inst_next;
-#}
-seqword_eflow:"; SEQW SAVEUIP0" next is up0=1 & eflow=4 [ next = inst_next; ] { uip0 = inst_next; }
-seqword_eflow:"; SEQW SAVEUIP1" next is up0=1 & eflow=5 [ next = inst_next; ] { uip1 = inst_next; }
-seqword_eflow:"; ROVR<- SEQW SAVEUIP0" next is up0=1 & eflow=6 [ next = inst_next; ] { uip0 = inst_next; }
-seqword_eflow:"; ROVR<- SEQW SAVEUIP1" next is up0=1 & eflow=7 [ next = inst_next; ] { uip1 = inst_next; }
-
-seqword_eflow:"; "^eflow_cmd is up0=1 & eflow_cmd {}
-seqword_eflow:"" is up0=1 & eflow=0 {}
-seqword_eflow:"" is up0=0 & eflow {}
-
-# TODO: express conditional execution of goto with testustate
-seqword_target: target is next_uaddr [ target = next_uaddr*$(INSTR_LEN); ] {
-  export *[ucode]:8 target;
-}
-seqword_goto:"; SEQW GOTO" seqword_target is up1=1 & seqword_target {
-	goto seqword_target;
-}
-seqword_goto:"" is up1=0 & next_uaddr {}
-
-seqword:""^seqword_eflow^seqword_goto^seqword_sync is seqword_eflow & seqword_goto & seqword_sync {
-	build seqword_sync;
-	build seqword_eflow;
-	build seqword_goto;
-}
-seqword:"" is full_seqword=0 {}
-
 :UNKNOWN opcode: dst_sel <- src0_sel, src1_sel, imm0, imm1 seqword is opcode & dst_sel & src0_sel & src1_sel & imm0 & imm1; seqword unimpl
-
 
 # instructions TODO: fix semantics
 :nop seqword is full_uop=0; seqword {}

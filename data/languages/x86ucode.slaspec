@@ -283,6 +283,16 @@ dest: is dst & dst_sel=0 { export dst; }
 	build seqword;
 }
 
+:shl^"_"^dst_size dest source0, source1 seqword is (opcode = 0x024 | opcode = 0x064 | opcode = 0x0a4 | opcode = 0x0e4) & dest & source0 & source1 & dst_size; seqword {
+	dest = source0 << source1;
+	build seqword;
+}
+
+:shr^"_"^dst_size dest source0, source1 seqword is (opcode = 0x025 | opcode = 0x065 | opcode = 0x0a5 | opcode = 0x0e5) & dest & source0 & source1 & dst_size; seqword {
+	dest = source0 >> source1;
+	build seqword;
+}
+
 :notand^"_"^dst_size dest source0, source1 seqword is (opcode = 0x007 | opcode = 0x047 | opcode = 0x087 | opcode = 0x0c7) & dest & source0 & source1 & dst_size; seqword {
 	dest = ~(source0 & source1);
 	build seqword;
@@ -302,7 +312,7 @@ ucode_target: target is imm0 & imm1 & src1_sel [
 	target = (((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0) * $(INSTR_LEN);
 ] { export *[ucode]:8 target; }
 #TODO: saveuip misses the semantics of the third source and dest
-:saveuip uip_reg, ucode_target seqword is dst_sel=0 & is_src0_imm=1 & dest & (opcode = 0x00c | opcode = 0x04c | opcode = 0x08c | opcode = 0x0cc) & uip_reg & ucode_target; seqword {
+:saveuip uip_reg, ucode_target seqword is dst_sel=0 & (is_src0_imm=1|src0_sel=0) & dest & (opcode = 0x00c | opcode = 0x04c | opcode = 0x08c | opcode = 0x0cc) & uip_reg & ucode_target; seqword {
 	uip_reg = &ucode_target;
 	build seqword;
 }
@@ -310,7 +320,7 @@ ucode_target: target is imm0 & imm1 & src1_sel [
 	uip_reg = &ucode_target;
 	build seqword;
 }
-:saveuip dest uip_reg, ucode_target seqword is dest & is_src0_imm=1 & (opcode = 0x00c | opcode = 0x04c | opcode = 0x08c | opcode = 0x0cc) & uip_reg & ucode_target; seqword {
+:saveuip dest uip_reg, ucode_target seqword is dest & (is_src0_imm=1|src0_sel=0) & (opcode = 0x00c | opcode = 0x04c | opcode = 0x08c | opcode = 0x0cc) & uip_reg & ucode_target; seqword {
 	uip_reg = &ucode_target;
 	build seqword;
 }

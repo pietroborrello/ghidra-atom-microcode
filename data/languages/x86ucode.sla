@@ -1,4 +1,4 @@
-<sleigh version="2" bigendian="false" align="1" uniqbase="0x150">
+<sleigh version="2" bigendian="false" align="1" uniqbase="0x170">
 <spaces defaultspace="ucode">
 <space_other name="OTHER" index="1" bigendian="false" delay="0" size="8" physical="false"/>
 <space_unique name="unique" index="2" bigendian="false" delay="0" size="4" physical="true"/>
@@ -8,7 +8,7 @@
 <space name="crbus" index="6" bigendian="false" delay="1" size="2" wordsize="8" physical="true"/>
 <space name="dummy_space" index="7" bigendian="false" delay="1" size="2" physical="true"/>
 </spaces>
-<symbol_table scopesize="50" symbolsize="265">
+<symbol_table scopesize="52" symbolsize="275">
 <scope id="0x0" parent="0x0"/>
 <scope id="0x1" parent="0x0"/>
 <scope id="0x2" parent="0x0"/>
@@ -59,6 +59,8 @@
 <scope id="0x2f" parent="0x0"/>
 <scope id="0x30" parent="0x0"/>
 <scope id="0x31" parent="0x0"/>
+<scope id="0x32" parent="0x0"/>
+<scope id="0x33" parent="0x0"/>
 <subtable_sym_head name="instruction" id="0x0" scope="0x0"/>
 <start_sym_head name="inst_start" id="0x1" scope="0x0"/>
 <end_sym_head name="inst_next" id="0x2" scope="0x0"/>
@@ -271,60 +273,70 @@
 <operand_sym_head name="dst_size" id="0xd1" scope="0x25"/>
 <operand_sym_head name="dest" id="0xd2" scope="0x25"/>
 <operand_sym_head name="source0" id="0xd3" scope="0x25"/>
-<operand_sym_head name="seqword" id="0xd4" scope="0x25"/>
-<operand_sym_head name="dst_size" id="0xd5" scope="0x26"/>
-<operand_sym_head name="dest" id="0xd6" scope="0x26"/>
-<operand_sym_head name="source0" id="0xd7" scope="0x26"/>
-<operand_sym_head name="seqword" id="0xd8" scope="0x26"/>
-<subtable_sym_head name="ucode_target" id="0xd9" scope="0x0"/>
-<operand_sym_head name="target" id="0xda" scope="0x27"/>
-<operand_sym_head name="imm0" id="0xdb" scope="0x27"/>
-<operand_sym_head name="imm1" id="0xdc" scope="0x27"/>
-<operand_sym_head name="src1_sel" id="0xdd" scope="0x27"/>
-<operand_sym_head name="uip_reg" id="0xde" scope="0x28"/>
-<operand_sym_head name="ucode_target" id="0xdf" scope="0x28"/>
-<operand_sym_head name="seqword" id="0xe0" scope="0x28"/>
-<operand_sym_head name="dest" id="0xe1" scope="0x28"/>
-<operand_sym_head name="source0" id="0xe2" scope="0x29"/>
-<operand_sym_head name="uip_reg" id="0xe3" scope="0x29"/>
-<operand_sym_head name="ucode_target" id="0xe4" scope="0x29"/>
-<operand_sym_head name="seqword" id="0xe5" scope="0x29"/>
-<operand_sym_head name="dest" id="0xe6" scope="0x29"/>
-<operand_sym_head name="dest" id="0xe7" scope="0x2a"/>
+<operand_sym_head name="source1" id="0xd4" scope="0x25"/>
+<operand_sym_head name="seqword" id="0xd5" scope="0x25"/>
+<operand_sym_head name="dst_size" id="0xd6" scope="0x26"/>
+<operand_sym_head name="dest" id="0xd7" scope="0x26"/>
+<operand_sym_head name="source0" id="0xd8" scope="0x26"/>
+<operand_sym_head name="source1" id="0xd9" scope="0x26"/>
+<operand_sym_head name="seqword" id="0xda" scope="0x26"/>
+<operand_sym_head name="dst_size" id="0xdb" scope="0x27"/>
+<operand_sym_head name="dest" id="0xdc" scope="0x27"/>
+<operand_sym_head name="source0" id="0xdd" scope="0x27"/>
+<operand_sym_head name="seqword" id="0xde" scope="0x27"/>
+<operand_sym_head name="dst_size" id="0xdf" scope="0x28"/>
+<operand_sym_head name="dest" id="0xe0" scope="0x28"/>
+<operand_sym_head name="source0" id="0xe1" scope="0x28"/>
+<operand_sym_head name="seqword" id="0xe2" scope="0x28"/>
+<subtable_sym_head name="ucode_target" id="0xe3" scope="0x0"/>
+<operand_sym_head name="target" id="0xe4" scope="0x29"/>
+<operand_sym_head name="imm0" id="0xe5" scope="0x29"/>
+<operand_sym_head name="imm1" id="0xe6" scope="0x29"/>
+<operand_sym_head name="src1_sel" id="0xe7" scope="0x29"/>
 <operand_sym_head name="uip_reg" id="0xe8" scope="0x2a"/>
 <operand_sym_head name="ucode_target" id="0xe9" scope="0x2a"/>
 <operand_sym_head name="seqword" id="0xea" scope="0x2a"/>
-<operand_sym_head name="dest" id="0xeb" scope="0x2b"/>
+<operand_sym_head name="dest" id="0xeb" scope="0x2a"/>
 <operand_sym_head name="source0" id="0xec" scope="0x2b"/>
 <operand_sym_head name="uip_reg" id="0xed" scope="0x2b"/>
 <operand_sym_head name="ucode_target" id="0xee" scope="0x2b"/>
 <operand_sym_head name="seqword" id="0xef" scope="0x2b"/>
-<subtable_sym_head name="ucode_next" id="0xf0" scope="0x0"/>
-<operand_sym_head name="next" id="0xf1" scope="0x2c"/>
-<operand_sym_head name="opcode" id="0xf2" scope="0x2c"/>
-<subtable_sym_head name="saveuip_ov_imm" id="0xf3" scope="0x0"/>
-<operand_sym_head name="value" id="0xf4" scope="0x2d"/>
-<operand_sym_head name="imm0" id="0xf5" scope="0x2d"/>
-<operand_sym_head name="imm1" id="0xf6" scope="0x2d"/>
-<operand_sym_head name="src1_sel" id="0xf7" scope="0x2d"/>
-<operand_sym_head name="uip_reg" id="0xf8" scope="0x2e"/>
-<operand_sym_head name="ucode_next" id="0xf9" scope="0x2e"/>
-<operand_sym_head name="saveuip_ov_imm" id="0xfa" scope="0x2e"/>
-<operand_sym_head name="seqword" id="0xfb" scope="0x2e"/>
-<operand_sym_head name="dest" id="0xfc" scope="0x2e"/>
-<operand_sym_head name="dest" id="0xfd" scope="0x2f"/>
-<operand_sym_head name="uip_reg" id="0xfe" scope="0x2f"/>
-<operand_sym_head name="ucode_next" id="0xff" scope="0x2f"/>
-<operand_sym_head name="saveuip_ov_imm" id="0x100" scope="0x2f"/>
-<operand_sym_head name="seqword" id="0x101" scope="0x2f"/>
+<operand_sym_head name="dest" id="0xf0" scope="0x2b"/>
+<operand_sym_head name="dest" id="0xf1" scope="0x2c"/>
+<operand_sym_head name="uip_reg" id="0xf2" scope="0x2c"/>
+<operand_sym_head name="ucode_target" id="0xf3" scope="0x2c"/>
+<operand_sym_head name="seqword" id="0xf4" scope="0x2c"/>
+<operand_sym_head name="dest" id="0xf5" scope="0x2d"/>
+<operand_sym_head name="source0" id="0xf6" scope="0x2d"/>
+<operand_sym_head name="uip_reg" id="0xf7" scope="0x2d"/>
+<operand_sym_head name="ucode_target" id="0xf8" scope="0x2d"/>
+<operand_sym_head name="seqword" id="0xf9" scope="0x2d"/>
+<subtable_sym_head name="ucode_next" id="0xfa" scope="0x0"/>
+<operand_sym_head name="next" id="0xfb" scope="0x2e"/>
+<operand_sym_head name="opcode" id="0xfc" scope="0x2e"/>
+<subtable_sym_head name="saveuip_ov_imm" id="0xfd" scope="0x0"/>
+<operand_sym_head name="value" id="0xfe" scope="0x2f"/>
+<operand_sym_head name="imm0" id="0xff" scope="0x2f"/>
+<operand_sym_head name="imm1" id="0x100" scope="0x2f"/>
+<operand_sym_head name="src1_sel" id="0x101" scope="0x2f"/>
 <operand_sym_head name="uip_reg" id="0x102" scope="0x30"/>
-<operand_sym_head name="seqword" id="0x103" scope="0x30"/>
-<operand_sym_head name="dest" id="0x104" scope="0x30"/>
-<operand_sym_head name="dest" id="0x105" scope="0x31"/>
-<operand_sym_head name="uip_reg" id="0x106" scope="0x31"/>
-<operand_sym_head name="source0" id="0x107" scope="0x31"/>
-<operand_sym_head name="seqword" id="0x108" scope="0x31"/>
-<subtable_sym name="instruction" id="0x0" scope="0x0" numct="18">
+<operand_sym_head name="ucode_next" id="0x103" scope="0x30"/>
+<operand_sym_head name="saveuip_ov_imm" id="0x104" scope="0x30"/>
+<operand_sym_head name="seqword" id="0x105" scope="0x30"/>
+<operand_sym_head name="dest" id="0x106" scope="0x30"/>
+<operand_sym_head name="dest" id="0x107" scope="0x31"/>
+<operand_sym_head name="uip_reg" id="0x108" scope="0x31"/>
+<operand_sym_head name="ucode_next" id="0x109" scope="0x31"/>
+<operand_sym_head name="saveuip_ov_imm" id="0x10a" scope="0x31"/>
+<operand_sym_head name="seqword" id="0x10b" scope="0x31"/>
+<operand_sym_head name="uip_reg" id="0x10c" scope="0x32"/>
+<operand_sym_head name="seqword" id="0x10d" scope="0x32"/>
+<operand_sym_head name="dest" id="0x10e" scope="0x32"/>
+<operand_sym_head name="dest" id="0x10f" scope="0x33"/>
+<operand_sym_head name="uip_reg" id="0x110" scope="0x33"/>
+<operand_sym_head name="source0" id="0x111" scope="0x33"/>
+<operand_sym_head name="seqword" id="0x112" scope="0x33"/>
+<subtable_sym name="instruction" id="0x0" scope="0x0" numct="20">
 <constructor parent="0x0" first="1" length="16" line="256">
 <oper id="0xab"/>
 <oper id="0xac"/>
@@ -552,6 +564,78 @@
 <oper id="0xcf"/>
 <oper id="0xcc"/>
 <oper id="0xd0"/>
+<print piece="shl_"/>
+<opprint id="3"/>
+<print piece=" "/>
+<opprint id="0"/>
+<print piece=" "/>
+<opprint id="1"/>
+<print piece=","/>
+<print piece=" "/>
+<opprint id="2"/>
+<print piece=" "/>
+<opprint id="4"/>
+<construct_tpl>
+<null/><op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x2"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="INT_LEFT"><varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="handle" val="2" s="space"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+</construct_tpl>
+</constructor>
+<constructor parent="0x0" first="2" length="16" line="291">
+<oper id="0xd2"/>
+<oper id="0xd3"/>
+<oper id="0xd4"/>
+<oper id="0xd1"/>
+<oper id="0xd5"/>
+<print piece="shr_"/>
+<opprint id="3"/>
+<print piece=" "/>
+<opprint id="0"/>
+<print piece=" "/>
+<opprint id="1"/>
+<print piece=","/>
+<print piece=" "/>
+<opprint id="2"/>
+<print piece=" "/>
+<opprint id="4"/>
+<construct_tpl>
+<null/><op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x2"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="INT_RIGHT"><varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="handle" val="2" s="space"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+</construct_tpl>
+</constructor>
+<constructor parent="0x0" first="2" length="16" line="296">
+<oper id="0xd7"/>
+<oper id="0xd8"/>
+<oper id="0xd9"/>
+<oper id="0xd6"/>
+<oper id="0xda"/>
 <print piece="notand_"/>
 <opprint id="3"/>
 <print piece=" "/>
@@ -573,23 +657,23 @@
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_AND"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x110"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
+<op_tpl code="INT_AND"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x130"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="2" s="space"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="INT_NEGATE"><varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x110"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x130"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="291">
-<oper id="0xd2"/>
-<oper id="0xd3"/>
-<oper id="0xd1"/>
-<oper id="0xd4"/>
+<constructor parent="0x0" first="2" length="16" line="301">
+<oper id="0xdc"/>
+<oper id="0xdd"/>
+<oper id="0xdb"/>
+<oper id="0xde"/>
 <print piece="zeroext_"/>
 <opprint id="2"/>
 <print piece=" "/>
@@ -613,11 +697,11 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="296">
-<oper id="0xd6"/>
-<oper id="0xd7"/>
-<oper id="0xd5"/>
-<oper id="0xd8"/>
+<constructor parent="0x0" first="2" length="16" line="306">
+<oper id="0xe0"/>
+<oper id="0xe1"/>
+<oper id="0xdf"/>
+<oper id="0xe2"/>
 <print piece="mov_"/>
 <opprint id="2"/>
 <print piece=" "/>
@@ -641,78 +725,13 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="1" length="16" line="305">
-<oper id="0xe1"/>
-<oper id="0xde"/>
-<oper id="0xdf"/>
-<oper id="0xe0"/>
-<print piece="saveuip"/>
-<print piece=" "/>
-<opprint id="1"/>
-<print piece=","/>
-<print piece=" "/>
-<opprint id="2"/>
-<print piece=" "/>
-<opprint id="3"/>
-<construct_tpl>
-<null/><op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x2"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="COPY"><varnode_tpl><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x3"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-</construct_tpl>
-</constructor>
-<constructor parent="0x0" first="1" length="16" line="309">
-<oper id="0xe6"/>
-<oper id="0xe2"/>
-<oper id="0xe3"/>
-<oper id="0xe4"/>
-<oper id="0xe5"/>
-<print piece="saveuip"/>
-<print piece=" "/>
-<opprint id="1"/>
-<print piece=","/>
-<print piece=" "/>
-<opprint id="2"/>
-<print piece=","/>
-<print piece=" "/>
-<opprint id="3"/>
-<print piece=" "/>
-<opprint id="4"/>
-<construct_tpl>
-<null/><op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x3"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="COPY"><varnode_tpl><const_tpl type="handle" val="2" s="space"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-</construct_tpl>
-</constructor>
-<constructor parent="0x0" first="1" length="16" line="313">
-<oper id="0xe7"/>
+<constructor parent="0x0" first="1" length="16" line="315">
+<oper id="0xeb"/>
 <oper id="0xe8"/>
 <oper id="0xe9"/>
 <oper id="0xea"/>
 <print piece="saveuip"/>
 <print piece=" "/>
-<opprint id="0"/>
-<print piece=" "/>
 <opprint id="1"/>
 <print piece=","/>
 <print piece=" "/>
@@ -721,10 +740,10 @@
 <opprint id="3"/>
 <construct_tpl>
 <null/><op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x2"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x2"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="COPY"><varnode_tpl><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
@@ -734,16 +753,14 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="1" length="16" line="317">
-<oper id="0xeb"/>
+<constructor parent="0x0" first="1" length="16" line="319">
+<oper id="0xf0"/>
 <oper id="0xec"/>
 <oper id="0xed"/>
 <oper id="0xee"/>
 <oper id="0xef"/>
 <print piece="saveuip"/>
 <print piece=" "/>
-<opprint id="0"/>
-<print piece=" "/>
 <opprint id="1"/>
 <print piece=","/>
 <print piece=" "/>
@@ -755,13 +772,13 @@
 <opprint id="4"/>
 <construct_tpl>
 <null/><op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x3"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="COPY"><varnode_tpl><const_tpl type="handle" val="2" s="space"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
@@ -771,69 +788,64 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="1" length="16" line="328">
-<oper id="0xfa"/>
-<oper id="0xfc"/>
+<constructor parent="0x0" first="1" length="16" line="323">
+<oper id="0xf1"/>
+<oper id="0xf2"/>
+<oper id="0xf3"/>
+<oper id="0xf4"/>
+<print piece="saveuip"/>
+<print piece=" "/>
+<opprint id="0"/>
+<print piece=" "/>
+<opprint id="1"/>
+<print piece=","/>
+<print piece=" "/>
+<opprint id="2"/>
+<print piece=" "/>
+<opprint id="3"/>
+<construct_tpl>
+<null/><op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x2"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="COPY"><varnode_tpl><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x3"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+</construct_tpl>
+</constructor>
+<constructor parent="0x0" first="1" length="16" line="327">
+<oper id="0xf5"/>
+<oper id="0xf6"/>
+<oper id="0xf7"/>
 <oper id="0xf8"/>
 <oper id="0xf9"/>
-<oper id="0xfb"/>
-<print piece="saveuip_ov"/>
-<print piece=" "/>
-<opprint id="2"/>
-<print piece=","/>
-<print piece=" "/>
-<opprint id="3"/>
-<print piece=","/>
+<print piece="saveuip"/>
 <print piece=" "/>
 <opprint id="0"/>
-<print piece=" "/>
-<opprint id="4"/>
-<construct_tpl>
-<null/><op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x3"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="COPY"><varnode_tpl><const_tpl type="handle" val="2" s="space"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-</construct_tpl>
-</constructor>
-<constructor parent="0x0" first="1" length="16" line="333">
-<oper id="0x100"/>
-<oper id="0xfd"/>
-<oper id="0xfe"/>
-<oper id="0xff"/>
-<oper id="0x101"/>
-<print piece="saveuip_ov"/>
 <print piece=" "/>
 <opprint id="1"/>
+<print piece=","/>
 <print piece=" "/>
 <opprint id="2"/>
 <print piece=","/>
 <print piece=" "/>
 <opprint id="3"/>
-<print piece=","/>
-<print piece=" "/>
-<opprint id="0"/>
 <print piece=" "/>
 <opprint id="4"/>
 <construct_tpl>
 <null/><op_tpl code="BUILD"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
-</op_tpl>
-<op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x3"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="COPY"><varnode_tpl><const_tpl type="handle" val="2" s="space"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
@@ -845,8 +857,80 @@
 </constructor>
 <constructor parent="0x0" first="1" length="16" line="338">
 <oper id="0x104"/>
+<oper id="0x106"/>
 <oper id="0x102"/>
 <oper id="0x103"/>
+<oper id="0x105"/>
+<print piece="saveuip_ov"/>
+<print piece=" "/>
+<opprint id="2"/>
+<print piece=","/>
+<print piece=" "/>
+<opprint id="3"/>
+<print piece=","/>
+<print piece=" "/>
+<opprint id="0"/>
+<print piece=" "/>
+<opprint id="4"/>
+<construct_tpl>
+<null/><op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x3"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="COPY"><varnode_tpl><const_tpl type="handle" val="2" s="space"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+</construct_tpl>
+</constructor>
+<constructor parent="0x0" first="1" length="16" line="343">
+<oper id="0x10a"/>
+<oper id="0x107"/>
+<oper id="0x108"/>
+<oper id="0x109"/>
+<oper id="0x10b"/>
+<print piece="saveuip_ov"/>
+<print piece=" "/>
+<opprint id="1"/>
+<print piece=" "/>
+<opprint id="2"/>
+<print piece=","/>
+<print piece=" "/>
+<opprint id="3"/>
+<print piece=","/>
+<print piece=" "/>
+<opprint id="0"/>
+<print piece=" "/>
+<opprint id="4"/>
+<construct_tpl>
+<null/><op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x3"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="COPY"><varnode_tpl><const_tpl type="handle" val="2" s="space"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x4"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+</construct_tpl>
+</constructor>
+<constructor parent="0x0" first="1" length="16" line="348">
+<oper id="0x10e"/>
+<oper id="0x10c"/>
+<oper id="0x10d"/>
 <print piece="uret"/>
 <print piece=" "/>
 <opprint id="1"/>
@@ -864,11 +948,11 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="1" length="16" line="341">
-<oper id="0x105"/>
-<oper id="0x107"/>
-<oper id="0x106"/>
-<oper id="0x108"/>
+<constructor parent="0x0" first="1" length="16" line="352">
+<oper id="0x10f"/>
+<oper id="0x111"/>
+<oper id="0x110"/>
+<oper id="0x112"/>
 <print piece="uret"/>
 <print piece=" "/>
 <opprint id="0"/>
@@ -894,7 +978,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<decision number="52" context="false" start="32" size="8">
+<decision number="68" context="false" start="32" size="8">
 <decision number="3" context="false" start="0" size="0">
 <pair id="1">
 <instruct_pat>
@@ -1008,7 +1092,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="7">
+<pair id="9">
 <instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0000" val="0x7000000"/>
@@ -1025,7 +1109,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="8">
+<pair id="10">
 <instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0000" val="0x8000000"/>
@@ -1042,7 +1126,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="9">
+<pair id="11">
 <instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0000" val="0x9000000"/>
@@ -1076,9 +1160,18 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="5" context="false" start="55" size="1">
-<decision number="3" context="false" start="0" size="0">
-<pair id="11">
+<decision number="7" context="false" start="55" size="1">
+<decision number="5" context="false" start="0" size="0">
+<pair id="12">
+<instruct_pat>
+<pat_block offset="0" nonzero="12">
+  <mask_word mask="0x3ff00300" val="0x0"/>
+  <mask_word mask="0xff0f0000" val="0xc000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="13">
 <instruct_pat>
 <pat_block offset="1" nonzero="11">
   <mask_word mask="0xf00300ff" val="0xc"/>
@@ -1087,7 +1180,16 @@
 </pat_block>
 </instruct_pat>
 </pair>
-<pair id="13">
+<pair id="14">
+<instruct_pat>
+<pat_block offset="0" nonzero="12">
+  <mask_word mask="0x3f000000" val="0x0"/>
+  <mask_word mask="0xff0f0000" val="0xc000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="15">
 <instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0100" val="0xc000000"/>
@@ -1103,8 +1205,8 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="3" context="false" start="0" size="0">
-<pair id="10">
+<decision number="5" context="false" start="0" size="0">
+<pair id="12">
 <instruct_pat>
 <pat_block offset="1" nonzero="11">
   <mask_word mask="0xf00300ff" val="0xc"/>
@@ -1115,8 +1217,26 @@
 </pair>
 <pair id="12">
 <instruct_pat>
+<pat_block offset="0" nonzero="12">
+  <mask_word mask="0x3ff00300" val="0x0"/>
+  <mask_word mask="0xff0f0000" val="0xc000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="14">
+<instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0100" val="0xc000100"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="14">
+<instruct_pat>
+<pat_block offset="0" nonzero="12">
+  <mask_word mask="0x3f000000" val="0x0"/>
+  <mask_word mask="0xff0f0000" val="0xc000000"/>
   <mask_word mask="0x82000001" val="0x0"/>
 </pat_block>
 </instruct_pat>
@@ -1131,7 +1251,7 @@
 </decision>
 </decision>
 <decision number="3" context="false" start="0" size="0">
-<pair id="14">
+<pair id="16">
 <instruct_pat>
 <pat_block offset="1" nonzero="11">
   <mask_word mask="0xf00300ff" val="0xd"/>
@@ -1140,7 +1260,7 @@
 </pat_block>
 </instruct_pat>
 </pair>
-<pair id="15">
+<pair id="17">
 <instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0000" val="0xd000000"/>
@@ -1354,7 +1474,15 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="1" context="false" start="0" size="0">
+<decision number="2" context="false" start="0" size="0">
+<pair id="7">
+<instruct_pat>
+<pat_block offset="4" nonzero="8">
+  <mask_word mask="0xff0f0000" val="0x24000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
 <pair id="0">
 <instruct_pat>
 <pat_block offset="8" nonzero="4">
@@ -1363,7 +1491,15 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="1" context="false" start="0" size="0">
+<decision number="2" context="false" start="0" size="0">
+<pair id="8">
+<instruct_pat>
+<pat_block offset="4" nonzero="8">
+  <mask_word mask="0xff0f0000" val="0x25000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
 <pair id="0">
 <instruct_pat>
 <pat_block offset="8" nonzero="4">
@@ -1710,7 +1846,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="7">
+<pair id="9">
 <instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0000" val="0x47000000"/>
@@ -1728,7 +1864,7 @@
 </decision>
 <decision number="4" context="false" start="47" size="1">
 <decision number="2" context="false" start="0" size="0">
-<pair id="8">
+<pair id="10">
 <instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0000" val="0x48000000"/>
@@ -1745,7 +1881,7 @@
 </pair>
 </decision>
 <decision number="3" context="false" start="0" size="0">
-<pair id="16">
+<pair id="18">
 <instruct_pat>
 <pat_block offset="1" nonzero="11">
   <mask_word mask="0xf00300ff" val="0x48"/>
@@ -1754,7 +1890,7 @@
 </pat_block>
 </instruct_pat>
 </pair>
-<pair id="17">
+<pair id="19">
 <instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0000" val="0x48010000"/>
@@ -1772,7 +1908,7 @@
 </decision>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="9">
+<pair id="11">
 <instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0000" val="0x49000000"/>
@@ -1806,9 +1942,18 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="5" context="false" start="55" size="1">
-<decision number="3" context="false" start="0" size="0">
-<pair id="11">
+<decision number="7" context="false" start="55" size="1">
+<decision number="5" context="false" start="0" size="0">
+<pair id="12">
+<instruct_pat>
+<pat_block offset="0" nonzero="12">
+  <mask_word mask="0x3ff00300" val="0x0"/>
+  <mask_word mask="0xff0f0000" val="0x4c000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="13">
 <instruct_pat>
 <pat_block offset="1" nonzero="11">
   <mask_word mask="0xf00300ff" val="0x4c"/>
@@ -1817,7 +1962,16 @@
 </pat_block>
 </instruct_pat>
 </pair>
-<pair id="13">
+<pair id="14">
+<instruct_pat>
+<pat_block offset="0" nonzero="12">
+  <mask_word mask="0x3f000000" val="0x0"/>
+  <mask_word mask="0xff0f0000" val="0x4c000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="15">
 <instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0100" val="0x4c000000"/>
@@ -1833,8 +1987,8 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="3" context="false" start="0" size="0">
-<pair id="10">
+<decision number="5" context="false" start="0" size="0">
+<pair id="12">
 <instruct_pat>
 <pat_block offset="1" nonzero="11">
   <mask_word mask="0xf00300ff" val="0x4c"/>
@@ -1845,12 +1999,30 @@
 </pair>
 <pair id="12">
 <instruct_pat>
+<pat_block offset="0" nonzero="12">
+  <mask_word mask="0x3ff00300" val="0x0"/>
+  <mask_word mask="0xff0f0000" val="0x4c000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="14">
+<instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0100" val="0x4c000100"/>
   <mask_word mask="0x82000001" val="0x0"/>
 </pat_block>
 </instruct_pat>
 </pair>
+<pair id="14">
+<instruct_pat>
+<pat_block offset="0" nonzero="12">
+  <mask_word mask="0x3f000000" val="0x0"/>
+  <mask_word mask="0xff0f0000" val="0x4c000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
 <pair id="0">
 <instruct_pat>
 <pat_block offset="8" nonzero="4">
@@ -2067,7 +2239,15 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="1" context="false" start="0" size="0">
+<decision number="2" context="false" start="0" size="0">
+<pair id="7">
+<instruct_pat>
+<pat_block offset="4" nonzero="8">
+  <mask_word mask="0xff0f0000" val="0x64000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
 <pair id="0">
 <instruct_pat>
 <pat_block offset="8" nonzero="4">
@@ -2076,7 +2256,15 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="1" context="false" start="0" size="0">
+<decision number="2" context="false" start="0" size="0">
+<pair id="8">
+<instruct_pat>
+<pat_block offset="4" nonzero="8">
+  <mask_word mask="0xff0f0000" val="0x65000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
 <pair id="0">
 <instruct_pat>
 <pat_block offset="8" nonzero="4">
@@ -2423,7 +2611,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="7">
+<pair id="9">
 <instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0000" val="0x87000000"/>
@@ -2440,7 +2628,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="8">
+<pair id="10">
 <instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0000" val="0x88000000"/>
@@ -2483,9 +2671,18 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="5" context="false" start="55" size="1">
-<decision number="3" context="false" start="0" size="0">
-<pair id="11">
+<decision number="7" context="false" start="55" size="1">
+<decision number="5" context="false" start="0" size="0">
+<pair id="12">
+<instruct_pat>
+<pat_block offset="0" nonzero="12">
+  <mask_word mask="0x3ff00300" val="0x0"/>
+  <mask_word mask="0xff0f0000" val="0x8c000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="13">
 <instruct_pat>
 <pat_block offset="1" nonzero="11">
   <mask_word mask="0xf00300ff" val="0x8c"/>
@@ -2494,7 +2691,16 @@
 </pat_block>
 </instruct_pat>
 </pair>
-<pair id="13">
+<pair id="14">
+<instruct_pat>
+<pat_block offset="0" nonzero="12">
+  <mask_word mask="0x3f000000" val="0x0"/>
+  <mask_word mask="0xff0f0000" val="0x8c000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="15">
 <instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0100" val="0x8c000000"/>
@@ -2510,8 +2716,8 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="3" context="false" start="0" size="0">
-<pair id="10">
+<decision number="5" context="false" start="0" size="0">
+<pair id="12">
 <instruct_pat>
 <pat_block offset="1" nonzero="11">
   <mask_word mask="0xf00300ff" val="0x8c"/>
@@ -2522,12 +2728,30 @@
 </pair>
 <pair id="12">
 <instruct_pat>
+<pat_block offset="0" nonzero="12">
+  <mask_word mask="0x3ff00300" val="0x0"/>
+  <mask_word mask="0xff0f0000" val="0x8c000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="14">
+<instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0100" val="0x8c000100"/>
   <mask_word mask="0x82000001" val="0x0"/>
 </pat_block>
 </instruct_pat>
 </pair>
+<pair id="14">
+<instruct_pat>
+<pat_block offset="0" nonzero="12">
+  <mask_word mask="0x3f000000" val="0x0"/>
+  <mask_word mask="0xff0f0000" val="0x8c000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
 <pair id="0">
 <instruct_pat>
 <pat_block offset="8" nonzero="4">
@@ -2744,7 +2968,15 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="1" context="false" start="0" size="0">
+<decision number="2" context="false" start="0" size="0">
+<pair id="7">
+<instruct_pat>
+<pat_block offset="4" nonzero="8">
+  <mask_word mask="0xff0f0000" val="0xa4000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
 <pair id="0">
 <instruct_pat>
 <pat_block offset="8" nonzero="4">
@@ -2753,7 +2985,15 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="1" context="false" start="0" size="0">
+<decision number="2" context="false" start="0" size="0">
+<pair id="8">
+<instruct_pat>
+<pat_block offset="4" nonzero="8">
+  <mask_word mask="0xff0f0000" val="0xa5000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
 <pair id="0">
 <instruct_pat>
 <pat_block offset="8" nonzero="4">
@@ -3100,7 +3340,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="7">
+<pair id="9">
 <instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0000" val="0xc7000000"/>
@@ -3117,7 +3357,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="8">
+<pair id="10">
 <instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0000" val="0xc8000000"/>
@@ -3160,9 +3400,18 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="5" context="false" start="55" size="1">
-<decision number="3" context="false" start="0" size="0">
-<pair id="11">
+<decision number="7" context="false" start="55" size="1">
+<decision number="5" context="false" start="0" size="0">
+<pair id="12">
+<instruct_pat>
+<pat_block offset="0" nonzero="12">
+  <mask_word mask="0x3ff00300" val="0x0"/>
+  <mask_word mask="0xff0f0000" val="0xcc000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="13">
 <instruct_pat>
 <pat_block offset="1" nonzero="11">
   <mask_word mask="0xf00300ff" val="0xcc"/>
@@ -3171,7 +3420,16 @@
 </pat_block>
 </instruct_pat>
 </pair>
-<pair id="13">
+<pair id="14">
+<instruct_pat>
+<pat_block offset="0" nonzero="12">
+  <mask_word mask="0x3f000000" val="0x0"/>
+  <mask_word mask="0xff0f0000" val="0xcc000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="15">
 <instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0100" val="0xcc000000"/>
@@ -3187,8 +3445,8 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="3" context="false" start="0" size="0">
-<pair id="10">
+<decision number="5" context="false" start="0" size="0">
+<pair id="12">
 <instruct_pat>
 <pat_block offset="1" nonzero="11">
   <mask_word mask="0xf00300ff" val="0xcc"/>
@@ -3199,12 +3457,30 @@
 </pair>
 <pair id="12">
 <instruct_pat>
+<pat_block offset="0" nonzero="12">
+  <mask_word mask="0x3ff00300" val="0x0"/>
+  <mask_word mask="0xff0f0000" val="0xcc000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="14">
+<instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0100" val="0xcc000100"/>
   <mask_word mask="0x82000001" val="0x0"/>
 </pat_block>
 </instruct_pat>
 </pair>
+<pair id="14">
+<instruct_pat>
+<pat_block offset="0" nonzero="12">
+  <mask_word mask="0x3f000000" val="0x0"/>
+  <mask_word mask="0xff0f0000" val="0xcc000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
 <pair id="0">
 <instruct_pat>
 <pat_block offset="8" nonzero="4">
@@ -3421,7 +3697,15 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="1" context="false" start="0" size="0">
+<decision number="2" context="false" start="0" size="0">
+<pair id="7">
+<instruct_pat>
+<pat_block offset="4" nonzero="8">
+  <mask_word mask="0xff0f0000" val="0xe4000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
 <pair id="0">
 <instruct_pat>
 <pat_block offset="8" nonzero="4">
@@ -3430,7 +3714,15 @@
 </instruct_pat>
 </pair>
 </decision>
-<decision number="1" context="false" start="0" size="0">
+<decision number="2" context="false" start="0" size="0">
+<pair id="8">
+<instruct_pat>
+<pat_block offset="4" nonzero="8">
+  <mask_word mask="0xff0f0000" val="0xe5000000"/>
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
 <pair id="0">
 <instruct_pat>
 <pat_block offset="8" nonzero="4">
@@ -7091,8 +7383,8 @@
 <operand_sym name="seqword" id="0xd0" scope="0x24" subsym="0x8d" off="8" base="-1" minlen="8" index="4">
 <operand_exp index="4" table="0x0" ct="0x7"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0xd1" scope="0x25" subsym="0x68" off="0" base="-1" minlen="8" index="2">
-<operand_exp index="2" table="0x0" ct="0x8"/>
+<operand_sym name="dst_size" id="0xd1" scope="0x25" subsym="0x68" off="0" base="-1" minlen="8" index="3">
+<operand_exp index="3" table="0x0" ct="0x8"/>
 </operand_sym>
 <operand_sym name="dest" id="0xd2" scope="0x25" subsym="0xa7" off="0" base="-1" minlen="8" index="0">
 <operand_exp index="0" table="0x0" ct="0x8"/>
@@ -7100,30 +7392,60 @@
 <operand_sym name="source0" id="0xd3" scope="0x25" subsym="0x91" off="0" base="-1" minlen="8" index="1">
 <operand_exp index="1" table="0x0" ct="0x8"/>
 </operand_sym>
-<operand_sym name="seqword" id="0xd4" scope="0x25" subsym="0x8d" off="8" base="-1" minlen="8" index="3">
-<operand_exp index="3" table="0x0" ct="0x8"/>
+<operand_sym name="source1" id="0xd4" scope="0x25" subsym="0x9c" off="0" base="-1" minlen="8" index="2">
+<operand_exp index="2" table="0x0" ct="0x8"/>
 </operand_sym>
-<operand_sym name="dst_size" id="0xd5" scope="0x26" subsym="0x68" off="0" base="-1" minlen="8" index="2">
-<operand_exp index="2" table="0x0" ct="0x9"/>
+<operand_sym name="seqword" id="0xd5" scope="0x25" subsym="0x8d" off="8" base="-1" minlen="8" index="4">
+<operand_exp index="4" table="0x0" ct="0x8"/>
 </operand_sym>
-<operand_sym name="dest" id="0xd6" scope="0x26" subsym="0xa7" off="0" base="-1" minlen="8" index="0">
-<operand_exp index="0" table="0x0" ct="0x9"/>
-</operand_sym>
-<operand_sym name="source0" id="0xd7" scope="0x26" subsym="0x91" off="0" base="-1" minlen="8" index="1">
-<operand_exp index="1" table="0x0" ct="0x9"/>
-</operand_sym>
-<operand_sym name="seqword" id="0xd8" scope="0x26" subsym="0x8d" off="8" base="-1" minlen="8" index="3">
+<operand_sym name="dst_size" id="0xd6" scope="0x26" subsym="0x68" off="0" base="-1" minlen="8" index="3">
 <operand_exp index="3" table="0x0" ct="0x9"/>
 </operand_sym>
-<subtable_sym name="ucode_target" id="0xd9" scope="0x0" numct="1">
-<constructor parent="0xd9" first="1" length="8" line="301">
-<oper id="0xdb"/>
-<oper id="0xdc"/>
-<oper id="0xdd"/>
-<oper id="0xda"/>
+<operand_sym name="dest" id="0xd7" scope="0x26" subsym="0xa7" off="0" base="-1" minlen="8" index="0">
+<operand_exp index="0" table="0x0" ct="0x9"/>
+</operand_sym>
+<operand_sym name="source0" id="0xd8" scope="0x26" subsym="0x91" off="0" base="-1" minlen="8" index="1">
+<operand_exp index="1" table="0x0" ct="0x9"/>
+</operand_sym>
+<operand_sym name="source1" id="0xd9" scope="0x26" subsym="0x9c" off="0" base="-1" minlen="8" index="2">
+<operand_exp index="2" table="0x0" ct="0x9"/>
+</operand_sym>
+<operand_sym name="seqword" id="0xda" scope="0x26" subsym="0x8d" off="8" base="-1" minlen="8" index="4">
+<operand_exp index="4" table="0x0" ct="0x9"/>
+</operand_sym>
+<operand_sym name="dst_size" id="0xdb" scope="0x27" subsym="0x68" off="0" base="-1" minlen="8" index="2">
+<operand_exp index="2" table="0x0" ct="0xa"/>
+</operand_sym>
+<operand_sym name="dest" id="0xdc" scope="0x27" subsym="0xa7" off="0" base="-1" minlen="8" index="0">
+<operand_exp index="0" table="0x0" ct="0xa"/>
+</operand_sym>
+<operand_sym name="source0" id="0xdd" scope="0x27" subsym="0x91" off="0" base="-1" minlen="8" index="1">
+<operand_exp index="1" table="0x0" ct="0xa"/>
+</operand_sym>
+<operand_sym name="seqword" id="0xde" scope="0x27" subsym="0x8d" off="8" base="-1" minlen="8" index="3">
+<operand_exp index="3" table="0x0" ct="0xa"/>
+</operand_sym>
+<operand_sym name="dst_size" id="0xdf" scope="0x28" subsym="0x68" off="0" base="-1" minlen="8" index="2">
+<operand_exp index="2" table="0x0" ct="0xb"/>
+</operand_sym>
+<operand_sym name="dest" id="0xe0" scope="0x28" subsym="0xa7" off="0" base="-1" minlen="8" index="0">
+<operand_exp index="0" table="0x0" ct="0xb"/>
+</operand_sym>
+<operand_sym name="source0" id="0xe1" scope="0x28" subsym="0x91" off="0" base="-1" minlen="8" index="1">
+<operand_exp index="1" table="0x0" ct="0xb"/>
+</operand_sym>
+<operand_sym name="seqword" id="0xe2" scope="0x28" subsym="0x8d" off="8" base="-1" minlen="8" index="3">
+<operand_exp index="3" table="0x0" ct="0xb"/>
+</operand_sym>
+<subtable_sym name="ucode_target" id="0xe3" scope="0x0" numct="1">
+<constructor parent="0xe3" first="1" length="8" line="311">
+<oper id="0xe5"/>
+<oper id="0xe6"/>
+<oper id="0xe7"/>
+<oper id="0xe4"/>
 <opprint id="3"/>
 <construct_tpl>
-<handle_tpl><const_tpl type="spaceid" name="ucode"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="3" s="space"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x130"/></handle_tpl>
+<handle_tpl><const_tpl type="spaceid" name="ucode"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="3" s="space"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x150"/></handle_tpl>
 </construct_tpl>
 </constructor>
 <decision number="1" context="false" start="0" size="0">
@@ -7135,81 +7457,51 @@
 </pair>
 </decision>
 </subtable_sym>
-<operand_sym name="target" id="0xda" scope="0x27" off="0" base="-1" minlen="0" index="3">
-<operand_exp index="3" table="0xd9" ct="0x0"/>
+<operand_sym name="target" id="0xe4" scope="0x29" off="0" base="-1" minlen="0" index="3">
+<operand_exp index="3" table="0xe3" ct="0x0"/>
 <mult_exp>
 <or_exp>
 <or_exp>
 <lshift_exp>
 <and_exp>
-<operand_exp index="2" table="0xd9" ct="0x0"/>
+<operand_exp index="2" table="0xe3" ct="0x0"/>
 <intb val="7"/>
 </and_exp>
 <intb val="13"/>
 </lshift_exp>
 <lshift_exp>
-<operand_exp index="1" table="0xd9" ct="0x0"/>
+<operand_exp index="1" table="0xe3" ct="0x0"/>
 <intb val="8"/>
 </lshift_exp>
 </or_exp>
-<operand_exp index="0" table="0xd9" ct="0x0"/>
+<operand_exp index="0" table="0xe3" ct="0x0"/>
 </or_exp>
 <intb val="16"/>
 </mult_exp>
 </operand_sym>
-<operand_sym name="imm0" id="0xdb" scope="0x27" off="0" base="-1" minlen="8" index="0">
-<operand_exp index="0" table="0xd9" ct="0x0"/>
+<operand_sym name="imm0" id="0xe5" scope="0x29" off="0" base="-1" minlen="8" index="0">
+<operand_exp index="0" table="0xe3" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="24" bitend="31" bytestart="3" byteend="3" shift="0"/>
 </operand_sym>
-<operand_sym name="imm1" id="0xdc" scope="0x27" off="0" base="-1" minlen="8" index="1">
-<operand_exp index="1" table="0xd9" ct="0x0"/>
+<operand_sym name="imm1" id="0xe6" scope="0x29" off="0" base="-1" minlen="8" index="1">
+<operand_exp index="1" table="0xe3" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="18" bitend="22" bytestart="2" byteend="2" shift="2"/>
 </operand_sym>
-<operand_sym name="src1_sel" id="0xdd" scope="0x27" off="0" base="-1" minlen="8" index="2">
-<operand_exp index="2" table="0xd9" ct="0x0"/>
+<operand_sym name="src1_sel" id="0xe7" scope="0x29" off="0" base="-1" minlen="8" index="2">
+<operand_exp index="2" table="0xe3" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="6" bitend="11" bytestart="0" byteend="1" shift="6"/>
-</operand_sym>
-<operand_sym name="uip_reg" id="0xde" scope="0x28" subsym="0x61" off="0" base="-1" minlen="8" index="1">
-<operand_exp index="1" table="0x0" ct="0xa"/>
-</operand_sym>
-<operand_sym name="ucode_target" id="0xdf" scope="0x28" subsym="0xd9" off="0" base="-1" minlen="8" index="2">
-<operand_exp index="2" table="0x0" ct="0xa"/>
-</operand_sym>
-<operand_sym name="seqword" id="0xe0" scope="0x28" subsym="0x8d" off="8" base="-1" minlen="8" index="3">
-<operand_exp index="3" table="0x0" ct="0xa"/>
-</operand_sym>
-<operand_sym name="dest" id="0xe1" scope="0x28" subsym="0xa7" off="0" base="-1" minlen="8" index="0">
-<operand_exp index="0" table="0x0" ct="0xa"/>
-</operand_sym>
-<operand_sym name="source0" id="0xe2" scope="0x29" subsym="0x91" off="0" base="-1" minlen="8" index="1">
-<operand_exp index="1" table="0x0" ct="0xb"/>
-</operand_sym>
-<operand_sym name="uip_reg" id="0xe3" scope="0x29" subsym="0x61" off="0" base="-1" minlen="8" index="2">
-<operand_exp index="2" table="0x0" ct="0xb"/>
-</operand_sym>
-<operand_sym name="ucode_target" id="0xe4" scope="0x29" subsym="0xd9" off="0" base="-1" minlen="8" index="3">
-<operand_exp index="3" table="0x0" ct="0xb"/>
-</operand_sym>
-<operand_sym name="seqword" id="0xe5" scope="0x29" subsym="0x8d" off="8" base="-1" minlen="8" index="4">
-<operand_exp index="4" table="0x0" ct="0xb"/>
-</operand_sym>
-<operand_sym name="dest" id="0xe6" scope="0x29" subsym="0xa7" off="0" base="-1" minlen="8" index="0">
-<operand_exp index="0" table="0x0" ct="0xb"/>
-</operand_sym>
-<operand_sym name="dest" id="0xe7" scope="0x2a" subsym="0xa7" off="0" base="-1" minlen="8" index="0">
-<operand_exp index="0" table="0x0" ct="0xc"/>
 </operand_sym>
 <operand_sym name="uip_reg" id="0xe8" scope="0x2a" subsym="0x61" off="0" base="-1" minlen="8" index="1">
 <operand_exp index="1" table="0x0" ct="0xc"/>
 </operand_sym>
-<operand_sym name="ucode_target" id="0xe9" scope="0x2a" subsym="0xd9" off="0" base="-1" minlen="8" index="2">
+<operand_sym name="ucode_target" id="0xe9" scope="0x2a" subsym="0xe3" off="0" base="-1" minlen="8" index="2">
 <operand_exp index="2" table="0x0" ct="0xc"/>
 </operand_sym>
 <operand_sym name="seqword" id="0xea" scope="0x2a" subsym="0x8d" off="8" base="-1" minlen="8" index="3">
 <operand_exp index="3" table="0x0" ct="0xc"/>
 </operand_sym>
-<operand_sym name="dest" id="0xeb" scope="0x2b" subsym="0xa7" off="0" base="-1" minlen="8" index="0">
-<operand_exp index="0" table="0x0" ct="0xd"/>
+<operand_sym name="dest" id="0xeb" scope="0x2a" subsym="0xa7" off="0" base="-1" minlen="8" index="0">
+<operand_exp index="0" table="0x0" ct="0xc"/>
 </operand_sym>
 <operand_sym name="source0" id="0xec" scope="0x2b" subsym="0x91" off="0" base="-1" minlen="8" index="1">
 <operand_exp index="1" table="0x0" ct="0xd"/>
@@ -7217,19 +7509,49 @@
 <operand_sym name="uip_reg" id="0xed" scope="0x2b" subsym="0x61" off="0" base="-1" minlen="8" index="2">
 <operand_exp index="2" table="0x0" ct="0xd"/>
 </operand_sym>
-<operand_sym name="ucode_target" id="0xee" scope="0x2b" subsym="0xd9" off="0" base="-1" minlen="8" index="3">
+<operand_sym name="ucode_target" id="0xee" scope="0x2b" subsym="0xe3" off="0" base="-1" minlen="8" index="3">
 <operand_exp index="3" table="0x0" ct="0xd"/>
 </operand_sym>
 <operand_sym name="seqword" id="0xef" scope="0x2b" subsym="0x8d" off="8" base="-1" minlen="8" index="4">
 <operand_exp index="4" table="0x0" ct="0xd"/>
 </operand_sym>
-<subtable_sym name="ucode_next" id="0xf0" scope="0x0" numct="1">
-<constructor parent="0xf0" first="1" length="8" line="322">
-<oper id="0xf2"/>
-<oper id="0xf1"/>
+<operand_sym name="dest" id="0xf0" scope="0x2b" subsym="0xa7" off="0" base="-1" minlen="8" index="0">
+<operand_exp index="0" table="0x0" ct="0xd"/>
+</operand_sym>
+<operand_sym name="dest" id="0xf1" scope="0x2c" subsym="0xa7" off="0" base="-1" minlen="8" index="0">
+<operand_exp index="0" table="0x0" ct="0xe"/>
+</operand_sym>
+<operand_sym name="uip_reg" id="0xf2" scope="0x2c" subsym="0x61" off="0" base="-1" minlen="8" index="1">
+<operand_exp index="1" table="0x0" ct="0xe"/>
+</operand_sym>
+<operand_sym name="ucode_target" id="0xf3" scope="0x2c" subsym="0xe3" off="0" base="-1" minlen="8" index="2">
+<operand_exp index="2" table="0x0" ct="0xe"/>
+</operand_sym>
+<operand_sym name="seqword" id="0xf4" scope="0x2c" subsym="0x8d" off="8" base="-1" minlen="8" index="3">
+<operand_exp index="3" table="0x0" ct="0xe"/>
+</operand_sym>
+<operand_sym name="dest" id="0xf5" scope="0x2d" subsym="0xa7" off="0" base="-1" minlen="8" index="0">
+<operand_exp index="0" table="0x0" ct="0xf"/>
+</operand_sym>
+<operand_sym name="source0" id="0xf6" scope="0x2d" subsym="0x91" off="0" base="-1" minlen="8" index="1">
+<operand_exp index="1" table="0x0" ct="0xf"/>
+</operand_sym>
+<operand_sym name="uip_reg" id="0xf7" scope="0x2d" subsym="0x61" off="0" base="-1" minlen="8" index="2">
+<operand_exp index="2" table="0x0" ct="0xf"/>
+</operand_sym>
+<operand_sym name="ucode_target" id="0xf8" scope="0x2d" subsym="0xe3" off="0" base="-1" minlen="8" index="3">
+<operand_exp index="3" table="0x0" ct="0xf"/>
+</operand_sym>
+<operand_sym name="seqword" id="0xf9" scope="0x2d" subsym="0x8d" off="8" base="-1" minlen="8" index="4">
+<operand_exp index="4" table="0x0" ct="0xf"/>
+</operand_sym>
+<subtable_sym name="ucode_next" id="0xfa" scope="0x0" numct="1">
+<constructor parent="0xfa" first="1" length="8" line="332">
+<oper id="0xfc"/>
+<oper id="0xfb"/>
 <opprint id="1"/>
 <construct_tpl>
-<handle_tpl><const_tpl type="spaceid" name="ucode"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x140"/></handle_tpl>
+<handle_tpl><const_tpl type="spaceid" name="ucode"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x160"/></handle_tpl>
 </construct_tpl>
 </constructor>
 <decision number="1" context="false" start="0" size="0">
@@ -7241,19 +7563,19 @@
 </pair>
 </decision>
 </subtable_sym>
-<operand_sym name="next" id="0xf1" scope="0x2c" off="0" base="-1" minlen="0" index="1">
-<operand_exp index="1" table="0xf0" ct="0x0"/>
+<operand_sym name="next" id="0xfb" scope="0x2e" off="0" base="-1" minlen="0" index="1">
+<operand_exp index="1" table="0xfa" ct="0x0"/>
 <end_exp/></operand_sym>
-<operand_sym name="opcode" id="0xf2" scope="0x2c" off="0" base="-1" minlen="8" index="0">
-<operand_exp index="0" table="0xf0" ct="0x0"/>
+<operand_sym name="opcode" id="0xfc" scope="0x2e" off="0" base="-1" minlen="8" index="0">
+<operand_exp index="0" table="0xfa" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="32" bitend="43" bytestart="4" byteend="5" shift="0"/>
 </operand_sym>
-<subtable_sym name="saveuip_ov_imm" id="0xf3" scope="0x0" numct="1">
-<constructor parent="0xf3" first="1" length="8" line="325">
-<oper id="0xf5"/>
-<oper id="0xf6"/>
-<oper id="0xf7"/>
-<oper id="0xf4"/>
+<subtable_sym name="saveuip_ov_imm" id="0xfd" scope="0x0" numct="1">
+<constructor parent="0xfd" first="1" length="8" line="335">
+<oper id="0xff"/>
+<oper id="0x100"/>
+<oper id="0x101"/>
+<oper id="0xfe"/>
 <opprint id="3"/>
 <construct_tpl>
 <handle_tpl><const_tpl type="handle" val="3" s="space"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
@@ -7268,87 +7590,87 @@
 </pair>
 </decision>
 </subtable_sym>
-<operand_sym name="value" id="0xf4" scope="0x2d" off="0" base="-1" minlen="0" index="3">
-<operand_exp index="3" table="0xf3" ct="0x0"/>
+<operand_sym name="value" id="0xfe" scope="0x2f" off="0" base="-1" minlen="0" index="3">
+<operand_exp index="3" table="0xfd" ct="0x0"/>
 <or_exp>
 <or_exp>
 <lshift_exp>
 <and_exp>
-<operand_exp index="2" table="0xf3" ct="0x0"/>
+<operand_exp index="2" table="0xfd" ct="0x0"/>
 <intb val="7"/>
 </and_exp>
 <intb val="13"/>
 </lshift_exp>
 <lshift_exp>
-<operand_exp index="1" table="0xf3" ct="0x0"/>
+<operand_exp index="1" table="0xfd" ct="0x0"/>
 <intb val="8"/>
 </lshift_exp>
 </or_exp>
-<operand_exp index="0" table="0xf3" ct="0x0"/>
+<operand_exp index="0" table="0xfd" ct="0x0"/>
 </or_exp>
 </operand_sym>
-<operand_sym name="imm0" id="0xf5" scope="0x2d" off="0" base="-1" minlen="8" index="0">
-<operand_exp index="0" table="0xf3" ct="0x0"/>
+<operand_sym name="imm0" id="0xff" scope="0x2f" off="0" base="-1" minlen="8" index="0">
+<operand_exp index="0" table="0xfd" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="24" bitend="31" bytestart="3" byteend="3" shift="0"/>
 </operand_sym>
-<operand_sym name="imm1" id="0xf6" scope="0x2d" off="0" base="-1" minlen="8" index="1">
-<operand_exp index="1" table="0xf3" ct="0x0"/>
+<operand_sym name="imm1" id="0x100" scope="0x2f" off="0" base="-1" minlen="8" index="1">
+<operand_exp index="1" table="0xfd" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="18" bitend="22" bytestart="2" byteend="2" shift="2"/>
 </operand_sym>
-<operand_sym name="src1_sel" id="0xf7" scope="0x2d" off="0" base="-1" minlen="8" index="2">
-<operand_exp index="2" table="0xf3" ct="0x0"/>
+<operand_sym name="src1_sel" id="0x101" scope="0x2f" off="0" base="-1" minlen="8" index="2">
+<operand_exp index="2" table="0xfd" ct="0x0"/>
 <tokenfield bigendian="false" signbit="false" bitstart="6" bitend="11" bytestart="0" byteend="1" shift="6"/>
 </operand_sym>
-<operand_sym name="uip_reg" id="0xf8" scope="0x2e" subsym="0x61" off="0" base="-1" minlen="8" index="2">
-<operand_exp index="2" table="0x0" ct="0xe"/>
-</operand_sym>
-<operand_sym name="ucode_next" id="0xf9" scope="0x2e" subsym="0xf0" off="0" base="-1" minlen="8" index="3">
-<operand_exp index="3" table="0x0" ct="0xe"/>
-</operand_sym>
-<operand_sym name="saveuip_ov_imm" id="0xfa" scope="0x2e" subsym="0xf3" off="0" base="-1" minlen="8" index="0">
-<operand_exp index="0" table="0x0" ct="0xe"/>
-</operand_sym>
-<operand_sym name="seqword" id="0xfb" scope="0x2e" subsym="0x8d" off="8" base="-1" minlen="8" index="4">
-<operand_exp index="4" table="0x0" ct="0xe"/>
-</operand_sym>
-<operand_sym name="dest" id="0xfc" scope="0x2e" subsym="0xa7" off="0" base="-1" minlen="8" index="1">
-<operand_exp index="1" table="0x0" ct="0xe"/>
-</operand_sym>
-<operand_sym name="dest" id="0xfd" scope="0x2f" subsym="0xa7" off="0" base="-1" minlen="8" index="1">
-<operand_exp index="1" table="0x0" ct="0xf"/>
-</operand_sym>
-<operand_sym name="uip_reg" id="0xfe" scope="0x2f" subsym="0x61" off="0" base="-1" minlen="8" index="2">
-<operand_exp index="2" table="0x0" ct="0xf"/>
-</operand_sym>
-<operand_sym name="ucode_next" id="0xff" scope="0x2f" subsym="0xf0" off="0" base="-1" minlen="8" index="3">
-<operand_exp index="3" table="0x0" ct="0xf"/>
-</operand_sym>
-<operand_sym name="saveuip_ov_imm" id="0x100" scope="0x2f" subsym="0xf3" off="0" base="-1" minlen="8" index="0">
-<operand_exp index="0" table="0x0" ct="0xf"/>
-</operand_sym>
-<operand_sym name="seqword" id="0x101" scope="0x2f" subsym="0x8d" off="8" base="-1" minlen="8" index="4">
-<operand_exp index="4" table="0x0" ct="0xf"/>
-</operand_sym>
-<operand_sym name="uip_reg" id="0x102" scope="0x30" subsym="0x61" off="0" base="-1" minlen="8" index="1">
-<operand_exp index="1" table="0x0" ct="0x10"/>
-</operand_sym>
-<operand_sym name="seqword" id="0x103" scope="0x30" subsym="0x8d" off="8" base="-1" minlen="8" index="2">
+<operand_sym name="uip_reg" id="0x102" scope="0x30" subsym="0x61" off="0" base="-1" minlen="8" index="2">
 <operand_exp index="2" table="0x0" ct="0x10"/>
 </operand_sym>
-<operand_sym name="dest" id="0x104" scope="0x30" subsym="0xa7" off="0" base="-1" minlen="8" index="0">
+<operand_sym name="ucode_next" id="0x103" scope="0x30" subsym="0xfa" off="0" base="-1" minlen="8" index="3">
+<operand_exp index="3" table="0x0" ct="0x10"/>
+</operand_sym>
+<operand_sym name="saveuip_ov_imm" id="0x104" scope="0x30" subsym="0xfd" off="0" base="-1" minlen="8" index="0">
 <operand_exp index="0" table="0x0" ct="0x10"/>
 </operand_sym>
-<operand_sym name="dest" id="0x105" scope="0x31" subsym="0xa7" off="0" base="-1" minlen="8" index="0">
-<operand_exp index="0" table="0x0" ct="0x11"/>
+<operand_sym name="seqword" id="0x105" scope="0x30" subsym="0x8d" off="8" base="-1" minlen="8" index="4">
+<operand_exp index="4" table="0x0" ct="0x10"/>
 </operand_sym>
-<operand_sym name="uip_reg" id="0x106" scope="0x31" subsym="0x61" off="0" base="-1" minlen="8" index="2">
-<operand_exp index="2" table="0x0" ct="0x11"/>
+<operand_sym name="dest" id="0x106" scope="0x30" subsym="0xa7" off="0" base="-1" minlen="8" index="1">
+<operand_exp index="1" table="0x0" ct="0x10"/>
 </operand_sym>
-<operand_sym name="source0" id="0x107" scope="0x31" subsym="0x91" off="0" base="-1" minlen="8" index="1">
+<operand_sym name="dest" id="0x107" scope="0x31" subsym="0xa7" off="0" base="-1" minlen="8" index="1">
 <operand_exp index="1" table="0x0" ct="0x11"/>
 </operand_sym>
-<operand_sym name="seqword" id="0x108" scope="0x31" subsym="0x8d" off="8" base="-1" minlen="8" index="3">
+<operand_sym name="uip_reg" id="0x108" scope="0x31" subsym="0x61" off="0" base="-1" minlen="8" index="2">
+<operand_exp index="2" table="0x0" ct="0x11"/>
+</operand_sym>
+<operand_sym name="ucode_next" id="0x109" scope="0x31" subsym="0xfa" off="0" base="-1" minlen="8" index="3">
 <operand_exp index="3" table="0x0" ct="0x11"/>
+</operand_sym>
+<operand_sym name="saveuip_ov_imm" id="0x10a" scope="0x31" subsym="0xfd" off="0" base="-1" minlen="8" index="0">
+<operand_exp index="0" table="0x0" ct="0x11"/>
+</operand_sym>
+<operand_sym name="seqword" id="0x10b" scope="0x31" subsym="0x8d" off="8" base="-1" minlen="8" index="4">
+<operand_exp index="4" table="0x0" ct="0x11"/>
+</operand_sym>
+<operand_sym name="uip_reg" id="0x10c" scope="0x32" subsym="0x61" off="0" base="-1" minlen="8" index="1">
+<operand_exp index="1" table="0x0" ct="0x12"/>
+</operand_sym>
+<operand_sym name="seqword" id="0x10d" scope="0x32" subsym="0x8d" off="8" base="-1" minlen="8" index="2">
+<operand_exp index="2" table="0x0" ct="0x12"/>
+</operand_sym>
+<operand_sym name="dest" id="0x10e" scope="0x32" subsym="0xa7" off="0" base="-1" minlen="8" index="0">
+<operand_exp index="0" table="0x0" ct="0x12"/>
+</operand_sym>
+<operand_sym name="dest" id="0x10f" scope="0x33" subsym="0xa7" off="0" base="-1" minlen="8" index="0">
+<operand_exp index="0" table="0x0" ct="0x13"/>
+</operand_sym>
+<operand_sym name="uip_reg" id="0x110" scope="0x33" subsym="0x61" off="0" base="-1" minlen="8" index="2">
+<operand_exp index="2" table="0x0" ct="0x13"/>
+</operand_sym>
+<operand_sym name="source0" id="0x111" scope="0x33" subsym="0x91" off="0" base="-1" minlen="8" index="1">
+<operand_exp index="1" table="0x0" ct="0x13"/>
+</operand_sym>
+<operand_sym name="seqword" id="0x112" scope="0x33" subsym="0x8d" off="8" base="-1" minlen="8" index="3">
+<operand_exp index="3" table="0x0" ct="0x13"/>
 </operand_sym>
 </symbol_table>
 </sleigh>

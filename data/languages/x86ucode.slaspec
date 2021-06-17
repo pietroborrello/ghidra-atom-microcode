@@ -308,6 +308,26 @@ dest: is dst & dst_sel=0 { export dst; }
 	build seqword;
 }
 
+:bt^"_"^dst_size dest source0, source1 seqword is  (opcode = 0x014 | opcode = 0x054 | opcode = 0x094) & dest & source0 & source1 & dst_size; seqword {
+	dest = (source0 >> source1) & 1;
+	build seqword;
+}
+:bts^"_"^dst_size dest source0, source1 seqword is (opcode = 0x015 | opcode = 0x055 | opcode = 0x095) & dest & source0 & source1 & dst_size; seqword {
+	dest = (source0 >> source1) & 1;
+	source0 = source0 | (1:8 << source1);
+	build seqword;
+}
+:btr^"_"^dst_size dest source0, source1 seqword is (opcode = 0x016 | opcode = 0x056 | opcode = 0x096) & dest & source0 & source1 & dst_size; seqword {
+	dest = (source0 >> source1) & 1;
+	source0 = source0 & ~(1:8 << source1);
+	build seqword;
+}
+:btc^"_"^dst_size dest source0, source1 seqword is (opcode = 0x017 | opcode = 0x057 | opcode = 0x097) & dest & source0 & source1 & dst_size; seqword {
+	dest = (source0 >> source1) & 1;
+	source0 = source0 ^ (1:8 << source1);
+	build seqword;
+}
+
 ucode_target: target is imm0 & imm1 & src1_sel [
 	target = (((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0) * $(INSTR_LEN);
 ] { export *[ucode]:8 target; }

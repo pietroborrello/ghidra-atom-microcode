@@ -240,6 +240,14 @@ attach names [eflow_cmd] [
 	"WRTAGW" "MSLOOP" "UNKNOWN_EFLOW" "MSSTOP" "SEQW UEND0" "SEQW UEND1" "SEQW UEND2" "SEQW UEND3"
 ];
 
+# ======= MACROS =======
+macro resultflags(result, ZF, SF, PF) {
+ SF = result s< 0;
+ ZF = result == 0;
+ PF = ((popcount(result & 0xff) & 1:1) == 0);
+ # AF not implemented
+}
+
 # ======= SEQWORD =======
 seqword_sync: [sync_cmd] is up2=1 & sync_cmd {}
 seqword_sync:"" is up2=0 & sync {}
@@ -310,61 +318,73 @@ dest: is dst & dst_sel=0 { export dst; }
 
 :add^"_"^dst_size dest source0, source1 seqword is (opcode = 0x000 | opcode = 0x040 | opcode = 0x080 | opcode = 0x0c0) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = source0 + source1;
+	resultflags(dest, dst_ZF,dst_SF, dst_PF);
 	build seqword;
 }
 
 :or^"_"^dst_size dest source0, source1 seqword is (opcode = 0x001 | opcode = 0x041 | opcode = 0x081 | opcode = 0x0c1) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = source0 | source1;
+	resultflags(dest, dst_ZF,dst_SF, dst_PF);
 	build seqword;
 }
 
 :and^"_"^dst_size dest source0, source1 seqword is (opcode = 0x004 | opcode = 0x044 | opcode = 0x084 | opcode = 0x0c4) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = source0 & source1;
+	resultflags(dest, dst_ZF,dst_SF, dst_PF);
 	build seqword;
 }
 
 :sub^"_"^dst_size dest source0, source1 seqword is (opcode = 0x005 | opcode = 0x045 | opcode = 0x085 | opcode = 0x0c5) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = source0 - source1;
+	resultflags(dest, dst_ZF,dst_SF, dst_PF);
 	build seqword;
 }
 
 :xor^"_"^dst_size dest source0, source1 seqword is (opcode = 0x006 | opcode = 0x046 | opcode = 0x086 | opcode = 0x0c6) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = source0 ^ source1;
+	resultflags(dest, dst_ZF,dst_SF, dst_PF);
 	build seqword;
 }
 
 :shl^"_"^dst_size dest source0, source1 seqword is (opcode = 0x024 | opcode = 0x064 | opcode = 0x0a4 | opcode = 0x0e4) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = source0 << source1;
+	resultflags(dest, dst_ZF,dst_SF, dst_PF);
 	build seqword;
 }
 
 :shr^"_"^dst_size dest source0, source1 seqword is (opcode = 0x025 | opcode = 0x065 | opcode = 0x0a5 | opcode = 0x0e5) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = source0 >> source1;
+	resultflags(dest, dst_ZF,dst_SF, dst_PF);
 	build seqword;
 }
 
 :sar^"_"^dst_size dest source0, source1 seqword is (opcode = 0x02e | opcode = 0x06e | opcode = 0x0ae | opcode = 0x0ee) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = source0 s>> source1;
+	resultflags(dest, dst_ZF,dst_SF, dst_PF);
 	build seqword;
 }
 
 :rol^"_"^dst_size dest source0, source1 seqword is (opcode = 0x02c | opcode = 0x06c | opcode = 0x0ac | opcode = 0x0ec) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = (source0 << source1) | (source0 >> (64 - source1));
+	resultflags(dest, dst_ZF,dst_SF, dst_PF);
 	build seqword;
 }
 
 :ror^"_"^dst_size dest source0, source1 seqword is (opcode = 0x02d | opcode = 0x06d | opcode = 0x0ad | opcode = 0x0ed) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = (source0 >> source1) | (source0 << (64 - source1));
+	resultflags(dest, dst_ZF,dst_SF, dst_PF);
 	build seqword;
 }
 
 :notand^"_"^dst_size dest source0, source1 seqword is (opcode = 0x007 | opcode = 0x047 | opcode = 0x087 | opcode = 0x0c7) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = ~(source0 & source1);
+	resultflags(dest, dst_ZF,dst_SF, dst_PF);
 	build seqword;
 }
 
 :zeroext^"_"^dst_size dest source0 seqword is (opcode = 0x008 | opcode = 0x048 | opcode = 0x088 | opcode = 0x0c8) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & dst_size; seqword {
 	dest = source0;
+	resultflags(dest, dst_ZF,dst_SF, dst_PF);
 	build seqword;
 }
 

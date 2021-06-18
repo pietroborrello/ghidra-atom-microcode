@@ -1,4 +1,4 @@
-<sleigh version="2" bigendian="false" align="1" uniqbase="0x3d0">
+<sleigh version="2" bigendian="false" align="1" uniqbase="0x430">
 <spaces defaultspace="ucode">
 <space_other name="OTHER" index="1" bigendian="false" delay="0" size="8" physical="false"/>
 <space_unique name="unique" index="2" bigendian="false" delay="0" size="4" physical="true"/>
@@ -550,7 +550,7 @@
 <operand_sym_head name="source0" id="0x1df" scope="0x3a"/>
 <operand_sym_head name="seqword" id="0x1e0" scope="0x3a"/>
 <subtable_sym name="instruction" id="0x0" scope="0x0" numct="27">
-<constructor parent="0x0" first="1" length="16" line="306">
+<constructor parent="0x0" first="1" length="16" line="314">
 <oper id="0x101"/>
 <oper id="0x102"/>
 <oper id="0x103"/>
@@ -580,7 +580,7 @@
 <print piece=" "/>
 <opprint id="6"/>
 </constructor>
-<constructor parent="0x0" first="1" length="16" line="309">
+<constructor parent="0x0" first="1" length="16" line="317">
 <oper id="0x108"/>
 <print piece="nop"/>
 <print piece=" "/>
@@ -591,7 +591,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="311">
+<constructor parent="0x0" first="2" length="16" line="319">
 <oper id="0x10a"/>
 <oper id="0x10e"/>
 <oper id="0x10f"/>
@@ -627,12 +627,35 @@
 <varnode_tpl><const_tpl type="handle" val="6" s="space"/><const_tpl type="handle" val="6" s="offset"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="7" s="space"/><const_tpl type="handle" val="7" s="offset"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 </op_tpl>
+<op_tpl code="INT_SLESS"><varnode_tpl><const_tpl type="handle" val="4" s="space"/><const_tpl type="handle" val="4" s="offset"/><const_tpl type="handle" val="4" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="INT_EQUAL"><varnode_tpl><const_tpl type="handle" val="3" s="space"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="handle" val="3" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="INT_AND"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x20"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0xff"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="POPCOUNT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x30"/><const_tpl type="real" val="0x1"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x20"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="INT_AND"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x40"/><const_tpl type="real" val="0x1"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x30"/><const_tpl type="real" val="0x1"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x1"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="INT_EQUAL"><varnode_tpl><const_tpl type="handle" val="5" s="space"/><const_tpl type="handle" val="5" s="offset"/><const_tpl type="handle" val="5" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x40"/><const_tpl type="real" val="0x1"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x1"/></varnode_tpl>
+</op_tpl>
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x9"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="316">
+<constructor parent="0x0" first="2" length="16" line="325">
 <oper id="0x114"/>
 <oper id="0x118"/>
 <oper id="0x119"/>
@@ -673,7 +696,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="321">
+<constructor parent="0x0" first="2" length="16" line="330">
 <oper id="0x11e"/>
 <oper id="0x122"/>
 <oper id="0x123"/>
@@ -714,7 +737,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="326">
+<constructor parent="0x0" first="2" length="16" line="335">
 <oper id="0x128"/>
 <oper id="0x12c"/>
 <oper id="0x12d"/>
@@ -755,7 +778,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="331">
+<constructor parent="0x0" first="2" length="16" line="340">
 <oper id="0x132"/>
 <oper id="0x136"/>
 <oper id="0x137"/>
@@ -796,7 +819,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="336">
+<constructor parent="0x0" first="2" length="16" line="345">
 <oper id="0x13c"/>
 <oper id="0x140"/>
 <oper id="0x141"/>
@@ -837,7 +860,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="341">
+<constructor parent="0x0" first="2" length="16" line="350">
 <oper id="0x146"/>
 <oper id="0x14a"/>
 <oper id="0x14b"/>
@@ -878,7 +901,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="346">
+<constructor parent="0x0" first="2" length="16" line="355">
 <oper id="0x150"/>
 <oper id="0x154"/>
 <oper id="0x155"/>
@@ -919,7 +942,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="351">
+<constructor parent="0x0" first="2" length="16" line="360">
 <oper id="0x15a"/>
 <oper id="0x15e"/>
 <oper id="0x15f"/>
@@ -951,28 +974,28 @@
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_LEFT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x1a0"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<op_tpl code="INT_LEFT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x200"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="6" s="space"/><const_tpl type="handle" val="6" s="offset"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="7" s="space"/><const_tpl type="handle" val="7" s="offset"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_SUB"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x1b0"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
+<op_tpl code="INT_SUB"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x210"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x40"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="7" s="space"/><const_tpl type="handle" val="7" s="offset"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_RIGHT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x1c0"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<op_tpl code="INT_RIGHT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x220"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="6" s="space"/><const_tpl type="handle" val="6" s="offset"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x1b0"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x210"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="INT_OR"><varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x1a0"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x1c0"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x200"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x220"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x9"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="356">
+<constructor parent="0x0" first="2" length="16" line="365">
 <oper id="0x164"/>
 <oper id="0x168"/>
 <oper id="0x169"/>
@@ -1004,28 +1027,28 @@
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_RIGHT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x1e0"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<op_tpl code="INT_RIGHT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x240"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="6" s="space"/><const_tpl type="handle" val="6" s="offset"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="7" s="space"/><const_tpl type="handle" val="7" s="offset"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_SUB"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x1f0"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
+<op_tpl code="INT_SUB"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x250"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x40"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="7" s="space"/><const_tpl type="handle" val="7" s="offset"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_LEFT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x200"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<op_tpl code="INT_LEFT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x260"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="6" s="space"/><const_tpl type="handle" val="6" s="offset"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x1f0"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x250"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="INT_OR"><varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x1e0"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x200"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x240"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x260"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x9"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="361">
+<constructor parent="0x0" first="2" length="16" line="370">
 <oper id="0x16e"/>
 <oper id="0x172"/>
 <oper id="0x173"/>
@@ -1057,19 +1080,19 @@
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_AND"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x220"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<op_tpl code="INT_AND"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x280"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="6" s="space"/><const_tpl type="handle" val="6" s="offset"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="7" s="space"/><const_tpl type="handle" val="7" s="offset"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="INT_NEGATE"><varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x220"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x280"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x9"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="366">
+<constructor parent="0x0" first="2" length="16" line="375">
 <oper id="0x178"/>
 <oper id="0x17b"/>
 <oper id="0x17c"/>
@@ -1102,7 +1125,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="371">
+<constructor parent="0x0" first="2" length="16" line="380">
 <oper id="0x181"/>
 <oper id="0x184"/>
 <oper id="0x185"/>
@@ -1135,7 +1158,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="376">
+<constructor parent="0x0" first="2" length="16" line="385">
 <oper id="0x18a"/>
 <oper id="0x18e"/>
 <oper id="0x18f"/>
@@ -1167,12 +1190,12 @@
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_RIGHT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x240"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<op_tpl code="INT_RIGHT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x2a0"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="6" s="space"/><const_tpl type="handle" val="6" s="offset"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="7" s="space"/><const_tpl type="handle" val="7" s="offset"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="INT_AND"><varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x240"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x2a0"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
@@ -1180,7 +1203,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="380">
+<constructor parent="0x0" first="2" length="16" line="389">
 <oper id="0x194"/>
 <oper id="0x198"/>
 <oper id="0x199"/>
@@ -1212,28 +1235,28 @@
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_RIGHT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x260"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<op_tpl code="INT_RIGHT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x2c0"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="6" s="space"/><const_tpl type="handle" val="6" s="offset"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="7" s="space"/><const_tpl type="handle" val="7" s="offset"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="INT_AND"><varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x260"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x2c0"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_LEFT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x280"/><const_tpl type="real" val="0x8"/></varnode_tpl>
+<op_tpl code="INT_LEFT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x2e0"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="7" s="space"/><const_tpl type="handle" val="7" s="offset"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="INT_OR"><varnode_tpl><const_tpl type="handle" val="6" s="space"/><const_tpl type="handle" val="6" s="offset"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="6" s="space"/><const_tpl type="handle" val="6" s="offset"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x280"/><const_tpl type="real" val="0x8"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x2e0"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x9"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="385">
+<constructor parent="0x0" first="2" length="16" line="394">
 <oper id="0x19e"/>
 <oper id="0x1a2"/>
 <oper id="0x1a3"/>
@@ -1265,31 +1288,31 @@
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_RIGHT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x2a0"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<op_tpl code="INT_RIGHT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x300"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="6" s="space"/><const_tpl type="handle" val="6" s="offset"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="7" s="space"/><const_tpl type="handle" val="7" s="offset"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="INT_AND"><varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x2a0"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x300"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_LEFT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x2c0"/><const_tpl type="real" val="0x8"/></varnode_tpl>
+<op_tpl code="INT_LEFT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x320"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="7" s="space"/><const_tpl type="handle" val="7" s="offset"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_NEGATE"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x2d0"/><const_tpl type="real" val="0x8"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x2c0"/><const_tpl type="real" val="0x8"/></varnode_tpl>
+<op_tpl code="INT_NEGATE"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x330"/><const_tpl type="real" val="0x8"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x320"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="INT_AND"><varnode_tpl><const_tpl type="handle" val="6" s="space"/><const_tpl type="handle" val="6" s="offset"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="6" s="space"/><const_tpl type="handle" val="6" s="offset"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x2d0"/><const_tpl type="real" val="0x8"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x330"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x9"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="2" length="16" line="390">
+<constructor parent="0x0" first="2" length="16" line="399">
 <oper id="0x1a8"/>
 <oper id="0x1ac"/>
 <oper id="0x1ad"/>
@@ -1321,28 +1344,28 @@
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_RIGHT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x2f0"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<op_tpl code="INT_RIGHT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x350"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="6" s="space"/><const_tpl type="handle" val="6" s="offset"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="7" s="space"/><const_tpl type="handle" val="7" s="offset"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="INT_AND"><varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x2f0"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x350"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_LEFT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x310"/><const_tpl type="real" val="0x8"/></varnode_tpl>
+<op_tpl code="INT_LEFT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x370"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="7" s="space"/><const_tpl type="handle" val="7" s="offset"/><const_tpl type="handle" val="7" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="INT_XOR"><varnode_tpl><const_tpl type="handle" val="6" s="space"/><const_tpl type="handle" val="6" s="offset"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="6" s="space"/><const_tpl type="handle" val="6" s="offset"/><const_tpl type="handle" val="6" s="size"/></varnode_tpl>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x310"/><const_tpl type="real" val="0x8"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x370"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x9"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="1" length="16" line="400">
+<constructor parent="0x0" first="1" length="16" line="409">
 <oper id="0x1b9"/>
 <oper id="0x1b6"/>
 <oper id="0x1b7"/>
@@ -1371,7 +1394,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="1" length="16" line="404">
+<constructor parent="0x0" first="1" length="16" line="413">
 <oper id="0x1be"/>
 <oper id="0x1ba"/>
 <oper id="0x1bb"/>
@@ -1407,7 +1430,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="1" length="16" line="408">
+<constructor parent="0x0" first="1" length="16" line="417">
 <oper id="0x1bf"/>
 <oper id="0x1c0"/>
 <oper id="0x1c1"/>
@@ -1438,7 +1461,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="1" length="16" line="412">
+<constructor parent="0x0" first="1" length="16" line="421">
 <oper id="0x1c3"/>
 <oper id="0x1c4"/>
 <oper id="0x1c5"/>
@@ -1476,7 +1499,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="1" length="16" line="423">
+<constructor parent="0x0" first="1" length="16" line="432">
 <oper id="0x1d2"/>
 <oper id="0x1d4"/>
 <oper id="0x1d0"/>
@@ -1512,7 +1535,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="1" length="16" line="428">
+<constructor parent="0x0" first="1" length="16" line="437">
 <oper id="0x1d8"/>
 <oper id="0x1d5"/>
 <oper id="0x1d6"/>
@@ -1550,7 +1573,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="1" length="16" line="433">
+<constructor parent="0x0" first="1" length="16" line="442">
 <oper id="0x1dc"/>
 <oper id="0x1da"/>
 <oper id="0x1db"/>
@@ -1566,16 +1589,16 @@
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x2"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_MULT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x3b0"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
+<op_tpl code="INT_MULT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x410"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x10"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="RETURN"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x3b0"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x410"/><const_tpl type="handle" val="1" s="size"/></varnode_tpl>
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="1" length="16" line="437">
+<constructor parent="0x0" first="1" length="16" line="446">
 <oper id="0x1dd"/>
 <oper id="0x1df"/>
 <oper id="0x1de"/>
@@ -1600,12 +1623,12 @@
 <op_tpl code="BUILD"><null/>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
 </op_tpl>
-<op_tpl code="INT_MULT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x3c0"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
+<op_tpl code="INT_MULT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x420"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="handle" val="2" s="space"/><const_tpl type="handle" val="2" s="offset"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x10"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="RETURN"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x3c0"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x420"/><const_tpl type="handle" val="2" s="size"/></varnode_tpl>
 </op_tpl>
 </construct_tpl>
 </constructor>
@@ -7004,7 +7027,7 @@
 <tokenfield bigendian="false" signbit="false" bitstart="30" bitend="63" bytestart="3" byteend="7" shift="6"/>
 </value_sym>
 <subtable_sym name="seqword_sync" id="0xd0" scope="0x0" numct="2">
-<constructor parent="0xd0" first="3" length="8" line="244">
+<constructor parent="0xd0" first="3" length="8" line="252">
 <oper id="0xd1"/>
 <print piece="["/>
 <opprint id="0"/>
@@ -7012,7 +7035,7 @@
 <construct_tpl>
 <null/></construct_tpl>
 </constructor>
-<constructor parent="0xd0" first="0" length="8" line="245">
+<constructor parent="0xd0" first="0" length="8" line="253">
 <oper id="0xd2"/>
 <construct_tpl>
 <null/></construct_tpl>
@@ -7046,38 +7069,38 @@
 <tokenfield bigendian="false" signbit="false" bitstart="25" bitend="27" bytestart="3" byteend="3" shift="1"/>
 </operand_sym>
 <subtable_sym name="seqword_eflow" id="0xd3" scope="0x0" numct="10">
-<constructor parent="0xd3" first="2" length="8" line="248">
+<constructor parent="0xd3" first="2" length="8" line="256">
 <oper id="0xd4"/>
 <print piece="; "/>
 <opprint id="0"/>
 <construct_tpl>
 <null/></construct_tpl>
 </constructor>
-<constructor parent="0xd3" first="1" length="8" line="250">
+<constructor parent="0xd3" first="1" length="8" line="258">
 <print piece="; SEQW URET0"/>
 <construct_tpl>
-<null/><op_tpl code="INT_MULT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x8"/></varnode_tpl>
+<null/><op_tpl code="INT_MULT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x60"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="register"/><const_tpl type="real" val="0x140"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x10"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="RETURN"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x8"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x60"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xd3" first="1" length="8" line="251">
+<constructor parent="0xd3" first="1" length="8" line="259">
 <print piece="; SEQW URET1"/>
 <construct_tpl>
-<null/><op_tpl code="INT_MULT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x10"/><const_tpl type="real" val="0x8"/></varnode_tpl>
+<null/><op_tpl code="INT_MULT"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x70"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="register"/><const_tpl type="real" val="0x148"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 <varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x10"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 </op_tpl>
 <op_tpl code="RETURN"><null/>
-<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x10"/><const_tpl type="real" val="0x8"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x70"/><const_tpl type="real" val="0x8"/></varnode_tpl>
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xd3" first="1" length="8" line="256">
+<constructor parent="0xd3" first="1" length="8" line="264">
 <oper id="0xd7"/>
 <print piece="; SEQW SAVEUIP0"/>
 <print piece=" "/>
@@ -7092,7 +7115,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xd3" first="1" length="8" line="257">
+<constructor parent="0xd3" first="1" length="8" line="265">
 <oper id="0xd8"/>
 <print piece="; SEQW SAVEUIP1"/>
 <print piece=" "/>
@@ -7107,7 +7130,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xd3" first="1" length="8" line="259">
+<constructor parent="0xd3" first="1" length="8" line="267">
 <oper id="0xd9"/>
 <print piece="; ROVR&lt;- SEQW SAVEUIP0"/>
 <print piece=" "/>
@@ -7122,7 +7145,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xd3" first="1" length="8" line="260">
+<constructor parent="0xd3" first="1" length="8" line="268">
 <oper id="0xda"/>
 <print piece="; ROVR&lt;- SEQW SAVEUIP1"/>
 <print piece=" "/>
@@ -7137,18 +7160,18 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xd3" first="2" length="8" line="262">
+<constructor parent="0xd3" first="2" length="8" line="270">
 <oper id="0xdb"/>
 <print piece="; "/>
 <opprint id="0"/>
 <construct_tpl>
 <null/></construct_tpl>
 </constructor>
-<constructor parent="0xd3" first="0" length="8" line="263">
+<constructor parent="0xd3" first="0" length="8" line="271">
 <construct_tpl>
 <null/></construct_tpl>
 </constructor>
-<constructor parent="0xd3" first="0" length="8" line="264">
+<constructor parent="0xd3" first="0" length="8" line="272">
 <oper id="0xdc"/>
 <construct_tpl>
 <null/></construct_tpl>
@@ -7392,11 +7415,11 @@
 <operand_exp index="0" table="0xd3" ct="0x0"/>
 </operand_sym>
 <subtable_sym name="seqword_next" id="0xd5" scope="0x0" numct="1">
-<constructor parent="0xd5" first="1" length="8" line="253">
+<constructor parent="0xd5" first="1" length="8" line="261">
 <oper id="0xd6"/>
 <opprint id="0"/>
 <construct_tpl>
-<handle_tpl><const_tpl type="spaceid" name="ucode"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x20"/></handle_tpl>
+<handle_tpl><const_tpl type="spaceid" name="ucode"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x80"/></handle_tpl>
 </construct_tpl>
 </constructor>
 <decision number="1" context="false" start="0" size="0">
@@ -7432,12 +7455,12 @@
 <tokenfield bigendian="false" signbit="false" bitstart="2" bitend="5" bytestart="0" byteend="0" shift="2"/>
 </operand_sym>
 <subtable_sym name="seqword_target" id="0xdd" scope="0x0" numct="1">
-<constructor parent="0xdd" first="1" length="8" line="267">
+<constructor parent="0xdd" first="1" length="8" line="275">
 <oper id="0xdf"/>
 <oper id="0xde"/>
 <opprint id="1"/>
 <construct_tpl>
-<handle_tpl><const_tpl type="spaceid" name="ucode"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x70"/></handle_tpl>
+<handle_tpl><const_tpl type="spaceid" name="ucode"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0xd0"/></handle_tpl>
 </construct_tpl>
 </constructor>
 <decision number="1" context="false" start="0" size="0">
@@ -7461,7 +7484,7 @@
 <tokenfield bigendian="false" signbit="false" bitstart="8" bitend="22" bytestart="1" byteend="2" shift="0"/>
 </operand_sym>
 <subtable_sym name="seqword_goto" id="0xe0" scope="0x0" numct="2">
-<constructor parent="0xe0" first="1" length="8" line="270">
+<constructor parent="0xe0" first="1" length="8" line="278">
 <oper id="0xe1"/>
 <print piece="; SEQW GOTO"/>
 <print piece=" "/>
@@ -7475,7 +7498,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xe0" first="0" length="8" line="273">
+<constructor parent="0xe0" first="0" length="8" line="281">
 <oper id="0xe2"/>
 <construct_tpl>
 <null/></construct_tpl>
@@ -7509,7 +7532,7 @@
 <tokenfield bigendian="false" signbit="false" bitstart="8" bitend="22" bytestart="1" byteend="2" shift="0"/>
 </operand_sym>
 <subtable_sym name="seqword" id="0xe3" scope="0x0" numct="2">
-<constructor parent="0xe3" first="3" length="8" line="275">
+<constructor parent="0xe3" first="3" length="8" line="283">
 <oper id="0xe4"/>
 <oper id="0xe5"/>
 <oper id="0xe6"/>
@@ -7528,7 +7551,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xe3" first="0" length="8" line="280">
+<constructor parent="0xe3" first="0" length="8" line="288">
 <construct_tpl>
 <null/></construct_tpl>
 </constructor>
@@ -7559,7 +7582,7 @@
 <operand_exp index="2" table="0xe3" ct="0x0"/>
 </operand_sym>
 <subtable_sym name="source0" id="0xe7" scope="0x0" numct="6">
-<constructor parent="0xe7" first="1" length="8" line="285">
+<constructor parent="0xe7" first="1" length="8" line="293">
 <oper id="0xe8"/>
 <oper id="0xe9"/>
 <opprint id="0"/>
@@ -7567,42 +7590,42 @@
 <handle_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="size"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xe7" first="1" length="8" line="286">
+<constructor parent="0xe7" first="1" length="8" line="294">
 <oper id="0xea"/>
 <opprint id="0"/>
 <construct_tpl>
-<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x80"/></handle_tpl>
+<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0xe0"/></handle_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xe7" first="1" length="8" line="287">
+<constructor parent="0xe7" first="1" length="8" line="295">
 <oper id="0xeb"/>
 <opprint id="0"/>
 <construct_tpl>
-<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x90"/></handle_tpl>
+<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0xf0"/></handle_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xe7" first="1" length="8" line="288">
+<constructor parent="0xe7" first="1" length="8" line="296">
 <oper id="0xec"/>
 <opprint id="0"/>
 <construct_tpl>
-<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0xa0"/></handle_tpl>
+<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x100"/></handle_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xe7" first="1" length="8" line="289">
+<constructor parent="0xe7" first="1" length="8" line="297">
 <oper id="0xed"/>
 <opprint id="0"/>
 <construct_tpl>
-<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0xb0"/></handle_tpl>
+<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x110"/></handle_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xe7" first="1" length="8" line="290">
+<constructor parent="0xe7" first="1" length="8" line="298">
 <oper id="0xef"/>
 <oper id="0xf0"/>
 <oper id="0xf1"/>
 <oper id="0xee"/>
 <opprint id="3"/>
 <construct_tpl>
-<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="3" s="space"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0xc0"/></handle_tpl>
+<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="3" s="space"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x120"/></handle_tpl>
 </construct_tpl>
 </constructor>
 <decision number="22" context="false" start="3" size="5">
@@ -8100,7 +8123,7 @@
 <tokenfield bigendian="false" signbit="false" bitstart="0" bitend="5" bytestart="0" byteend="0" shift="0"/>
 </operand_sym>
 <subtable_sym name="source1" id="0xf2" scope="0x0" numct="6">
-<constructor parent="0xf2" first="1" length="8" line="294">
+<constructor parent="0xf2" first="1" length="8" line="302">
 <oper id="0xf3"/>
 <oper id="0xf4"/>
 <opprint id="0"/>
@@ -8108,42 +8131,42 @@
 <handle_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="size"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xf2" first="1" length="8" line="295">
+<constructor parent="0xf2" first="1" length="8" line="303">
 <oper id="0xf5"/>
 <opprint id="0"/>
 <construct_tpl>
-<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0xd0"/></handle_tpl>
+<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x130"/></handle_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xf2" first="1" length="8" line="296">
+<constructor parent="0xf2" first="1" length="8" line="304">
 <oper id="0xf6"/>
 <opprint id="0"/>
 <construct_tpl>
-<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0xe0"/></handle_tpl>
+<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x140"/></handle_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xf2" first="1" length="8" line="297">
+<constructor parent="0xf2" first="1" length="8" line="305">
 <oper id="0xf7"/>
 <opprint id="0"/>
 <construct_tpl>
-<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0xf0"/></handle_tpl>
+<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x150"/></handle_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xf2" first="1" length="8" line="298">
+<constructor parent="0xf2" first="1" length="8" line="306">
 <oper id="0xf8"/>
 <opprint id="0"/>
 <construct_tpl>
-<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x100"/></handle_tpl>
+<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x160"/></handle_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xf2" first="1" length="8" line="299">
+<constructor parent="0xf2" first="1" length="8" line="307">
 <oper id="0xfa"/>
 <oper id="0xfb"/>
 <oper id="0xfc"/>
 <oper id="0xf9"/>
 <opprint id="3"/>
 <construct_tpl>
-<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="3" s="space"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x110"/></handle_tpl>
+<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="3" s="space"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x170"/></handle_tpl>
 </construct_tpl>
 </constructor>
 <decision number="22" context="false" start="13" size="3">
@@ -8553,7 +8576,7 @@
 <tokenfield bigendian="false" signbit="false" bitstart="6" bitend="11" bytestart="0" byteend="1" shift="6"/>
 </operand_sym>
 <subtable_sym name="dest" id="0xfd" scope="0x0" numct="2">
-<constructor parent="0xfd" first="1" length="8" line="303">
+<constructor parent="0xfd" first="1" length="8" line="311">
 <oper id="0xfe"/>
 <oper id="0xff"/>
 <opprint id="0"/>
@@ -8563,7 +8586,7 @@
 <handle_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="size"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0xfd" first="-1" length="8" line="304">
+<constructor parent="0xfd" first="-1" length="8" line="312">
 <oper id="0x100"/>
 <construct_tpl>
 <handle_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="size"/><const_tpl type="real" val="0x0"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x0"/></handle_tpl>
@@ -9130,14 +9153,14 @@
 <operand_exp index="5" table="0x0" ct="0x12"/>
 </operand_sym>
 <subtable_sym name="ucode_target" id="0x1b1" scope="0x0" numct="1">
-<constructor parent="0x1b1" first="1" length="8" line="396">
+<constructor parent="0x1b1" first="1" length="8" line="405">
 <oper id="0x1b3"/>
 <oper id="0x1b4"/>
 <oper id="0x1b5"/>
 <oper id="0x1b2"/>
 <opprint id="3"/>
 <construct_tpl>
-<handle_tpl><const_tpl type="spaceid" name="ucode"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="3" s="space"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x330"/></handle_tpl>
+<handle_tpl><const_tpl type="spaceid" name="ucode"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="3" s="space"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x390"/></handle_tpl>
 </construct_tpl>
 </constructor>
 <decision number="1" context="false" start="0" size="0">
@@ -9238,12 +9261,12 @@
 <operand_exp index="4" table="0x0" ct="0x16"/>
 </operand_sym>
 <subtable_sym name="ucode_next" id="0x1c8" scope="0x0" numct="1">
-<constructor parent="0x1c8" first="1" length="8" line="417">
+<constructor parent="0x1c8" first="1" length="8" line="426">
 <oper id="0x1ca"/>
 <oper id="0x1c9"/>
 <opprint id="1"/>
 <construct_tpl>
-<handle_tpl><const_tpl type="spaceid" name="ucode"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x380"/></handle_tpl>
+<handle_tpl><const_tpl type="spaceid" name="ucode"/><const_tpl type="real" val="0x8"/><const_tpl type="handle" val="1" s="space"/><const_tpl type="handle" val="1" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x3e0"/></handle_tpl>
 </construct_tpl>
 </constructor>
 <decision number="1" context="false" start="0" size="0">
@@ -9263,7 +9286,7 @@
 <tokenfield bigendian="false" signbit="false" bitstart="32" bitend="43" bytestart="4" byteend="5" shift="0"/>
 </operand_sym>
 <subtable_sym name="saveuip_ov_imm" id="0x1cb" scope="0x0" numct="1">
-<constructor parent="0x1cb" first="1" length="8" line="420">
+<constructor parent="0x1cb" first="1" length="8" line="429">
 <oper id="0x1cd"/>
 <oper id="0x1ce"/>
 <oper id="0x1cf"/>

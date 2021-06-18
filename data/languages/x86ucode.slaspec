@@ -21,6 +21,9 @@ define register offset=0x00 size=8 [
 	r64dst r64src r64base r64idx
 	uip0 uip1
 ];
+# NOTICE: all the instructions filling uop0/uop1 are shown with the ghidra_address (ghidra_address=ucode_address*INSTR_LEN), 
+# but the pcode uses the ucode_address to preserve correctness
+# should fix setting the ucode wordsize to 16, but it is not supported
 
 define register offset=0x1000 size=16 [
 	xmm0 xmm1 xmm2 xmm3 xmm4 xmm5 xmm6 xmm7 xmm8 xmm9 xmm10 xmm11 xmm12 xmm13 xmm14 xmm15 
@@ -197,17 +200,17 @@ seqword_sync:"" is up2=0 & sync {}
 # UEND: think of a better way to express end
 seqword_eflow:"; "^eflow_cmd is up0=1 & (eflow=12 | eflow=13 | eflow=14 |eflow=15) & eflow_cmd { }
 
-seqword_eflow:"; SEQW URET0" is up0=1 & eflow=2 { return [uip0]; }
-seqword_eflow:"; SEQW URET1" is up0=1 & eflow=3 { return [uip1]; }
+seqword_eflow:"; SEQW URET0" is up0=1 & eflow=2 { return [uip0 * $(INSTR_LEN)]; }
+seqword_eflow:"; SEQW URET1" is up0=1 & eflow=3 { return [uip1 * $(INSTR_LEN)]; }
 # SAVEUIP
 seqword_next:next is up0=1 [ next = inst_next; ] {
   export *[ucode]:8 next;
 }
-seqword_eflow:"; SEQW SAVEUIP0" seqword_next is up0=1 & eflow=4 & seqword_next { uip0 = inst_next; }
-seqword_eflow:"; SEQW SAVEUIP1" seqword_next is up0=1 & eflow=5 & seqword_next { uip1 = inst_next; }
+seqword_eflow:"; SEQW SAVEUIP0" seqword_next is up0=1 & eflow=4 & seqword_next { uip0 = inst_next/$(INSTR_LEN); }
+seqword_eflow:"; SEQW SAVEUIP1" seqword_next is up0=1 & eflow=5 & seqword_next { uip1 = inst_next/$(INSTR_LEN); }
 # TODO: what does ROVR do?
-seqword_eflow:"; ROVR<- SEQW SAVEUIP0" seqword_next is up0=1 & eflow=6 & seqword_next{ uip0 = inst_next; }
-seqword_eflow:"; ROVR<- SEQW SAVEUIP1" seqword_next is up0=1 & eflow=7 & seqword_next { uip1 = inst_next; }
+seqword_eflow:"; ROVR<- SEQW SAVEUIP0" seqword_next is up0=1 & eflow=6 & seqword_next{ uip0 = inst_next/$(INSTR_LEN); }
+seqword_eflow:"; ROVR<- SEQW SAVEUIP1" seqword_next is up0=1 & eflow=7 & seqword_next { uip1 = inst_next/$(INSTR_LEN); }
 
 seqword_eflow:"; "^eflow_cmd is up0=1 & eflow_cmd {}
 seqword_eflow:"" is up0=1 & eflow=0 {}
@@ -255,7 +258,7 @@ dest: is dst & dst_sel=0 { export dst; }
 
 :UNKNOWN opcode: dst_sel <- src0_sel, src1_sel, imm0, imm1 seqword is opcode & dst_sel & src0_sel & src1_sel & imm0 & imm1; seqword unimpl
 
-# instructions TODO: fix semantics
+# instructions TODO: fix semantics, rflags, and different sizes
 :nop seqword is full_uop=0; seqword {}
 
 :add^"_"^dst_size dest source0, source1 seqword is (opcode = 0x000 | opcode = 0x040 | opcode = 0x080 | opcode = 0x0c0) & dest & source0 & source1 & dst_size; seqword {
@@ -290,6 +293,21 @@ dest: is dst & dst_sel=0 { export dst; }
 
 :shr^"_"^dst_size dest source0, source1 seqword is (opcode = 0x025 | opcode = 0x065 | opcode = 0x0a5 | opcode = 0x0e5) & dest & source0 & source1 & dst_size; seqword {
 	dest = source0 >> source1;
+	build seqword;
+}
+
+:sar^"_"^dst_size dest source0, source1 seqword is (opcode = 0x02e | opcode = 0x06e | opcode = 0x0ae | opcode = 0x0ee) & dest & source0 & source1 & dst_size; seqword {
+	dest = source0 s>> source1;
+	build seqword;
+}
+
+:rol^"_"^dst_size dest source0, source1 seqword is (opcode = 0x02c | opcode = 0x06c | opcode = 0x0ac | opcode = 0x0ec) & dest & source0 & source1 & dst_size; seqword {
+	dest = (source0 << source1) | (source0 >> (64 - source1));
+	build seqword;
+}
+
+:ror^"_"^dst_size dest source0, source1 seqword is (opcode = 0x02d | opcode = 0x06d | opcode = 0x0ad | opcode = 0x0ed) & dest & source0 & source1 & dst_size; seqword {
+	dest = (source0 >> source1) | (source0 << (64 - source1));
 	build seqword;
 }
 
@@ -333,19 +351,19 @@ ucode_target: target is imm0 & imm1 & src1_sel [
 ] { export *[ucode]:8 target; }
 #TODO: saveuip misses the semantics of the third source and dest
 :saveuip uip_reg, ucode_target seqword is dst_sel=0 & (is_src0_imm=1|src0_sel=0) & dest & (opcode = 0x00c | opcode = 0x04c | opcode = 0x08c | opcode = 0x0cc) & uip_reg & ucode_target; seqword {
-	uip_reg = &ucode_target;
+	uip_reg = &ucode_target/$(INSTR_LEN);
 	build seqword;
 }
 :saveuip source0, uip_reg, ucode_target seqword is dst_sel=0 & is_src0_imm=0 & dest & source0 & (opcode = 0x00c | opcode = 0x04c | opcode = 0x08c | opcode = 0x0cc) & uip_reg & ucode_target; seqword {
-	uip_reg = &ucode_target;
+	uip_reg = &ucode_target/$(INSTR_LEN);
 	build seqword;
 }
 :saveuip dest uip_reg, ucode_target seqword is dest & (is_src0_imm=1|src0_sel=0) & (opcode = 0x00c | opcode = 0x04c | opcode = 0x08c | opcode = 0x0cc) & uip_reg & ucode_target; seqword {
-	uip_reg = &ucode_target;
+	uip_reg = &ucode_target/$(INSTR_LEN);
 	build seqword;
 }
 :saveuip dest source0, uip_reg, ucode_target seqword is dest & is_src0_imm=0 & source0 & (opcode = 0x00c | opcode = 0x04c | opcode = 0x08c | opcode = 0x0cc) & uip_reg & ucode_target; seqword {
-	uip_reg = &ucode_target;
+	uip_reg = &ucode_target/$(INSTR_LEN);
 	build seqword;
 }
 
@@ -356,19 +374,19 @@ saveuip_ov_imm: value is imm0 & imm1 & src1_sel [
 	value = (((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0);
 ] { export value; }
 :saveuip_ov uip_reg, ucode_next, saveuip_ov_imm seqword is dst_sel=0 & saveuip_ov_imm & dest & opcode = 0x00d & uip_reg & ucode_next; seqword {
-	uip_reg = &ucode_next;
+	uip_reg = &ucode_next/$(INSTR_LEN);
 	build seqword;
 }
 # TODO: third_imm of SAVEUIP_REGOVR (no idea on semantics)
 :saveuip_ov dest uip_reg, ucode_next, saveuip_ov_imm seqword is saveuip_ov_imm & dest & opcode = 0x00d & uip_reg & ucode_next; seqword {
-	uip_reg = &ucode_next;
+	uip_reg = &ucode_next/$(INSTR_LEN);
 	build seqword;
 }
 
 :uret uip_reg seqword is dst_sel=0 & dest & uip_reg & opcode=0x148; seqword {
-	return [uip_reg];
+	return [uip_reg*$(INSTR_LEN)];
 }
 #TODO: what is the semantics here?
 :uret dest uip_reg, source0 seqword is dest & source0 & uip_reg & opcode=0x148; seqword {
-	return [uip_reg];
+	return [uip_reg*$(INSTR_LEN)];
 }

@@ -21,9 +21,9 @@ define register offset=0x00 size=8 [
 	r64dst r64src r64base r64idx
 	uip0 uip1
 ];
-# NOTICE: all the instructions filling uop0/uop1 are shown with the ghidra_address (ghidra_address=ucode_address*INSTR_LEN), 
+# NOTICE: all the instructions filling uop0/uop1 are shown with the ghidra_address (ghidra_address=ucode_address*INSTR_LEN),
 # but the pcode uses the ucode_address to preserve correctness
-# should fix setting the ucode wordsize to 16, but it is not supported
+# should fix setting the ucode wordsize to INSTR_LEN, but it is not supported
 
 define register offset=0x1000 size=16 [
 	xmm0 xmm1 xmm2 xmm3 xmm4 xmm5 xmm6 xmm7 xmm8 xmm9 xmm10 xmm11 xmm12 xmm13 xmm14 xmm15 
@@ -31,6 +31,16 @@ define register offset=0x1000 size=16 [
 	tmm0 tmm1 tmm2 tmm3 tmm4 tmm5 tmm6 tmm7 
 	tmmv0 tmmv1 tmmv2 tmmv3
 	xmmdst xmmsrc
+];
+
+# tmp0-15 regs have each a flags register
+define register offset=0x2000 size=1 [
+	tmp0_OF tmp1_OF tmp2_OF tmp3_OF tmp4_OF tmp5_OF tmp6_OF tmp7_OF tmp8_OF tmp9_OF tmp10_OF tmp11_OF tmp12_OF tmp13_OF tmp14_OF tmp15_OF
+	tmp0_CF tmp1_CF tmp2_CF tmp3_CF tmp4_CF tmp5_CF tmp6_CF tmp7_CF tmp8_CF tmp9_CF tmp10_CF tmp11_CF tmp12_CF tmp13_CF tmp14_CF tmp15_CF
+	tmp0_ZF tmp1_ZF tmp2_ZF tmp3_ZF tmp4_ZF tmp5_ZF tmp6_ZF tmp7_ZF tmp8_ZF tmp9_ZF tmp10_ZF tmp11_ZF tmp12_ZF tmp13_ZF tmp14_ZF tmp15_ZF
+	tmp0_SF tmp1_SF tmp2_SF tmp3_SF tmp4_SF tmp5_SF tmp6_SF tmp7_SF tmp8_SF tmp9_SF tmp10_SF tmp11_SF tmp12_SF tmp13_SF tmp14_SF tmp15_SF
+	tmp0_PF tmp1_PF tmp2_PF tmp3_PF tmp4_PF tmp5_PF tmp6_PF tmp7_PF tmp8_PF tmp9_PF tmp10_PF tmp11_PF tmp12_PF tmp13_PF tmp14_PF tmp15_PF
+	dummy_F
 ];
 
 # Fields =================================================================================
@@ -45,6 +55,11 @@ define token _uop(64)
 	dst    = (12, 17)
 		dst_xmm    = (12, 17)
 		dst_sel    = (12, 17)
+		dst_OF    = (12, 17)
+		dst_CF    = (12, 17)
+		dst_ZF    = (12, 17)
+		dst_SF    = (12, 17)
+		dst_PF    = (12, 17)
 	imm1   = (18, 22)
 		imm1_sel   = (18, 19)
 	m0     = (23, 23)
@@ -89,6 +104,38 @@ attach variables [ dst_xmm ] [
 	mm2 mm0 mm7 tmmv0 tmmv1 tmmv2 tmmv3 mm0 mm7 mm0 mm0 mm0 mm7 mm0 mm0 
 	xmm0 xmm1 xmm2 xmm3 xmm4 xmm5 xmm6 xmm7 xmm8 xmm9 xmm10 xmm11 xmm12 xmm13 xmm14 xmm15 
 	mm0 mm1 mm2 mm3 mm4 mm5 mm6 mm7 tmm0 tmm1 tmm2 tmm3 tmm4 tmm5 tmm6 tmm7
+];
+
+# attach tmp flags
+attach variables [ dst_OF ] [ 
+	dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F tmp0_OF tmp7_OF tmp0_OF tmp0_OF tmp0_OF tmp7_OF tmp0_OF tmp0_OF 
+	_ tmp2_OF tmp0_OF tmp7_OF dummy_F dummy_F dummy_F dummy_F tmp0_OF tmp7_OF tmp0_OF tmp0_OF tmp0_OF tmp7_OF tmp0_OF tmp0_OF 
+	dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F 
+	tmp0_OF tmp1_OF tmp2_OF tmp3_OF tmp4_OF tmp5_OF tmp6_OF tmp7_OF tmp8_OF tmp9_OF tmp10_OF tmp11_OF tmp12_OF tmp13_OF tmp14_OF tmp15_OF
+];
+attach variables [ dst_CF ] [ 
+	dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F tmp0_CF tmp7_CF tmp0_CF tmp0_CF tmp0_CF tmp7_CF tmp0_CF tmp0_CF 
+	_ tmp2_CF tmp0_CF tmp7_CF dummy_F dummy_F dummy_F dummy_F tmp0_CF tmp7_CF tmp0_CF tmp0_CF tmp0_CF tmp7_CF tmp0_CF tmp0_CF 
+	dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F 
+	tmp0_CF tmp1_CF tmp2_CF tmp3_CF tmp4_CF tmp5_CF tmp6_CF tmp7_CF tmp8_CF tmp9_CF tmp10_CF tmp11_CF tmp12_CF tmp13_CF tmp14_CF tmp15_CF
+];
+attach variables [ dst_ZF ] [ 
+	dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F tmp0_ZF tmp7_ZF tmp0_ZF tmp0_ZF tmp0_ZF tmp7_ZF tmp0_ZF tmp0_ZF 
+	_ tmp2_ZF tmp0_ZF tmp7_ZF dummy_F dummy_F dummy_F dummy_F tmp0_ZF tmp7_ZF tmp0_ZF tmp0_ZF tmp0_ZF tmp7_ZF tmp0_ZF tmp0_ZF 
+	dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F 
+	tmp0_ZF tmp1_ZF tmp2_ZF tmp3_ZF tmp4_ZF tmp5_ZF tmp6_ZF tmp7_ZF tmp8_ZF tmp9_ZF tmp10_ZF tmp11_ZF tmp12_ZF tmp13_ZF tmp14_ZF tmp15_ZF
+];
+attach variables [ dst_SF ] [ 
+	dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F tmp0_SF tmp7_SF tmp0_SF tmp0_SF tmp0_SF tmp7_SF tmp0_SF tmp0_SF 
+	_ tmp2_SF tmp0_SF tmp7_SF dummy_F dummy_F dummy_F dummy_F tmp0_SF tmp7_SF tmp0_SF tmp0_SF tmp0_SF tmp7_SF tmp0_SF tmp0_SF 
+	dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F 
+	tmp0_SF tmp1_SF tmp2_SF tmp3_SF tmp4_SF tmp5_SF tmp6_SF tmp7_SF tmp8_SF tmp9_SF tmp10_SF tmp11_SF tmp12_SF tmp13_SF tmp14_SF tmp15_SF
+];
+attach variables [ dst_PF ] [ 
+	dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F tmp0_PF tmp7_PF tmp0_PF tmp0_PF tmp0_PF tmp7_PF tmp0_PF tmp0_PF 
+	_ tmp2_PF tmp0_PF tmp7_PF dummy_F dummy_F dummy_F dummy_F tmp0_PF tmp7_PF tmp0_PF tmp0_PF tmp0_PF tmp7_PF tmp0_PF tmp0_PF 
+	dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F 
+	tmp0_PF tmp1_PF tmp2_PF tmp3_PF tmp4_PF tmp5_PF tmp6_PF tmp7_PF tmp8_PF tmp9_PF tmp10_PF tmp11_PF tmp12_PF tmp13_PF tmp14_PF tmp15_PF
 ];
 
 attach names [dst_size] [
@@ -261,86 +308,86 @@ dest: is dst & dst_sel=0 { export dst; }
 # instructions TODO: fix semantics, rflags, and different sizes
 :nop seqword is full_uop=0; seqword {}
 
-:add^"_"^dst_size dest source0, source1 seqword is (opcode = 0x000 | opcode = 0x040 | opcode = 0x080 | opcode = 0x0c0) & dest & source0 & source1 & dst_size; seqword {
+:add^"_"^dst_size dest source0, source1 seqword is (opcode = 0x000 | opcode = 0x040 | opcode = 0x080 | opcode = 0x0c0) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = source0 + source1;
 	build seqword;
 }
 
-:or^"_"^dst_size dest source0, source1 seqword is (opcode = 0x001 | opcode = 0x041 | opcode = 0x081 | opcode = 0x0c1) & dest & source0 & source1 & dst_size; seqword {
+:or^"_"^dst_size dest source0, source1 seqword is (opcode = 0x001 | opcode = 0x041 | opcode = 0x081 | opcode = 0x0c1) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = source0 | source1;
 	build seqword;
 }
 
-:and^"_"^dst_size dest source0, source1 seqword is (opcode = 0x004 | opcode = 0x044 | opcode = 0x084 | opcode = 0x0c4) & dest & source0 & source1 & dst_size; seqword {
+:and^"_"^dst_size dest source0, source1 seqword is (opcode = 0x004 | opcode = 0x044 | opcode = 0x084 | opcode = 0x0c4) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = source0 & source1;
 	build seqword;
 }
 
-:sub^"_"^dst_size dest source0, source1 seqword is (opcode = 0x005 | opcode = 0x045 | opcode = 0x085 | opcode = 0x0c5) & dest & source0 & source1 & dst_size; seqword {
+:sub^"_"^dst_size dest source0, source1 seqword is (opcode = 0x005 | opcode = 0x045 | opcode = 0x085 | opcode = 0x0c5) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = source0 - source1;
 	build seqword;
 }
 
-:xor^"_"^dst_size dest source0, source1 seqword is (opcode = 0x006 | opcode = 0x046 | opcode = 0x086 | opcode = 0x0c6) & dest & source0 & source1 & dst_size; seqword {
+:xor^"_"^dst_size dest source0, source1 seqword is (opcode = 0x006 | opcode = 0x046 | opcode = 0x086 | opcode = 0x0c6) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = source0 ^ source1;
 	build seqword;
 }
 
-:shl^"_"^dst_size dest source0, source1 seqword is (opcode = 0x024 | opcode = 0x064 | opcode = 0x0a4 | opcode = 0x0e4) & dest & source0 & source1 & dst_size; seqword {
+:shl^"_"^dst_size dest source0, source1 seqword is (opcode = 0x024 | opcode = 0x064 | opcode = 0x0a4 | opcode = 0x0e4) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = source0 << source1;
 	build seqword;
 }
 
-:shr^"_"^dst_size dest source0, source1 seqword is (opcode = 0x025 | opcode = 0x065 | opcode = 0x0a5 | opcode = 0x0e5) & dest & source0 & source1 & dst_size; seqword {
+:shr^"_"^dst_size dest source0, source1 seqword is (opcode = 0x025 | opcode = 0x065 | opcode = 0x0a5 | opcode = 0x0e5) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = source0 >> source1;
 	build seqword;
 }
 
-:sar^"_"^dst_size dest source0, source1 seqword is (opcode = 0x02e | opcode = 0x06e | opcode = 0x0ae | opcode = 0x0ee) & dest & source0 & source1 & dst_size; seqword {
+:sar^"_"^dst_size dest source0, source1 seqword is (opcode = 0x02e | opcode = 0x06e | opcode = 0x0ae | opcode = 0x0ee) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = source0 s>> source1;
 	build seqword;
 }
 
-:rol^"_"^dst_size dest source0, source1 seqword is (opcode = 0x02c | opcode = 0x06c | opcode = 0x0ac | opcode = 0x0ec) & dest & source0 & source1 & dst_size; seqword {
+:rol^"_"^dst_size dest source0, source1 seqword is (opcode = 0x02c | opcode = 0x06c | opcode = 0x0ac | opcode = 0x0ec) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = (source0 << source1) | (source0 >> (64 - source1));
 	build seqword;
 }
 
-:ror^"_"^dst_size dest source0, source1 seqword is (opcode = 0x02d | opcode = 0x06d | opcode = 0x0ad | opcode = 0x0ed) & dest & source0 & source1 & dst_size; seqword {
+:ror^"_"^dst_size dest source0, source1 seqword is (opcode = 0x02d | opcode = 0x06d | opcode = 0x0ad | opcode = 0x0ed) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = (source0 >> source1) | (source0 << (64 - source1));
 	build seqword;
 }
 
-:notand^"_"^dst_size dest source0, source1 seqword is (opcode = 0x007 | opcode = 0x047 | opcode = 0x087 | opcode = 0x0c7) & dest & source0 & source1 & dst_size; seqword {
+:notand^"_"^dst_size dest source0, source1 seqword is (opcode = 0x007 | opcode = 0x047 | opcode = 0x087 | opcode = 0x0c7) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = ~(source0 & source1);
 	build seqword;
 }
 
-:zeroext^"_"^dst_size dest source0 seqword is (opcode = 0x008 | opcode = 0x048 | opcode = 0x088 | opcode = 0x0c8) & dest & source0 & dst_size; seqword {
+:zeroext^"_"^dst_size dest source0 seqword is (opcode = 0x008 | opcode = 0x048 | opcode = 0x088 | opcode = 0x0c8) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & dst_size; seqword {
 	dest = source0;
 	build seqword;
 }
 
-:mov^"_"^dst_size dest source0 seqword is (opcode = 0x009 | opcode = 0x049) & dest & source0 & dst_size; seqword {
+:mov^"_"^dst_size dest source0 seqword is (opcode = 0x009 | opcode = 0x049) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & dst_size; seqword {
 	dest = source0;
 	build seqword;
 }
 
-:bt^"_"^dst_size dest source0, source1 seqword is  (opcode = 0x014 | opcode = 0x054 | opcode = 0x094) & dest & source0 & source1 & dst_size; seqword {
+:bt^"_"^dst_size dest source0, source1 seqword is  (opcode = 0x014 | opcode = 0x054 | opcode = 0x094) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = (source0 >> source1) & 1;
 	build seqword;
 }
-:bts^"_"^dst_size dest source0, source1 seqword is (opcode = 0x015 | opcode = 0x055 | opcode = 0x095) & dest & source0 & source1 & dst_size; seqword {
+:bts^"_"^dst_size dest source0, source1 seqword is (opcode = 0x015 | opcode = 0x055 | opcode = 0x095) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = (source0 >> source1) & 1;
 	source0 = source0 | (1:8 << source1);
 	build seqword;
 }
-:btr^"_"^dst_size dest source0, source1 seqword is (opcode = 0x016 | opcode = 0x056 | opcode = 0x096) & dest & source0 & source1 & dst_size; seqword {
+:btr^"_"^dst_size dest source0, source1 seqword is (opcode = 0x016 | opcode = 0x056 | opcode = 0x096) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = (source0 >> source1) & 1;
 	source0 = source0 & ~(1:8 << source1);
 	build seqword;
 }
-:btc^"_"^dst_size dest source0, source1 seqword is (opcode = 0x017 | opcode = 0x057 | opcode = 0x097) & dest & source0 & source1 & dst_size; seqword {
+:btc^"_"^dst_size dest source0, source1 seqword is (opcode = 0x017 | opcode = 0x057 | opcode = 0x097) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	dest = (source0 >> source1) & 1;
 	source0 = source0 ^ (1:8 << source1);
 	build seqword;

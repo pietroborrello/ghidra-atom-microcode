@@ -46,6 +46,7 @@ define register offset=0x2000 size=1 [
 	tmpv0_SF tmpv1_SF tmpv2_SF tmpv3_SF
 	tmpv0_PF tmpv1_PF tmpv2_PF tmpv3_PF
 	dummy_F
+	DF # global direction flag
 ];
 
 # Fields =================================================================================
@@ -54,9 +55,19 @@ define token _uop(64)
 	src0   = (0,  5)
 		src0_xmm   = (0,  5)
 		src0_sel   = (0,  5)
+		src0_OF   = (0,  5)
+		src0_CF   = (0,  5)
+		src0_ZF   = (0,  5)
+		src0_SF   = (0,  5)
+		src0_PF   = (0,  5)
 	src1   = (6,  11)
 		src1_xmm   = (6,  11)
 		src1_sel   = (6,  11)
+		src1_OF   = (0,  5)
+		src1_CF   = (0,  5)
+		src1_ZF   = (0,  5)
+		src1_SF   = (0,  5)
+		src1_PF   = (0,  5)
 	dst    = (12, 17)
 		dst_xmm    = (12, 17)
 		dst_sel    = (12, 17)
@@ -76,6 +87,9 @@ define token _uop(64)
 		imm0_sel3  = (24, 31)
 	opcode = (32, 43)
 		dst_size = (38, 39)
+		cond_0 = (32,33)
+		cond_1 = (36, 36)
+		cond_2 = (40, 41)
 	m1     = (44, 44)
 	m2     = (45, 45)
 	uknown = (46, 47)
@@ -112,31 +126,31 @@ attach variables [ dst_xmm ] [
 ];
 
 # attach tmp flags
-attach variables [ dst_OF ] [ 
+attach variables [ dst_OF src0_OF src1_OF ] [ 
     dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F tmp0_OF tmp7_OF tmp0_OF tmp0_OF tmp0_OF tmp7_OF tmp0_OF tmp0_OF 
     _ tmp2_OF tmp0_OF tmp7_OF tmpv0_OF tmpv1_OF tmpv2_OF tmpv3_OF tmp0_OF tmp7_OF tmp0_OF tmp0_OF tmp0_OF tmp7_OF tmp0_OF tmp0_OF 
     dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F 
     tmp0_OF tmp1_OF tmp2_OF tmp3_OF tmp4_OF tmp5_OF tmp6_OF tmp7_OF tmp8_OF tmp9_OF tmp10_OF tmp11_OF tmp12_OF tmp13_OF tmp14_OF tmp15_OF
 ];
-attach variables [ dst_CF ] [ 
+attach variables [ dst_CF src0_CF src1_CF ] [ 
     dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F tmp0_CF tmp7_CF tmp0_CF tmp0_CF tmp0_CF tmp7_CF tmp0_CF tmp0_CF 
     _ tmp2_CF tmp0_CF tmp7_CF tmpv0_CF tmpv1_CF tmpv2_CF tmpv3_CF tmp0_CF tmp7_CF tmp0_CF tmp0_CF tmp0_CF tmp7_CF tmp0_CF tmp0_CF 
     dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F 
     tmp0_CF tmp1_CF tmp2_CF tmp3_CF tmp4_CF tmp5_CF tmp6_CF tmp7_CF tmp8_CF tmp9_CF tmp10_CF tmp11_CF tmp12_CF tmp13_CF tmp14_CF tmp15_CF
 ];
-attach variables [ dst_ZF ] [ 
+attach variables [ dst_ZF src0_ZF src1_ZF ] [ 
     dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F tmp0_ZF tmp7_ZF tmp0_ZF tmp0_ZF tmp0_ZF tmp7_ZF tmp0_ZF tmp0_ZF 
     _ tmp2_ZF tmp0_ZF tmp7_ZF tmpv0_ZF tmpv1_ZF tmpv2_ZF tmpv3_ZF tmp0_ZF tmp7_ZF tmp0_ZF tmp0_ZF tmp0_ZF tmp7_ZF tmp0_ZF tmp0_ZF 
     dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F 
     tmp0_ZF tmp1_ZF tmp2_ZF tmp3_ZF tmp4_ZF tmp5_ZF tmp6_ZF tmp7_ZF tmp8_ZF tmp9_ZF tmp10_ZF tmp11_ZF tmp12_ZF tmp13_ZF tmp14_ZF tmp15_ZF
 ];
-attach variables [ dst_SF ] [ 
+attach variables [ dst_SF src0_SF src1_SF ] [ 
     dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F tmp0_SF tmp7_SF tmp0_SF tmp0_SF tmp0_SF tmp7_SF tmp0_SF tmp0_SF 
     _ tmp2_SF tmp0_SF tmp7_SF tmpv0_SF tmpv1_SF tmpv2_SF tmpv3_SF tmp0_SF tmp7_SF tmp0_SF tmp0_SF tmp0_SF tmp7_SF tmp0_SF tmp0_SF 
     dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F 
     tmp0_SF tmp1_SF tmp2_SF tmp3_SF tmp4_SF tmp5_SF tmp6_SF tmp7_SF tmp8_SF tmp9_SF tmp10_SF tmp11_SF tmp12_SF tmp13_SF tmp14_SF tmp15_SF
 ];
-attach variables [ dst_PF ] [ 
+attach variables [ dst_PF src0_PF src1_PF ] [ 
     dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F tmp0_PF tmp7_PF tmp0_PF tmp0_PF tmp0_PF tmp7_PF tmp0_PF tmp0_PF 
     _ tmp2_PF tmp0_PF tmp7_PF tmpv0_PF tmpv1_PF tmpv2_PF tmpv3_PF tmp0_PF tmp7_PF tmp0_PF tmp0_PF tmp0_PF tmp7_PF tmp0_PF tmp0_PF 
     dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F dummy_F 
@@ -413,6 +427,27 @@ source1: immediate is imm0 & imm1 & (src1_sel = 0 | src1_sel = 8 | src1_sel = 9 
 dest: dst <- is dst & dst_sel { export dst; }
 dest: is dst & dst_sel=0 { export dst; }
 
+# FLAGS CONDITION CODES
+# NOTICE: UJMPCC_DIRECT_TAKEN_CONDZ is the only one that does not respect the reverse-engineered cc pattern, no idea why
+cc:"o"^is  cond_0=0 & cond_1=1 & cond_2=0 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { export src0_OF; }
+cc:"no"^is cond_0=1 & cond_1=1 & cond_2=0 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = !src0_OF; export tmp; }
+cc:"c"^is  cond_0=2 & cond_1=1 & cond_2=0 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { export src0_CF; }
+cc:"nc"^is cond_0=3 & cond_1=1 & cond_2=0 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = !src0_CF; export tmp; }
+cc:"z"^is  cond_0=0 & cond_1=1 & cond_2=1 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { export src0_ZF; }
+cc:"nz"^is cond_0=1 & cond_1=1 & cond_2=1 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = !src0_ZF; export tmp; }
+cc:"be"^is cond_0=2 & cond_1=1 & cond_2=1 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = src0_CF || src0_ZF; export tmp; }
+cc:"a"^is  cond_0=3 & cond_1=1 & cond_2=1 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = !(src0_CF || src0_ZF); export tmp; }
+cc:"d"^is  cond_0=1 & cond_1=0 & cond_2=1 {export DF;}
+cc:"s"^is  cond_0=0 & cond_1=1 & cond_2=2 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { export src0_SF; }
+cc:"ns"^is cond_0=1 & cond_1=1 & cond_2=2 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = !src0_SF; export tmp; }
+cc:"p"^is  cond_0=2 & cond_1=1 & cond_2=2 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { export src0_PF; }
+cc:"np"^is cond_0=3 & cond_1=1 & cond_2=2 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = !src0_PF; export tmp; }
+cc:"l"^is  cond_0=0 & cond_1=1 & cond_2=3 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = src0_OF != src0_SF; export tmp; }
+cc:"ge"^is cond_0=1 & cond_1=1 & cond_2=3 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = src0_OF == src0_SF; export tmp; }
+cc:"le"^is cond_0=2 & cond_1=1 & cond_2=3 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = src0_ZF || (src0_OF != src0_SF); export tmp; }
+cc:"g"^is  cond_0=3 & cond_1=1 & cond_2=3 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = !src0_ZF && (src0_OF == src0_SF); export tmp; }
+
+
 :UNKNOWN opcode: dst_sel <- src0_sel, src1_sel, imm0, imm1 seqword is opcode & dst_sel & src0_sel & src1_sel & imm0 & imm1; seqword unimpl
 
 # instructions TODO: fix semantics, rflags, and different sizes
@@ -547,6 +582,16 @@ dest: is dst & dst_sel=0 { export dst; }
 	source0 = source0 ^ (1:8 << cnt);
 	build seqword;
 }
+
+:sel^cc^"_"^dst_size dest source0, source1 seqword is (opcode = 0x030 | opcode = 0x031 | opcode = 0x032 | opcode = 0x033 | opcode = 0x070 | opcode = 0x071 | opcode = 0x072 | opcode = 0x073 | opcode = 0x130 | opcode = 0x131 | opcode = 0x132 | opcode = 0x133 | opcode = 0x170 | opcode = 0x171 | opcode = 0x172 | opcode = 0x173 | opcode = 0x230 | opcode = 0x231 | opcode = 0x232 | opcode = 0x233 | opcode = 0x270 | opcode = 0x271 | opcode = 0x272 | opcode = 0x273 | opcode = 0x330 | opcode = 0x331 | opcode = 0x332 | opcode = 0x333 | opcode = 0x370 | opcode = 0x371 | opcode = 0x372 | opcode = 0x373) & dest & cc & source0 & source1 & dst_size; seqword {
+	local res = 0:8;
+	if (!cc) goto <done>;
+	res = source1;
+	<done>
+	dest = res;
+	build seqword;
+}
+
 
 ucode_target: target is imm0 & imm1 & src1_sel [
 	target = (((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0) * $(INSTR_LEN);

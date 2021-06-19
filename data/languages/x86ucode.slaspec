@@ -431,8 +431,8 @@ dest: is dst & dst_sel=0 { export dst; }
 # NOTICE: UJMPCC_DIRECT_TAKEN_CONDZ is the only one that does not respect the reverse-engineered cc pattern, no idea why
 cc:"o"^is  cond_0=0 & cond_1=1 & cond_2=0 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { export src0_OF; }
 cc:"no"^is cond_0=1 & cond_1=1 & cond_2=0 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = !src0_OF; export tmp; }
-cc:"c"^is  cond_0=2 & cond_1=1 & cond_2=0 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { export src0_CF; }
-cc:"nc"^is cond_0=3 & cond_1=1 & cond_2=0 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = !src0_CF; export tmp; }
+cc:"b"^is  cond_0=2 & cond_1=1 & cond_2=0 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { export src0_CF; }
+cc:"ae"^is cond_0=3 & cond_1=1 & cond_2=0 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = !src0_CF; export tmp; }
 cc:"z"^is  cond_0=0 & cond_1=1 & cond_2=1 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { export src0_ZF; }
 cc:"nz"^is cond_0=1 & cond_1=1 & cond_2=1 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = !src0_ZF; export tmp; }
 cc:"be"^is cond_0=2 & cond_1=1 & cond_2=1 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = src0_CF || src0_ZF; export tmp; }
@@ -587,6 +587,15 @@ cc:"g"^is  cond_0=3 & cond_1=1 & cond_2=3 & src0_OF & src0_CF & src0_ZF & src0_S
 	local res = 0:8;
 	if (!cc) goto <done>;
 	res = source1;
+	<done>
+	dest = res;
+	build seqword;
+}
+
+:cmov^cc^"_"^dst_size dest source0, source1 seqword is (opcode=0x034 | opcode=0x035 | opcode=0x036 | opcode=0x037 | opcode=0x074 | opcode=0x075 | opcode=0x076 | opcode=0x077 | opcode=0x0b4 | opcode=0x0b5 | opcode=0x0b6 | opcode=0x0b7 | opcode=0x0f4 | opcode=0x0f5 | opcode=0x0f6 | opcode=0x0f7 | opcode=0x134 | opcode=0x135 | opcode=0x136 | opcode=0x137 | opcode=0x174 | opcode=0x175 | opcode=0x176 | opcode=0x177 | opcode=0x1b4 | opcode=0x1b5 | opcode=0x1b6 | opcode=0x1b7 | opcode=0x1f4 | opcode=0x1f5 | opcode=0x1f6 | opcode=0x1f7 | opcode=0x234 | opcode=0x235 | opcode=0x236 | opcode=0x237 | opcode=0x274 | opcode=0x275 | opcode=0x276 | opcode=0x277 | opcode=0x2b4 | opcode=0x2b5 | opcode=0x2b6 | opcode=0x2b7 | opcode=0x2f4 | opcode=0x2f5 | opcode=0x2f6 | opcode=0x2f7 | opcode=0x334 | opcode=0x335 | opcode=0x336 | opcode=0x337 | opcode=0x374 | opcode=0x375 | opcode=0x376 | opcode=0x377 | opcode=0x3b4 | opcode=0x3b5 | opcode=0x3b6 | opcode=0x3b7 | opcode=0x3f4 | opcode=0x3f5 | opcode=0x3f6 | opcode=0x3f7) & dest & cc & source0 & source1 & dst_size; seqword {
+	local res = source1;
+	if (!cc) goto <done>;
+	res = source0;
 	<done>
 	dest = res;
 	build seqword;

@@ -138,7 +138,7 @@ def get_metadata(uop):
     is_src0_imm = 1 if is_src_imm_sel(src0_sel) else 0
     is_src1_imm = 1 if is_src_imm_sel(src1_sel) else 0
 
-    return (is_src0_imm << 0) | (is_src0_imm << 1)
+    return (is_src0_imm << 0) | (is_src1_imm << 1)
     
 
 def ucode_dump(arrays_dump_dir):

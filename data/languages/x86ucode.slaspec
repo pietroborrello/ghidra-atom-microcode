@@ -424,6 +424,15 @@ source1: immediate is imm0 & imm1 & (src1_sel = 0 | src1_sel = 8 | src1_sel = 9 
 	immediate = 0xffffffffffff0000 * ((src1_sel & 0x10) >> 4) | ((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0;
 ] { export *[const]:8 immediate; }
 
+# parse source1 as a target in the ucode
+source1_target_imm: imm0_sel0 is imm0_sel0 & imm1_sel=0 & src1_sel = 16 {local tmp=imm0_sel0*$(INSTR_LEN):8; export *[ucode]:8 tmp;}
+source1_target_imm: imm0_sel1 is imm0_sel1 & imm1_sel=1 & src1_sel = 16 {local tmp=imm0_sel1*$(INSTR_LEN):8; export *[ucode]:8 tmp;}
+source1_target_imm: imm0_sel2 is imm0_sel2 & imm1_sel=2 & src1_sel = 16 {local tmp=imm0_sel2*$(INSTR_LEN):8; export *[ucode]:8 tmp;}
+source1_target_imm: imm0_sel3 is imm0_sel3 & imm1_sel=3 & src1_sel = 16 {local tmp=imm0_sel3*$(INSTR_LEN):8; export *[ucode]:8 tmp;}
+source1_target_imm: immediate is imm0 & imm1 & (src1_sel = 0 | src1_sel = 8 | src1_sel = 9 | src1_sel = 10 | src1_sel = 11 | src1_sel = 12 | src1_sel = 13 | src1_sel = 14 | src1_sel = 15 | src1_sel = 24 | src1_sel = 25 | src1_sel = 26 | src1_sel = 27 | src1_sel = 28 | src1_sel = 29 | src1_sel = 30 | src1_sel = 31) & src1_sel [
+	immediate = (0xffffffffffff0000 * ((src1_sel & 0x10) >> 4) | ((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0)*$(INSTR_LEN);
+] { export *[ucode]:8 immediate; }
+
 dest: dst <- is dst & dst_sel { export dst; }
 dest: is dst & dst_sel=0 { export dst; }
 
@@ -447,7 +456,7 @@ cc:"ge"^is cond_0=1 & cond_1=1 & cond_2=3 & src0_OF & src0_CF & src0_ZF & src0_S
 cc:"le"^is cond_0=2 & cond_1=1 & cond_2=3 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = src0_ZF || (src0_OF != src0_SF); export tmp; }
 cc:"g"^is  cond_0=3 & cond_1=1 & cond_2=3 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = !src0_ZF && (src0_OF == src0_SF); export tmp; }
 
-
+#define pcodeop unknown;
 :UNKNOWN opcode: dst_sel <- src0_sel, src1_sel, imm0, imm1 seqword is opcode & dst_sel & src0_sel & src1_sel & imm0 & imm1; seqword unimpl
 
 # instructions TODO: fix semantics, rflags, and different sizes
@@ -598,6 +607,20 @@ cc:"g"^is  cond_0=3 & cond_1=1 & cond_2=3 & src0_OF & src0_CF & src0_ZF & src0_S
 	res = source0;
 	<done>
 	dest = res;
+	build seqword;
+}
+
+# direct conditional jump
+:ujmp^cc source0, source1_target_imm seqword is (is_src1_imm=1 | (src1_sel=0 & is_src1_imm=0)) & (opcode=0x050 | opcode=0x051 | opcode=0x052 | opcode=0x053 | opcode=0x150 | opcode=0x151 | opcode=0x152 | opcode=0x153 | opcode=0x250 | opcode=0x251 | opcode=0x252 | opcode=0x253 | opcode=0x350 | opcode=0x351 | opcode=0x352 | opcode=0x353) & cc & source0 & source1_target_imm; seqword {
+	if (cc) goto source1_target_imm;
+	build seqword;
+}
+# indirect jump
+:ujmp^cc source0, source1 seqword is is_src1_imm=0 & (opcode=0x050 | opcode=0x051 | opcode=0x052 | opcode=0x053 | opcode=0x150 | opcode=0x151 | opcode=0x152 | opcode=0x153 | opcode=0x250 | opcode=0x251 | opcode=0x252 | opcode=0x253 | opcode=0x350 | opcode=0x351 | opcode=0x352 | opcode=0x353) & cc & source0 & source1; seqword {
+	local target = source1 * $(INSTR_LEN);
+	if (!cc) goto <nojump>;
+	goto [target];
+	<nojump>
 	build seqword;
 }
 

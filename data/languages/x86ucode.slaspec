@@ -6,7 +6,7 @@ define alignment=1;
 
 define space ucode		type=ram_space size=8 default;
 define space register	type=register_space size=2;
-define space ram		type=ram_space size=8;
+define space uram		type=ram_space size=2 wordsize=8;
 define space crbus type=ram_space size=2 wordsize=8;
 
 # fake a stack pointer for the decompilation
@@ -248,7 +248,9 @@ define token _seqword(64)
 	sync       = (25, 27)
 		sync_cmd  = (25, 27)
 	unknown2   = (28, 29)
-	seq_pad    = (30 ,63)
+	seq_pad0   = (30, 31)
+	with_testustate = (32, 32)
+	seq_pad1   = (33 ,63)
 ;
 # TODO: with strings you cannot express pcode semantics
 attach names [sync_cmd] [
@@ -466,8 +468,11 @@ cc:"ge"^is cond_0=1 & cond_1=1 & cond_2=3 & src0_OF & src0_CF & src0_ZF & src0_S
 cc:"le"^is cond_0=2 & cond_1=1 & cond_2=3 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = src0_ZF || (src0_OF != src0_SF); export tmp; }
 cc:"g"^is  cond_0=3 & cond_1=1 & cond_2=3 & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF { local tmp = !src0_ZF && (src0_OF == src0_SF); export tmp; }
 
-#define pcodeop unknown;
-:UNKNOWN opcode: dst_sel <- src0_sel, src1_sel, imm0, imm1 seqword is opcode & dst_sel & src0_sel & src1_sel & imm0 & imm1; seqword unimpl
+define pcodeop unknown;
+:UNKNOWN opcode: dst_sel <- src0_sel, src1_sel, imm0, imm1 seqword is opcode & dst_sel & src0_sel & src1_sel & imm0 & imm1; seqword {
+	unknown(opcode:8, dst_sel:8, src0_sel:8, src1_sel:8, imm0:8, imm1:8);
+	build seqword;
+}
 
 # instructions TODO: fix semantics, rflags, and different sizes
 :nop seqword is full_uop=0; seqword {}

@@ -139,7 +139,12 @@ def get_metadata(uop):
     is_src1_imm = 1 if is_src_imm_sel(src1_sel) else 0
 
     return (is_src0_imm << 0) | (is_src1_imm << 1)
-    
+
+# collect some metadata that will go in the upper 32 bits of the seqword
+def get_seq_metadata(uop, seqword):
+    is_with_testustate = 1 if is_uop_testustate(uop) else 0
+
+    return (is_with_testustate << 0)
 
 def ucode_dump(arrays_dump_dir):
     ucode = load_ms_array_str_data(arrays_dump_dir + "/ms_array0.txt")
@@ -163,8 +168,11 @@ def ucode_dump(arrays_dump_dir):
             # 48 bits for the uop rounded up to 64
             packed_uop = pack('<Q', uop | (meta_uop << 48))
 
+            # collect uop medatata to ease ghidra disassembly
+            meta_seq = get_seq_metadata(uop, seqword)
+
             # 30 bits rounded to 64 for sanity for the seqword
-            packed_seqword = pack('<Q', filtered_seqword)
+            packed_seqword = pack('<Q', filtered_seqword | (meta_seq << 32))
 
             # 128 bit per uop to have nicer addresses
             f.write(packed_uop + packed_seqword)

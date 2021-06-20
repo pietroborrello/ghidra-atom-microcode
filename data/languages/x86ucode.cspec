@@ -4,7 +4,7 @@
 
 	<global>
         <range space="ucode"/>
-        <range space="ram"/>
+        <range space="uram"/>
         <range space="crbus"/>
     </global>
 

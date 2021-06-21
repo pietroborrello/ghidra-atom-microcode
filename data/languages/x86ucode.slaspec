@@ -8,6 +8,7 @@ define space ucode		type=ram_space size=8 default;
 define space register	type=register_space size=2;
 define space uram		type=ram_space size=2 wordsize=8;
 define space crbus type=ram_space size=2 wordsize=8;
+define space mem		type=ram_space size=8 wordsize=1; # physical memory
 
 # fake a stack pointer for the decompilation
 define space dummy_space type=ram_space size=2;
@@ -634,7 +635,7 @@ source0_uram: imm0_sel3 is imm0_sel3 & imm1_sel=3 & src0_sel = 16 {export *[uram
 source0_uram: immediate is imm0 & imm1 & (src0_sel = 8 | src0_sel = 9 | src0_sel = 10 | src0_sel = 11 | src0_sel = 12 | src0_sel = 13 | src0_sel = 14 | src0_sel = 15 | src0_sel = 24 | src0_sel = 25 | src0_sel = 26 | src0_sel = 27 | src0_sel = 28 | src0_sel = 29 | src0_sel = 30 | src0_sel = 31) & src0_sel [
 	immediate = (0xffffffffffff0000 * ((src0_sel & 0x10) >> 4) | ((src0_sel & 0x07) << 13) | (imm1 << 8) | imm0) & 0x1ff;
 ] { export *[uram]:8 immediate; }
-source1_uram: src1 is src1 & src1_sel { export src1; }
+source1_uram: src1 is src1 & src1_sel { export *[uram]:8 src1; }
 source1_uram: imm0_sel0 is imm0_sel0 & imm1_sel=0 & src1_sel = 16 {export *[uram]:8 imm0_sel0;}
 source1_uram: imm0_sel1 is imm0_sel1 & imm1_sel=1 & src1_sel = 16 {export *[uram]:8 imm0_sel1;}
 source1_uram: imm0_sel2 is imm0_sel2 & imm1_sel=2 & src1_sel = 16 {export *[uram]:8 imm0_sel2;}
@@ -653,6 +654,38 @@ single_uram_source:source1_uram^is src0_sel=0 & source1_uram {export source1_ura
 	source1_uram = source0;
 	build seqword;
 }
+
+# crbs operations
+# cannot cast/reuse source0/1 since for the immediate we have to &0x7ff, and the disasm view does not support operations on subtables
+source0_crbus: src0 is src0 & src0_sel { export *[crbus]:8 src0; }
+source0_crbus: crbus_addr is imm0_sel0 & imm1_sel=0 & src0_sel = 16 [crbus_addr = imm0_sel0 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
+source0_crbus: crbus_addr is imm0_sel1 & imm1_sel=1 & src0_sel = 16 [crbus_addr = imm0_sel1 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
+source0_crbus: crbus_addr is imm0_sel2 & imm1_sel=2 & src0_sel = 16 [crbus_addr = imm0_sel2 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
+source0_crbus: crbus_addr is imm0_sel3 & imm1_sel=3 & src0_sel = 16 [crbus_addr = imm0_sel3 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
+source0_crbus: immediate is imm0 & imm1 & (src0_sel = 8 | src0_sel = 9 | src0_sel = 10 | src0_sel = 11 | src0_sel = 12 | src0_sel = 13 | src0_sel = 14 | src0_sel = 15 | src0_sel = 24 | src0_sel = 25 | src0_sel = 26 | src0_sel = 27 | src0_sel = 28 | src0_sel = 29 | src0_sel = 30 | src0_sel = 31) & src0_sel [
+	immediate = (((src0_sel & 0x07) << 13) | (imm1 << 8) | imm0) & 0x7ff;
+] { export *[crbus]:8 immediate; }
+source1_crbus: src1 is src1 & src1_sel { export *[crbus]:8 src1; }
+source1_crbus: crbus_addr is imm0_sel0 & imm1_sel=0 & src1_sel = 16 [crbus_addr = imm0_sel0 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
+source1_crbus: crbus_addr is imm0_sel1 & imm1_sel=1 & src1_sel = 16 [crbus_addr = imm0_sel1 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
+source1_crbus: crbus_addr is imm0_sel2 & imm1_sel=2 & src1_sel = 16 [crbus_addr = imm0_sel2 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
+source1_crbus: crbus_addr is imm0_sel3 & imm1_sel=3 & src1_sel = 16 [crbus_addr = imm0_sel3 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
+source1_crbus: immediate is imm0 & imm1 & (src1_sel = 8 | src1_sel = 9 | src1_sel = 10 | src1_sel = 11 | src1_sel = 12 | src1_sel = 13 | src1_sel = 14 | src1_sel = 15 | src1_sel = 24 | src1_sel = 25 | src1_sel = 26 | src1_sel = 27 | src1_sel = 28 | src1_sel = 29 | src1_sel = 30 | src1_sel = 31) & src1_sel [
+	immediate = (((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0) & 0x7ff;
+] { export *[crbus]:8 immediate; }
+single_crbus_source:source0_crbus^is src1_sel=0 & source0_crbus {export source0_crbus;}
+single_crbus_source:source1_crbus^is src0_sel=0 & source1_crbus {export source1_crbus;}
+
+:rcreg dest single_crbus_source seqword is opcode = 0x062 & dest & single_crbus_source; seqword {
+	dest = single_crbus_source;
+	build seqword;
+}
+# TODO: some writeuram uops have also dest, wtf
+:wcreg source0, source1_crbus seqword is opcode = 0x042 & dest & source0 & source1_crbus; seqword {
+	source1_crbus = source0;
+	build seqword;
+}
+
 
 # direct conditional jump
 :ujmp^cc source0, source1_target_imm seqword is (is_src1_imm=1 | (src1_sel=0 & is_src1_imm=0)) & (opcode=0x050 | opcode=0x051 | opcode=0x052 | opcode=0x053 | opcode=0x150 | opcode=0x151 | opcode=0x152 | opcode=0x153 | opcode=0x250 | opcode=0x251 | opcode=0x252 | opcode=0x253 | opcode=0x350 | opcode=0x351 | opcode=0x352 | opcode=0x353) & cc & source0 & source1_target_imm; seqword {

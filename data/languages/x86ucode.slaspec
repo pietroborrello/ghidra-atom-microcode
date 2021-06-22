@@ -1,6 +1,6 @@
 # Basic ================================================================================
 define endian=little;
-define alignment=1;
+define alignment=0x10;
 
 @define INSTR_LEN 16
 
@@ -662,6 +662,7 @@ source0_crbus: crbus_addr is imm0_sel0 & imm1_sel=0 & src0_sel = 16 [crbus_addr 
 source0_crbus: crbus_addr is imm0_sel1 & imm1_sel=1 & src0_sel = 16 [crbus_addr = imm0_sel1 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
 source0_crbus: crbus_addr is imm0_sel2 & imm1_sel=2 & src0_sel = 16 [crbus_addr = imm0_sel2 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
 source0_crbus: crbus_addr is imm0_sel3 & imm1_sel=3 & src0_sel = 16 [crbus_addr = imm0_sel3 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
+source0_crbus: immediate is src0_sel = 0 & src0_sel [ immediate = 0; ] { export *[crbus]:8 immediate; }
 source0_crbus: immediate is imm0 & imm1 & (src0_sel = 8 | src0_sel = 9 | src0_sel = 10 | src0_sel = 11 | src0_sel = 12 | src0_sel = 13 | src0_sel = 14 | src0_sel = 15 | src0_sel = 24 | src0_sel = 25 | src0_sel = 26 | src0_sel = 27 | src0_sel = 28 | src0_sel = 29 | src0_sel = 30 | src0_sel = 31) & src0_sel [
 	immediate = (((src0_sel & 0x07) << 13) | (imm1 << 8) | imm0) & 0x7ff;
 ] { export *[crbus]:8 immediate; }
@@ -670,6 +671,7 @@ source1_crbus: crbus_addr is imm0_sel0 & imm1_sel=0 & src1_sel = 16 [crbus_addr 
 source1_crbus: crbus_addr is imm0_sel1 & imm1_sel=1 & src1_sel = 16 [crbus_addr = imm0_sel1 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
 source1_crbus: crbus_addr is imm0_sel2 & imm1_sel=2 & src1_sel = 16 [crbus_addr = imm0_sel2 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
 source1_crbus: crbus_addr is imm0_sel3 & imm1_sel=3 & src1_sel = 16 [crbus_addr = imm0_sel3 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
+source1_crbus: immediate is src1_sel = 0 & src1_sel [ immediate = 0; ] { export *[crbus]:8 immediate; }
 source1_crbus: immediate is imm0 & imm1 & (src1_sel = 8 | src1_sel = 9 | src1_sel = 10 | src1_sel = 11 | src1_sel = 12 | src1_sel = 13 | src1_sel = 14 | src1_sel = 15 | src1_sel = 24 | src1_sel = 25 | src1_sel = 26 | src1_sel = 27 | src1_sel = 28 | src1_sel = 29 | src1_sel = 30 | src1_sel = 31) & src1_sel [
 	immediate = (((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0) & 0x7ff;
 ] { export *[crbus]:8 immediate; }

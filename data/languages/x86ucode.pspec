@@ -10,5 +10,23 @@
     
 	<default_symbols>
 	    <symbol name="start" address="ucode:0x0000" type="code" entry="true"/>
+	    
+	    <!-- CREG -->
+	    <symbol name="CORE_CR_CUR_RIP" address="crbus:0x067"/>
+        <symbol name="CORE_CR_CUR_UIP" address="crbus:0x068"/>
+        <symbol name="CTAP_CR_DFX_CTL_STS" address="crbus:0x285"/>
+        <symbol name="UCODE_CR_X2APIC_TPR" address="crbus:0x288"/>
+        <symbol name="UCODE_CR_X2APIC_EOI" address="crbus:0x28b"/>
+        <symbol name="UCODE_CR_PPPE_EVENT_STATUS" address="crbus:0x29f"/>
+        <symbol name="ML3_CR_PIC_GLOBAL_EVENT_INHIBIT" address="crbus:0x2c4"/>
+        <symbol name="ROB1_CR_ICECTLPMR" address="crbus:0x2df"/>
+        <symbol name="PMH_CR_CR3" address="crbus:0x528"/>
+        <symbol name="PMH_CR_SMRR_BASE" address="crbus:0x572"/>
+        <symbol name="PMH_CR_SMRR_MASK" address="crbus:0x573"/>
+        <symbol name="PMH_CR_EMRR_BASE" address="crbus:0x574"/>
+        <symbol name="PMH_CR_EMRR_MASK" address="crbus:0x575"/>
+        <symbol name="CORE_CR_CR4" address="crbus:0x7c5"/>
+        <symbol name="CORE_CR_CR0" address="crbus:0x7f6"/>
+        <symbol name="CORE_CR_EFLAGS" address="crbus:0x7fe"/>
 	</default_symbols>
 </processor_spec>

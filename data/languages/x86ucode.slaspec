@@ -577,6 +577,7 @@ define pcodeop unknown;
 	build seqword;
 }
 
+#TODO: should bts/btr/btc opperation clear the source0 or dest bit?
 :bt^"_"^dst_size dest source0, source1 seqword is  (opcode = 0x014 | opcode = 0x054 | opcode = 0x094) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
@@ -589,7 +590,7 @@ define pcodeop unknown;
 	local cnt = source1 & 0x3f;
 	local cf = (source0 >> cnt) & 1;
 	dst_CF = cf:1;
-	source0 = source0 | (1:8 << cnt);
+	dest = source0 | (1:8 << cnt);
 	build seqword;
 }
 :btr^"_"^dst_size dest source0, source1 seqword is (opcode = 0x016 | opcode = 0x056 | opcode = 0x096) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
@@ -597,7 +598,7 @@ define pcodeop unknown;
 	local cnt = source1 & 0x3f;
 	local cf = (source0 >> cnt) & 1;
 	dst_CF = cf:1;
-	source0 = source0 & ~(1:8 << cnt);
+	dest = source0 & ~(1:8 << cnt);
 	build seqword;
 }
 :btc^"_"^dst_size dest source0, source1 seqword is (opcode = 0x017 | opcode = 0x057 | opcode = 0x097) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
@@ -605,7 +606,7 @@ define pcodeop unknown;
 	local cnt = source1 & 0x3f;
 	local cf = (source0 >> cnt) & 1;
 	dst_CF = cf:1;
-	source0 = source0 ^ (1:8 << cnt);
+	dest = source0 ^ (1:8 << cnt);
 	build seqword;
 }
 

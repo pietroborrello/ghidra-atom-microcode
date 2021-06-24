@@ -77,6 +77,7 @@ define token _uop(64)
 		dst_ZF    = (12, 17)
 		dst_SF    = (12, 17)
 		dst_PF    = (12, 17)
+		dst_16    = (16, 16)
 	imm1   = (18, 22)
 		imm1_sel   = (18, 19)
 	m0     = (23, 23)
@@ -724,6 +725,42 @@ single_crbus_source:source1_crbus^is src0_sel=0 & source1_crbus {export source1_
 :ujmp source1 seqword is is_src1_imm=0 & opcode=0x15d & source1; seqword {
 	local target = source1 * $(INSTR_LEN);
 	goto [target];
+	build seqword;
+}
+
+source1_cmpj: src1 is src1 & src1_sel { export *[crbus]:8 src1; }
+source1_cmpj: first_imm is imm0_sel0 & imm1_sel=0 & src1_sel = 16 [first_imm = (imm0_sel0) >> 15;] {export *[const]:8 first_imm;}
+source1_cmpj: first_imm is imm0_sel1 & imm1_sel=1 & src1_sel = 16 [first_imm = (imm0_sel1) >> 15;] {export *[const]:8 first_imm;}
+source1_cmpj: first_imm is imm0_sel2 & imm1_sel=2 & src1_sel = 16 [first_imm = (imm0_sel2) >> 15;] {export *[const]:8 first_imm;}
+source1_cmpj: first_imm is imm0_sel3 & imm1_sel=3 & src1_sel = 16 [first_imm = (imm0_sel3) >> 15;] {export *[const]:8 first_imm;}
+source1_cmpj: immediate is src1_sel = 0 & src1_sel [ immediate = 0; ] { export *[const]:8 immediate; }
+source1_cmpj: immediate is imm0 & imm1 & m0 & (src1_sel = 8 | src1_sel = 9 | src1_sel = 10 | src1_sel = 11 | src1_sel = 12 | src1_sel = 13 | src1_sel = 14 | src1_sel = 15 | src1_sel = 24 | src1_sel = 25 | src1_sel = 26 | src1_sel = 27 | src1_sel = 28 | src1_sel = 29 | src1_sel = 30 | src1_sel = 31) & src1_sel [
+	immediate = (((src1_sel & 0x10) << 1) | ((src1_sel & 0x07) << 2) | (imm1 >> 4) | (m0 << 1));
+] { export *[const]:8 immediate; }
+cmpj_target: second_imm is imm0_sel0 & imm1_sel=0 & src1_sel = 16 [second_imm = (imm0_sel0 & 0x7fff) | 0x20;] {export *[ucode]:8 second_imm;}
+cmpj_target: second_imm is imm0_sel1 & imm1_sel=1 & src1_sel = 16 [second_imm = (imm0_sel1 & 0x7fff) | 0x20;] {export *[ucode]:8 second_imm;}
+cmpj_target: second_imm is imm0_sel2 & imm1_sel=2 & src1_sel = 16 [second_imm = (imm0_sel2 & 0x7fff) | 0x20;] {export *[ucode]:8 second_imm;}
+cmpj_target: second_imm is imm0_sel3 & imm1_sel=3 & src1_sel = 16 [second_imm = (imm0_sel3 & 0x7fff) | 0x20;] {export *[ucode]:8 second_imm;}
+cmpj_target: immediate is imm1_sel & src1_sel & imm0 & imm1 & m1 & m2 & dst_16 [
+#    immediate = ((full_uop & 0x10000) >> 2) | ((full_uop & 0x100000000000) >> 31) | ((full_uop & 0x200000000000) >> 33) | \
+#                     ((full_uop & 0x3c0000) >> 10) | ((full_uop & 0xff000000) >> 24)
+    immediate = ((dst_16 << 14) | (m1 << 13) | (m2 << 12) | ((imm1 & 0xff) << 8) | imm0) * $(INSTR_LEN);
+] { export *[ucode]:8 immediate; }
+# cmp & jump
+:cmpjb source0, source1_cmpj, cmpj_target seqword is opcode=0x86a & source0 & source1_cmpj & cmpj_target; seqword {
+	if (source0 < source1_cmpj) goto cmpj_target;
+	build seqword;
+}
+:cmpjbe source0, source1_cmpj, cmpj_target seqword is opcode=0x86b & source0 & source1_cmpj & cmpj_target; seqword {
+	if (source0 <= source1_cmpj) goto cmpj_target;
+	build seqword;
+}
+:cmpjz source0, source1_cmpj, cmpj_target seqword is opcode=0x928 & source0 & source1_cmpj & cmpj_target; seqword {
+	if (source0 == source1_cmpj) goto cmpj_target;
+	build seqword;
+}
+:cmpjnz source0, source1_cmpj, cmpj_target seqword is opcode=0x929 & source0 & source1_cmpj & cmpj_target; seqword {
+	if (source0 != source1_cmpj) goto cmpj_target;
 	build seqword;
 }
 

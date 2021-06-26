@@ -23,8 +23,7 @@ define register offset=0x00 size=8 [
 	tmp0 tmp1 tmp2 tmp3 tmp4 tmp5 tmp6 tmp7 tmp8 tmp9 tmp10 tmp11 tmp12 tmp13 tmp14 tmp15 
 	tmpv0 tmpv1 tmpv2 tmpv3 
 	r64dst r64src r64base r64idx
-	uip0 uip1
-];
+	uip0 uip1];
 # NOTICE: all the instructions filling uop0/uop1 are shown with the ghidra_address (ghidra_address=ucode_address*INSTR_LEN),
 # but the pcode uses the ucode_address to preserve correctness
 # should fix by setting the ucode wordsize to INSTR_LEN, but it is not supported
@@ -51,6 +50,12 @@ define register offset=0x2000 size=1 [
 	tmpv0_PF tmpv1_PF tmpv2_PF tmpv3_PF
 	dummy_F
 	DF # global direction flag
+];
+
+# we represent the conditions that testustate checks as registers
+# (notice: this is not precise, as there is no such uarch reg in reality)
+define register offset=0x3000 size=2 [
+	ucode_ustate sys_ustate vmx_ustate
 ];
 
 # Fields =================================================================================
@@ -98,6 +103,8 @@ define token _uop(64)
 		cond_2 = (40, 41)
 	m1     = (44, 44)
 	m2     = (45, 45)
+		testustate_mode     = (44, 45)
+		testustate_mode_sel = (44, 45)
 	uknown = (46, 47)
 	is_src0_imm = (48, 48)
 	is_src1_imm = (49, 49)
@@ -168,6 +175,7 @@ attach names [dst_size] [
 ];
 
 attach variables [uip_reg] [uip0 uip1];
+attach variables [testustate_mode] [ucode_ustate sys_ustate vmx_ustate _];
 
 # create the 4 tables to express hardcoded immediates
 attach values [imm0_sel0] [
@@ -377,21 +385,21 @@ seqword_sync: [sync_cmd] is up2=1 & sync_cmd {}
 seqword_sync:"" is up2=0 & sync {}
 
 # UEND: think of a better way to express end
-seqword_eflow:"; "^eflow_cmd is up0=1 & (eflow=12 | eflow=13 | eflow=14 |eflow=15) & eflow_cmd { return [0:8];}
+seqword_eflow:" "^eflow_cmd is up0=1 & (eflow=12 | eflow=13 | eflow=14 |eflow=15) & eflow_cmd { return [0:8];}
 
-seqword_eflow:"; SEQW URET0" is up0=1 & eflow=2 { return [uip0 * $(INSTR_LEN)]; }
-seqword_eflow:"; SEQW URET1" is up0=1 & eflow=3 { return [uip1 * $(INSTR_LEN)]; }
+seqword_eflow:" SEQW URET0" is up0=1 & eflow=2 { return [uip0 * $(INSTR_LEN)]; }
+seqword_eflow:" SEQW URET1" is up0=1 & eflow=3 { return [uip1 * $(INSTR_LEN)]; }
 # SAVEUIP
 seqword_next:next is up0=1 [ next = inst_next; ] {
   export *[ucode]:8 next;
 }
-seqword_eflow:"; SEQW SAVEUIP0" seqword_next is up0=1 & eflow=4 & seqword_next { uip0 = inst_next/$(INSTR_LEN); }
-seqword_eflow:"; SEQW SAVEUIP1" seqword_next is up0=1 & eflow=5 & seqword_next { uip1 = inst_next/$(INSTR_LEN); }
+seqword_eflow:" SEQW SAVEUIP0" seqword_next is up0=1 & eflow=4 & seqword_next { uip0 = inst_next/$(INSTR_LEN); }
+seqword_eflow:" SEQW SAVEUIP1" seqword_next is up0=1 & eflow=5 & seqword_next { uip1 = inst_next/$(INSTR_LEN); }
 # TODO: what does ROVR do?
-seqword_eflow:"; ROVR<- SEQW SAVEUIP0" seqword_next is up0=1 & eflow=6 & seqword_next{ uip0 = inst_next/$(INSTR_LEN); }
-seqword_eflow:"; ROVR<- SEQW SAVEUIP1" seqword_next is up0=1 & eflow=7 & seqword_next { uip1 = inst_next/$(INSTR_LEN); }
+seqword_eflow:" ROVR<- SEQW SAVEUIP0" seqword_next is up0=1 & eflow=6 & seqword_next{ uip0 = inst_next/$(INSTR_LEN); }
+seqword_eflow:" ROVR<- SEQW SAVEUIP1" seqword_next is up0=1 & eflow=7 & seqword_next { uip1 = inst_next/$(INSTR_LEN); }
 
-seqword_eflow:"; "^eflow_cmd is up0=1 & eflow_cmd {}
+seqword_eflow:" "^eflow_cmd is up0=1 & eflow_cmd {}
 seqword_eflow:"" is up0=1 & eflow=0 {}
 seqword_eflow:"" is up0=0 & eflow {}
 
@@ -399,7 +407,7 @@ seqword_eflow:"" is up0=0 & eflow {}
 seqword_target: target is next_uaddr [ target = next_uaddr*$(INSTR_LEN); ] {
   export *[ucode]:8 target;
 }
-seqword_goto:"; SEQW GOTO" seqword_target is up1=1 & seqword_target {
+seqword_goto:" SEQW GOTO" seqword_target is up1=1 & seqword_target {
 	goto seqword_target;
 }
 seqword_goto:"" is up1=0 & next_uaddr {}
@@ -819,4 +827,45 @@ saveuip_ov_imm: value is imm0 & imm1 & src1_sel [
 #TODO: what is the semantics here?
 :uret dest uip_reg, source0 seqword is dest & source0 & uip_reg & opcode=0x148; seqword {
 	return [uip_reg*$(INSTR_LEN)];
+}
+
+# === testustate ===
+# The first numeric 16-bit argument (second in the disassembler’s listing) defines which bits in correspondent 
+# state/bitmask to check. For all modes except SYS, the set bit in argument checks whether the correspondent bit 
+# in state or bitmask is clear. For SYS mode, the set bit checks that correspondent state (architectural mode) is activated. 
+# The mode bit m0 of the uop inverts the rules described above (if m0 is set the TESTUSATE checks the set bits in VMS states/bitmask
+#  and that the SYS arch mode is not activated)
+
+# In practice only SYS ustate will have combinations of different bits
+testustate_cond: immediate is imm0 & imm1 & src1_sel [
+	immediate = ((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0;
+] { export *[const]:2 immediate; }
+:testustate testustate_mode testustate_cond ?^seqword is m0=0 & testustate_mode & testustate_mode_sel & testustate_cond & (opcode=0x00a | opcode=0x04a); seqword {
+	# if the condition is not met, skip the seqword
+	# check if the corresponding bit is clear, if not skip the seqword
+	if ((testustate_mode & testustate_cond) != 0) goto <skip>;
+	build seqword;
+	<skip>
+}
+:testustate testustate_mode !^testustate_cond ?^seqword is m0=1 & testustate_mode & testustate_mode_sel & testustate_cond & (opcode=0x00a | opcode=0x04a); seqword {
+	# if the condition is met, skip the seqword
+	# check if the corresponding bit is clear, if yes skip the seqword
+	if ((testustate_mode & testustate_cond) == 0) goto <skip>;
+	build seqword;
+	<skip>
+}
+# SYS ustate
+:testustate testustate_mode testustate_cond ?^seqword is m0=0 & testustate_mode & testustate_mode_sel=1 & testustate_cond & (opcode=0x00a | opcode=0x04a); seqword {
+	# if the condition is not met, skip the seqword
+	# check if any of the corresponding bits are set, if not skip the seqword
+	if ((testustate_mode & testustate_cond) == 0) goto <skip>;
+	build seqword;
+	<skip>
+}
+:testustate testustate_mode !^testustate_cond ?^seqword is m0=1 & testustate_mode & testustate_mode_sel=1 & testustate_cond & (opcode=0x00a | opcode=0x04a); seqword {
+	# if the condition is met, skip the seqword
+	# check if any of the corresponding bits are set, if yes skip the seqword
+	if ((testustate_mode & testustate_cond) != 0) goto <skip>;
+	build seqword;
+	<skip>
 }

@@ -24,7 +24,7 @@ define register offset=0x00 size=8 [
 ];
 # NOTICE: all the instructions filling uop0/uop1 are shown with the ghidra_address (ghidra_address=ucode_address*INSTR_LEN),
 # but the pcode uses the ucode_address to preserve correctness
-# should fix setting the ucode wordsize to INSTR_LEN, but it is not supported
+# should fix by setting the ucode wordsize to INSTR_LEN, but it is not supported
 
 define register offset=0x1000 size=16 [
 	xmm0 xmm1 xmm2 xmm3 xmm4 xmm5 xmm6 xmm7 xmm8 xmm9 xmm10 xmm11 xmm12 xmm13 xmm14 xmm15 
@@ -48,6 +48,27 @@ define register offset=0x2000 size=1 [
 	tmpv0_PF tmpv1_PF tmpv2_PF tmpv3_PF
 	dummy_F
 	DF # global direction flag
+];
+
+# define macro-instruction data aliases as registers
+# each of the register refers to some data in the associated macro-instruction, most are not used, some of them are used but unknown
+define register offset=0x3000 size=8 [
+	MOP_IMM MOP_01 MOP_02 MOP_03 MOP_RIP MOP_STi MOP_06 MOP_07 MOP_MSLOOPCTR MOP_09 MOP_0a MOP_DATASIZE MOP_0c MOP_0d MOP_0e MOP_0f
+	MOP_INSTR MOP_11 MOP_12 MOP_13 MOP_14 MOP_15 MOP_16 MOP_17 MOP_18 MOP_19 MOP_1a MOP_1b MOP_1c MOP_1d MOP_1e MOP_1f
+	MOP_20 MOP_21 MOP_22 MOP_23 MOP_24 MOP_25 MOP_26 MOP_27 MOP_28 MOP_29 MOP_2a MOP_2b MOP_2c MOP_2d MOP_2e MOP_2f
+	MOP_30 MOP_31 MOP_32 MOP_33 MOP_34 MOP_35 MOP_36 MOP_37 MOP_38 MOP_39 MOP_3a MOP_3b MOP_3c MOP_3d MOP_3e MOP_3f
+	MOP_40 MOP_41 MOP_42 MOP_43 MOP_44 MOP_45 MOP_46 MOP_47 MOP_48 MOP_49 MOP_4a MOP_4b MOP_4c MOP_4d MOP_4e MOP_4f
+	MOP_50 MOP_51 MOP_52 MOP_53 MOP_54 MOP_55 MOP_56 MOP_57 MOP_58 MOP_59 MOP_5a MOP_5b MOP_5c MOP_5d MOP_5e MOP_5f
+	MOP_60 MOP_61 MOP_62 MOP_63 MOP_64 MOP_65 MOP_66 MOP_67 MOP_68 MOP_69 MOP_6a MOP_6b MOP_6c MOP_6d MOP_6e MOP_6f
+	MOP_70 MOP_71 MOP_72 MOP_73 MOP_74 MOP_75 MOP_76 MOP_77 MOP_78 MOP_79 MOP_7a MOP_7b MOP_7c MOP_7d MOP_7e MOP_7f
+	MOP_80 MOP_81 MOP_82 MOP_83 MOP_84 MOP_85 MOP_86 MOP_87 MOP_88 MOP_89 MOP_8a MOP_8b MOP_8c MOP_8d MOP_8e MOP_8f
+	MOP_90 MOP_91 MOP_92 MOP_93 MOP_94 MOP_95 MOP_96 MOP_97 MOP_98 MOP_99 MOP_9a MOP_9b MOP_9c MOP_9d MOP_9e MOP_9f
+	MOP_a0 MOP_a1 MOP_a2 MOP_a3 MOP_a4 MOP_a5 MOP_a6 MOP_a7 MOP_a8 MOP_a9 MOP_aa MOP_ab MOP_ac MOP_ad MOP_ae MOP_af
+	MOP_b0 MOP_b1 MOP_b2 MOP_b3 MOP_b4 MOP_b5 MOP_b6 MOP_b7 MOP_b8 MOP_b9 MOP_ba MOP_bb MOP_bc MOP_bd MOP_be MOP_bf
+	MOP_c0 MOP_c1 MOP_c2 MOP_c3 MOP_c4 MOP_c5 MOP_c6 MOP_c7 MOP_c8 MOP_c9 MOP_ca MOP_cb MOP_cc MOP_cd MOP_ce MOP_cf
+	MOP_d0 MOP_d1 MOP_d2 MOP_d3 MOP_d4 MOP_d5 MOP_d6 MOP_d7 MOP_d8 MOP_d9 MOP_da MOP_db MOP_dc MOP_dd MOP_de MOP_df
+	MOP_e0 MOP_e1 MOP_e2 MOP_e3 MOP_e4 MOP_e5 MOP_e6 MOP_e7 MOP_e8 MOP_e9 MOP_ea MOP_eb MOP_ec MOP_ed MOP_ee MOP_ef
+	MOP_f0 MOP_f1 MOP_f2 MOP_f3 MOP_f4 MOP_f5 MOP_f6 MOP_f7 MOP_f8 MOP_f9 MOP_fa MOP_fb MOP_fc MOP_fd MOP_fe MOP_ff
 ];
 
 # Fields =================================================================================
@@ -87,6 +108,7 @@ define token _uop(64)
 		imm0_sel1  = (24, 31)
 		imm0_sel2  = (24, 31)
 		imm0_sel3  = (24, 31)
+		MOP_alias  = (24, 31)
 	opcode = (32, 43)
 		dst_size = (38, 39)
 		cond_0 = (32,33)
@@ -239,6 +261,25 @@ attach values [imm0_sel3] [
 	0xbffcc93e 0xbfda7b81 0xffcbf80d 0xffdbf27f 0xbfe10233 0xffe2d301 0xffe69571 0xffeade03 0xfff307f8 0xffff07ff 0xffffffff 0xfffffffe 0xfffbfefe 0xffffd1bf 0xffffffff 0xffff75fc
 ];
 
+attach variables [MOP_alias] [
+	MOP_IMM MOP_01 MOP_02 MOP_03 MOP_RIP MOP_STi MOP_06 MOP_07 MOP_MSLOOPCTR MOP_09 MOP_0a MOP_DATASIZE MOP_0c MOP_0d MOP_0e MOP_0f
+	MOP_INSTR MOP_11 MOP_12 MOP_13 MOP_14 MOP_15 MOP_16 MOP_17 MOP_18 MOP_19 MOP_1a MOP_1b MOP_1c MOP_1d MOP_1e MOP_1f
+	MOP_20 MOP_21 MOP_22 MOP_23 MOP_24 MOP_25 MOP_26 MOP_27 MOP_28 MOP_29 MOP_2a MOP_2b MOP_2c MOP_2d MOP_2e MOP_2f
+	MOP_30 MOP_31 MOP_32 MOP_33 MOP_34 MOP_35 MOP_36 MOP_37 MOP_38 MOP_39 MOP_3a MOP_3b MOP_3c MOP_3d MOP_3e MOP_3f
+	MOP_40 MOP_41 MOP_42 MOP_43 MOP_44 MOP_45 MOP_46 MOP_47 MOP_48 MOP_49 MOP_4a MOP_4b MOP_4c MOP_4d MOP_4e MOP_4f
+	MOP_50 MOP_51 MOP_52 MOP_53 MOP_54 MOP_55 MOP_56 MOP_57 MOP_58 MOP_59 MOP_5a MOP_5b MOP_5c MOP_5d MOP_5e MOP_5f
+	MOP_60 MOP_61 MOP_62 MOP_63 MOP_64 MOP_65 MOP_66 MOP_67 MOP_68 MOP_69 MOP_6a MOP_6b MOP_6c MOP_6d MOP_6e MOP_6f
+	MOP_70 MOP_71 MOP_72 MOP_73 MOP_74 MOP_75 MOP_76 MOP_77 MOP_78 MOP_79 MOP_7a MOP_7b MOP_7c MOP_7d MOP_7e MOP_7f
+	MOP_80 MOP_81 MOP_82 MOP_83 MOP_84 MOP_85 MOP_86 MOP_87 MOP_88 MOP_89 MOP_8a MOP_8b MOP_8c MOP_8d MOP_8e MOP_8f
+	MOP_90 MOP_91 MOP_92 MOP_93 MOP_94 MOP_95 MOP_96 MOP_97 MOP_98 MOP_99 MOP_9a MOP_9b MOP_9c MOP_9d MOP_9e MOP_9f
+	MOP_a0 MOP_a1 MOP_a2 MOP_a3 MOP_a4 MOP_a5 MOP_a6 MOP_a7 MOP_a8 MOP_a9 MOP_aa MOP_ab MOP_ac MOP_ad MOP_ae MOP_af
+	MOP_b0 MOP_b1 MOP_b2 MOP_b3 MOP_b4 MOP_b5 MOP_b6 MOP_b7 MOP_b8 MOP_b9 MOP_ba MOP_bb MOP_bc MOP_bd MOP_be MOP_bf
+	MOP_c0 MOP_c1 MOP_c2 MOP_c3 MOP_c4 MOP_c5 MOP_c6 MOP_c7 MOP_c8 MOP_c9 MOP_ca MOP_cb MOP_cc MOP_cd MOP_ce MOP_cf
+	MOP_d0 MOP_d1 MOP_d2 MOP_d3 MOP_d4 MOP_d5 MOP_d6 MOP_d7 MOP_d8 MOP_d9 MOP_da MOP_db MOP_dc MOP_dd MOP_de MOP_df
+	MOP_e0 MOP_e1 MOP_e2 MOP_e3 MOP_e4 MOP_e5 MOP_e6 MOP_e7 MOP_e8 MOP_e9 MOP_ea MOP_eb MOP_ec MOP_ed MOP_ee MOP_ef
+	MOP_f0 MOP_f1 MOP_f2 MOP_f3 MOP_f4 MOP_f5 MOP_f6 MOP_f7 MOP_f8 MOP_f9 MOP_fa MOP_fb MOP_fc MOP_fd MOP_fe MOP_ff
+];
+
 define token _seqword(64)
 	full_seqword = (0, 31)
 	up0        = (0, 1)
@@ -373,7 +414,7 @@ seqword_sync: [sync_cmd] is up2=1 & sync_cmd {}
 seqword_sync:"" is up2=0 & sync {}
 
 # UEND: think of a better way to express end
-seqword_eflow:"; "^eflow_cmd is up0=1 & (eflow=12 | eflow=13 | eflow=14 |eflow=15) & eflow_cmd { }
+seqword_eflow:"; "^eflow_cmd is up0=1 & (eflow=12 | eflow=13 | eflow=14 |eflow=15) & eflow_cmd { return [0:8];}
 
 seqword_eflow:"; SEQW URET0" is up0=1 & eflow=2 { return [uip0 * $(INSTR_LEN)]; }
 seqword_eflow:"; SEQW URET1" is up0=1 & eflow=3 { return [uip1 * $(INSTR_LEN)]; }
@@ -411,14 +452,17 @@ seqword:"" is full_seqword=0 {}
 # ======= UOP =======
 # deal with sources or immediates
 source0: src0 is src0 & src0_sel { export src0; }
-source0: imm0_sel0 is imm0_sel0 & imm1_sel=0 & src0_sel = 16 {export *[const]:8 imm0_sel0;}
-source0: imm0_sel1 is imm0_sel1 & imm1_sel=1 & src0_sel = 16 {export *[const]:8 imm0_sel1;}
-source0: imm0_sel2 is imm0_sel2 & imm1_sel=2 & src0_sel = 16 {export *[const]:8 imm0_sel2;}
-source0: imm0_sel3 is imm0_sel3 & imm1_sel=3 & src0_sel = 16 {export *[const]:8 imm0_sel3;}
-source0: immediate is src0_sel = 0 & src0_sel [ immediate = 0; ] { export *[const]:8 immediate; }
-source0: immediate is imm0 & imm1 & (src0_sel = 8 | src0_sel = 9 | src0_sel = 10 | src0_sel = 11 | src0_sel = 12 | src0_sel = 13 | src0_sel = 14 | src0_sel = 15 | src0_sel = 24 | src0_sel = 25 | src0_sel = 26 | src0_sel = 27 | src0_sel = 28 | src0_sel = 29 | src0_sel = 30 | src0_sel = 31) & src0_sel [
+source0: imm0_sel0 is m0=0 & imm0_sel0 & imm1_sel=0 & src0_sel = 16 {export *[const]:8 imm0_sel0;}
+source0: imm0_sel1 is m0=0 & imm0_sel1 & imm1_sel=1 & src0_sel = 16 {export *[const]:8 imm0_sel1;}
+source0: imm0_sel2 is m0=0 & imm0_sel2 & imm1_sel=2 & src0_sel = 16 {export *[const]:8 imm0_sel2;}
+source0: imm0_sel3 is m0=0 & imm0_sel3 & imm1_sel=3 & src0_sel = 16 {export *[const]:8 imm0_sel3;}
+source0: immediate is m0=0 & src0_sel = 0 & src0_sel [ immediate = 0; ] { export *[const]:8 immediate; }
+source0: immediate is m0=0 & imm0 & imm1 & (src0_sel = 8 | src0_sel = 9 | src0_sel = 10 | src0_sel = 11 | src0_sel = 12 | src0_sel = 13 | src0_sel = 14 | src0_sel = 15 | src0_sel = 24 | src0_sel = 25 | src0_sel = 26 | src0_sel = 27 | src0_sel = 28 | src0_sel = 29 | src0_sel = 30 | src0_sel = 31) & src0_sel [
 	immediate = 0xffffffffffff0000 * ((src0_sel & 0x10) >> 4) | ((src0_sel & 0x07) << 13) | (imm1 << 8) | imm0;
 ] { export *[const]:8 immediate; }
+source0: MOP_alias is m0=1 & MOP_alias & (src0_sel = 0 | src0_sel = 16 | src0_sel = 8 | src0_sel = 9 | src0_sel = 10 | src0_sel = 11 | src0_sel = 12 | src0_sel = 13 | src0_sel = 14 | src0_sel = 15 | src0_sel = 24 | src0_sel = 25 | src0_sel = 26 | src0_sel = 27 | src0_sel = 28 | src0_sel = 29 | src0_sel = 30 | src0_sel = 31) & src0_sel { 
+	export MOP_alias;
+}
 # parse source0 as a target in the ucode
 source0_target_imm: imm0_sel0 is imm0_sel0 & imm1_sel=0 & src0_sel = 16 {local tmp=imm0_sel0*$(INSTR_LEN):8; export *[ucode]:8 tmp;}
 source0_target_imm: imm0_sel1 is imm0_sel1 & imm1_sel=1 & src0_sel = 16 {local tmp=imm0_sel1*$(INSTR_LEN):8; export *[ucode]:8 tmp;}
@@ -429,15 +473,17 @@ source0_target_imm: immediate is imm0 & imm1 & (src0_sel = 8 | src0_sel = 9 | sr
 ] { export *[ucode]:8 immediate; }
 
 source1: src1 is src1 & src1_sel { export src1; }
-source1: imm0_sel0 is imm0_sel0 & imm1_sel=0 & src1_sel = 16 {export *[const]:8 imm0_sel0;}
-source1: imm0_sel1 is imm0_sel1 & imm1_sel=1 & src1_sel = 16 {export *[const]:8 imm0_sel1;}
-source1: imm0_sel2 is imm0_sel2 & imm1_sel=2 & src1_sel = 16 {export *[const]:8 imm0_sel2;}
-source1: imm0_sel3 is imm0_sel3 & imm1_sel=3 & src1_sel = 16 {export *[const]:8 imm0_sel3;}
-source1: immediate is src1_sel = 0 & src1_sel [ immediate = 0; ] { export *[const]:8 immediate; }
-source1: immediate is imm0 & imm1 & (src1_sel = 8 | src1_sel = 9 | src1_sel = 10 | src1_sel = 11 | src1_sel = 12 | src1_sel = 13 | src1_sel = 14 | src1_sel = 15 | src1_sel = 24 | src1_sel = 25 | src1_sel = 26 | src1_sel = 27 | src1_sel = 28 | src1_sel = 29 | src1_sel = 30 | src1_sel = 31) & src1_sel [
+source1: imm0_sel0 is m0=0 & imm0_sel0 & imm1_sel=0 & src1_sel = 16 {export *[const]:8 imm0_sel0;}
+source1: imm0_sel1 is m0=0 & imm0_sel1 & imm1_sel=1 & src1_sel = 16 {export *[const]:8 imm0_sel1;}
+source1: imm0_sel2 is m0=0 & imm0_sel2 & imm1_sel=2 & src1_sel = 16 {export *[const]:8 imm0_sel2;}
+source1: imm0_sel3 is m0=0 & imm0_sel3 & imm1_sel=3 & src1_sel = 16 {export *[const]:8 imm0_sel3;}
+source1: immediate is m0=0 & src1_sel = 0 & src1_sel [ immediate = 0; ] { export *[const]:8 immediate; }
+source1: immediate is m0=0 & imm0 & imm1 & (src1_sel = 8 | src1_sel = 9 | src1_sel = 10 | src1_sel = 11 | src1_sel = 12 | src1_sel = 13 | src1_sel = 14 | src1_sel = 15 | src1_sel = 24 | src1_sel = 25 | src1_sel = 26 | src1_sel = 27 | src1_sel = 28 | src1_sel = 29 | src1_sel = 30 | src1_sel = 31) & src1_sel [
 	immediate = 0xffffffffffff0000 * ((src1_sel & 0x10) >> 4) | ((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0;
 ] { export *[const]:8 immediate; }
-
+source1: MOP_alias is m0=1 & MOP_alias & (src1_sel = 0 | src1_sel = 16 | src1_sel = 8 | src1_sel = 9 | src1_sel = 10 | src1_sel = 11 | src1_sel = 12 | src1_sel = 13 | src1_sel = 14 | src1_sel = 15 | src1_sel = 24 | src1_sel = 25 | src1_sel = 26 | src1_sel = 27 | src1_sel = 28 | src1_sel = 29 | src1_sel = 30 | src1_sel = 31) & src1_sel {
+	export MOP_alias;
+}
 # parse source1 as a target in the ucode
 source1_target_imm: imm0_sel0 is imm0_sel0 & imm1_sel=0 & src1_sel = 16 {local tmp=imm0_sel0*$(INSTR_LEN):8; export *[ucode]:8 tmp;}
 source1_target_imm: imm0_sel1 is imm0_sel1 & imm1_sel=1 & src1_sel = 16 {local tmp=imm0_sel1*$(INSTR_LEN):8; export *[ucode]:8 tmp;}

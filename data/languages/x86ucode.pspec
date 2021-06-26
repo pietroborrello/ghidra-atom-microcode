@@ -6,27 +6,37 @@
 	<default_memory_blocks>
         <memory_block name="uram" start_address="uram:0x0000" length="0x1000" mode="rw"/>
         <memory_block name="crbus" start_address="crbus:0x0000" length="0x10000" mode="rw"/>
+        <memory_block name="alias" start_address="alias:0x0000" length="0x800" mode="rw"/>
+        <memory_block name="mem" start_address="mem:0x0000" length="0x100000000" mode="rw"/>
     </default_memory_blocks>
     
 	<default_symbols>
 	    <symbol name="start" address="ucode:0x0000" type="code" entry="true"/>
 	    
 	    <!-- CREG -->
-	    <symbol name="CORE_CR_CUR_RIP" address="crbus:0x067"/>
-        <symbol name="CORE_CR_CUR_UIP" address="crbus:0x068"/>
-        <symbol name="CTAP_CR_DFX_CTL_STS" address="crbus:0x285"/>
-        <symbol name="UCODE_CR_X2APIC_TPR" address="crbus:0x288"/>
-        <symbol name="UCODE_CR_X2APIC_EOI" address="crbus:0x28b"/>
-        <symbol name="UCODE_CR_PPPE_EVENT_STATUS" address="crbus:0x29f"/>
-        <symbol name="ML3_CR_PIC_GLOBAL_EVENT_INHIBIT" address="crbus:0x2c4"/>
-        <symbol name="ROB1_CR_ICECTLPMR" address="crbus:0x2df"/>
-        <symbol name="PMH_CR_CR3" address="crbus:0x528"/>
-        <symbol name="PMH_CR_SMRR_BASE" address="crbus:0x572"/>
-        <symbol name="PMH_CR_SMRR_MASK" address="crbus:0x573"/>
-        <symbol name="PMH_CR_EMRR_BASE" address="crbus:0x574"/>
-        <symbol name="PMH_CR_EMRR_MASK" address="crbus:0x575"/>
-        <symbol name="CORE_CR_CR4" address="crbus:0x7c5"/>
-        <symbol name="CORE_CR_CR0" address="crbus:0x7f6"/>
-        <symbol name="CORE_CR_EFLAGS" address="crbus:0x7fe"/>
+	    <symbol name="CORE_CR_CUR_RIP"	address="crbus:0x067"/>
+        <symbol name="CORE_CR_CUR_UIP"	address="crbus:0x068"/>
+        <symbol name="CTAP_CR_DFX_CTL_STS"	address="crbus:0x285"/>
+        <symbol name="UCODE_CR_X2APIC_TPR"	address="crbus:0x288"/>
+        <symbol name="UCODE_CR_X2APIC_EOI"	address="crbus:0x28b"/>
+        <symbol name="UCODE_CR_PPPE_EVENT_STATUS"		address="crbus:0x29f"/>
+        <symbol name="ML3_CR_PIC_GLOBAL_EVENT_INHIBIT"	address="crbus:0x2c4"/>
+        <symbol name="ROB1_CR_ICECTLPMR"	address="crbus:0x2df"/>
+        <symbol name="PMH_CR_CR3"		address="crbus:0x528"/>
+        <symbol name="PMH_CR_SMRR_BASE"	address="crbus:0x572"/>
+        <symbol name="PMH_CR_SMRR_MASK"	address="crbus:0x573"/>
+        <symbol name="PMH_CR_EMRR_BASE"	address="crbus:0x574"/>
+        <symbol name="PMH_CR_EMRR_MASK"	address="crbus:0x575"/>
+        <symbol name="CORE_CR_CR4"		address="crbus:0x7c5"/>
+        <symbol name="CORE_CR_CR0"		address="crbus:0x7f6"/>
+        <symbol name="CORE_CR_EFLAGS"	address="crbus:0x7fe"/>
+        
+        <!-- Macro Aliases -->
+        <symbol name="MACRO_IMM"	address="alias:0x00"/>
+        <symbol name="MACRO_RIP"	address="alias:0x04"/>
+        <symbol name="MACRO_STi"	address="alias:0x05"/>
+        <symbol name="MACRO_MSLOOPCTR"	address="alias:0x08"/>
+        <symbol name="MACRO_DATASIZE"	address="alias:0x0b"/>
+        <symbol name="MACRO_INSTR"	address="alias:0x10"/>
 	</default_symbols>
 </processor_spec>

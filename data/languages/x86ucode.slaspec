@@ -619,6 +619,14 @@ define pcodeop unknown;
 	build seqword;
 }
 
+define pcodeop concat;
+# TODO: what does concat really do? How are the eflags defined for the operation?
+:concat^"_"^dst_size dest source0, source1 seqword is (opcode = 0x021 | opcode = 0x0a1 | opcode = 0x0e1) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
+	dest = concat(source0, source1);
+	resultflags(dest, dst_ZF,dst_SF, dst_PF);
+	build seqword;
+}
+
 :zeroext^"_"^dst_size dest source0 seqword is (opcode = 0x008 | opcode = 0x048 | opcode = 0x088 | opcode = 0x0c8) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & dst_size; seqword {
 	dest = source0;
 	build seqword;

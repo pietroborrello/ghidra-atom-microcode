@@ -897,6 +897,18 @@ testustate_cond: immediate is imm0 & imm1 & src1_sel [
 	<skip>
 }
 
+updustate_imm: immediate is imm0 & imm1 & src1_sel [
+	immediate = ((((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0) & 0x3f) << 2;
+] { export *[const]:2 immediate; }
+:updustate updustate_imm seqword is m0=0 & updustate_imm & opcode=0x00b; seqword {
+	ucode_ustate = ucode_ustate | updustate_imm;
+	build seqword;
+}
+:updustate !^updustate_imm seqword is m0=1 & updustate_imm & opcode=0x00b; seqword {
+	ucode_ustate = ucode_ustate & ~updustate_imm;
+	build seqword;
+}
+
 :wmsloopctr single_imm seqword is single_imm & msloopctr & opcode=0x00e; seqword {
 	msloopctr = single_imm;
 	build seqword;

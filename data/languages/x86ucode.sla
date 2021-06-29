@@ -1,4 +1,4 @@
-<sleigh version="2" bigendian="false" align="16" uniqbase="0x1560">
+<sleigh version="2" bigendian="false" align="16" uniqbase="0x15a0">
 <spaces defaultspace="ucode">
 <space_other name="OTHER" index="1" bigendian="false" delay="0" size="8" physical="false"/>
 <space_unique name="unique" index="2" bigendian="false" delay="0" size="4" physical="true"/>
@@ -10,7 +10,7 @@
 <space name="alias" index="8" bigendian="false" delay="1" size="1" wordsize="8" physical="true"/>
 <space name="dummy_space" index="9" bigendian="false" delay="1" size="2" physical="true"/>
 </spaces>
-<symbol_table scopesize="155" symbolsize="825">
+<symbol_table scopesize="158" symbolsize="834">
 <scope id="0x0" parent="0x0"/>
 <scope id="0x1" parent="0x0"/>
 <scope id="0x2" parent="0x0"/>
@@ -166,6 +166,9 @@
 <scope id="0x98" parent="0x0"/>
 <scope id="0x99" parent="0x0"/>
 <scope id="0x9a" parent="0x0"/>
+<scope id="0x9b" parent="0x0"/>
+<scope id="0x9c" parent="0x0"/>
+<scope id="0x9d" parent="0x0"/>
 <subtable_sym_head name="instruction" id="0x0" scope="0x0"/>
 <start_sym_head name="inst_start" id="0x1" scope="0x0"/>
 <end_sym_head name="inst_next" id="0x2" scope="0x0"/>
@@ -988,10 +991,19 @@
 <operand_sym_head name="testustate_mode" id="0x333" scope="0x99"/>
 <operand_sym_head name="testustate_cond" id="0x334" scope="0x99"/>
 <operand_sym_head name="seqword" id="0x335" scope="0x99"/>
-<operand_sym_head name="single_imm" id="0x336" scope="0x9a"/>
-<operand_sym_head name="seqword" id="0x337" scope="0x9a"/>
-<operand_sym_head name="msloopctr" id="0x338" scope="0x9a"/>
-<subtable_sym name="instruction" id="0x0" scope="0x0" numct="50">
+<subtable_sym_head name="updustate_imm" id="0x336" scope="0x0"/>
+<operand_sym_head name="immediate" id="0x337" scope="0x9a"/>
+<operand_sym_head name="imm0" id="0x338" scope="0x9a"/>
+<operand_sym_head name="imm1" id="0x339" scope="0x9a"/>
+<operand_sym_head name="src1_sel" id="0x33a" scope="0x9a"/>
+<operand_sym_head name="updustate_imm" id="0x33b" scope="0x9b"/>
+<operand_sym_head name="seqword" id="0x33c" scope="0x9b"/>
+<operand_sym_head name="updustate_imm" id="0x33d" scope="0x9c"/>
+<operand_sym_head name="seqword" id="0x33e" scope="0x9c"/>
+<operand_sym_head name="single_imm" id="0x33f" scope="0x9d"/>
+<operand_sym_head name="seqword" id="0x340" scope="0x9d"/>
+<operand_sym_head name="msloopctr" id="0x341" scope="0x9d"/>
+<subtable_sym name="instruction" id="0x0" scope="0x0" numct="52">
 <constructor parent="0x0" first="1" length="16" line="501">
 <oper id="0x19b"/>
 <oper id="0x19c"/>
@@ -3599,10 +3611,56 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<constructor parent="0x0" first="1" length="16" line="900">
-<oper id="0x336"/>
-<oper id="0x338"/>
-<oper id="0x337"/>
+<constructor parent="0x0" first="1" length="16" line="903">
+<oper id="0x33b"/>
+<oper id="0x33c"/>
+<print piece="updustate"/>
+<print piece=" "/>
+<opprint id="0"/>
+<print piece=" "/>
+<opprint id="1"/>
+<construct_tpl>
+<null/><op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="INT_OR"><varnode_tpl><const_tpl type="spaceid" name="register"/><const_tpl type="real" val="0x3000"/><const_tpl type="real" val="0x2"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="register"/><const_tpl type="real" val="0x3000"/><const_tpl type="real" val="0x2"/></varnode_tpl>
+<varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+</construct_tpl>
+</constructor>
+<constructor parent="0x0" first="1" length="16" line="907">
+<oper id="0x33d"/>
+<oper id="0x33e"/>
+<print piece="updustate"/>
+<print piece=" "/>
+<print piece="!"/>
+<opprint id="0"/>
+<print piece=" "/>
+<opprint id="1"/>
+<construct_tpl>
+<null/><op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x0"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="INT_NEGATE"><varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x1580"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
+<varnode_tpl><const_tpl type="handle" val="0" s="space"/><const_tpl type="handle" val="0" s="offset"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="INT_AND"><varnode_tpl><const_tpl type="spaceid" name="register"/><const_tpl type="real" val="0x3000"/><const_tpl type="real" val="0x2"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="register"/><const_tpl type="real" val="0x3000"/><const_tpl type="real" val="0x2"/></varnode_tpl>
+<varnode_tpl><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x1580"/><const_tpl type="handle" val="0" s="size"/></varnode_tpl>
+</op_tpl>
+<op_tpl code="BUILD"><null/>
+<varnode_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x1"/><const_tpl type="real" val="0x4"/></varnode_tpl>
+</op_tpl>
+</construct_tpl>
+</constructor>
+<constructor parent="0x0" first="1" length="16" line="912">
+<oper id="0x33f"/>
+<oper id="0x341"/>
+<oper id="0x340"/>
 <print piece="wmsloopctr"/>
 <print piece=" "/>
 <opprint id="0"/>
@@ -3623,7 +3681,7 @@
 </op_tpl>
 </construct_tpl>
 </constructor>
-<decision number="263" context="false" start="32" size="8">
+<decision number="265" context="false" start="32" size="8">
 <decision number="3" context="false" start="0" size="0">
 <pair id="1">
 <instruct_pat>
@@ -3901,7 +3959,17 @@
 </decision>
 </decision>
 </decision>
-<decision number="1" context="false" start="0" size="0">
+<decision number="3" context="false" start="16" size="1">
+<decision number="2" context="false" start="0" size="0">
+<pair id="49">
+<instruct_pat>
+<pat_block offset="2" nonzero="10">
+  <mask_word mask="0x8000ff0f" val="0xb00"/>
+  <mask_word mask="0x8200" val="0x0"/>
+  <mask_word mask="0x10000" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
 <pair id="0">
 <instruct_pat>
 <pat_block offset="8" nonzero="4">
@@ -3909,6 +3977,25 @@
 </pat_block>
 </instruct_pat>
 </pair>
+</decision>
+<decision number="2" context="false" start="0" size="0">
+<pair id="50">
+<instruct_pat>
+<pat_block offset="2" nonzero="10">
+  <mask_word mask="0x8000ff0f" val="0x80000b00"/>
+  <mask_word mask="0x8200" val="0x0"/>
+  <mask_word mask="0x10000" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
+<pair id="0">
+<instruct_pat>
+<pat_block offset="8" nonzero="4">
+  <mask_word mask="0x82000001" val="0x0"/>
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
 </decision>
 <decision number="7" context="false" start="55" size="1">
 <decision number="5" context="false" start="0" size="0">
@@ -4027,7 +4114,7 @@
 </pair>
 </decision>
 <decision number="2" context="false" start="0" size="0">
-<pair id="49">
+<pair id="51">
 <instruct_pat>
 <pat_block offset="4" nonzero="8">
   <mask_word mask="0xff0f0000" val="0xe000000"/>
@@ -19595,14 +19682,83 @@
 <operand_sym name="seqword" id="0x335" scope="0x99" subsym="0x10f" off="8" base="-1" minlen="8" index="2">
 <operand_exp index="2" table="0x0" ct="0x30"/>
 </operand_sym>
-<operand_sym name="single_imm" id="0x336" scope="0x9a" subsym="0x13a" off="0" base="-1" minlen="8" index="0">
+<subtable_sym name="updustate_imm" id="0x336" scope="0x0" numct="1">
+<constructor parent="0x336" first="1" length="8" line="900">
+<oper id="0x338"/>
+<oper id="0x339"/>
+<oper id="0x33a"/>
+<oper id="0x337"/>
+<opprint id="3"/>
+<construct_tpl>
+<handle_tpl><const_tpl type="spaceid" name="const"/><const_tpl type="real" val="0x2"/><const_tpl type="handle" val="3" s="space"/><const_tpl type="handle" val="3" s="offset"/><const_tpl type="real" val="0x0"/><const_tpl type="spaceid" name="unique"/><const_tpl type="real" val="0x1560"/></handle_tpl>
+</construct_tpl>
+</constructor>
+<decision number="1" context="false" start="0" size="0">
+<pair id="0">
+<instruct_pat>
+<pat_block offset="0" nonzero="0">
+</pat_block>
+</instruct_pat>
+</pair>
+</decision>
+</subtable_sym>
+<operand_sym name="immediate" id="0x337" scope="0x9a" off="0" base="-1" minlen="0" index="3">
+<operand_exp index="3" table="0x336" ct="0x0"/>
+<lshift_exp>
+<and_exp>
+<or_exp>
+<or_exp>
+<lshift_exp>
+<and_exp>
+<operand_exp index="2" table="0x336" ct="0x0"/>
+<intb val="7"/>
+</and_exp>
+<intb val="13"/>
+</lshift_exp>
+<lshift_exp>
+<operand_exp index="1" table="0x336" ct="0x0"/>
+<intb val="8"/>
+</lshift_exp>
+</or_exp>
+<operand_exp index="0" table="0x336" ct="0x0"/>
+</or_exp>
+<intb val="63"/>
+</and_exp>
+<intb val="2"/>
+</lshift_exp>
+</operand_sym>
+<operand_sym name="imm0" id="0x338" scope="0x9a" off="0" base="-1" minlen="8" index="0">
+<operand_exp index="0" table="0x336" ct="0x0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="24" bitend="31" bytestart="3" byteend="3" shift="0"/>
+</operand_sym>
+<operand_sym name="imm1" id="0x339" scope="0x9a" off="0" base="-1" minlen="8" index="1">
+<operand_exp index="1" table="0x336" ct="0x0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="18" bitend="22" bytestart="2" byteend="2" shift="2"/>
+</operand_sym>
+<operand_sym name="src1_sel" id="0x33a" scope="0x9a" off="0" base="-1" minlen="8" index="2">
+<operand_exp index="2" table="0x336" ct="0x0"/>
+<tokenfield bigendian="false" signbit="false" bitstart="6" bitend="11" bytestart="0" byteend="1" shift="6"/>
+</operand_sym>
+<operand_sym name="updustate_imm" id="0x33b" scope="0x9b" subsym="0x336" off="0" base="-1" minlen="8" index="0">
 <operand_exp index="0" table="0x0" ct="0x31"/>
 </operand_sym>
-<operand_sym name="seqword" id="0x337" scope="0x9a" subsym="0x10f" off="8" base="-1" minlen="8" index="2">
-<operand_exp index="2" table="0x0" ct="0x31"/>
-</operand_sym>
-<operand_sym name="msloopctr" id="0x338" scope="0x9a" subsym="0x146" off="0" base="-1" minlen="8" index="1">
+<operand_sym name="seqword" id="0x33c" scope="0x9b" subsym="0x10f" off="8" base="-1" minlen="8" index="1">
 <operand_exp index="1" table="0x0" ct="0x31"/>
+</operand_sym>
+<operand_sym name="updustate_imm" id="0x33d" scope="0x9c" subsym="0x336" off="0" base="-1" minlen="8" index="0">
+<operand_exp index="0" table="0x0" ct="0x32"/>
+</operand_sym>
+<operand_sym name="seqword" id="0x33e" scope="0x9c" subsym="0x10f" off="8" base="-1" minlen="8" index="1">
+<operand_exp index="1" table="0x0" ct="0x32"/>
+</operand_sym>
+<operand_sym name="single_imm" id="0x33f" scope="0x9d" subsym="0x13a" off="0" base="-1" minlen="8" index="0">
+<operand_exp index="0" table="0x0" ct="0x33"/>
+</operand_sym>
+<operand_sym name="seqword" id="0x340" scope="0x9d" subsym="0x10f" off="8" base="-1" minlen="8" index="2">
+<operand_exp index="2" table="0x0" ct="0x33"/>
+</operand_sym>
+<operand_sym name="msloopctr" id="0x341" scope="0x9d" subsym="0x146" off="0" base="-1" minlen="8" index="1">
+<operand_exp index="1" table="0x0" ct="0x33"/>
 </operand_sym>
 </symbol_table>
 </sleigh>

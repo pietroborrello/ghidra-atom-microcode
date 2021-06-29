@@ -268,10 +268,22 @@ define token _seqword(64)
 	with_testustate = (32, 32)
 	seq_pad1   = (33 ,63)
 ;
-# TODO: with strings you cannot express pcode semantics
+
+define pcodeop lfencewait;
+define pcodeop lfencemark;
+define pcodeop lfencewritemark;
+define pcodeop syncfull;
+define pcodeop syncwait;
+define pcodeop syncmark;
+define pcodeop syncwritemark;
+define pcodeop sync_unknown;
 attach names [sync_cmd] [
 	"UNKNOWN_SYNC" "LFNCEWAIT" "LFNCEMARK" "LFNCEWTMRK" "SYNCFULL" "SYNCWAIT" "SYNCMARK" "SYNCWTMRK"
 ];
+define pcodeop eflow_unknown;
+define pcodeop writetag;
+define pcodeop msloop;
+define pcodeop msstop;
 attach names [eflow_cmd] [
 	"UNKNOWN_EFLOW" "UNKNOWN_EFLOW" "SEQW URET0" "SEQW URET1" "SEQW SAVEUIP0" "SEQW SAVEUIP1" "SEQW SAVEUIP0" "SEQW SAVEUIP1"
 	"WRTAGW" "MSLOOP" "UNKNOWN_EFLOW" "MSSTOP" "SEQW UEND0" "SEQW UEND1" "SEQW UEND2" "SEQW UEND3"
@@ -382,8 +394,18 @@ macro shrflags(op1,result,count, OF, CF) {
 }
 
 # ======= SEQWORD =======
-# TODO: differentiate between seqword_before and seqword_after!! Otherwise the pcode for things like saveuip will be wrong
-seqword_sync: [sync_cmd] is up2=1 & sync_cmd {}
+
+# TODO: differentiate between seqword_before and seqword_after!! 
+# Otherwise the pcode for things like saveuip will be wrong (maybe)
+# or sync words pcode will get evaluated after the instruction executed
+seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync=1 {lfencewait();}
+seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync=2 {lfencemark();}
+seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync=3 {lfencewritemark();}
+seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync=4 {syncfull();}
+seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync=5 {syncwait();}
+seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync=6 {syncmark();}
+seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync=7 {syncwritemark();}
+seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync   {sync_unknown();}
 seqword_sync:"" is up2=0 & sync {}
 
 # UEND: think of a better way to express end
@@ -401,7 +423,10 @@ seqword_eflow:" SEQW SAVEUIP1" seqword_next is up0=1 & eflow=5 & seqword_next { 
 seqword_eflow:" ROVR<- SEQW SAVEUIP0" seqword_next is up0=1 & eflow=6 & seqword_next{ uip0 = inst_next/$(INSTR_LEN); }
 seqword_eflow:" ROVR<- SEQW SAVEUIP1" seqword_next is up0=1 & eflow=7 & seqword_next { uip1 = inst_next/$(INSTR_LEN); }
 
-seqword_eflow:" "^eflow_cmd is up0=1 & eflow_cmd {}
+seqword_eflow:" "^eflow_cmd is up0=1 & eflow_cmd & eflow=8 {writetag();}
+seqword_eflow:" "^eflow_cmd is up0=1 & eflow_cmd & eflow=9 {msloop();}
+seqword_eflow:" "^eflow_cmd is up0=1 & eflow_cmd & eflow=11 {msstop();}
+seqword_eflow:" "^eflow_cmd is up0=1 & eflow_cmd {eflow_unknown();}
 seqword_eflow:"" is up0=1 & eflow=0 {}
 seqword_eflow:"" is up0=0 & eflow {}
 

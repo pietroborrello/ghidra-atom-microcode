@@ -35,7 +35,7 @@
         <symbol name="MACRO_IMM"	address="alias:0x00"/>
         <symbol name="MACRO_RIP"	address="alias:0x04"/>
         <symbol name="MACRO_STi"	address="alias:0x05"/>
-        <symbol name="MACRO_MSLOOPCTR"	address="alias:0x08"/>
+        <symbol name="MSLOOPCTR"	address="alias:0x08"/>
         <symbol name="MACRO_DATASIZE"	address="alias:0x0b"/>
         <symbol name="MACRO_INSTR"	address="alias:0x10"/>
 	</default_symbols>

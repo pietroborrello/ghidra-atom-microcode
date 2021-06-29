@@ -24,6 +24,7 @@ define register offset=0x00 size=8 [
 	tmpv0 tmpv1 tmpv2 tmpv3 
 	r64dst r64src r64base r64idx
 	uip0 uip1];
+	# msloopctr: the msloopctr is modeled as an address since it may also be referred through macro aliases
 # NOTICE: all the instructions filling uop0/uop1 are shown with the ghidra_address (ghidra_address=ucode_address*INSTR_LEN),
 # but the pcode uses the ucode_address to preserve correctness
 # should fix by setting the ucode wordsize to INSTR_LEN, but it is not supported
@@ -72,11 +73,12 @@ define token _uop(64)
 	src1   = (6,  11)
 		src1_xmm   = (6,  11)
 		src1_sel   = (6,  11)
-		src1_OF   = (0,  5)
-		src1_CF   = (0,  5)
-		src1_ZF   = (0,  5)
-		src1_SF   = (0,  5)
-		src1_PF   = (0,  5)
+		src1_OF   = (6,  11)
+		src1_CF   = (6,  11)
+		src1_ZF   = (6,  11)
+		src1_SF   = (6,  11)
+		src1_PF   = (6,  11)
+		src1_sel_low3 = (6, 8)
 	dst    = (12, 17)
 		dst_xmm    = (12, 17)
 		dst_sel    = (12, 17)
@@ -464,8 +466,16 @@ source1_target_imm: immediate is imm0 & imm1 & (src1_sel = 0 | src1_sel = 8 | sr
 	immediate = (0xffffffffffff0000 * ((src1_sel & 0x10) >> 4) | ((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0)*$(INSTR_LEN);
 ] { export *[ucode]:8 immediate; }
 
+single_imm:source0^is is_src0_imm=1 & is_src1_imm & source0 {export source0;}
+single_imm:source1^is is_src1_imm=1 & is_src0_imm & source1 {export source1;}
+single_imm:zero^is is_src0_imm & is_src1_imm & src0_sel=0 & src1_sel=0 [zero = 0;] {export *[const]:8 zero;}
+
 dest: dst <- is dst & dst_sel { export dst; }
 dest: is dst & dst_sel=0 { export dst; }
+
+msloopctr: msloopctr_addr is MOP_alias [ msloopctr_addr = 0x08; ] { 
+	export *[alias]:8 msloopctr_addr;
+}
 
 # FLAGS CONDITION CODES
 # NOTICE: UJMPCC_DIRECT_TAKEN_CONDZ is the only one that does not respect the reverse-engineered cc pattern, no idea why
@@ -854,6 +864,23 @@ testustate_cond: immediate is imm0 & imm1 & src1_sel [
 	build seqword;
 	<skip>
 }
+# MSLOOPCTR edge case
+:testustate msloopctr ?^seqword is m0=0 & msloopctr & testustate_mode & testustate_mode_sel=0 & testustate_cond & imm0=1 & imm1=0 & src1_sel_low3=0 & (opcode=0x00a | opcode=0x04a); seqword {
+	# if the condition is not met, skip the seqword
+	# check if the corresponding bit is clear, if not skip the seqword
+	msloopctr = msloopctr -1;
+	if (msloopctr == 0) goto <skip>;
+	build seqword;
+	<skip>
+}
+:testustate !^msloopctr ?^seqword is m0=1 & msloopctr & testustate_mode & testustate_mode_sel=0 & testustate_cond & imm0=1 & imm1=0 & src1_sel_low3=0 & (opcode=0x00a | opcode=0x04a); seqword {
+	# if the condition is met, skip the seqword
+	# check if the corresponding bit is clear, if yes skip the seqword
+	msloopctr = msloopctr -1;
+	if (msloopctr != 0) goto <skip>;
+	build seqword;
+	<skip>
+}
 # SYS ustate
 :testustate testustate_mode testustate_cond ?^seqword is m0=0 & testustate_mode & testustate_mode_sel=1 & testustate_cond & (opcode=0x00a | opcode=0x04a); seqword {
 	# if the condition is not met, skip the seqword
@@ -868,4 +895,9 @@ testustate_cond: immediate is imm0 & imm1 & src1_sel [
 	if ((testustate_mode & testustate_cond) != 0) goto <skip>;
 	build seqword;
 	<skip>
+}
+
+:wmsloopctr single_imm seqword is single_imm & msloopctr & opcode=0x00e; seqword {
+	msloopctr = single_imm;
+	build seqword;
 }

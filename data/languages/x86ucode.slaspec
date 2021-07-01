@@ -13,6 +13,9 @@ define space mem		type=ram_space size=8 wordsize=1; # physical memory
 # each address refers to some data in the associated macro-instruction, most are not used, some of them are used but unknown
 define space alias		type=ram_space size=1 wordsize=8;
 
+# map segment descriptors in a memory region
+define space segdesc	type=ram_space size=2 wordsize=1;
+
 # fake a stack pointer for the decompilation
 define space dummy_space type=ram_space size=2;
 define register offset=0xf000 size=8 [dummy_reg];
@@ -89,6 +92,7 @@ define token _uop(64)
 		dst_PF    = (12, 17)
 		dst_16    = (16, 16)
 	imm1   = (18, 22)
+		rseg_sel   = (18, 22)
 		imm1_sel   = (18, 19)
 	m0     = (23, 23)
 		uip_reg = (23, 23)
@@ -98,6 +102,8 @@ define token _uop(64)
 		imm0_sel2  = (24, 31)
 		imm0_sel3  = (24, 31)
 		MOP_alias  = (24, 31)
+		wseg_sel   = (24, 27)
+		segfld_sel = (28, 31)
 	opcode = (32, 43)
 		dst_size = (38, 39)
 		cond_0 = (32,33)
@@ -946,3 +952,100 @@ updustate_imm: immediate is imm0 & imm1 & src1_sel [
 	msloopctr = single_imm;
 	build seqword;
 }
+
+# segment descriptors read/writes
+define pcodeop unpack_sel;
+define pcodeop unpack_flags;
+define pcodeop unpack_limit;
+define pcodeop pack_descriptor;
+define pcodeop wseg_unknown_combination;
+# why life has to be so complicated :(
+# we have to provide access to each of the different fields of the descriptors
+#<symbol name="{seg_sel}_SEL"    address="segdesc:{i*DESCR_LEN + 0x00}"/>
+#<symbol name="{seg_sel}_FLAGS"  address="segdesc:{i*DESCR_LEN + 0x08}"/>
+#<symbol name="{seg_sel}_BASE"   address="segdesc:{i*DESCR_LEN + 0x10}"/>
+#<symbol name="{seg_sel}_LIM"    address="segdesc:{i*DESCR_LEN + 0x18}"/>
+#<symbol name="{seg_sel}_UNK1"   address="segdesc:{i*DESCR_LEN + 0x20}"/>
+#<symbol name="{seg_sel}_UNK2"   address="segdesc:{i*DESCR_LEN + 0x28}"/>
+@define DESCR_LEN 0x30
+# read segment descriptor
+desc_sel:   addr is rseg_sel & opcode=0xc4b [addr = rseg_sel*$(DESCR_LEN) + 0x00;] {export *[segdesc]:8 addr;}
+desc_flags: addr is rseg_sel & opcode=0xc4b [addr = rseg_sel*$(DESCR_LEN) + 0x08;] {export *[segdesc]:8 addr;}
+desc_base:  addr is rseg_sel & opcode=0xc4b [addr = rseg_sel*$(DESCR_LEN) + 0x10;] {export *[segdesc]:8 addr;}
+desc_lim:   addr is rseg_sel & opcode=0xc4b [addr = rseg_sel*$(DESCR_LEN) + 0x18;] {export *[segdesc]:8 addr;}
+desc_unk1:  addr is rseg_sel & opcode=0xc4b [addr = rseg_sel*$(DESCR_LEN) + 0x20;] {export *[segdesc]:8 addr;}
+desc_unk2:  addr is rseg_sel & opcode=0xc4b [addr = rseg_sel*$(DESCR_LEN) + 0x28;] {export *[segdesc]:8 addr;}
+# write segment descriptor
+desc_sel:   addr is wseg_sel & (opcode=0xc6b | opcode=0xc7b) [addr = wseg_sel*$(DESCR_LEN) + 0x00;] {export *[segdesc]:8 addr;}
+desc_flags: addr is wseg_sel & (opcode=0xc6b | opcode=0xc7b) [addr = wseg_sel*$(DESCR_LEN) + 0x08;] {export *[segdesc]:8 addr;}
+desc_base:  addr is wseg_sel & (opcode=0xc6b | opcode=0xc7b) [addr = wseg_sel*$(DESCR_LEN) + 0x10;] {export *[segdesc]:8 addr;}
+desc_lim:   addr is wseg_sel & (opcode=0xc6b | opcode=0xc7b) [addr = wseg_sel*$(DESCR_LEN) + 0x18;] {export *[segdesc]:8 addr;}
+desc_unk1:  addr is wseg_sel & (opcode=0xc6b | opcode=0xc7b) [addr = wseg_sel*$(DESCR_LEN) + 0x20;] {export *[segdesc]:8 addr;}
+desc_unk2:  addr is wseg_sel & (opcode=0xc6b | opcode=0xc7b) [addr = wseg_sel*$(DESCR_LEN) + 0x28;] {export *[segdesc]:8 addr;}
+
+# We split also the operations, instead of putting the constraints on the desc_XXX varnodes to support different field size or operations
+# Currently, all fields of the descriptor are 64bits, which makes not so much sense
+:rseg dest desc_sel seqword is dest & desc_sel & segfld_sel=8 & opcode=0xc4b; seqword {
+	dest = desc_sel;
+	build seqword;
+}
+:rseg dest desc_flags seqword is dest & desc_flags & segfld_sel=4 & opcode=0xc4b; seqword {
+	dest = desc_flags;
+	build seqword;
+}
+:rseg dest desc_base seqword is dest & desc_base & segfld_sel=2 & opcode=0xc4b; seqword {
+	dest = desc_base;
+	build seqword;
+}
+:rseg dest desc_lim seqword is dest & desc_lim & (segfld_sel=6 | segfld_sel=0) & opcode=0xc4b; seqword {
+	dest = desc_lim;
+	build seqword;
+}
+:rseg dest desc_unk1 seqword is dest & desc_unk1 & segfld_sel=0xc & opcode=0xc4b; seqword {
+	dest = desc_unk1;
+	build seqword;
+}
+:rseg dest desc_unk2 seqword is dest & desc_unk2 & segfld_sel=0xe & opcode=0xc4b; seqword {
+	dest = desc_unk2;
+	build seqword;
+}
+:rseg dest desc_sel, desc_flags, desc_lim seqword is dest & desc_sel & desc_flags & desc_lim & segfld_sel=0xa & opcode=0xc4b; seqword {
+	dest = pack_descriptor(desc_sel, desc_flags, desc_lim);
+	build seqword;
+}
+
+:wseg source0, desc_sel seqword is source0 & desc_sel & segfld_sel=8 & (opcode=0xc6b | opcode=0xc7b); seqword {
+	desc_sel = source0;
+	build seqword;
+}
+:wseg source0, desc_flags seqword is source0 & desc_flags & segfld_sel=4 & (opcode=0xc6b | opcode=0xc7b); seqword {
+	desc_flags = source0;
+	build seqword;
+}
+:wseg source0, desc_base seqword is source0 & desc_base & segfld_sel=2 & (opcode=0xc6b | opcode=0xc7b); seqword {
+	desc_base = source0;
+	build seqword;
+}
+:wseg source0, desc_lim seqword is source0 & desc_lim & (segfld_sel=6 | segfld_sel=0) & (opcode=0xc6b | opcode=0xc7b); seqword {
+	desc_lim = source0;
+	build seqword;
+}
+:wseg source0, desc_unk1 seqword is source0 & desc_unk1 & segfld_sel=0xc & (opcode=0xc6b | opcode=0xc7b); seqword {
+	desc_unk1 = source0;
+	build seqword;
+}
+:wseg source0, desc_unk2 seqword is source0 & desc_unk2 & segfld_sel=0xe & (opcode=0xc6b | opcode=0xc7b); seqword {
+	desc_unk2 = source0;
+	build seqword;
+}
+:wseg source0, desc_sel, desc_flags, desc_lim seqword is source0 & desc_sel & desc_flags & desc_lim & segfld_sel=0xa & (opcode=0xc6b | opcode=0xc7b); seqword {
+	desc_sel = unpack_sel(source0);
+	desc_flags = unpack_flags(source0);
+	desc_lim = unpack_limit(source0);
+	build seqword;
+}
+:wseg "UNKOWN COMBINATION" seqword is source0 & segfld_sel & (opcode=0xc6b | opcode=0xc7b); seqword {
+	wseg_unknown_combination();
+	build seqword;
+}
+

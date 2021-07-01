@@ -7,6 +7,7 @@
         <memory_block name="uram" start_address="uram:0x0000" length="0x1000" mode="rw"/>
         <memory_block name="crbus" start_address="crbus:0x0000" length="0x10000" mode="rw"/>
         <memory_block name="alias" start_address="alias:0x0000" length="0x800" mode="rw"/>
+        <memory_block name="segdesc" start_address="segdesc:0x0000" length="0x600" mode="rw"/>
         <memory_block name="mem" start_address="mem:0x0000" length="0x100000000" mode="rw"/>
     </default_memory_blocks>
     
@@ -38,5 +39,134 @@
         <symbol name="MSLOOPCTR"	address="alias:0x08"/>
         <symbol name="MACRO_DATASIZE"	address="alias:0x0b"/>
         <symbol name="MACRO_INSTR"	address="alias:0x10"/>
+        
+        <!-- Segment Descriptors -->
+        <symbol name="DS32_SEL"    address="segdesc:0x000"/>
+        <symbol name="DS32_FLAGS"  address="segdesc:0x008"/>
+        <symbol name="DS32_BASE"   address="segdesc:0x010"/>
+        <symbol name="DS32_LIM"    address="segdesc:0x018"/>
+        <symbol name="DS32_UNK1"   address="segdesc:0x020"/>
+        <symbol name="DS32_UNK2"   address="segdesc:0x028"/>
+        <symbol name="CS_SEL"    address="segdesc:0x060"/>
+        <symbol name="CS_FLAGS"  address="segdesc:0x068"/>
+        <symbol name="CS_BASE"   address="segdesc:0x070"/>
+        <symbol name="CS_LIM"    address="segdesc:0x078"/>
+        <symbol name="CS_UNK1"   address="segdesc:0x080"/>
+        <symbol name="CS_UNK2"   address="segdesc:0x088"/>
+        <symbol name="SS_SEL"    address="segdesc:0x090"/>
+        <symbol name="SS_FLAGS"  address="segdesc:0x098"/>
+        <symbol name="SS_BASE"   address="segdesc:0x0a0"/>
+        <symbol name="SS_LIM"    address="segdesc:0x0a8"/>
+        <symbol name="SS_UNK1"   address="segdesc:0x0b0"/>
+        <symbol name="SS_UNK2"   address="segdesc:0x0b8"/>
+        <symbol name="UNK_SEG_04_SEL"    address="segdesc:0x0c0"/>
+        <symbol name="UNK_SEG_04_FLAGS"  address="segdesc:0x0c8"/>
+        <symbol name="UNK_SEG_04_BASE"   address="segdesc:0x0d0"/>
+        <symbol name="UNK_SEG_04_LIM"    address="segdesc:0x0d8"/>
+        <symbol name="UNK_SEG_04_UNK1"   address="segdesc:0x0e0"/>
+        <symbol name="UNK_SEG_04_UNK2"   address="segdesc:0x0e8"/>
+        <symbol name="DS16_SEL"    address="segdesc:0x0f0"/>
+        <symbol name="DS16_FLAGS"  address="segdesc:0x0f8"/>
+        <symbol name="DS16_BASE"   address="segdesc:0x100"/>
+        <symbol name="DS16_LIM"    address="segdesc:0x108"/>
+        <symbol name="DS16_UNK1"   address="segdesc:0x110"/>
+        <symbol name="DS16_UNK2"   address="segdesc:0x118"/>
+        <symbol name="GDT_SEL"    address="segdesc:0x120"/>
+        <symbol name="GDT_FLAGS"  address="segdesc:0x128"/>
+        <symbol name="GDT_BASE"   address="segdesc:0x130"/>
+        <symbol name="GDT_LIM"    address="segdesc:0x138"/>
+        <symbol name="GDT_UNK1"   address="segdesc:0x140"/>
+        <symbol name="GDT_UNK2"   address="segdesc:0x148"/>
+        <symbol name="LDT_SEL"    address="segdesc:0x150"/>
+        <symbol name="LDT_FLAGS"  address="segdesc:0x158"/>
+        <symbol name="LDT_BASE"   address="segdesc:0x160"/>
+        <symbol name="LDT_LIM"    address="segdesc:0x168"/>
+        <symbol name="LDT_UNK1"   address="segdesc:0x170"/>
+        <symbol name="LDT_UNK2"   address="segdesc:0x178"/>
+        <symbol name="ES_SEL"    address="segdesc:0x180"/>
+        <symbol name="ES_FLAGS"  address="segdesc:0x188"/>
+        <symbol name="ES_BASE"   address="segdesc:0x190"/>
+        <symbol name="ES_LIM"    address="segdesc:0x198"/>
+        <symbol name="ES_UNK1"   address="segdesc:0x1a0"/>
+        <symbol name="ES_UNK2"   address="segdesc:0x1a8"/>
+        <symbol name="UNK_SEG_09_SEL"    address="segdesc:0x1b0"/>
+        <symbol name="UNK_SEG_09_FLAGS"  address="segdesc:0x1b8"/>
+        <symbol name="UNK_SEG_09_BASE"   address="segdesc:0x1c0"/>
+        <symbol name="UNK_SEG_09_LIM"    address="segdesc:0x1c8"/>
+        <symbol name="UNK_SEG_09_UNK1"   address="segdesc:0x1d0"/>
+        <symbol name="UNK_SEG_09_UNK2"   address="segdesc:0x1d8"/>
+        <symbol name="SS_USER_SEL"    address="segdesc:0x1e0"/>
+        <symbol name="SS_USER_FLAGS"  address="segdesc:0x1e8"/>
+        <symbol name="SS_USER_BASE"   address="segdesc:0x1f0"/>
+        <symbol name="SS_USER_LIM"    address="segdesc:0x1f8"/>
+        <symbol name="SS_USER_UNK1"   address="segdesc:0x200"/>
+        <symbol name="SS_USER_UNK2"   address="segdesc:0x208"/>
+        <symbol name="DS_SEL"    address="segdesc:0x210"/>
+        <symbol name="DS_FLAGS"  address="segdesc:0x218"/>
+        <symbol name="DS_BASE"   address="segdesc:0x220"/>
+        <symbol name="DS_LIM"    address="segdesc:0x228"/>
+        <symbol name="DS_UNK1"   address="segdesc:0x230"/>
+        <symbol name="DS_UNK2"   address="segdesc:0x238"/>
+        <symbol name="FS_SEL"    address="segdesc:0x240"/>
+        <symbol name="FS_FLAGS"  address="segdesc:0x248"/>
+        <symbol name="FS_BASE"   address="segdesc:0x250"/>
+        <symbol name="FS_LIM"    address="segdesc:0x258"/>
+        <symbol name="FS_UNK1"   address="segdesc:0x260"/>
+        <symbol name="FS_UNK2"   address="segdesc:0x268"/>
+        <symbol name="GS_SEL"    address="segdesc:0x270"/>
+        <symbol name="GS_FLAGS"  address="segdesc:0x278"/>
+        <symbol name="GS_BASE"   address="segdesc:0x280"/>
+        <symbol name="GS_LIM"    address="segdesc:0x288"/>
+        <symbol name="GS_UNK1"   address="segdesc:0x290"/>
+        <symbol name="GS_UNK2"   address="segdesc:0x298"/>
+        <symbol name="IDT_SEL"    address="segdesc:0x2a0"/>
+        <symbol name="IDT_FLAGS"  address="segdesc:0x2a8"/>
+        <symbol name="IDT_BASE"   address="segdesc:0x2b0"/>
+        <symbol name="IDT_LIM"    address="segdesc:0x2b8"/>
+        <symbol name="IDT_UNK1"   address="segdesc:0x2c0"/>
+        <symbol name="IDT_UNK2"   address="segdesc:0x2c8"/>
+        <symbol name="TSS_SEL"    address="segdesc:0x2d0"/>
+        <symbol name="TSS_FLAGS"  address="segdesc:0x2d8"/>
+        <symbol name="TSS_BASE"   address="segdesc:0x2e0"/>
+        <symbol name="TSS_LIM"    address="segdesc:0x2e8"/>
+        <symbol name="TSS_UNK1"   address="segdesc:0x2f0"/>
+        <symbol name="TSS_UNK2"   address="segdesc:0x2f8"/>
+        <symbol name="UNK_SEG_10_SEL"    address="segdesc:0x300"/>
+        <symbol name="UNK_SEG_10_FLAGS"  address="segdesc:0x308"/>
+        <symbol name="UNK_SEG_10_BASE"   address="segdesc:0x310"/>
+        <symbol name="UNK_SEG_10_LIM"    address="segdesc:0x318"/>
+        <symbol name="UNK_SEG_10_UNK1"   address="segdesc:0x320"/>
+        <symbol name="UNK_SEG_10_UNK2"   address="segdesc:0x328"/>
+        <symbol name="UNK_SEG_11_SEL"    address="segdesc:0x330"/>
+        <symbol name="UNK_SEG_11_FLAGS"  address="segdesc:0x338"/>
+        <symbol name="UNK_SEG_11_BASE"   address="segdesc:0x340"/>
+        <symbol name="UNK_SEG_11_LIM"    address="segdesc:0x348"/>
+        <symbol name="UNK_SEG_11_UNK1"   address="segdesc:0x350"/>
+        <symbol name="UNK_SEG_11_UNK2"   address="segdesc:0x358"/>
+        <symbol name="SS_KERN_SEL"    address="segdesc:0x480"/>
+        <symbol name="SS_KERN_FLAGS"  address="segdesc:0x488"/>
+        <symbol name="SS_KERN_BASE"   address="segdesc:0x490"/>
+        <symbol name="SS_KERN_LIM"    address="segdesc:0x498"/>
+        <symbol name="SS_KERN_UNK1"   address="segdesc:0x4a0"/>
+        <symbol name="SS_KERN_UNK2"   address="segdesc:0x4a8"/>
+        <symbol name="DS_KERN_SEL"    address="segdesc:0x4b0"/>
+        <symbol name="DS_KERN_FLAGS"  address="segdesc:0x4b8"/>
+        <symbol name="DS_KERN_BASE"   address="segdesc:0x4c0"/>
+        <symbol name="DS_KERN_LIM"    address="segdesc:0x4c8"/>
+        <symbol name="DS_KERN_UNK1"   address="segdesc:0x4d0"/>
+        <symbol name="DS_KERN_UNK2"   address="segdesc:0x4d8"/>
+        <symbol name="UNK_SEG_1b_SEL"    address="segdesc:0x510"/>
+        <symbol name="UNK_SEG_1b_FLAGS"  address="segdesc:0x518"/>
+        <symbol name="UNK_SEG_1b_BASE"   address="segdesc:0x520"/>
+        <symbol name="UNK_SEG_1b_LIM"    address="segdesc:0x528"/>
+        <symbol name="UNK_SEG_1b_UNK1"   address="segdesc:0x530"/>
+        <symbol name="UNK_SEG_1b_UNK2"   address="segdesc:0x538"/>
+        <symbol name="SEG_V0_SEL"    address="segdesc:0x540"/>
+        <symbol name="SEG_V0_FLAGS"  address="segdesc:0x548"/>
+        <symbol name="SEG_V0_BASE"   address="segdesc:0x550"/>
+        <symbol name="SEG_V0_LIM"    address="segdesc:0x558"/>
+        <symbol name="SEG_V0_UNK1"   address="segdesc:0x560"/>
+        <symbol name="SEG_V0_UNK2"   address="segdesc:0x568"/>
+        
 	</default_symbols>
 </processor_spec>

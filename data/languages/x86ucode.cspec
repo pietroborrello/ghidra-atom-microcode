@@ -6,8 +6,9 @@
         <range space="ucode"/>
         <range space="uram"/>
         <range space="crbus"/>
-        <range space="mem"/>
         <range space="alias"/>
+        <range space="segdesc"/>
+        <range space="mem"/>
     </global>
 
     <stackpointer register="dummy_reg" space="dummy_space" growth="negative"/>

@@ -514,6 +514,10 @@ single_imm:zero^is is_src0_imm & is_src1_imm & src0_sel=0 & src1_sel=0 [zero = 0
 dest: dst <- is dst & dst_sel { export dst; }
 dest: is dst & dst_sel=0 { export dst; }
 
+# some instrucitons use dest as a source
+source2: dst is dst & dst_sel { export dst; }
+source2: immediate is dst & dst_sel=0 [ immediate = 0; ] { export *[const]:8 immediate; }
+
 msloopctr: msloopctr_addr is MOP_alias [ msloopctr_addr = 0x08; ] { 
 	export *[alias]:8 msloopctr_addr;
 }
@@ -1100,6 +1104,18 @@ desc_unk2:  addr is wseg_sel & (opcode=0xc6b | opcode=0xc7b) [addr = wseg_sel*$(
 }
 :wseg "UNKOWN COMBINATION" seqword is source0 & segfld_sel & (opcode=0xc6b | opcode=0xc7b); seqword {
 	wseg_unknown_combination();
+	build seqword;
+}
+
+# port in/out
+define pcodeop portin;
+define pcodeop portout;
+:in^"_"^dst_size dest source0 seqword is (opcode = 0xd0b | opcode = 0xd4b | opcode = 0xd8b | opcode = 0xdcb) & dest & source0 & dst_size; seqword {
+	dest = portin(source0);
+	build seqword;
+}
+:out^"_"^dst_size source0, source2 seqword is (opcode = 0xd0f | opcode = 0xd4f | opcode = 0xd8f | opcode = 0xdcf) & source0 & source2 & dst_size; seqword {
+	portout(source0, source2);
 	build seqword;
 }
 

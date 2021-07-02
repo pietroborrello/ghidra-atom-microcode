@@ -467,6 +467,16 @@ source0: immediate is m0=0 & imm0 & imm1 & (src0_sel = 8 | src0_sel = 9 | src0_s
 source0: MOP_alias is m0=1 & MOP_alias & (src0_sel = 0 | src0_sel = 16 | src0_sel = 8 | src0_sel = 9 | src0_sel = 10 | src0_sel = 11 | src0_sel = 12 | src0_sel = 13 | src0_sel = 14 | src0_sel = 15 | src0_sel = 24 | src0_sel = 25 | src0_sel = 26 | src0_sel = 27 | src0_sel = 28 | src0_sel = 29 | src0_sel = 30 | src0_sel = 31) & src0_sel { 
 	export *[alias]:8 MOP_alias;
 }
+source0_noalias: src0 is src0 & src0_sel { export src0; }
+source0_noalias: imm0_sel0 is imm0_sel0 & imm1_sel=0 & src0_sel = 16 {export *[const]:8 imm0_sel0;}
+source0_noalias: imm0_sel1 is imm0_sel1 & imm1_sel=1 & src0_sel = 16 {export *[const]:8 imm0_sel1;}
+source0_noalias: imm0_sel2 is imm0_sel2 & imm1_sel=2 & src0_sel = 16 {export *[const]:8 imm0_sel2;}
+source0_noalias: imm0_sel3 is imm0_sel3 & imm1_sel=3 & src0_sel = 16 {export *[const]:8 imm0_sel3;}
+source0_noalias: immediate is src0_sel = 0 & src0_sel [ immediate = 0; ] { export *[const]:8 immediate; }
+source0_noalias: immediate is imm0 & imm1 & (src0_sel = 8 | src0_sel = 9 | src0_sel = 10 | src0_sel = 11 | src0_sel = 12 | src0_sel = 13 | src0_sel = 14 | src0_sel = 15 | src0_sel = 24 | src0_sel = 25 | src0_sel = 26 | src0_sel = 27 | src0_sel = 28 | src0_sel = 29 | src0_sel = 30 | src0_sel = 31) & src0_sel [
+	immediate = 0xffffffffffff0000 * ((src0_sel & 0x10) >> 4) | ((src0_sel & 0x07) << 13) | (imm1 << 8) | imm0;
+] { export *[const]:8 immediate; }
+
 # parse source0 as a target in the ucode
 source0_target_imm: imm0_sel0 is imm0_sel0 & imm1_sel=0 & src0_sel = 16 {local tmp=imm0_sel0*$(INSTR_LEN):8; export *[ucode]:8 tmp;}
 source0_target_imm: imm0_sel1 is imm0_sel1 & imm1_sel=1 & src0_sel = 16 {local tmp=imm0_sel1*$(INSTR_LEN):8; export *[ucode]:8 tmp;}
@@ -576,7 +586,7 @@ define pcodeop unknown;
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
 	local tmp = source0;
-	dest = source0 << source1;
+	dest = source0 << cnt;
 	shlflags(tmp, dest, cnt, dst_OF, dst_CF);
 	shiftresultflags(dest, cnt, dst_ZF, dst_SF, dst_PF);
 	build seqword;
@@ -586,7 +596,7 @@ define pcodeop unknown;
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
 	local tmp = source0;
-	dest = source0 >> source1;
+	dest = source0 >> cnt;
 	shrflags(tmp, dest, cnt, dst_OF, dst_CF);
 	shiftresultflags(dest, cnt, dst_ZF, dst_SF, dst_PF);
 	build seqword;
@@ -596,7 +606,7 @@ define pcodeop unknown;
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
 	local tmp = source0;
-	dest = source0 s>> source1;
+	dest = source0 s>> cnt;
 	sarflags(tmp, dest, cnt, dst_OF, dst_CF);
 	shiftresultflags(dest, cnt, dst_ZF, dst_SF, dst_PF);
 	build seqword;
@@ -605,7 +615,7 @@ define pcodeop unknown;
 :rol^"_"^dst_size dest source0, source1 seqword is (opcode = 0x02c | opcode = 0x06c | opcode = 0x0ac | opcode = 0x0ec) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
-	dest = (source0 << source1) | (source0 >> (64 - source1));
+	dest = (source0 << cnt) | (source0 >> (64 - cnt));
 	rolflags(dest, cnt, dst_OF, dst_CF);
 	build seqword;
 }
@@ -613,7 +623,7 @@ define pcodeop unknown;
 :ror^"_"^dst_size dest source0, source1 seqword is (opcode = 0x02d | opcode = 0x06d | opcode = 0x0ad | opcode = 0x0ed) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword {
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
-	dest = (source0 >> source1) | (source0 << (64 - source1));
+	dest = (source0 >> cnt) | (source0 << (64 - cnt));
 	rolflags(dest, cnt, dst_OF, dst_CF);
 	build seqword;
 }
@@ -748,6 +758,19 @@ single_crbus_source:source1_crbus^is src0_sel=0 & source1_crbus {export source1_
 # TODO: if both valid, choose src1, is it correct?
 single_crbus_source:source1_crbus^is source1_crbus {export source1_crbus;}
 
+source1_cregop: immediate is imm0 & imm1 & m0 & (src1_sel = 8 | src1_sel = 9 | src1_sel = 10 | src1_sel = 11 | src1_sel = 12 | src1_sel = 13 | src1_sel = 14 | src1_sel = 15 | src1_sel = 24 | src1_sel = 25 | src1_sel = 26 | src1_sel = 27 | src1_sel = 28 | src1_sel = 29 | src1_sel = 30 | src1_sel = 31) & src1_sel [
+	immediate = (((src1_sel & 0x10) << 1) | ((src1_sel & 0x07) << 2) | (imm1 >> 4) | (m0 << 1));
+] { export *[const]:8 immediate; }
+source1_cregop: src1 is src1 & src1_sel { export src1; }
+
+dest_crop: crbus_addr is imm0_sel0 & imm1_sel=0 & src1_sel = 16 [crbus_addr = imm0_sel0 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
+dest_crop: crbus_addr is imm0_sel1 & imm1_sel=1 & src1_sel = 16 [crbus_addr = imm0_sel1 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
+dest_crop: crbus_addr is imm0_sel2 & imm1_sel=2 & src1_sel = 16 [crbus_addr = imm0_sel2 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
+dest_crop: crbus_addr is imm0_sel3 & imm1_sel=3 & src1_sel = 16 [crbus_addr = imm0_sel3 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
+dest_crop: immediate is imm0 & imm1 & src1_sel [
+	immediate = (((imm1 & 0x7) << 8) | imm0);
+] { export *[crbus]:8 immediate; }
+
 :rcreg dest single_crbus_source seqword is opcode = 0x062 & dest & single_crbus_source; seqword {
 	dest = single_crbus_source;
 	build seqword;
@@ -755,6 +778,37 @@ single_crbus_source:source1_crbus^is source1_crbus {export source1_crbus;}
 # TODO: some writeuram uops have also dest, wtf
 :wcreg source0, source1_crbus seqword is opcode = 0x042 & dest & source0 & source1_crbus; seqword {
 	source1_crbus = source0;
+	build seqword;
+}
+:andcreg source0_noalias, source1_cregop, dest_crop seqword is opcode = 0x822 & dest & source0_noalias & source1_cregop & dest_crop; seqword {
+	dest_crop = source0_noalias & source1_cregop;
+	build seqword;
+}
+:shlcreg source0_noalias, source1_cregop, dest_crop seqword is opcode = 0x8a2 & dest & source0_noalias & source1_cregop & dest_crop; seqword {
+	local cnt = source1_cregop & 0x3f;
+	dest_crop = source0_noalias << cnt;
+	build seqword;
+}
+:shrcreg source0_noalias, source1_cregop, dest_crop seqword is opcode = 0x9a2 & dest & source0_noalias & source1_cregop & dest_crop; seqword {
+	local cnt = source1_cregop & 0x3f;
+	dest_crop = source0_noalias >> cnt;
+	build seqword;
+}
+:orcreg source0_noalias, source1_cregop, dest_crop seqword is opcode = 0x902 & dest & source0_noalias & source1_cregop & dest_crop; seqword {
+	dest_crop = source0_noalias | source1_cregop;
+	build seqword;
+}
+# TODO: where does the tested bit info go? Or it is just a bit set/reset?
+:btscreg source0_noalias, source1_cregop, dest_crop seqword is opcode = 0x962 & dest & source0_noalias & source1_cregop & dest_crop; seqword {
+	local cnt = source1_cregop & 0x3f;
+#	local cf = (source0_noalias >> cnt) & 1;
+	dest_crop = source0_noalias | (1:8 << cnt);
+	build seqword;
+}
+:btrcreg source0_noalias, source1_cregop, dest_crop seqword is opcode = 0xa62 & dest & source0_noalias & source1_cregop & dest_crop; seqword {
+	local cnt = source1_cregop & 0x3f;
+#	local cf = (source0_noalias >> cnt) & 1;
+	dest_crop = source0_noalias & ~(1:8 << cnt);
 	build seqword;
 }
 

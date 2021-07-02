@@ -705,19 +705,19 @@ define pcodeop concat;
 }
 
 # cannot cast/reuse source0/1 since for the immediate we have to &0x1ff, and the disasm view does not support operations on subtables
-source0_uram: src0 is src0 & src0_sel { export *[uram]:8 src0; }
-source0_uram: imm0_sel0 is imm0_sel0 & imm1_sel=0 & src0_sel = 16 {export *[uram]:8 imm0_sel0;}
-source0_uram: imm0_sel1 is imm0_sel1 & imm1_sel=1 & src0_sel = 16 {export *[uram]:8 imm0_sel1;}
-source0_uram: imm0_sel2 is imm0_sel2 & imm1_sel=2 & src0_sel = 16 {export *[uram]:8 imm0_sel2;}
-source0_uram: imm0_sel3 is imm0_sel3 & imm1_sel=3 & src0_sel = 16 {export *[uram]:8 imm0_sel3;}
+source0_uram: uram_addr is src0 & src0_sel [uram_addr = src0 & 0x1ff;] { export *[uram]:8 src0; }
+source0_uram: uram_addr is imm0_sel0 & imm1_sel=0 & src0_sel = 16 [uram_addr = imm0_sel0 & 0x1ff;] {export *[uram]:8 imm0_sel0;}
+source0_uram: uram_addr is imm0_sel1 & imm1_sel=1 & src0_sel = 16 [uram_addr = imm0_sel1 & 0x1ff;] {export *[uram]:8 imm0_sel1;}
+source0_uram: uram_addr is imm0_sel2 & imm1_sel=2 & src0_sel = 16 [uram_addr = imm0_sel2 & 0x1ff;] {export *[uram]:8 imm0_sel2;}
+source0_uram: uram_addr is imm0_sel3 & imm1_sel=3 & src0_sel = 16 [uram_addr = imm0_sel3 & 0x1ff;] {export *[uram]:8 imm0_sel3;}
 source0_uram: immediate is imm0 & imm1 & (src0_sel = 8 | src0_sel = 9 | src0_sel = 10 | src0_sel = 11 | src0_sel = 12 | src0_sel = 13 | src0_sel = 14 | src0_sel = 15 | src0_sel = 24 | src0_sel = 25 | src0_sel = 26 | src0_sel = 27 | src0_sel = 28 | src0_sel = 29 | src0_sel = 30 | src0_sel = 31) & src0_sel [
 	immediate = (0xffffffffffff0000 * ((src0_sel & 0x10) >> 4) | ((src0_sel & 0x07) << 13) | (imm1 << 8) | imm0) & 0x1ff;
 ] { export *[uram]:8 immediate; }
-source1_uram: src1 is src1 & src1_sel { export *[uram]:8 src1; }
-source1_uram: imm0_sel0 is imm0_sel0 & imm1_sel=0 & src1_sel = 16 {export *[uram]:8 imm0_sel0;}
-source1_uram: imm0_sel1 is imm0_sel1 & imm1_sel=1 & src1_sel = 16 {export *[uram]:8 imm0_sel1;}
-source1_uram: imm0_sel2 is imm0_sel2 & imm1_sel=2 & src1_sel = 16 {export *[uram]:8 imm0_sel2;}
-source1_uram: imm0_sel3 is imm0_sel3 & imm1_sel=3 & src1_sel = 16 {export *[uram]:8 imm0_sel3;}
+source1_uram: uram_addr is src1 & src1_sel [uram_addr = src1 & 0x1ff;] { export *[uram]:8 src1; }
+source1_uram: uram_addr is imm0_sel0 & imm1_sel=0 & src1_sel = 16 [uram_addr = imm0_sel0 & 0x1ff;] {export *[uram]:8 imm0_sel0;}
+source1_uram: uram_addr is imm0_sel1 & imm1_sel=1 & src1_sel = 16 [uram_addr = imm0_sel1 & 0x1ff;] {export *[uram]:8 imm0_sel1;}
+source1_uram: uram_addr is imm0_sel2 & imm1_sel=2 & src1_sel = 16 [uram_addr = imm0_sel2 & 0x1ff;] {export *[uram]:8 imm0_sel2;}
+source1_uram: uram_addr is imm0_sel3 & imm1_sel=3 & src1_sel = 16 [uram_addr = imm0_sel3 & 0x1ff;] {export *[uram]:8 imm0_sel3;}
 source1_uram: immediate is imm0 & imm1 & (src1_sel = 8 | src1_sel = 9 | src1_sel = 10 | src1_sel = 11 | src1_sel = 12 | src1_sel = 13 | src1_sel = 14 | src1_sel = 15 | src1_sel = 24 | src1_sel = 25 | src1_sel = 26 | src1_sel = 27 | src1_sel = 28 | src1_sel = 29 | src1_sel = 30 | src1_sel = 31) & src1_sel [
 	immediate = (0xffffffffffff0000 * ((src1_sel & 0x10) >> 4) | ((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0) & 0x1ff;
 ] { export *[uram]:8 immediate; }
@@ -735,7 +735,7 @@ single_uram_source:source1_uram^is src0_sel=0 & source1_uram {export source1_ura
 
 # crbs operations
 # cannot cast/reuse source0/1 since for the immediate we have to &0x7ff, and the disasm view does not support operations on subtables
-source0_crbus: src0 is src0 & src0_sel { export *[crbus]:8 src0; }
+source0_crbus: crbus_addr is src0 & src0_sel [crbus_addr = src0 & 0x7ff;] { export *[crbus]:8 crbus_addr; }
 source0_crbus: crbus_addr is imm0_sel0 & imm1_sel=0 & src0_sel = 16 [crbus_addr = imm0_sel0 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
 source0_crbus: crbus_addr is imm0_sel1 & imm1_sel=1 & src0_sel = 16 [crbus_addr = imm0_sel1 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
 source0_crbus: crbus_addr is imm0_sel2 & imm1_sel=2 & src0_sel = 16 [crbus_addr = imm0_sel2 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
@@ -744,7 +744,7 @@ source0_crbus: immediate is src0_sel = 0 & src0_sel [ immediate = 0; ] { export 
 source0_crbus: immediate is imm0 & imm1 & (src0_sel = 8 | src0_sel = 9 | src0_sel = 10 | src0_sel = 11 | src0_sel = 12 | src0_sel = 13 | src0_sel = 14 | src0_sel = 15 | src0_sel = 24 | src0_sel = 25 | src0_sel = 26 | src0_sel = 27 | src0_sel = 28 | src0_sel = 29 | src0_sel = 30 | src0_sel = 31) & src0_sel [
 	immediate = (((src0_sel & 0x07) << 13) | (imm1 << 8) | imm0) & 0x7ff;
 ] { export *[crbus]:8 immediate; }
-source1_crbus: src1 is src1 & src1_sel { export *[crbus]:8 src1; }
+source1_crbus: crbus_addr is src1 & src1_sel [crbus_addr = src1 & 0x7ff;] { export *[crbus]:8 crbus_addr; }
 source1_crbus: crbus_addr is imm0_sel0 & imm1_sel=0 & src1_sel = 16 [crbus_addr = imm0_sel0 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
 source1_crbus: crbus_addr is imm0_sel1 & imm1_sel=1 & src1_sel = 16 [crbus_addr = imm0_sel1 & 0x7ff;] {export *[crbus]:8 crbus_addr;}
 source1_crbus: crbus_addr is imm0_sel2 & imm1_sel=2 & src1_sel = 16 [crbus_addr = imm0_sel2 & 0x7ff;] {export *[crbus]:8 crbus_addr;}

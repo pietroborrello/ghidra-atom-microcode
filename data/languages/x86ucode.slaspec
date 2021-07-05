@@ -959,7 +959,7 @@ cmpj_target: immediate is imm1_sel & src1_sel & imm0 & imm1 & m1 & m2 & dst_16 [
 ucode_target: target is imm0 & imm1 & src1_sel [
 	target = (((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0) * $(INSTR_LEN);
 ] { export *[ucode]:8 target; }
-#TODO: saveuip misses the semantics of the third source and dest
+#TODO: saveuip misses the syntax and semantics of the first source register and dest
 :saveuip uip_reg, ucode_target seqword is dst_sel=0 & (is_src0_imm=1|src0_sel=0) & dest & (opcode = 0x00c | opcode = 0x04c | opcode = 0x08c | opcode = 0x0cc) & uip_reg & ucode_target; seqword {
 	uip_reg = &ucode_target/$(INSTR_LEN);
 	build seqword;
@@ -986,12 +986,15 @@ saveuip_ov_imm: value is imm0 & imm1 & src1_sel [
 ] { export *[const]:8 value; }
 :saveuip_ov uip_reg, ucode_next, saveuip_ov_imm seqword is dst_sel=0 & saveuip_ov_imm & dest & opcode = 0x00d & uip_reg & ucode_next; seqword {
 	uip_reg = &ucode_next/$(INSTR_LEN);
+	# this is a guess, otherwise saveuip_ov_imm would not be used
+	regovr(saveuip_ov_imm);
 	build seqword;
 }
 # TODO: third_imm of SAVEUIP_REGOVR (no idea on semantics)
 :saveuip_ov dest uip_reg, ucode_next, saveuip_ov_imm seqword is saveuip_ov_imm & dest & opcode = 0x00d & uip_reg & ucode_next; seqword {
 	uip_reg = &ucode_next/$(INSTR_LEN);
-	regovr(dest >> 16);
+	# this is a guess, otherwise saveuip_ov_imm would not be used
+	regovr(saveuip_ov_imm);
 	build seqword;
 }
 :readuip_ov dest uip_reg seqword is dest & opcode = 0x108 & uip_reg; seqword {

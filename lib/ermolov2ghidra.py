@@ -124,8 +124,30 @@ def is_src_imm_sel(sel):
                 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f]
     return sel in imm_sels
 
+def is_with_saveuip_next(uaddr, uop, seqword):
+    saveuip_opcodes = [0x00c, 0x04c, 0x08c, 0x0cc]
+    saveuip_regovr_opcodes = [0x00d]
+    saveuip_eflows = [4, 5, 6, 7]
+
+    opcode = get_uop_opcode(uop)
+    eflow = (seqword & 0x3c) >> 2
+    # if the uop is a SAVEUIP_REGOVR or the sequence word contains a SEQW SAVEUIP in eflow control
+    # then the instruction saves the next address to execute for sure
+    if opcode in saveuip_regovr_opcodes or eflow in saveuip_eflows:
+        return True
+
+    # otherwise we should compute it if we have a SAVEUIP uop
+    if opcode not in saveuip_opcodes:
+        return False
+    src1_sel =  get_src1_sel(uop)
+    saveuip_target = ((src1_sel & 0x07) << 13) | ((uop & 0x7c0000) >> 10) | ((uop & 0xff000000) >> 24)
+    # next_uaddr = uaddr + (2 if uaddr & 0x03 == 0x02 else 1)
+    if saveuip_target in (uaddr+1, uaddr+2):
+        return True
+    return False
+
 # collect some metadata that will go in the upper 16 bits of the uop
-def get_metadata(uop):
+def get_metadata(uaddr, uop, seqword):
     src0_sel = get_src0_sel(uop)
     src1_sel = get_src1_sel(uop)
     dst_sel = get_dst_sel(uop)
@@ -138,13 +160,21 @@ def get_metadata(uop):
     is_src0_imm = 1 if is_src_imm_sel(src0_sel) else 0
     is_src1_imm = 1 if is_src_imm_sel(src1_sel) else 0
 
-    return (is_src0_imm << 0) | (is_src1_imm << 1)
+    # if the uop is a saveuip_regovr, saveuip(next_ucode)
+    # or if the seqword is a SEQW SAVEUIP
+    with_saveuip_next = 1 if is_with_saveuip_next(uaddr, uop, seqword) else 0
+
+    return (is_src0_imm << 0) | (is_src1_imm << 1) | (with_saveuip_next << 2)
 
 # collect some metadata that will go in the upper 32 bits of the seqword
-def get_seq_metadata(uop, seqword):
+def get_seq_metadata(uaddr, uop, seqword):
     is_with_testustate = 1 if is_uop_testustate(uop) else 0
 
-    return (is_with_testustate << 0)
+    # if the uop is a saveuip_regovr, saveuip(next_ucode)
+    # or if the seqword is a SEQW SAVEUIP
+    with_saveuip_next = 1 if is_with_saveuip_next(uaddr, uop, seqword) else 0
+
+    return (is_with_testustate << 0) | (with_saveuip_next << 1)
 
 def ucode_dump(arrays_dump_dir):
     ucode = load_ms_array_str_data(arrays_dump_dir + "/ms_array0.txt")
@@ -163,13 +193,13 @@ def ucode_dump(arrays_dump_dir):
             # print(dump_seqword(filtered_seqword))
 
             # collect uop medatata to ease ghidra disassembly
-            meta_uop = get_metadata(uop)
+            meta_uop = get_metadata(uaddr, uop, filtered_seqword)
 
             # 48 bits for the uop rounded up to 64
             packed_uop = pack('<Q', uop | (meta_uop << 48))
 
             # collect uop medatata to ease ghidra disassembly
-            meta_seq = get_seq_metadata(uop, seqword)
+            meta_seq = get_seq_metadata(uaddr, uop, filtered_seqword)
 
             # 30 bits rounded to 64 for sanity for the seqword
             packed_seqword = pack('<Q', filtered_seqword | (meta_seq << 32))

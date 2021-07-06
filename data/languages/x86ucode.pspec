@@ -12,7 +12,88 @@
     </default_memory_blocks>
     
 	<default_symbols>
-	    <symbol name="start" address="ucode:0x0000" type="code" entry="true"/>
+        <!-- UCODE LABELS -->
+        <!-- NOTICE: each address is multiplied by $(INSTR_LEN) wrt the original label.txt -->
+        <symbol name="sha256_ret"               address="ucode:0x00110" type="code" entry="true"/>
+        <symbol name="sidt_xlat"                address="ucode:0x02d80" type="code" entry="true"/>
+        <symbol name="vmresume_xlat"            address="ucode:0x03200" type="code" entry="true"/>
+        <symbol name="vmlaunch_xlat"            address="ucode:0x03280" type="code" entry="true"/>
+        <symbol name="vmwrite_r64_mem_xlat"             address="ucode:0x03300" type="code" entry="true"/>
+        <symbol name="rdrand_xlat"              address="ucode:0x04280" type="code" entry="true"/>
+        <symbol name="rdseed_xlat"              address="ucode:0x04300" type="code" entry="true"/>
+        <symbol name="set_carry_uend"           address="ucode:0x04ae0" type="code" entry="true"/>
+        <symbol name="udbgwr_xlat"              address="ucode:0x06600" type="code" entry="true"/>
+        <symbol name="jump_tmp3"                address="ucode:0x06be0" type="code" entry="true"/>
+        <symbol name="uret1"            address="ucode:0x06c60" type="code" entry="true"/>
+        <symbol name="sldt_m16_xlat"            address="ucode:0x07200" type="code" entry="true"/>
+        <symbol name="sysexit_xlat"             address="ucode:0x07380" type="code" entry="true"/>
+        <symbol name="rdtscp_xlat"              address="ucode:0x07880" type="code" entry="true"/>
+        <symbol name="clear_aflags_uend0"               address="ucode:0x07940" type="code" entry="true"/>
+        <symbol name="hlt_xlat"         address="ucode:0x08180" type="code" entry="true"/>
+        <symbol name="mov_cr0_r64_xlat"         address="ucode:0x08900" type="code" entry="true"/>
+        <symbol name="rsm_xlat"         address="ucode:0x08c00" type="code" entry="true"/>
+        <symbol name="vmxoff_xlat"              address="ucode:0x08c80" type="code" entry="true"/>
+        <symbol name="encls_xlat"               address="ucode:0x08d00" type="code" entry="true"/>
+        <symbol name="sldt_r16_xlat"            address="ucode:0x0a680" type="code" entry="true"/>
+        <symbol name="rdmsr_xlat"               address="ucode:0x0ae00" type="code" entry="true"/>
+        <symbol name="vmxon_xlat"               address="ucode:0x0ae80" type="code" entry="true"/>
+        <symbol name="vmptrld_xlat"             address="ucode:0x0af00" type="code" entry="true"/>
+        <symbol name="vmclear_xlat"             address="ucode:0x0af80" type="code" entry="true"/>
+        <symbol name="vmcall_xlat"              address="ucode:0x0b080" type="code" entry="true"/>
+        <symbol name="enclu_xlat"               address="ucode:0x0b100" type="code" entry="true"/>
+        <symbol name="udbgrd_xlat"              address="ucode:0x0b580" type="code" entry="true"/>
+        <symbol name="lidt_xlat"                address="ucode:0x0b900" type="code" entry="true"/>
+        <symbol name="str_m16_xlat"             address="ucode:0x0ba00" type="code" entry="true"/>
+        <symbol name="write_port_4c"            address="ucode:0x0bc90" type="code" entry="true"/>
+        <symbol name="wmptrst_xlat"             address="ucode:0x0bd00" type="code" entry="true"/>
+        <symbol name="cpuid_xlat"               address="ucode:0x0be00" type="code" entry="true"/>
+        <symbol name="sgdt_xlat"                address="ucode:0x0c100" type="code" entry="true"/>
+        <symbol name="mov_r64_cr8_xlat"         address="ucode:0x0c700" type="code" entry="true"/>
+        <symbol name="wrmsr_xlat"               address="ucode:0x0c800" type="code" entry="true"/>
+        <symbol name="rdtsc_xlat"               address="ucode:0x0ca80" type="code" entry="true"/>
+        <symbol name="rdpmc_xlat"               address="ucode:0x0cc00" type="code" entry="true"/>
+        <symbol name="vmwrite_r64_r64_xlat"             address="ucode:0x0cd80" type="code" entry="true"/>
+        <symbol name="uend"             address="ucode:0x17ec0" type="code" entry="true"/>
+        <symbol name="rdrand_impl"              address="ucode:0x18610" type="code" entry="true"/>
+        <symbol name="uret1"            address="ucode:0x1cbe0" type="code" entry="true"/>
+        <symbol name="check_rdrand_vmexits"             address="ucode:0x1d8d0" type="code" entry="true"/>
+        <symbol name="patch_runs_load_loop"             address="ucode:0x1ea60" type="code" entry="true"/>
+        <symbol name="do_smm_vmexit"            address="ucode:0x1f900" type="code" entry="true"/>
+        <symbol name="do_smm_vmexit_ovr_enter_rip"              address="ucode:0x1f910" type="code" entry="true"/>
+        <symbol name="generate_#GP"             address="ucode:0x27110" type="code" entry="true"/>
+        <symbol name="generate_#UD"             address="ucode:0x27690" type="code" entry="true"/>
+        <symbol name="generate_#NM"             address="ucode:0x27710" type="code" entry="true"/>
+        <symbol name="patch_load_error"         address="ucode:0x27b40" type="code" entry="true"/>
+        <symbol name="uarch_bufs_ldat_init"             address="ucode:0x27c10" type="code" entry="true"/>
+        <symbol name="patch_apply_error"                address="ucode:0x27f10" type="code" entry="true"/>
+        <symbol name="check_rsa_padding_signature"              address="ucode:0x2d720" type="code" entry="true"/>
+        <symbol name="lbsync_full"              address="ucode:0x2b150" type="code" entry="true"/>
+        <symbol name="uret0"            address="ucode:0x304e0" type="code" entry="true"/>
+        <symbol name="uend0"            address="ucode:0x32100" type="code" entry="true"/>
+        <symbol name="apply_ucode_patch"                address="ucode:0x327c0" type="code" entry="true"/>
+        <symbol name="exit_probe_mode"          address="ucode:0x35a50" type="code" entry="true"/>
+        <symbol name="enter_probe_mode"         address="ucode:0x3a410" type="code" entry="true"/>
+        <symbol name="check_cpl_uend3"          address="ucode:0x3dfa0" type="code" entry="true"/>
+        <symbol name="probe_mode_force_sgx_eenter_eresume"              address="ucode:0x44f90" type="code" entry="true"/>
+        <symbol name="reset_flow"               address="ucode:0x40000" type="code" entry="true"/>
+        <symbol name="check_rsa_pub_key_hash"           address="ucode:0x46440" type="code" entry="true"/>
+        <symbol name="gen_rc4_key"              address="ucode:0x465c0" type="code" entry="true"/>
+        <symbol name="do_vmexit"                address="ucode:0x4e810" type="code" entry="true"/>
+        <symbol name="do_vmexit_ovr_enter_rip"          address="ucode:0x4e820" type="code" entry="true"/>
+        <symbol name="calc_sha256_start"                address="ucode:0x50c40" type="code" entry="true"/>
+        <symbol name="calc_sha256_update"               address="ucode:0x50da0" type="code" entry="true"/>
+        <symbol name="calc_fast_sha256_start"           address="ucode:0x556a0" type="code" entry="true"/>
+        <symbol name="rsa_signing_error"                address="ucode:0x57950" type="code" entry="true"/>
+        <symbol name="probe_mode_force_smm_xlat"                address="ucode:0x5c010" type="code" entry="true"/>
+        <symbol name="fit_process_error"                address="ucode:0x5e680" type="code" entry="true"/>
+        <symbol name="rc4_decrypt"              address="ucode:0x5ed50" type="code" entry="true"/>
+        <symbol name="fit_load_end"             address="ucode:0x608a0" type="code" entry="true"/>
+        <symbol name="ucode_fit_xlat_found"             address="ucode:0x64ea0" type="code" entry="true"/>
+        <symbol name="fit_load_start"           address="ucode:0x6e160" type="code" entry="true"/>
+        <symbol name="process_next_fit_xlat"            address="ucode:0x6e420" type="code" entry="true"/>
+        <symbol name="non_ucode_fit_xlat_found"         address="ucode:0x6e4c0" type="code" entry="true"/>
+        <symbol name="rsa_decrypt"              address="ucode:0x735c0" type="code" entry="true"/>
+        <symbol name="enclu_impl"               address="ucode:0x75c60" type="code" entry="true"/>
 	    
 	    <!-- CREG -->
 	    <symbol name="CORE_CR_CUR_RIP"	address="crbus:0x067"/>

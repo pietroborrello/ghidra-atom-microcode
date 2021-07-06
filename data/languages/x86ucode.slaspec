@@ -118,7 +118,8 @@ define token _uop(64)
 	uknown = (46, 47)
 	is_src0_imm = (48, 48)
 	is_src1_imm = (49, 49)
-	uop_pad= (48, 63)
+	uop_with_saveuip_next = (50, 50)
+	uop_pad= (51, 63)
 ;
 
 # ATTACH REGISTER NAMES
@@ -273,7 +274,8 @@ define token _seqword(64)
 	unknown2   = (28, 29)
 	seq_pad0   = (30, 31)
 	with_testustate = (32, 32)
-	seq_pad1   = (33 ,63)
+	seqw_with_saveuip_next = (33, 33)
+	seq_pad1   = (34 ,63)
 ;
 
 define pcodeop lfencewait;
@@ -418,15 +420,15 @@ seqword_sync:"" is up2=0 & sync {}
 # UEND: think of a better way to express end
 seqword_eflow:" "^eflow_cmd is up0=1 & (eflow=12 | eflow=13 | eflow=14 |eflow=15) & eflow_cmd { return [0:8];}
 
-seqword_eflow:" SEQW URET0" is up0=1 & eflow=2 { return [uip0 * $(INSTR_LEN)]; }
-seqword_eflow:" SEQW URET1" is up0=1 & eflow=3 { return [uip1 * $(INSTR_LEN)]; }
+seqword_eflow:" SEQW URET0" is up0=1 & eflow=2 { goto [uip0 * $(INSTR_LEN)]; }
+seqword_eflow:" SEQW URET1" is up0=1 & eflow=3 { goto [uip1 * $(INSTR_LEN)]; }
 # SAVEUIP
 seqword_next:next is up0=1 [ next = inst_next; ] {
   export *[ucode]:8 next;
 }
 seqword_eflow:" SEQW SAVEUIP0" seqword_next is up0=1 & eflow=4 & seqword_next { uip0 = inst_next/$(INSTR_LEN); }
 seqword_eflow:" SEQW SAVEUIP1" seqword_next is up0=1 & eflow=5 & seqword_next { uip1 = inst_next/$(INSTR_LEN); }
-# TODO: what does ROVR do?
+# TODO: what does ROVR do here?
 seqword_eflow:" ROVR<- SEQW SAVEUIP0" seqword_next is up0=1 & eflow=6 & seqword_next{ uip0 = inst_next/$(INSTR_LEN); }
 seqword_eflow:" ROVR<- SEQW SAVEUIP1" seqword_next is up0=1 & eflow=7 & seqword_next { uip1 = inst_next/$(INSTR_LEN); }
 
@@ -437,12 +439,16 @@ seqword_eflow:" "^eflow_cmd is up0=1 & eflow_cmd {eflow_unknown();}
 seqword_eflow:"" is up0=1 & eflow=0 {}
 seqword_eflow:"" is up0=0 & eflow {}
 
-# TODO: express conditional execution of goto with testustate
+
 seqword_target: target is next_uaddr [ target = next_uaddr*$(INSTR_LEN); ] {
   export *[ucode]:8 target;
 }
-seqword_goto:" SEQW GOTO" seqword_target is up1=1 & seqword_target {
+seqword_goto:" SEQW GOTO" seqword_target is up1=1 & seqword_target & seqw_with_saveuip_next=0 {
 	goto seqword_target;
+}
+# if the uop or the eflow seqword saves uip_next, this is a call probably
+seqword_goto:" SEQW GOTO" seqword_target is up1=1 & seqword_target & seqw_with_saveuip_next=1 {
+	call seqword_target;
 }
 seqword_goto:"" is up1=0 & next_uaddr {}
 
@@ -909,14 +915,26 @@ dest_crop: immediate is imm0 & imm1 & src1_sel [
 	build seqword;
 }
 #ujmp
-:ujmp source1_target_imm seqword is (is_src1_imm=1 | (src1_sel=0 & is_src1_imm=0)) & opcode=0x15d & source1_target_imm; seqword {
+:ujmp source1_target_imm seqword is uop_with_saveuip_next=0 & (is_src1_imm=1 | (src1_sel=0 & is_src1_imm=0)) & opcode=0x15d & source1_target_imm; seqword {
 	goto source1_target_imm;
 	build seqword;
 }
 # indirect ujmp
-:ujmp source1 seqword is is_src1_imm=0 & opcode=0x15d & source1; seqword {
+:ujmp source1 seqword is uop_with_saveuip_next=0 & is_src1_imm=0 & opcode=0x15d & source1; seqword {
 	local target = source1 * $(INSTR_LEN);
 	goto [target];
+	build seqword;
+}
+# TODO: what aboud conditional jumps that save uip?
+# direct ujmp that is a ucall probably, since saves uip
+:ucall source1_target_imm seqword is uop_with_saveuip_next=1 & (is_src1_imm=1 | (src1_sel=0 & is_src1_imm=0)) & opcode=0x15d & source1_target_imm; seqword {
+	call source1_target_imm;
+	build seqword;
+}
+# indirect ujmp that is a ucall, since saves uip
+:ucall source1 seqword is uop_with_saveuip_next=1 & is_src1_imm=0 & opcode=0x15d & source1; seqword {
+	local target = source1 * $(INSTR_LEN);
+	call [target];
 	build seqword;
 }
 
@@ -1004,11 +1022,12 @@ saveuip_ov_imm: value is imm0 & imm1 & src1_sel [
 }
 
 :uret uip_reg seqword is dst_sel=0 & dest & uip_reg & opcode=0x148; seqword {
-	return [uip_reg*$(INSTR_LEN)];
+	goto [uip_reg*$(INSTR_LEN)];
 }
 #TODO: what is the semantics here?
 :uret dest uip_reg, source0 seqword is dest & source0 & uip_reg & opcode=0x148; seqword {
-	return [uip_reg*$(INSTR_LEN)];
+	dest = source0;
+	goto [uip_reg*$(INSTR_LEN)];
 }
 
 # === testustate ===

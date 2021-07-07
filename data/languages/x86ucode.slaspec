@@ -959,12 +959,14 @@ cmpj_target: immediate is imm1_sel & src1_sel & imm0 & imm1 & m1 & m2 & dst_16 [
 # bit test and jump
 :btjnz source0, source1_cmpj, cmpj_target seqword is opcode=0x86a & source0 & source1_cmpj & cmpj_target; seqword {
 	local cnt = source1_cmpj & 0x3f;
-	if ((source0 & cnt) != 0) goto cmpj_target;
+	local bit = ((source0 >> cnt) & 1);
+	if (bit != 0) goto cmpj_target;
 	build seqword;
 }
 :btjz source0, source1_cmpj, cmpj_target seqword is opcode=0x86b & source0 & source1_cmpj & cmpj_target; seqword {
 	local cnt = source1_cmpj & 0x3f;
-	if ((source0 & cnt) == 0) goto cmpj_target;
+	local bit = ((source0 >> cnt) & 1);
+	if (bit == 0) goto cmpj_target;
 	build seqword;
 }
 # cmp & jump

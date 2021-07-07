@@ -954,17 +954,20 @@ cmpj_target: second_imm is imm0_sel3 & imm1_sel=3 & src1_sel = 16 [second_imm = 
 cmpj_target: immediate is imm1_sel & src1_sel & imm0 & imm1 & m1 & m2 & dst_16 [
 #    immediate = ((full_uop & 0x10000) >> 2) | ((full_uop & 0x100000000000) >> 31) | ((full_uop & 0x200000000000) >> 33) | \
 #                     ((full_uop & 0x3c0000) >> 10) | ((full_uop & 0xff000000) >> 24)
-    immediate = ((dst_16 << 14) | (m1 << 13) | (m2 << 12) | ((imm1 & 0xff) << 8) | imm0) * $(INSTR_LEN);
+    immediate = ((dst_16 << 14) | (m1 << 13) | (m2 << 12) | ((imm1 & 0xf) << 8) | imm0) * $(INSTR_LEN);
 ] { export *[ucode]:8 immediate; }
+# bit test and jump
+:btjnz source0, source1_cmpj, cmpj_target seqword is opcode=0x86a & source0 & source1_cmpj & cmpj_target; seqword {
+	local cnt = source1_cmpj & 0x3f;
+	if ((source0 & cnt) != 0) goto cmpj_target;
+	build seqword;
+}
+:btjz source0, source1_cmpj, cmpj_target seqword is opcode=0x86b & source0 & source1_cmpj & cmpj_target; seqword {
+	local cnt = source1_cmpj & 0x3f;
+	if ((source0 & cnt) == 0) goto cmpj_target;
+	build seqword;
+}
 # cmp & jump
-:cmpjb source0, source1_cmpj, cmpj_target seqword is opcode=0x86a & source0 & source1_cmpj & cmpj_target; seqword {
-	if (source0 < source1_cmpj) goto cmpj_target;
-	build seqword;
-}
-:cmpjbe source0, source1_cmpj, cmpj_target seqword is opcode=0x86b & source0 & source1_cmpj & cmpj_target; seqword {
-	if (source0 <= source1_cmpj) goto cmpj_target;
-	build seqword;
-}
 :cmpjz source0, source1_cmpj, cmpj_target seqword is opcode=0x928 & source0 & source1_cmpj & cmpj_target; seqword {
 	if (source0 == source1_cmpj) goto cmpj_target;
 	build seqword;
@@ -1315,5 +1318,11 @@ phys_scale: scale is phys_scale_sel=3 [scale = 8;] {export *[const]:8 scale;}
 :stad_pphystickle^"_"^dst_size source2, [source0_noimm + source1_noimm + ldstad_stgbuf_imm]  seqword is source2 & source1_noimm & source0_noimm & ldstad_stgbuf_imm & dst_size & (opcode=0xe7d); seqword {
 	local addr = source0_noimm + source1_noimm + ldstad_stgbuf_imm;
 	store_stgbuf(source2, addr);
+	build seqword;
+}
+
+define pcodeop sigevent;
+:sigevent source0, source1 seqword is opcode = 0x21e & source0 & source1; seqword {
+	sigevent(source0, source1);
 	build seqword;
 }

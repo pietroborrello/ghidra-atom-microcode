@@ -11,6 +11,10 @@
         <memory_block name="mem" start_address="mem:0x0000" length="0x100000000" mode="rw"/>
     </default_memory_blocks>
     
+    <volatile outputop="write_crbus" inputop="read_crbus">
+		<range space="crbus" first="0x0"    last="0xffff"/>
+	</volatile>
+    
 	<default_symbols>
         <!-- UCODE LABELS -->
         <!-- NOTICE: each address is multiplied by $(INSTR_LEN) wrt the original label.txt -->

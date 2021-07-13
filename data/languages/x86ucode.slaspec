@@ -104,6 +104,7 @@ define token _uop(64)
 		MOP_alias  = (24, 31)
 		wseg_sel   = (24, 27)
 		segfld_sel = (28, 31)
+		imm0_low8  = (24, 27)
 	opcode = (32, 43)
 		dst_size = (38, 39)
 		cond_0 = (32,33)
@@ -701,15 +702,27 @@ define pcodeop concat;
 	build seqword_post;
 }
 
-:zeroext^"_"^dst_size dest source0 seqword_pre^seqword_post is (opcode = 0x008 | opcode = 0x048 | opcode = 0x088 | opcode = 0x0c8) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & dst_size; seqword_pre & seqword_post {
+:zeroext^"_"^dst_size dest source0 seqword_pre^seqword_post is (opcode = 0x008 | opcode = 0x048 | opcode = 0x088 | opcode = 0x0c8) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF & source0 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;
+	dummy_F = 0;
 	dest = source0;
+	dst_OF = src0_OF;
+	dst_CF = src0_CF;
+	dst_ZF = src0_ZF;
+	dst_SF = src0_SF;
+	dst_PF = src0_PF;
 	build seqword_post;
 }
 
-:mov^"_"^dst_size dest source0 seqword_pre^seqword_post is (opcode = 0x009 | opcode = 0x049) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & dst_size; seqword_pre & seqword_post {
+:mov^"_"^dst_size dest source0 seqword_pre^seqword_post is (opcode = 0x009 | opcode = 0x049) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF & source0 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;
+	dummy_F = 0;
 	dest = source0;
+	dst_OF = src0_OF;
+	dst_CF = src0_CF;
+	dst_ZF = src0_ZF;
+	dst_SF = src0_SF;
+	dst_PF = src0_PF;
 	build seqword_post;
 }
 
@@ -770,28 +783,41 @@ define pcodeop concat;
 	build seqword_post;
 }
 
-define pcodeop setflag;
+define pcodeop setoflag;
+define pcodeop setcflag;
+define pcodeop setzflag;
+define pcodeop setsflag;
+define pcodeop setpflag;
 define pcodeop readaflags;
-:mvflgs^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x13e | opcode = 0x17e) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF & src1_OF & src1_CF & src1_ZF & src1_SF & src1_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
+# move and merge flags
+# TODO: check guessed semantics somehow
+# guessed semantics: source0 seem often either an immediate, or come value that has no particular flag value, while source1 is always tied to some flags
+# so guess: move source0 to dest, while copying source1 flags
+:mvmflgs^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x13e | opcode = 0x17e) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF & src1_OF & src1_CF & src1_ZF & src1_SF & src1_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;
-	# immediates get mapped to dummy flaag
-	# TODO: understand immediates meaning in merge flags
+	# immediates get mapped to dummy flag
 	dummy_F = 0;
-	dst_OF = src0_OF | src1_OF;
-	dst_CF = src0_CF | src1_CF;
-	dst_ZF = src0_ZF | src1_ZF;
-	dst_SF = src0_SF | src1_SF;
-	dst_PF = src0_PF | src1_PF;
+	dest = source0;
+	dst_OF = src1_OF;
+	dst_CF = src1_CF;
+	dst_ZF = src1_ZF;
+	dst_SF = src1_SF;
+	dst_PF = src1_PF;
 	build seqword_post;
 }
-:setflgs^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x3d | opcode = 0x7d) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF & src1_OF & src1_CF & src1_ZF & src1_SF & src1_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
+# move and insert flags
+# TODO: check guessed semantics somehow
+# hard to tell if flags are taken from source0 or 1, but in rdmsr_xlat we have:
+# `tmp8:= MOVEINSERTFLGS_DSZ64(0x00000031, rcx)`, for which I assume rcx cannot contain any user set flags
+:mviflgs^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x3d | opcode = 0x7d) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF & src1_OF & src1_CF & src1_ZF & src1_SF & src1_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;
+	dest = source1;
 	# TODO: understand bit patterns
-	dst_OF = setflag(src0_OF, src1_OF);
-	dst_CF = setflag(src0_CF, src1_CF);
-	dst_ZF = setflag(src0_ZF, src1_ZF);
-	dst_SF = setflag(src0_SF, src1_SF);
-	dst_PF = setflag(src0_PF, src1_PF);
+	dst_OF = setoflag(source0);
+	dst_CF = setcflag(source0);
+	dst_ZF = setzflag(source0);
+	dst_SF = setsflag(source0);
+	dst_PF = setpflag(source0);
 	build seqword_post;
 }
 :genflgs source0, source1 seqword_pre^seqword_post is opcode = 0x37d & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF & src1_OF & src1_CF & src1_ZF & src1_SF & src1_PF & source0 & source1; seqword_pre & seqword_post {
@@ -990,6 +1016,53 @@ dest_crop: immediate is imm0 & imm1 & src1_sel [
 	build seqword_post;
 }
 
+# uflowctrl
+define pcodeop uflow_unknown;
+:uflow "unk" dest source0, source1 seqword_pre^seqword_post is opcode=0x142 & imm0_low8=0x01 & dest & source0 & source1; seqword_pre & seqword_post {
+	build seqword_pre;
+	dest = uflow_unknown(source0, source1);
+	build seqword_post;
+}
+# TODO: what is the meaning of the additional source0 and dest here?
+# source1 seems to often be set to some ucode address before executing this, but there are also some saveuip to set uip
+# so what is the target of the return? keep uip for consistency
+# NOTICE: there is often the sequence `SAVEUIP(0x00, U0686); UFLOWCTRL(URET0, reg)` which does not make sense since U0686 contains a uret0, so reg should update uip0 maybe?
+# the semantics here is a bit of a guess, based on the fact that source1 always contains some uaddr, and that often uip just points to an address that has a ret
+# like a saveuip + ret
+:uflow "uret0" source1 seqword_pre^seqword_post is opcode=0x142 & imm0_low8=0x0a & dest & source0 & source1; seqword_pre & seqword_post {
+	build seqword_pre;
+	local target = uip0;
+	uip0 = source1;
+	goto [target*$(INSTR_LEN)]; 
+	build seqword_post;
+}
+:uflow "uret1" source1 seqword_pre^seqword_post is opcode=0x142 & imm0_low8=0x0b & dest & source0 & source1; seqword_pre & seqword_post {
+	build seqword_pre;
+	local target = uip1;
+	uip1 = source1;
+	goto [target*$(INSTR_LEN)];
+	build seqword_post;
+}
+define pcodeop ldat_in;
+:uflow "ldat_in" dest source0, source1 seqword_pre^seqword_post is opcode=0x142 & imm0_low8=0x0d & dest & source0 & source1; seqword_pre & seqword_post {
+	build seqword_pre;
+	dest = ldat_in(source0, source1);
+	build seqword_post;
+}
+:uflow msloopctr, source1 seqword_pre^seqword_post is opcode=0x142 & imm0_low8=0x0e & msloopctr & source1; seqword_pre & seqword_post {
+	build seqword_pre;
+	msloopctr = source1;
+	build seqword_post;
+}
+define pcodeop write_ustate;
+:uflow ucode_ustate, source1 seqword_pre^seqword_post is opcode=0x142 & imm0_low8=0x0f & ucode_ustate & source1; seqword_pre & seqword_post {
+	build seqword_pre;
+	ucode_ustate = source1:2;
+	# force it appearing in the disasm
+	write_ustate(ucode_ustate);
+	build seqword_post;
+}
+
 source1_cmpj: src1 is src1 & src1_sel { export *[const]:8 src1; }
 source1_cmpj: first_imm is imm0_sel0 & imm1_sel=0 & src1_sel = 16 [first_imm = (imm0_sel0) >> 15;] {export *[const]:8 first_imm;}
 source1_cmpj: first_imm is imm0_sel1 & imm1_sel=1 & src1_sel = 16 [first_imm = (imm0_sel1) >> 15;] {export *[const]:8 first_imm;}
@@ -1172,11 +1245,13 @@ updustate_imm: immediate is imm0 & imm1 & src1_sel [
 :updustate updustate_imm seqword_pre^seqword_post is m0=0 & updustate_imm & opcode=0x00b; seqword_pre & seqword_post {
 	build seqword_pre;
 	ucode_ustate = ucode_ustate | updustate_imm;
+	write_ustate(ucode_ustate);
 	build seqword_post;
 }
 :updustate !^updustate_imm seqword_pre^seqword_post is m0=1 & updustate_imm & opcode=0x00b; seqword_pre & seqword_post {
 	build seqword_pre;
 	ucode_ustate = ucode_ustate & ~updustate_imm;
+	write_ustate(ucode_ustate);
 	build seqword_post;
 }
 

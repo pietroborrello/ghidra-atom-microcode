@@ -34,17 +34,20 @@ For example, `cpuid_xlat` is at address 0x0be0 in the originally published ucode
 Each ghidra instruction will be composed by a microcode instruction and possibly by a sequence word, that either influences control flow after the instruction execution (`eflow`), or sets up some of synchronization before execution. 
 
 
-## TODOs
+## Open Problems
 
-Most of the instructions' semantics is correctly defined, and decompilation should generally work. 
-We recommend paying attention to the following details:
+Most of the instructions' semantics is correctly defined, and decompilation should generally work.  
+There are a few remaining open problems to tackle. PR and issues to discuss them are welcomed.
 
-- all registers are assumed to be 64 bits, which is in general false
-- no SSE/AVX instruction is currently supported
-- temporary register aliasing is not modeled (`ROVR`)
-- indirect jumps are rarely resolved by ghidra
-- we identify calls as instructions doing `saveuip + jmp`, which may not always be true
-- decompiled functions may return using jumps trough the `UIP0/1` register (see (`uCodeDisasm`)[https://github.com/chip-red-pill/uCodeDisasm])
-- load and store operations have modifiers with unclear semantics (`PPHYS`, `TICKLE`, `PPHYSTICKLE`)
-- understand how function calls may return values
-- unclear semantics on some operations (uflow, flags operations, selectors packing, ...) marked by `TODO` in the `.slaspec` file
+- We identify function calls as instructions doing `saveuip + jmp` (usually combining instructions and sequence words), but this may not always be true.
+- How do function calls return values? Seems a mix of temporary registers, but not always the same registers.
+- Load and store operations have modifiers with unclear semantics (`PPHYS`, `TICKLE`, `PPHYSTICKLE`). What do they mean?
+- There is still unclear semantics on some operations (uflow parameters, arithmetic flags operations, segment selectors packing, ...) marked by `TODO` in the `.slaspec` file
+
+There is also some missing implementation details: 
+
+- All registers are assumed to be 64 bits, which is in general false. Disassembled instruction include the operand size, but not the decompiled view.
+- No SSE/AVX instruction is currently supported.
+- Temporary register aliasing is not modeled (`ROVR`).
+- Indirect jumps are rarely resolved by ghidra.
+- Functions return using jumps trough the `UIP0/1` register (see (`uCodeDisasm`)[https://github.com/chip-red-pill/uCodeDisasm]) which decreases decompilation quality.

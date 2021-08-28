@@ -45,4 +45,5 @@ We recommend paying attention to the following details:
 - indirect jumps are rarely resolved by ghidra
 - decompiled functions may return using jumps trough the `UIP0/1` register (see (`uCodeDisasm`)[https://github.com/chip-red-pill/uCodeDisasm])
 - load and store operations have modifiers with unclear semantics (`PPHYS`, `TICKLE`, `PPHYSTICKLE`)
+- understand how function calls may return values
 - unclear semantics on some operations (uflow, flags operations, selectors packing, ...) marked by `TODO` in the `.slaspec` file

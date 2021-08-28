@@ -27,7 +27,7 @@ The `txt2ghidra.py` simply packs together Microcode Triads and Sequence words in
 
 Since instructions are now 16 bytes long and Ghidra does not currently support word sizes bigger than 8 bytes, the ucode address scheme in Ghidra is different from what one would expect from reading the `uCodeDisasm` repo, and all the code addresses must be multiplied by 0x10.
 
-For example `cpuid_xlat` is at address 0x0be0 in the originally published ucode, while at address 0x0be00 in Ghidra (see Screenshot).
+For example, `cpuid_xlat` is at address 0x0be0 in the originally published ucode, while at address 0x0be00 in Ghidra (see Screenshot).
 
 ### Instructions
 
@@ -43,7 +43,7 @@ We recommend paying attention to the following details:
 - no SSE/AVX instruction is currently supported
 - temporary register aliasing is not modeled (`ROVR`)
 - indirect jumps are rarely resolved by ghidra
-- we identify calls as instructions doing `saveuip + jmp`, that may not always be true
+- we identify calls as instructions doing `saveuip + jmp`, which may not always be true
 - decompiled functions may return using jumps trough the `UIP0/1` register (see (`uCodeDisasm`)[https://github.com/chip-red-pill/uCodeDisasm])
 - load and store operations have modifiers with unclear semantics (`PPHYS`, `TICKLE`, `PPHYSTICKLE`)
 - understand how function calls may return values

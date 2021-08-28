@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+# Transform the txt file provided in https://github.com/chip-red-pill/uCodeDisasm.git into a format readable by the ghidra processor module.
+# Just copy the file in the uCodeDisasm main directory and run `./txt2ghidra.py ../ucode/ms_array0.txt`
+# It will produce the `glm.ucode` binary file that can be loaded by Ghidra
+
 import sys
 import os
 from struct import pack

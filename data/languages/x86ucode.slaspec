@@ -409,7 +409,6 @@ macro shrflags(op1,result,count, OF, CF) {
 
 # ======= SEQWORD =======
 
-# TODO: differentiate between seqword_before and seqword_after!! 
 # Otherwise the pcode for things like saveuip will be wrong (maybe)
 # or sync words pcode will get evaluated after the instruction executed
 seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync=1 {lfencewait();}

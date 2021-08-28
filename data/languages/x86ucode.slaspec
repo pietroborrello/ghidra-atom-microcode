@@ -107,6 +107,7 @@ define token _uop(64)
 		imm0_low8  = (24, 27)
 	opcode = (32, 43)
 		dst_size = (38, 39)
+		dst_size_val = (38, 39)
 		cond_0 = (32,33)
 		cond_1 = (36, 36)
 		cond_2 = (40, 41)
@@ -183,6 +184,9 @@ attach variables [ dst_PF src0_PF src1_PF ] [
 ];
 attach names [dst_size] [
 	"32" "64" "16" "8" 
+];
+attach values [dst_size_val] [
+	32 64 16 8 
 ];
 
 attach variables [uip_reg] [uip0 uip1];
@@ -695,9 +699,9 @@ define pcodeop unknown;
 
 define pcodeop concat;
 # TODO: what does concat really do? How are the eflags defined for the operation?
-:concat^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x021 | opcode = 0x0a1 | opcode = 0x0e1) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
+:concat^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x021 | opcode = 0x0a1 | opcode = 0x0e1) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_val; seqword_pre & seqword_post {
 	build seqword_pre;
-	dest = concat(source0, source1);
+	dest = (source0 << dst_size_val) | source1;
 	resultflags(dest, dst_ZF,dst_SF, dst_PF);
 	build seqword_post;
 }

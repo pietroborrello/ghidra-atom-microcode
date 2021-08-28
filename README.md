@@ -43,6 +43,7 @@ We recommend paying attention to the following details:
 - no SSE/AVX instruction is currently supported
 - temporary register aliasing is not modeled (`ROVR`)
 - indirect jumps are rarely resolved by ghidra
+- we identify calls as instructions doing `saveuip + jmp`, that may not always be true
 - decompiled functions may return using jumps trough the `UIP0/1` register (see (`uCodeDisasm`)[https://github.com/chip-red-pill/uCodeDisasm])
 - load and store operations have modifiers with unclear semantics (`PPHYS`, `TICKLE`, `PPHYSTICKLE`)
 - understand how function calls may return values

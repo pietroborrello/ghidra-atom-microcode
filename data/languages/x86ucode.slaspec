@@ -1242,6 +1242,93 @@ testustate_cond: immediate is imm0 & imm1 & src1_sel [
 	build seqword_post;
 	<skip>
 }
+# some more readable ustates
+define pcodeop ust_usermode;
+:testustate testustate_mode testustate_cond ?^seqword_pre^seqword_post is m0=0 & testustate_mode & testustate_mode_sel=1 & testustate_cond & imm0=2 & imm1=0 & src1_sel_low3=0 & (opcode=0x00a | opcode=0x04a); seqword_pre & seqword_post {
+	build seqword_pre;
+	# if the condition is not met, skip the seqword
+	# check if any of the corresponding bits are set, if not skip the seqword
+	if (ust_usermode() == 0:8) goto <skip>;
+	build seqword_post;
+	<skip>
+}
+:testustate testustate_mode !^testustate_cond ?^seqword_pre^seqword_post is m0=1 & testustate_mode & testustate_mode_sel=1 & testustate_cond & imm0=2 & imm1=0 & src1_sel_low3=0 & (opcode=0x00a | opcode=0x04a); seqword_pre & seqword_post {
+	build seqword_pre;
+	# if the condition is met, skip the seqword
+	# check if any of the corresponding bits are set, if yes skip the seqword
+	if (ust_usermode() != 0:8) goto <skip>;
+	build seqword_post;
+	<skip>
+}
+define pcodeop ust_vmx_dis;
+:testustate testustate_mode testustate_cond ?^seqword_pre^seqword_post is m0=0 & testustate_mode & testustate_mode_sel=1 & testustate_cond & imm0=1 & imm1=0 & src1_sel_low3=0 & (opcode=0x00a | opcode=0x04a); seqword_pre & seqword_post {
+	build seqword_pre;
+	# if the condition is not met, skip the seqword
+	# check if any of the corresponding bits are set, if not skip the seqword
+	if (ust_vmx_dis() == 0:8) goto <skip>;
+	build seqword_post;
+	<skip>
+}
+:testustate testustate_mode !^testustate_cond ?^seqword_pre^seqword_post is m0=1 & testustate_mode & testustate_mode_sel=1 & testustate_cond & imm0=1 & imm1=0 & src1_sel_low3=0 & (opcode=0x00a | opcode=0x04a); seqword_pre & seqword_post {
+	build seqword_pre;
+	# if the condition is met, skip the seqword
+	# check if any of the corresponding bits are set, if yes skip the seqword
+	if (ust_vmx_dis() != 0:8) goto <skip>;
+	build seqword_post;
+	<skip>
+}
+define pcodeop ust_8086_mode;
+:testustate testustate_mode testustate_cond ?^seqword_pre^seqword_post is m0=0 & testustate_mode & testustate_mode_sel=1 & testustate_cond & imm0=4 & imm1=0 & src1_sel_low3=0 & (opcode=0x00a | opcode=0x04a); seqword_pre & seqword_post {
+	build seqword_pre;
+	# if the condition is not met, skip the seqword
+	# check if any of the corresponding bits are set, if not skip the seqword
+	if (ust_8086_mode() == 0:8) goto <skip>;
+	build seqword_post;
+	<skip>
+}
+:testustate testustate_mode !^testustate_cond ?^seqword_pre^seqword_post is m0=1 & testustate_mode & testustate_mode_sel=1 & testustate_cond & imm0=4 & imm1=0 & src1_sel_low3=0 & (opcode=0x00a | opcode=0x04a); seqword_pre & seqword_post {
+	build seqword_pre;
+	# if the condition is met, skip the seqword
+	# check if any of the corresponding bits are set, if yes skip the seqword
+	if (ust_8086_mode() != 0:8) goto <skip>;
+	build seqword_post;
+	<skip>
+}
+define pcodeop ust_smm;
+:testustate testustate_mode testustate_cond ?^seqword_pre^seqword_post is m0=0 & testustate_mode & testustate_mode_sel=1 & testustate_cond & imm0=0x20 & imm1=0 & src1_sel_low3=0 & (opcode=0x00a | opcode=0x04a); seqword_pre & seqword_post {
+	build seqword_pre;
+	# if the condition is not met, skip the seqword
+	# check if any of the corresponding bits are set, if not skip the seqword
+	if (ust_smm() == 0:8) goto <skip>;
+	build seqword_post;
+	<skip>
+}
+:testustate testustate_mode !^testustate_cond ?^seqword_pre^seqword_post is m0=1 & testustate_mode & testustate_mode_sel=1 & testustate_cond & imm0=0x20 & imm1=0 & src1_sel_low3=0 & (opcode=0x00a | opcode=0x04a); seqword_pre & seqword_post {
+	build seqword_pre;
+	# if the condition is met, skip the seqword
+	# check if any of the corresponding bits are set, if yes skip the seqword
+	if (ust_smm() != 0:8) goto <skip>;
+	build seqword_post;
+	<skip>
+}
+define pcodeop ust_vmx_guest;
+:testustate testustate_mode testustate_cond ?^seqword_pre^seqword_post is m0=0 & testustate_mode & testustate_mode_sel=1 & testustate_cond & imm0=0x80 & imm1=0 & src1_sel_low3=0 & (opcode=0x00a | opcode=0x04a); seqword_pre & seqword_post {
+	build seqword_pre;
+	# if the condition is not met, skip the seqword
+	# check if any of the corresponding bits are set, if not skip the seqword
+	if (ust_vmx_guest() == 0:8) goto <skip>;
+	build seqword_post;
+	<skip>
+}
+:testustate testustate_mode !^testustate_cond ?^seqword_pre^seqword_post is m0=1 & testustate_mode & testustate_mode_sel=1 & testustate_cond & imm0=0x80 & imm1=0 & src1_sel_low3=0 & (opcode=0x00a | opcode=0x04a); seqword_pre & seqword_post {
+	build seqword_pre;
+	# if the condition is met, skip the seqword
+	# check if any of the corresponding bits are set, if yes skip the seqword
+	if (ust_vmx_guest() != 0:8) goto <skip>;
+	build seqword_post;
+	<skip>
+}
+
 
 updustate_imm: immediate is imm0 & imm1 & src1_sel [
 	immediate = ((((src1_sel & 0x07) << 13) | (imm1 << 8) | imm0) & 0x3f) << 2;

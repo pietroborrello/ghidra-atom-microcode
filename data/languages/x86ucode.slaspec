@@ -960,11 +960,17 @@ dest_crop: immediate is imm0 & imm1 & src1_sel [
 	build seqword_post;
 }
 
-# 
+# opaque operations
 define pcodeop msr2cr;
 :msr2cr dest single_source seqword_pre^seqword_post is opcode = 0x228 & dest & single_source; seqword_pre & seqword_post {
 	build seqword_pre;
 	dest = msr2cr(single_source);
+	build seqword_post;
+}
+define pcodeop rdvmcspla;
+:rdvmcspla dest single_source seqword_pre^seqword_post is opcode = 0x269 & dest & single_source; seqword_pre & seqword_post {
+	build seqword_pre;
+	dest = rdvmcspla(single_source);
 	build seqword_post;
 }
 

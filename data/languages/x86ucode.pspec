@@ -3,19 +3,21 @@
 <!-- See Relax specification: Ghidra/Framework/SoftwareModeling/data/languages/processor_spec.rxg -->
 
 <processor_spec>
-	<default_memory_blocks>
-        <memory_block name="uram" start_address="uram:0x0000" length="0x1000" mode="rw"/>
-        <memory_block name="crbus" start_address="crbus:0x0000" length="0x10000" mode="rw"/>
-        <memory_block name="alias" start_address="alias:0x0000" length="0x800" mode="rw"/>
-        <memory_block name="segdesc" start_address="segdesc:0x0000" length="0x600" mode="rw"/>
-        <memory_block name="mem" start_address="mem:0x0000" length="0x100000000" mode="rw"/>
-    </default_memory_blocks>
-    
-    <volatile outputop="write_crbus" inputop="read_crbus">
-		<range space="crbus" first="0x0"    last="0xffff"/>
-	</volatile>
-    
-	<default_symbols>
+        <default_memory_blocks>
+                <memory_block name="uram" start_address="uram:0x0000" length="0x1000" mode="rw"/>
+                <memory_block name="crbus" start_address="crbus:0x0000" length="0x10000" mode="rw"/>
+                <memory_block name="alias" start_address="alias:0x0000" length="0x800" mode="rw"/>
+                <memory_block name="segdesc" start_address="segdesc:0x0000" length="0x600" mode="rw"/>
+                <memory_block name="mem" start_address="mem:0x0000" length="0x100000000" mode="rw"/>
+        </default_memory_blocks>
+
+        <volatile outputop="write" inputop="read">
+                <range space="crbus" first="0x0"    last="0xffff"/>
+                <range space="register" first="0x0"    last="0x7f"/>
+                <range space="register" first="0x1b0"    last="0x1cf"/>
+        </volatile>
+
+        <default_symbols>
         <!-- UCODE LABELS -->
         <!-- NOTICE: each address is multiplied by $(INSTR_LEN) wrt the original label.txt -->
         <symbol name="sha256_ret"               address="ucode:0x00110" type="code" entry="true"/>

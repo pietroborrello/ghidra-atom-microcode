@@ -599,8 +599,10 @@ define pcodeop unknown;
 
 :add^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x000 | opcode = 0x040 | opcode = 0x080 | opcode = 0x0c0) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;
-	addflags(source0, source1, dst_OF, dst_CF);
-	dest = source0 + source1;
+	local s0 = source0;
+	local s1 = source1;
+	addflags(s0, s1, dst_OF, dst_CF);
+	dest = s0 + s1;
 	resultflags(dest, dst_ZF,dst_SF, dst_PF);
 	build seqword_post;
 }
@@ -623,8 +625,10 @@ define pcodeop unknown;
 
 :sub^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x005 | opcode = 0x045 | opcode = 0x085 | opcode = 0x0c5) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;
-	subflags(source0, source1, dst_OF, dst_CF);
-	dest = source1 - source0;
+	local s0 = source0;
+	local s1 = source1;
+	subflags(s0, s1, dst_OF, dst_CF);
+	dest = s1 - s0;
 	resultflags(dest, dst_ZF,dst_SF, dst_PF);
 	build seqword_post;
 }
@@ -642,7 +646,7 @@ define pcodeop unknown;
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
 	local tmp = source0;
-	dest = source0 << cnt;
+	dest = tmp << cnt;
 	shlflags(tmp, dest, cnt, dst_OF, dst_CF);
 	shiftresultflags(dest, cnt, dst_ZF, dst_SF, dst_PF);
 	build seqword_post;
@@ -653,7 +657,7 @@ define pcodeop unknown;
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
 	local tmp = source0;
-	dest = source0 >> cnt;
+	dest = tmp >> cnt;
 	shrflags(tmp, dest, cnt, dst_OF, dst_CF);
 	shiftresultflags(dest, cnt, dst_ZF, dst_SF, dst_PF);
 	build seqword_post;
@@ -664,7 +668,7 @@ define pcodeop unknown;
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
 	local tmp = source0;
-	dest = source0 s>> cnt;
+	dest = tmp s>> cnt;
 	sarflags(tmp, dest, cnt, dst_OF, dst_CF);
 	shiftresultflags(dest, cnt, dst_ZF, dst_SF, dst_PF);
 	build seqword_post;
@@ -815,12 +819,13 @@ define pcodeop readaflags;
 :mviflgs^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x3d | opcode = 0x7d) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF & src1_OF & src1_CF & src1_ZF & src1_SF & src1_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;
 	dest = source1;
+	local tmp = source0;
 	# TODO: understand bit patterns
-	dst_OF = setoflag(source0);
-	dst_CF = setcflag(source0);
-	dst_ZF = setzflag(source0);
-	dst_SF = setsflag(source0);
-	dst_PF = setpflag(source0);
+	dst_OF = setoflag(tmp);
+	dst_CF = setcflag(tmp);
+	dst_ZF = setzflag(tmp);
+	dst_SF = setsflag(tmp);
+	dst_PF = setpflag(tmp);
 	build seqword_post;
 }
 :genflgs source0, source1 seqword_pre^seqword_post is opcode = 0x37d & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF & src1_OF & src1_CF & src1_ZF & src1_SF & src1_PF & source0 & source1; seqword_pre & seqword_post {

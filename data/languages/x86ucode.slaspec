@@ -960,6 +960,14 @@ dest_crop: immediate is imm0 & imm1 & src1_sel [
 	build seqword_post;
 }
 
+# 
+define pcodeop msr2cr;
+:msr2cr dest single_source seqword_pre^seqword_post is opcode = 0x228 & dest & single_source; seqword_pre & seqword_post {
+	build seqword_pre;
+	dest = msr2cr(single_source);
+	build seqword_post;
+}
+
 
 # direct conditional jump
 :ujmp^cc source0, source1_target_imm seqword_pre^seqword_post is (is_src1_imm=1 | (src1_sel=0 & is_src1_imm=0)) & (opcode=0x050 | opcode=0x051 | opcode=0x052 | opcode=0x053 | opcode=0x150 | opcode=0x151 | opcode=0x152 | opcode=0x153 | opcode=0x250 | opcode=0x251 | opcode=0x252 | opcode=0x253 | opcode=0x350 | opcode=0x351 | opcode=0x352 | opcode=0x353) & cc & source0 & source1_target_imm; seqword_pre & seqword_post {

@@ -9,7 +9,9 @@ This module has been tested on Ghidra 9.2.
 1. Clone this repo in `<ghidra install dir>/Ghidra/Processors/`
 2. `git clone https://github.com/chip-red-pill/uCodeDisasm`  and copy `lib/txt2ghidra.py` from this repo to the `uCodeDisasm` folder.
 3. run `./txt2ghidra.py ../ucode/ms_array0.txt`, which will produce a `glm.ucode` binary file
-4. Run Ghidra and load `glm.ucode` selecting `x86ucode` as Language for the binary
+4. Run Ghidra and load `glm.ucode` selecting `x86ucode` as Language for the binary as shown in the screenshot:
+   
+    <img src="images/Screenshot2.png" width="400px">
 
 
 

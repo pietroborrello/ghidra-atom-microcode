@@ -35,6 +35,7 @@
         <symbol name="sysexit_xlat"             address="ucode:0x07380" type="code" entry="true"/>
         <symbol name="rdtscp_xlat"              address="ucode:0x07880" type="code" entry="true"/>
         <symbol name="clear_aflags_uend0"       address="ucode:0x07940" type="code" entry="true"/>
+        <symbol name="send_op_pcu_mailbox"      address="ucode:0x07b50" type="code" entry="true"/>
         <symbol name="hlt_xlat"                 address="ucode:0x08180" type="code" entry="true"/>
         <symbol name="mov_cr0_r64_xlat"         address="ucode:0x08900" type="code" entry="true"/>
         <symbol name="rsm_xlat"                 address="ucode:0x08c00" type="code" entry="true"/>
@@ -91,6 +92,7 @@
         <symbol name="calc_fast_sha256_start"   address="ucode:0x556a0" type="code" entry="true"/>
         <symbol name="rsa_signing_error"        address="ucode:0x57950" type="code" entry="true"/>
         <symbol name="probe_mode_force_smm_xlat" address="ucode:0x5c010" type="code" entry="true"/>
+        <symbol name="send_op_data_pcu_mailbox" address="ucode:0x5c620" type="code" entry="true"/>
         <symbol name="fit_process_error"        address="ucode:0x5e680" type="code" entry="true"/>
         <symbol name="rc4_decrypt"              address="ucode:0x5ed50" type="code" entry="true"/>
         <symbol name="fit_load_end"             address="ucode:0x608a0" type="code" entry="true"/>

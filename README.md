@@ -4,11 +4,11 @@ Ghidra Processor Module to disassemble and decompile the x86 Intel Atom microcod
 <img src="https://user-images.githubusercontent.com/18199462/131227675-5c65de2e-6370-4996-80ab-6294e7d674b7.png" width="1280px">
 
 ## Install and Run
-This module has been tested on Ghidra 9.2.
+This module has been tested on Ghidra `9.2` and `10.0`.
 
 1. Clone this repo in `<ghidra install dir>/Ghidra/Processors/`
 2. `git clone https://github.com/chip-red-pill/uCodeDisasm`  and copy `lib/txt2ghidra.py` from this repo to the `uCodeDisasm` folder.
-3. run `./txt2ghidra.py ../ucode/ms_array0.txt`, which will produce a `glm.ucode` binary file
+3. run `./txt2ghidra.py ../ucode/ms_array0.txt`, that will produce a `glm.ucode` binary file
 4. Run Ghidra and load `glm.ucode` selecting `x86ucode` as Language for the binary as shown in the screenshot:
    
     <img src="images/Screenshot2.png" width="400px">
@@ -32,8 +32,11 @@ For example, `cpuid_xlat` is at address 0x0be0 in the originally published ucode
 
 ### Instructions
 
-Each ghidra instruction will be composed by a microcode instruction and possibly by a sequence word, that either influences control flow after the instruction execution (`eflow`), or sets up some of synchronization before execution. 
+Each ghidra instruction will be composed by a microcode instruction and possibly by a sequence word, that either influences control flow after the instruction execution (`eflow`), or sets up some of synchronization before execution (or both).
 
+### Functions
+
+`chip-red-pill/uCodeDisasm` already identified and named lot of functions inside the dumped code. All of these symbols are automatically loaded in Ghidra. The autoanalysis starts from these defined functions and performs recursive disassembly. To disassemble code not reached by the autoanalysis, press `D`. Then press `F` to define function starting from the address under the cursor, that will be analysed and decompiled.
 
 ## Open Problems
 
@@ -41,9 +44,9 @@ Most of the instructions' semantics is correctly defined, and decompilation shou
 There are a few remaining open problems to tackle. PR and issues to discuss them are welcomed.
 
 - We identify function calls as instructions doing `saveuip + jmp` (usually combining instructions and sequence words), but this may not always be true.
-- How do function calls return values? Seems a mix of temporary registers, but not always the same registers.
+- How do function calls take parameters and return values? Seems a mix of temporary registers, but not always the same registers.
 - Load and store operations have modifiers with unclear semantics (`PPHYS`, `TICKLE`, `PPHYSTICKLE`). What do they mean?
-- There is still unclear semantics on some operations (uflow parameters, arithmetic flags operations, segment selectors packing, ...) marked by `TODO` in the `.slaspec` file
+- There is still unclear semantics on some operations (uflow uret parameters meaning, operations on arithmetic flags, segment selectors packing, ...) marked by `TODO` in the `.slaspec` file
 
 There is also some missing implementation details: 
 

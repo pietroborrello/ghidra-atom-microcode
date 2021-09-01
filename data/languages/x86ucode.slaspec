@@ -18,7 +18,7 @@ define space segdesc	type=ram_space size=2 wordsize=1;
 
 # fake a stack pointer for the decompilation
 define space dummy_space type=ram_space size=2;
-define register offset=0xf000 size=8 [dummy_reg];
+define register offset=0xf000 size=8 [dummy_reg PC];
 
 # Registers ============================================================================
 define register offset=0x00 size=8 [
@@ -597,29 +597,33 @@ define pcodeop unknown;
 	build seqword_post;
 }
 
+# operands are read once to avoid double fetches on volatile values
 :add^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x000 | opcode = 0x040 | opcode = 0x080 | opcode = 0x0c0) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;
 	local s0 = source0;
 	local s1 = source1;
 	addflags(s0, s1, dst_OF, dst_CF);
-	dest = s0 + s1;
-	resultflags(dest, dst_ZF,dst_SF, dst_PF);
+	local d = s0 + s1;
+	dest = d;
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
 	build seqword_post;
 }
 
 :or^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x001 | opcode = 0x041 | opcode = 0x081 | opcode = 0x0c1) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;
 	logicalflags(dst_OF, dst_CF);
-	dest = source0 | source1;
-	resultflags(dest, dst_ZF,dst_SF, dst_PF);
+	local d = source0 | source1;
+	dest = d;
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
 	build seqword_post;
 }
 
 :and^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x004 | opcode = 0x044 | opcode = 0x084 | opcode = 0x0c4) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;
 	logicalflags(dst_OF, dst_CF);
-	dest = source0 & source1;
-	resultflags(dest, dst_ZF,dst_SF, dst_PF);
+	local d = source0 & source1;
+	dest = d;
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
 	build seqword_post;
 }
 
@@ -628,16 +632,18 @@ define pcodeop unknown;
 	local s0 = source0;
 	local s1 = source1;
 	subflags(s0, s1, dst_OF, dst_CF);
-	dest = s1 - s0;
-	resultflags(dest, dst_ZF,dst_SF, dst_PF);
+	local d = s1 - s0;
+	dest = d;
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
 	build seqword_post;
 }
 
 :xor^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x006 | opcode = 0x046 | opcode = 0x086 | opcode = 0x0c6) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;
 	logicalflags(dst_OF, dst_CF);
-	dest = source0 ^ source1;
-	resultflags(dest, dst_ZF,dst_SF, dst_PF);
+	local d = source0 ^ source1;
+	dest = d;
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
 	build seqword_post;
 }
 
@@ -646,9 +652,10 @@ define pcodeop unknown;
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
 	local tmp = source0;
-	dest = tmp << cnt;
-	shlflags(tmp, dest, cnt, dst_OF, dst_CF);
-	shiftresultflags(dest, cnt, dst_ZF, dst_SF, dst_PF);
+	local d = tmp << cnt;
+	dest = d;
+	shlflags(tmp, d, cnt, dst_OF, dst_CF);
+	shiftresultflags(d, cnt, dst_ZF, dst_SF, dst_PF);
 	build seqword_post;
 }
 
@@ -657,9 +664,10 @@ define pcodeop unknown;
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
 	local tmp = source0;
-	dest = tmp >> cnt;
-	shrflags(tmp, dest, cnt, dst_OF, dst_CF);
-	shiftresultflags(dest, cnt, dst_ZF, dst_SF, dst_PF);
+	local d = tmp >> cnt;
+	dest = d;
+	shrflags(tmp, d, cnt, dst_OF, dst_CF);
+	shiftresultflags(d, cnt, dst_ZF, dst_SF, dst_PF);
 	build seqword_post;
 }
 
@@ -668,9 +676,10 @@ define pcodeop unknown;
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
 	local tmp = source0;
-	dest = tmp s>> cnt;
-	sarflags(tmp, dest, cnt, dst_OF, dst_CF);
-	shiftresultflags(dest, cnt, dst_ZF, dst_SF, dst_PF);
+	local d = tmp s>> cnt;
+	dest = d;
+	sarflags(tmp, d, cnt, dst_OF, dst_CF);
+	shiftresultflags(d, cnt, dst_ZF, dst_SF, dst_PF);
 	build seqword_post;
 }
 
@@ -678,8 +687,10 @@ define pcodeop unknown;
 	build seqword_pre;
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
-	dest = (source0 << cnt) | (source0 >> (64 - cnt));
-	rolflags(dest, cnt, dst_OF, dst_CF);
+	local s0 = source0;
+	local d = (s0 << cnt) | (s0 >> (64 - cnt));
+	dest = d;
+	rolflags(d, cnt, dst_OF, dst_CF);
 	build seqword_post;
 }
 
@@ -687,16 +698,19 @@ define pcodeop unknown;
 	build seqword_pre;
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
-	dest = (source0 >> cnt) | (source0 << (64 - cnt));
-	rolflags(dest, cnt, dst_OF, dst_CF);
+	local s0 = source0;
+	local d = (s0 >> cnt) | (s0 << (64 - cnt));
+	dest = d;
+	rolflags(d, cnt, dst_OF, dst_CF);
 	build seqword_post;
 }
 
 :notand^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x007 | opcode = 0x047 | opcode = 0x087 | opcode = 0x0c7) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;
 	logicalflags(dst_OF, dst_CF);
-	dest = ~source0 & source1;
-	resultflags(dest, dst_ZF,dst_SF, dst_PF);
+	local d = ~source0 & source1;
+	dest = d;
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
 	build seqword_post;
 }
 
@@ -704,8 +718,9 @@ define pcodeop concat;
 # TODO: what does concat really do? How are the eflags defined for the operation?
 :concat^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x021 | opcode = 0x0a1 | opcode = 0x0e1) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_val; seqword_pre & seqword_post {
 	build seqword_pre;
-	dest = (source0 << dst_size_val) | source1;
-	resultflags(dest, dst_ZF,dst_SF, dst_PF);
+	local d = (source0 << dst_size_val) | source1;
+	dest = d;
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
 	build seqword_post;
 }
 
@@ -746,27 +761,30 @@ define pcodeop concat;
 	build seqword_pre;
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
-	local cf = (source0 >> cnt) & 1;
+	local s0 = source0;
+	local cf = (s0 >> cnt) & 1;
 	dst_CF = cf:1;
-	dest = source0 | (1:8 << cnt);
+	dest = s0 | (1:8 << cnt);
 	build seqword_post;
 }
 :btr^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x016 | opcode = 0x056 | opcode = 0x096) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
-	local cf = (source0 >> cnt) & 1;
+	local s0 = source0;
+	local cf = (s0 >> cnt) & 1;
 	dst_CF = cf:1;
-	dest = source0 & ~(1:8 << cnt);
+	dest = s0 & ~(1:8 << cnt);
 	build seqword_post;
 }
 :btc^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x017 | opcode = 0x057 | opcode = 0x097) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
-	local cf = (source0 >> cnt) & 1;
+	local s0 = source0;
+	local cf = (s0 >> cnt) & 1;
 	dst_CF = cf:1;
-	dest = source0 ^ (1:8 << cnt);
+	dest = s0 ^ (1:8 << cnt);
 	build seqword_post;
 }
 

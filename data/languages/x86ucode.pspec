@@ -3,6 +3,7 @@
 <!-- See Relax specification: Ghidra/Framework/SoftwareModeling/data/languages/processor_spec.rxg -->
 
 <processor_spec>
+        <programcounter register="PC"/> 
         <default_memory_blocks>
                 <memory_block name="uram"    start_address="uram:0x0000"    length="0x1000"      mode="rw"/>
                 <memory_block name="crbus"   start_address="crbus:0x0000"   length="0x10000"     mode="rw"/>

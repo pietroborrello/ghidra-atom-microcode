@@ -108,6 +108,7 @@ define token _uop(64)
 	opcode = (32, 43)
 		dst_size = (38, 39)
 		dst_size_val = (38, 39)
+		dst_size_mask = (38, 39)
 		dst_size_sel = (38, 39)
 		cond_0 = (32,33)
 		cond_1 = (36, 36)
@@ -188,6 +189,9 @@ attach names [dst_size] [
 ];
 attach values [dst_size_val] [
 	32 64 16 8 
+];
+attach values [dst_size_mask] [
+	0xffffffff 0xffffffffffffffff 0xffff 0xff
 ];
 
 attach variables [uip_reg] [uip0 uip1];
@@ -599,12 +603,12 @@ define pcodeop unknown;
 }
 
 # operands are read once to avoid double fetches on volatile values
-:add^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x000 | opcode = 0x040 | opcode = 0x080 | opcode = 0x0c0) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
+:add^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x000 | opcode = 0x040 | opcode = 0x080 | opcode = 0x0c0) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_mask; seqword_pre & seqword_post {
 	build seqword_pre;
 	local s0 = source0;
 	local s1 = source1;
 	addflags(s0, s1, dst_OF, dst_CF);
-	local d = s0 + s1;
+	local d = (s0 + s1) & dst_size_mask;
 	dest = d;
 	resultflags(d, dst_ZF,dst_SF, dst_PF);
 	build seqword_post;
@@ -628,12 +632,12 @@ define pcodeop unknown;
 	build seqword_post;
 }
 
-:sub^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x005 | opcode = 0x045 | opcode = 0x085 | opcode = 0x0c5) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
+:sub^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x005 | opcode = 0x045 | opcode = 0x085 | opcode = 0x0c5) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_mask; seqword_pre & seqword_post {
 	build seqword_pre;
 	local s0 = source0;
 	local s1 = source1;
 	subflags(s0, s1, dst_OF, dst_CF);
-	local d = s1 - s0;
+	local d = (s1 - s0) & dst_size_mask;
 	dest = d;
 	resultflags(d, dst_ZF,dst_SF, dst_PF);
 	build seqword_post;
@@ -684,23 +688,23 @@ define pcodeop unknown;
 	build seqword_post;
 }
 
-:rol^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x02c | opcode = 0x06c | opcode = 0x0ac | opcode = 0x0ec) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
+:rol^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x02c | opcode = 0x06c | opcode = 0x0ac | opcode = 0x0ec) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_val; seqword_pre & seqword_post {
 	build seqword_pre;
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
 	local s0 = source0;
-	local d = (s0 << cnt) | (s0 >> (64 - cnt));
+	local d = (s0 << cnt) | (s0 >> (dst_size_val - cnt));
 	dest = d;
 	rolflags(d, cnt, dst_OF, dst_CF);
 	build seqword_post;
 }
 
-:ror^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x02d | opcode = 0x06d | opcode = 0x0ad | opcode = 0x0ed) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
+:ror^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x02d | opcode = 0x06d | opcode = 0x0ad | opcode = 0x0ed) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_val; seqword_pre & seqword_post {
 	build seqword_pre;
 	# TODO: mask for cnt should be based on bitsize
 	local cnt = source1 & 0x3f;
 	local s0 = source0;
-	local d = (s0 >> cnt) | (s0 << (64 - cnt));
+	local d = (s0 >> cnt) | (s0 << (dst_size_val - cnt));
 	dest = d;
 	rolflags(d, cnt, dst_OF, dst_CF);
 	build seqword_post;

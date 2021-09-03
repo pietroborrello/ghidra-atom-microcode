@@ -108,6 +108,7 @@ define token _uop(64)
 	opcode = (32, 43)
 		dst_size = (38, 39)
 		dst_size_val = (38, 39)
+		dst_size_sel = (38, 39)
 		cond_0 = (32,33)
 		cond_1 = (36, 36)
 		cond_2 = (40, 41)
@@ -1582,7 +1583,7 @@ define pcodeop portout;
 	build seqword_post;
 }
 
-# ===== LD/STAD operations ====
+# ===== LD/STAD operations with all the possible access sizes ====
 
 # TODO: understand the semantics of STAD (store-ish?), LD (load?), but what is the meaning of the prefixes? PPHYS, TICKLE, PPHYSTICKLE, STGBUF (staging buffer yes), ZX (zero extend)
 # DSZ: destination size, ASZ: address size? SC: scale?
@@ -1616,10 +1617,34 @@ ldstad_stgbuf_imm: imm is m0=0 & is_src1_imm=1 & is_src0_imm=0 & src1_sel & imm1
 # TODO: show and understand mode semantics
 ldx_scale: scale is ldx_scale_sel=0 [scale = 1;] {export *[const]:8 scale;}
 ldx_scale: scale is ldx_scale_sel=1 [scale = 4;] {export *[const]:8 scale;}
-:ldzx^"_"^dst_size dest [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dest & source0_noimm & source1_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc00 |opcode=0xc10 |opcode=0xc30 |opcode=0xc40 |opcode=0xc50 |opcode=0xc70 |opcode=0xc80 |opcode=0xc90 |opcode=0xcb0 |opcode=0xcc0 |opcode=0xcd0 |opcode=0xcf0 |opcode=0xd00 |opcode=0xd10 |opcode=0xd30 |opcode=0xd40 |opcode=0xd50 |opcode=0xd70 |opcode=0xd80 |opcode=0xd90 |opcode=0xdb0 |opcode=0xdc0 |opcode=0xdd0 |opcode=0xdf0); seqword_pre & seqword_post {
+:ldzx^"_"^dst_size dest [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=0 & dest & source0_noimm & source1_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc00 |opcode=0xc10 |opcode=0xc30 |opcode=0xc40 |opcode=0xc50 |opcode=0xc70 |opcode=0xc80 |opcode=0xc90 |opcode=0xcb0 |opcode=0xcc0 |opcode=0xcd0 |opcode=0xcf0 |opcode=0xd00 |opcode=0xd10 |opcode=0xd30 |opcode=0xd40 |opcode=0xd50 |opcode=0xd70 |opcode=0xd80 |opcode=0xd90 |opcode=0xdb0 |opcode=0xdc0 |opcode=0xdd0 |opcode=0xdf0); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + ldx_scale*source1_noimm + ldstad_imm;
+	local tmp = *[mem]:4 addr;
+	dest = zext(tmp);
+	build seqword_post;
+}
+
+:ldzx^"_"^dst_size dest [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=1 & dest & source0_noimm & source1_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc00 |opcode=0xc10 |opcode=0xc30 |opcode=0xc40 |opcode=0xc50 |opcode=0xc70 |opcode=0xc80 |opcode=0xc90 |opcode=0xcb0 |opcode=0xcc0 |opcode=0xcd0 |opcode=0xcf0 |opcode=0xd00 |opcode=0xd10 |opcode=0xd30 |opcode=0xd40 |opcode=0xd50 |opcode=0xd70 |opcode=0xd80 |opcode=0xd90 |opcode=0xdb0 |opcode=0xdc0 |opcode=0xdd0 |opcode=0xdf0); seqword_pre & seqword_post {
 	build seqword_pre;
 	local addr = source0_noimm + ldx_scale*source1_noimm + ldstad_imm;
 	dest = *[mem]:8 addr;
+	build seqword_post;
+}
+
+:ldzx^"_"^dst_size dest [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=2 & dest & source0_noimm & source1_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc00 |opcode=0xc10 |opcode=0xc30 |opcode=0xc40 |opcode=0xc50 |opcode=0xc70 |opcode=0xc80 |opcode=0xc90 |opcode=0xcb0 |opcode=0xcc0 |opcode=0xcd0 |opcode=0xcf0 |opcode=0xd00 |opcode=0xd10 |opcode=0xd30 |opcode=0xd40 |opcode=0xd50 |opcode=0xd70 |opcode=0xd80 |opcode=0xd90 |opcode=0xdb0 |opcode=0xdc0 |opcode=0xdd0 |opcode=0xdf0); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + ldx_scale*source1_noimm + ldstad_imm;
+	local tmp = *[mem]:2 addr;
+	dest = zext(tmp);
+	build seqword_post;
+}
+
+:ldzx^"_"^dst_size dest [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=3 & dest & source0_noimm & source1_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc00 |opcode=0xc10 |opcode=0xc30 |opcode=0xc40 |opcode=0xc50 |opcode=0xc70 |opcode=0xc80 |opcode=0xc90 |opcode=0xcb0 |opcode=0xcc0 |opcode=0xcd0 |opcode=0xcf0 |opcode=0xd00 |opcode=0xd10 |opcode=0xd30 |opcode=0xd40 |opcode=0xd50 |opcode=0xd70 |opcode=0xd80 |opcode=0xd90 |opcode=0xdb0 |opcode=0xdc0 |opcode=0xdd0 |opcode=0xdf0); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + ldx_scale*source1_noimm + ldstad_imm;
+	local tmp = *[mem]:1 addr;
+	dest = zext(tmp);
 	build seqword_post;
 }
 
@@ -1630,25 +1655,91 @@ ldx_scale: scale is ldx_scale_sel=1 [scale = 4;] {export *[const]:8 scale;}
 	build seqword_post;
 }
 
-:stad^"_"^dst_size source2, [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is source2 & source1_noimm & source0_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc08 |opcode=0xc18 |opcode=0xc38 |opcode=0xc48 |opcode=0xc58 |opcode=0xc78 |opcode=0xc88 |opcode=0xc98 |opcode=0xcb8 |opcode=0xcc8 |opcode=0xcd8 |opcode=0xcf8 |opcode=0xd08 |opcode=0xd18 |opcode=0xd38 |opcode=0xd48 |opcode=0xd58 |opcode=0xd78 |opcode=0xd88 |opcode=0xd98 |opcode=0xdb8 |opcode=0xdc8 |opcode=0xdd8 |opcode=0xdf8); seqword_pre & seqword_post {
+:stad^"_"^dst_size source2, [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=0 & source2 & source1_noimm & source0_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc08 |opcode=0xc18 |opcode=0xc38 |opcode=0xc48 |opcode=0xc58 |opcode=0xc78 |opcode=0xc88 |opcode=0xc98 |opcode=0xcb8 |opcode=0xcc8 |opcode=0xcd8 |opcode=0xcf8 |opcode=0xd08 |opcode=0xd18 |opcode=0xd38 |opcode=0xd48 |opcode=0xd58 |opcode=0xd78 |opcode=0xd88 |opcode=0xd98 |opcode=0xdb8 |opcode=0xdc8 |opcode=0xdd8 |opcode=0xdf8); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + ldx_scale*source1_noimm + ldstad_imm;
+	*[mem]:4 addr = source2:4;
+	build seqword_post;
+}
+
+:stad^"_"^dst_size source2, [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=1 & source2 & source1_noimm & source0_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc08 |opcode=0xc18 |opcode=0xc38 |opcode=0xc48 |opcode=0xc58 |opcode=0xc78 |opcode=0xc88 |opcode=0xc98 |opcode=0xcb8 |opcode=0xcc8 |opcode=0xcd8 |opcode=0xcf8 |opcode=0xd08 |opcode=0xd18 |opcode=0xd38 |opcode=0xd48 |opcode=0xd58 |opcode=0xd78 |opcode=0xd88 |opcode=0xd98 |opcode=0xdb8 |opcode=0xdc8 |opcode=0xdd8 |opcode=0xdf8); seqword_pre & seqword_post {
 	build seqword_pre;
 	local addr = source0_noimm + ldx_scale*source1_noimm + ldstad_imm;
 	*[mem]:8 addr = source2;
+	build seqword_post;
+}
+
+:stad^"_"^dst_size source2, [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=2 & source2 & source1_noimm & source0_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc08 |opcode=0xc18 |opcode=0xc38 |opcode=0xc48 |opcode=0xc58 |opcode=0xc78 |opcode=0xc88 |opcode=0xc98 |opcode=0xcb8 |opcode=0xcc8 |opcode=0xcd8 |opcode=0xcf8 |opcode=0xd08 |opcode=0xd18 |opcode=0xd38 |opcode=0xd48 |opcode=0xd58 |opcode=0xd78 |opcode=0xd88 |opcode=0xd98 |opcode=0xdb8 |opcode=0xdc8 |opcode=0xdd8 |opcode=0xdf8); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + ldx_scale*source1_noimm + ldstad_imm;
+	*[mem]:2 addr = source2:2;
+	build seqword_post;
+}
+
+:stad^"_"^dst_size source2, [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=3 & source2 & source1_noimm & source0_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc08 |opcode=0xc18 |opcode=0xc38 |opcode=0xc48 |opcode=0xc58 |opcode=0xc78 |opcode=0xc88 |opcode=0xc98 |opcode=0xcb8 |opcode=0xcc8 |opcode=0xcd8 |opcode=0xcf8 |opcode=0xd08 |opcode=0xd18 |opcode=0xd38 |opcode=0xd48 |opcode=0xd58 |opcode=0xd78 |opcode=0xd88 |opcode=0xd98 |opcode=0xdb8 |opcode=0xdc8 |opcode=0xdd8 |opcode=0xdf8); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + ldx_scale*source1_noimm + ldstad_imm;
+	*[mem]:1 addr = source2:1;
 	build seqword_post;
 }
 
 # the original disasm shows source2 as the dest, but it seems to make more sense having source2 as the value written (TODO: somehow check_
-:stad_tickle^"_"^dst_size source2, [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is source2 & source1_noimm & source0_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc09 |opcode=0xc19 |opcode=0xc39 |opcode=0xc49 |opcode=0xc59 |opcode=0xc79 |opcode=0xc89 |opcode=0xc99 |opcode=0xcb9 |opcode=0xcc9 |opcode=0xcd9 |opcode=0xcf9 |opcode=0xd09 |opcode=0xd19 |opcode=0xd39 |opcode=0xd49 |opcode=0xd59 |opcode=0xd79 |opcode=0xd89 |opcode=0xd99 |opcode=0xdb9 |opcode=0xdc9 |opcode=0xdd9 |opcode=0xdf9); seqword_pre & seqword_post {
+:stad_tickle^"_"^dst_size source2, [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is  dst_size_sel=0 & source2 & source1_noimm & source0_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc09 |opcode=0xc19 |opcode=0xc39 |opcode=0xc49 |opcode=0xc59 |opcode=0xc79 |opcode=0xc89 |opcode=0xc99 |opcode=0xcb9 |opcode=0xcc9 |opcode=0xcd9 |opcode=0xcf9 |opcode=0xd09 |opcode=0xd19 |opcode=0xd39 |opcode=0xd49 |opcode=0xd59 |opcode=0xd79 |opcode=0xd89 |opcode=0xd99 |opcode=0xdb9 |opcode=0xdc9 |opcode=0xdd9 |opcode=0xdf9); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + ldx_scale*source1_noimm + ldstad_imm;
+	*[mem]:4 addr = source2:4;
+	build seqword_post;
+}
+
+:stad_tickle^"_"^dst_size source2, [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is  dst_size_sel=1 & source2 & source1_noimm & source0_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc09 |opcode=0xc19 |opcode=0xc39 |opcode=0xc49 |opcode=0xc59 |opcode=0xc79 |opcode=0xc89 |opcode=0xc99 |opcode=0xcb9 |opcode=0xcc9 |opcode=0xcd9 |opcode=0xcf9 |opcode=0xd09 |opcode=0xd19 |opcode=0xd39 |opcode=0xd49 |opcode=0xd59 |opcode=0xd79 |opcode=0xd89 |opcode=0xd99 |opcode=0xdb9 |opcode=0xdc9 |opcode=0xdd9 |opcode=0xdf9); seqword_pre & seqword_post {
 	build seqword_pre;
 	local addr = source0_noimm + ldx_scale*source1_noimm + ldstad_imm;
 	*[mem]:8 addr = source2;
 	build seqword_post;
 }
 
-:ld_tickle^"_"^dst_size dest [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dest & source0_noimm & source1_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc0a |opcode=0xc1a |opcode=0xc3a |opcode=0xc4a |opcode=0xc5a |opcode=0xc7a |opcode=0xc8a |opcode=0xc9a |opcode=0xcba |opcode=0xcca |opcode=0xcda |opcode=0xcfa |opcode=0xd0a |opcode=0xd1a |opcode=0xd3a |opcode=0xd4a |opcode=0xd5a |opcode=0xd7a |opcode=0xd8a |opcode=0xd9a |opcode=0xdba |opcode=0xdca |opcode=0xdda |opcode=0xdfa); seqword_pre & seqword_post {
+:stad_tickle^"_"^dst_size source2, [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is  dst_size_sel=2 & source2 & source1_noimm & source0_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc09 |opcode=0xc19 |opcode=0xc39 |opcode=0xc49 |opcode=0xc59 |opcode=0xc79 |opcode=0xc89 |opcode=0xc99 |opcode=0xcb9 |opcode=0xcc9 |opcode=0xcd9 |opcode=0xcf9 |opcode=0xd09 |opcode=0xd19 |opcode=0xd39 |opcode=0xd49 |opcode=0xd59 |opcode=0xd79 |opcode=0xd89 |opcode=0xd99 |opcode=0xdb9 |opcode=0xdc9 |opcode=0xdd9 |opcode=0xdf9); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + ldx_scale*source1_noimm + ldstad_imm;
+	*[mem]:2 addr = source2:2;
+	build seqword_post;
+}
+
+:stad_tickle^"_"^dst_size source2, [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is  dst_size_sel=3 & source2 & source1_noimm & source0_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc09 |opcode=0xc19 |opcode=0xc39 |opcode=0xc49 |opcode=0xc59 |opcode=0xc79 |opcode=0xc89 |opcode=0xc99 |opcode=0xcb9 |opcode=0xcc9 |opcode=0xcd9 |opcode=0xcf9 |opcode=0xd09 |opcode=0xd19 |opcode=0xd39 |opcode=0xd49 |opcode=0xd59 |opcode=0xd79 |opcode=0xd89 |opcode=0xd99 |opcode=0xdb9 |opcode=0xdc9 |opcode=0xdd9 |opcode=0xdf9); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + ldx_scale*source1_noimm + ldstad_imm;
+	*[mem]:1 addr = source2:1;
+	build seqword_post;
+}
+
+:ld_tickle^"_"^dst_size dest [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=0 & dest & source0_noimm & source1_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc0a |opcode=0xc1a |opcode=0xc3a |opcode=0xc4a |opcode=0xc5a |opcode=0xc7a |opcode=0xc8a |opcode=0xc9a |opcode=0xcba |opcode=0xcca |opcode=0xcda |opcode=0xcfa |opcode=0xd0a |opcode=0xd1a |opcode=0xd3a |opcode=0xd4a |opcode=0xd5a |opcode=0xd7a |opcode=0xd8a |opcode=0xd9a |opcode=0xdba |opcode=0xdca |opcode=0xdda |opcode=0xdfa); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + ldx_scale*source1_noimm + ldstad_imm;
+	local tmp = *[mem]:4 addr;
+	dest = zext(tmp);
+	build seqword_post;
+}
+
+:ld_tickle^"_"^dst_size dest [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=1 & dest & source0_noimm & source1_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc0a |opcode=0xc1a |opcode=0xc3a |opcode=0xc4a |opcode=0xc5a |opcode=0xc7a |opcode=0xc8a |opcode=0xc9a |opcode=0xcba |opcode=0xcca |opcode=0xcda |opcode=0xcfa |opcode=0xd0a |opcode=0xd1a |opcode=0xd3a |opcode=0xd4a |opcode=0xd5a |opcode=0xd7a |opcode=0xd8a |opcode=0xd9a |opcode=0xdba |opcode=0xdca |opcode=0xdda |opcode=0xdfa); seqword_pre & seqword_post {
 	build seqword_pre;
 	local addr = source0_noimm + ldx_scale*source1_noimm + ldstad_imm;
 	dest = *[mem]:8 addr;
+	build seqword_post;
+}
+
+:ld_tickle^"_"^dst_size dest [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=2 & dest & source0_noimm & source1_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc0a |opcode=0xc1a |opcode=0xc3a |opcode=0xc4a |opcode=0xc5a |opcode=0xc7a |opcode=0xc8a |opcode=0xc9a |opcode=0xcba |opcode=0xcca |opcode=0xcda |opcode=0xcfa |opcode=0xd0a |opcode=0xd1a |opcode=0xd3a |opcode=0xd4a |opcode=0xd5a |opcode=0xd7a |opcode=0xd8a |opcode=0xd9a |opcode=0xdba |opcode=0xdca |opcode=0xdda |opcode=0xdfa); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + ldx_scale*source1_noimm + ldstad_imm;
+	local tmp = *[mem]:2 addr;
+	dest = zext(tmp);
+	build seqword_post;
+}
+
+:ld_tickle^"_"^dst_size dest [source0_noimm + ldx_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=3 & dest & source0_noimm & source1_noimm & ldstad_imm & ldx_scale & dst_size & (opcode=0xc0a |opcode=0xc1a |opcode=0xc3a |opcode=0xc4a |opcode=0xc5a |opcode=0xc7a |opcode=0xc8a |opcode=0xc9a |opcode=0xcba |opcode=0xcca |opcode=0xcda |opcode=0xcfa |opcode=0xd0a |opcode=0xd1a |opcode=0xd3a |opcode=0xd4a |opcode=0xd5a |opcode=0xd7a |opcode=0xd8a |opcode=0xd9a |opcode=0xdba |opcode=0xdca |opcode=0xdda |opcode=0xdfa); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + ldx_scale*source1_noimm + ldstad_imm;
+	local tmp = *[mem]:1 addr;
+	dest = zext(tmp);
 	build seqword_post;
 }
 
@@ -1656,31 +1747,121 @@ phys_scale: scale is phys_scale_sel=0 [scale = 4;] {export *[const]:8 scale;}
 phys_scale: scale is phys_scale_sel=2 [scale = 1;] {export *[const]:8 scale;}
 phys_scale: scale is phys_scale_sel=3 [scale = 8;] {export *[const]:8 scale;}
 
-:ld_pphys^"_"^dst_size dest [source0_noimm + phys_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dest & source0_noimm & source1_noimm & ldstad_imm & phys_scale & dst_size & (opcode=0xe00 |opcode=0xe0a |opcode=0xe20 |opcode=0xe2a |opcode=0xe30 |opcode=0xe3a |opcode=0xe40 |opcode=0xe4a |opcode=0xe60 |opcode=0xe6a |opcode=0xe70 |opcode=0xe7a |opcode=0xe80 |opcode=0xe8a |opcode=0xea0 |opcode=0xeaa |opcode=0xeb0 |opcode=0xeba |opcode=0xec0 |opcode=0xeca |opcode=0xee0 |opcode=0xeea |opcode=0xef0 |opcode=0xefa |opcode=0xf00 |opcode=0xf0a |opcode=0xf20 |opcode=0xf2a |opcode=0xf30 |opcode=0xf3a |opcode=0xf40 |opcode=0xf4a |opcode=0xf60 |opcode=0xf6a |opcode=0xf70 |opcode=0xf7a |opcode=0xf80 |opcode=0xf8a |opcode=0xfa0 |opcode=0xfaa |opcode=0xfb0 |opcode=0xfba |opcode=0xfc0 |opcode=0xfca |opcode=0xfe0 |opcode=0xfea |opcode=0xff0 |opcode=0xffa); seqword_pre & seqword_post {
+:ld_pphys^"_"^dst_size dest [source0_noimm + phys_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=0 & dest & source0_noimm & source1_noimm & ldstad_imm & phys_scale & dst_size & (opcode=0xe00 |opcode=0xe0a |opcode=0xe20 |opcode=0xe2a |opcode=0xe30 |opcode=0xe3a |opcode=0xe40 |opcode=0xe4a |opcode=0xe60 |opcode=0xe6a |opcode=0xe70 |opcode=0xe7a |opcode=0xe80 |opcode=0xe8a |opcode=0xea0 |opcode=0xeaa |opcode=0xeb0 |opcode=0xeba |opcode=0xec0 |opcode=0xeca |opcode=0xee0 |opcode=0xeea |opcode=0xef0 |opcode=0xefa |opcode=0xf00 |opcode=0xf0a |opcode=0xf20 |opcode=0xf2a |opcode=0xf30 |opcode=0xf3a |opcode=0xf40 |opcode=0xf4a |opcode=0xf60 |opcode=0xf6a |opcode=0xf70 |opcode=0xf7a |opcode=0xf80 |opcode=0xf8a |opcode=0xfa0 |opcode=0xfaa |opcode=0xfb0 |opcode=0xfba |opcode=0xfc0 |opcode=0xfca |opcode=0xfe0 |opcode=0xfea |opcode=0xff0 |opcode=0xffa); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + phys_scale*source1_noimm + ldstad_imm;
+	local tmp = *[mem]:4 addr;
+	dest = zext(tmp);
+	build seqword_post;
+}
+
+:ld_pphys^"_"^dst_size dest [source0_noimm + phys_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=1 & dest & source0_noimm & source1_noimm & ldstad_imm & phys_scale & dst_size & (opcode=0xe00 |opcode=0xe0a |opcode=0xe20 |opcode=0xe2a |opcode=0xe30 |opcode=0xe3a |opcode=0xe40 |opcode=0xe4a |opcode=0xe60 |opcode=0xe6a |opcode=0xe70 |opcode=0xe7a |opcode=0xe80 |opcode=0xe8a |opcode=0xea0 |opcode=0xeaa |opcode=0xeb0 |opcode=0xeba |opcode=0xec0 |opcode=0xeca |opcode=0xee0 |opcode=0xeea |opcode=0xef0 |opcode=0xefa |opcode=0xf00 |opcode=0xf0a |opcode=0xf20 |opcode=0xf2a |opcode=0xf30 |opcode=0xf3a |opcode=0xf40 |opcode=0xf4a |opcode=0xf60 |opcode=0xf6a |opcode=0xf70 |opcode=0xf7a |opcode=0xf80 |opcode=0xf8a |opcode=0xfa0 |opcode=0xfaa |opcode=0xfb0 |opcode=0xfba |opcode=0xfc0 |opcode=0xfca |opcode=0xfe0 |opcode=0xfea |opcode=0xff0 |opcode=0xffa); seqword_pre & seqword_post {
 	build seqword_pre;
 	local addr = source0_noimm + phys_scale*source1_noimm + ldstad_imm;
 	dest = *[mem]:8 addr;
 	build seqword_post;
 }
 
-:stad_pphys^"_"^dst_size source2, [source0_noimm + phys_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is source2 & source1_noimm & source0_noimm & ldstad_imm & phys_scale & dst_size & (opcode=0xe08 |opcode=0xe28 |opcode=0xe38 |opcode=0xe48 |opcode=0xe68 |opcode=0xe78 |opcode=0xe88 |opcode=0xea8 |opcode=0xeb8 |opcode=0xec8 |opcode=0xee8 |opcode=0xef8 |opcode=0xf08 |opcode=0xf28 |opcode=0xf38 |opcode=0xf48 |opcode=0xf68 |opcode=0xf78 |opcode=0xf88 |opcode=0xfa8 |opcode=0xfb8 |opcode=0xfc8 |opcode=0xfe8 |opcode=0xff8); seqword_pre & seqword_post {
+:ld_pphys^"_"^dst_size dest [source0_noimm + phys_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=2 & dest & source0_noimm & source1_noimm & ldstad_imm & phys_scale & dst_size & (opcode=0xe00 |opcode=0xe0a |opcode=0xe20 |opcode=0xe2a |opcode=0xe30 |opcode=0xe3a |opcode=0xe40 |opcode=0xe4a |opcode=0xe60 |opcode=0xe6a |opcode=0xe70 |opcode=0xe7a |opcode=0xe80 |opcode=0xe8a |opcode=0xea0 |opcode=0xeaa |opcode=0xeb0 |opcode=0xeba |opcode=0xec0 |opcode=0xeca |opcode=0xee0 |opcode=0xeea |opcode=0xef0 |opcode=0xefa |opcode=0xf00 |opcode=0xf0a |opcode=0xf20 |opcode=0xf2a |opcode=0xf30 |opcode=0xf3a |opcode=0xf40 |opcode=0xf4a |opcode=0xf60 |opcode=0xf6a |opcode=0xf70 |opcode=0xf7a |opcode=0xf80 |opcode=0xf8a |opcode=0xfa0 |opcode=0xfaa |opcode=0xfb0 |opcode=0xfba |opcode=0xfc0 |opcode=0xfca |opcode=0xfe0 |opcode=0xfea |opcode=0xff0 |opcode=0xffa); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + phys_scale*source1_noimm + ldstad_imm;
+	local tmp = *[mem]:2 addr;
+	dest = zext(tmp);
+	build seqword_post;
+}
+
+:ld_pphys^"_"^dst_size dest [source0_noimm + phys_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=3 & dest & source0_noimm & source1_noimm & ldstad_imm & phys_scale & dst_size & (opcode=0xe00 |opcode=0xe0a |opcode=0xe20 |opcode=0xe2a |opcode=0xe30 |opcode=0xe3a |opcode=0xe40 |opcode=0xe4a |opcode=0xe60 |opcode=0xe6a |opcode=0xe70 |opcode=0xe7a |opcode=0xe80 |opcode=0xe8a |opcode=0xea0 |opcode=0xeaa |opcode=0xeb0 |opcode=0xeba |opcode=0xec0 |opcode=0xeca |opcode=0xee0 |opcode=0xeea |opcode=0xef0 |opcode=0xefa |opcode=0xf00 |opcode=0xf0a |opcode=0xf20 |opcode=0xf2a |opcode=0xf30 |opcode=0xf3a |opcode=0xf40 |opcode=0xf4a |opcode=0xf60 |opcode=0xf6a |opcode=0xf70 |opcode=0xf7a |opcode=0xf80 |opcode=0xf8a |opcode=0xfa0 |opcode=0xfaa |opcode=0xfb0 |opcode=0xfba |opcode=0xfc0 |opcode=0xfca |opcode=0xfe0 |opcode=0xfea |opcode=0xff0 |opcode=0xffa); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + phys_scale*source1_noimm + ldstad_imm;
+	local tmp = *[mem]:1 addr;
+	dest = zext(tmp);
+	build seqword_post;
+}
+
+:stad_pphys^"_"^dst_size source2, [source0_noimm + phys_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=0 & source2 & source1_noimm & source0_noimm & ldstad_imm & phys_scale & dst_size & (opcode=0xe08 |opcode=0xe28 |opcode=0xe38 |opcode=0xe48 |opcode=0xe68 |opcode=0xe78 |opcode=0xe88 |opcode=0xea8 |opcode=0xeb8 |opcode=0xec8 |opcode=0xee8 |opcode=0xef8 |opcode=0xf08 |opcode=0xf28 |opcode=0xf38 |opcode=0xf48 |opcode=0xf68 |opcode=0xf78 |opcode=0xf88 |opcode=0xfa8 |opcode=0xfb8 |opcode=0xfc8 |opcode=0xfe8 |opcode=0xff8); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + phys_scale*source1_noimm + ldstad_imm;
+	*[mem]:4 addr = source2:4;
+	build seqword_post;
+}
+
+:stad_pphys^"_"^dst_size source2, [source0_noimm + phys_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=1 & source2 & source1_noimm & source0_noimm & ldstad_imm & phys_scale & dst_size & (opcode=0xe08 |opcode=0xe28 |opcode=0xe38 |opcode=0xe48 |opcode=0xe68 |opcode=0xe78 |opcode=0xe88 |opcode=0xea8 |opcode=0xeb8 |opcode=0xec8 |opcode=0xee8 |opcode=0xef8 |opcode=0xf08 |opcode=0xf28 |opcode=0xf38 |opcode=0xf48 |opcode=0xf68 |opcode=0xf78 |opcode=0xf88 |opcode=0xfa8 |opcode=0xfb8 |opcode=0xfc8 |opcode=0xfe8 |opcode=0xff8); seqword_pre & seqword_post {
 	build seqword_pre;
 	local addr = source0_noimm + phys_scale*source1_noimm + ldstad_imm;
 	*[mem]:8 addr = source2;
 	build seqword_post;
 }
 
-:stad_pphystickle^"_"^dst_size source2, [source0_noimm + source1_noimm + ldstad_imm]  seqword_pre^seqword_post is source2 & source1_noimm & source0_noimm & ldstad_imm & dst_size & (opcode=0xe0d |opcode=0xe2d |opcode=0xe4d |opcode=0xe6d |opcode=0xe8d |opcode=0xead |opcode=0xecd |opcode=0xeed); seqword_pre & seqword_post {
+:stad_pphys^"_"^dst_size source2, [source0_noimm + phys_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=2 & source2 & source1_noimm & source0_noimm & ldstad_imm & phys_scale & dst_size & (opcode=0xe08 |opcode=0xe28 |opcode=0xe38 |opcode=0xe48 |opcode=0xe68 |opcode=0xe78 |opcode=0xe88 |opcode=0xea8 |opcode=0xeb8 |opcode=0xec8 |opcode=0xee8 |opcode=0xef8 |opcode=0xf08 |opcode=0xf28 |opcode=0xf38 |opcode=0xf48 |opcode=0xf68 |opcode=0xf78 |opcode=0xf88 |opcode=0xfa8 |opcode=0xfb8 |opcode=0xfc8 |opcode=0xfe8 |opcode=0xff8); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + phys_scale*source1_noimm + ldstad_imm;
+	*[mem]:2 addr = source2:2;
+	build seqword_post;
+}
+
+:stad_pphys^"_"^dst_size source2, [source0_noimm + phys_scale*source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=3 & source2 & source1_noimm & source0_noimm & ldstad_imm & phys_scale & dst_size & (opcode=0xe08 |opcode=0xe28 |opcode=0xe38 |opcode=0xe48 |opcode=0xe68 |opcode=0xe78 |opcode=0xe88 |opcode=0xea8 |opcode=0xeb8 |opcode=0xec8 |opcode=0xee8 |opcode=0xef8 |opcode=0xf08 |opcode=0xf28 |opcode=0xf38 |opcode=0xf48 |opcode=0xf68 |opcode=0xf78 |opcode=0xf88 |opcode=0xfa8 |opcode=0xfb8 |opcode=0xfc8 |opcode=0xfe8 |opcode=0xff8); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + phys_scale*source1_noimm + ldstad_imm;
+	*[mem]:1 addr = source2:1;
+	build seqword_post;
+}
+
+:stad_pphystickle^"_"^dst_size source2, [source0_noimm + source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=0 & source2 & source1_noimm & source0_noimm & ldstad_imm & dst_size & (opcode=0xe0d |opcode=0xe2d |opcode=0xe4d |opcode=0xe6d |opcode=0xe8d |opcode=0xead |opcode=0xecd |opcode=0xeed); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + source1_noimm + ldstad_imm;
+	*[mem]:4 addr = source2;
+	build seqword_post;
+}
+
+:stad_pphystickle^"_"^dst_size source2, [source0_noimm + source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=1 & source2 & source1_noimm & source0_noimm & ldstad_imm & dst_size & (opcode=0xe0d |opcode=0xe2d |opcode=0xe4d |opcode=0xe6d |opcode=0xe8d |opcode=0xead |opcode=0xecd |opcode=0xeed); seqword_pre & seqword_post {
 	build seqword_pre;
 	local addr = source0_noimm + source1_noimm + ldstad_imm;
 	*[mem]:8 addr = source2;
 	build seqword_post;
 }
 
-:ld_pphystickle^"_"^dst_size dest [source0_noimm + source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dest & source0_noimm & source1_noimm & ldstad_imm & dst_size & (opcode=0xe25 |opcode=0xe65 |opcode=0xea5 |opcode=0xee5 |opcode=0xf65); seqword_pre & seqword_post {
+:stad_pphystickle^"_"^dst_size source2, [source0_noimm + source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=2 & source2 & source1_noimm & source0_noimm & ldstad_imm & dst_size & (opcode=0xe0d |opcode=0xe2d |opcode=0xe4d |opcode=0xe6d |opcode=0xe8d |opcode=0xead |opcode=0xecd |opcode=0xeed); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + source1_noimm + ldstad_imm;
+	*[mem]:2 addr = source2:2;
+	build seqword_post;
+}
+
+:stad_pphystickle^"_"^dst_size source2, [source0_noimm + source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dst_size_sel=3 & source2 & source1_noimm & source0_noimm & ldstad_imm & dst_size & (opcode=0xe0d |opcode=0xe2d |opcode=0xe4d |opcode=0xe6d |opcode=0xe8d |opcode=0xead |opcode=0xecd |opcode=0xeed); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + source1_noimm + ldstad_imm;
+	*[mem]:1 addr = source2:1;
+	build seqword_post;
+}
+
+:ld_pphystickle^"_"^dst_size dest [source0_noimm + source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dest & dst_size_sel=0 & source0_noimm & source1_noimm & ldstad_imm & dst_size & (opcode=0xe25 |opcode=0xe65 |opcode=0xea5 |opcode=0xee5 |opcode=0xf65); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + source1_noimm + ldstad_imm;
+	local tmp = *[mem]:4 addr;
+	dest = zext(tmp);
+	build seqword_post;
+}
+
+:ld_pphystickle^"_"^dst_size dest [source0_noimm + source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dest & dst_size_sel=1 & source0_noimm & source1_noimm & ldstad_imm & dst_size & (opcode=0xe25 |opcode=0xe65 |opcode=0xea5 |opcode=0xee5 |opcode=0xf65); seqword_pre & seqword_post {
 	build seqword_pre;
 	local addr = source0_noimm + source1_noimm + ldstad_imm;
 	dest = *[mem]:8 addr;
+	build seqword_post;
+}
+
+:ld_pphystickle^"_"^dst_size dest [source0_noimm + source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dest & dst_size_sel=2 & source0_noimm & source1_noimm & ldstad_imm & dst_size & (opcode=0xe25 |opcode=0xe65 |opcode=0xea5 |opcode=0xee5 |opcode=0xf65); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + source1_noimm + ldstad_imm;
+	local tmp = *[mem]:2 addr;
+	dest = zext(tmp);
+	build seqword_post;
+}
+
+:ld_pphystickle^"_"^dst_size dest [source0_noimm + source1_noimm + ldstad_imm]  seqword_pre^seqword_post is dest & dst_size_sel=3 & source0_noimm & source1_noimm & ldstad_imm & dst_size & (opcode=0xe25 |opcode=0xe65 |opcode=0xea5 |opcode=0xee5 |opcode=0xf65); seqword_pre & seqword_post {
+	build seqword_pre;
+	local addr = source0_noimm + source1_noimm + ldstad_imm;
+	local tmp = *[mem]:1 addr;
+	dest = zext(tmp);
 	build seqword_post;
 }
 
@@ -1691,7 +1872,7 @@ phys_scale: scale is phys_scale_sel=3 [scale = 8;] {export *[const]:8 scale;}
 	build seqword_post;
 }
 
-:stad_pphystickle^"_"^dst_size source2, [source0_noimm + source1_noimm + ldstad_stgbuf_imm]  seqword_pre^seqword_post is source2 & source1_noimm & source0_noimm & ldstad_stgbuf_imm & dst_size & (opcode=0xe7d); seqword_pre & seqword_post {
+:stad_stgbuf^"_"^dst_size source2, [source0_noimm + source1_noimm + ldstad_stgbuf_imm]  seqword_pre^seqword_post is source2 & source1_noimm & source0_noimm & ldstad_stgbuf_imm & dst_size & (opcode=0xe7d); seqword_pre & seqword_post {
 	build seqword_pre;
 	local addr = source0_noimm + source1_noimm + ldstad_stgbuf_imm;
 	store_stgbuf(addr, source2);

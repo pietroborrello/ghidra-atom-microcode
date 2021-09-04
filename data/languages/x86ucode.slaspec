@@ -603,13 +603,49 @@ define pcodeop unknown;
 }
 
 # operands are read once to avoid double fetches on volatile values
-:add^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x000 | opcode = 0x040 | opcode = 0x080 | opcode = 0x0c0) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_mask; seqword_pre & seqword_post {
+:add^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x000 | opcode = 0x040 | opcode = 0x080 | opcode = 0x0c0) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_sel=0; seqword_pre & seqword_post {
+	build seqword_pre;
+	local s0 = source0:4;
+	local s1 = source1:4;
+	addflags(s0, s1, dst_OF, dst_CF);
+	local d = (s0 + s1);
+	dest = zext(d);
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
+	build seqword_post;
+}
+
+# operands are read once to avoid double fetches on volatile values
+:add^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x000 | opcode = 0x040 | opcode = 0x080 | opcode = 0x0c0) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_sel=1; seqword_pre & seqword_post {
 	build seqword_pre;
 	local s0 = source0;
 	local s1 = source1;
 	addflags(s0, s1, dst_OF, dst_CF);
-	local d = (s0 + s1) & dst_size_mask;
+	local d = (s0 + s1);
 	dest = d;
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
+	build seqword_post;
+}
+
+# operands are read once to avoid double fetches on volatile values
+:add^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x000 | opcode = 0x040 | opcode = 0x080 | opcode = 0x0c0) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_sel=2; seqword_pre & seqword_post {
+	build seqword_pre;
+	local s0 = source0:2;
+	local s1 = source1:2;
+	addflags(s0, s1, dst_OF, dst_CF);
+	local d = (s0 + s1);
+	dest = zext(d);
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
+	build seqword_post;
+}
+
+# operands are read once to avoid double fetches on volatile values
+:add^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x000 | opcode = 0x040 | opcode = 0x080 | opcode = 0x0c0) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_sel=3; seqword_pre & seqword_post {
+	build seqword_pre;
+	local s0 = source0:1;
+	local s1 = source1:1;
+	addflags(s0, s1, dst_OF, dst_CF);
+	local d = (s0 + s1);
+	dest = zext(d);
 	resultflags(d, dst_ZF,dst_SF, dst_PF);
 	build seqword_post;
 }
@@ -632,16 +668,50 @@ define pcodeop unknown;
 	build seqword_post;
 }
 
-:sub^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x005 | opcode = 0x045 | opcode = 0x085 | opcode = 0x0c5) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_mask; seqword_pre & seqword_post {
+:sub^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x005 | opcode = 0x045 | opcode = 0x085 | opcode = 0x0c5) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_sel=0; seqword_pre & seqword_post {
+	build seqword_pre;
+	local s0 = source0:4;
+	local s1 = source1:4;
+	subflags(s0, s1, dst_OF, dst_CF);
+	local d = (s1 - s0);
+	dest = zext(d);
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
+	build seqword_post;
+}
+
+:sub^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x005 | opcode = 0x045 | opcode = 0x085 | opcode = 0x0c5) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_sel=1; seqword_pre & seqword_post {
 	build seqword_pre;
 	local s0 = source0;
 	local s1 = source1;
 	subflags(s0, s1, dst_OF, dst_CF);
-	local d = (s1 - s0) & dst_size_mask;
+	local d = (s1 - s0);
 	dest = d;
 	resultflags(d, dst_ZF,dst_SF, dst_PF);
 	build seqword_post;
 }
+
+:sub^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x005 | opcode = 0x045 | opcode = 0x085 | opcode = 0x0c5) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_sel=2; seqword_pre & seqword_post {
+	build seqword_pre;
+	local s0 = source0:2;
+	local s1 = source1:2;
+	subflags(s0, s1, dst_OF, dst_CF);
+	local d = (s1 - s0);
+	dest = zext(d);
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
+	build seqword_post;
+}
+
+:sub^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x005 | opcode = 0x045 | opcode = 0x085 | opcode = 0x0c5) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_sel=3; seqword_pre & seqword_post {
+	build seqword_pre;
+	local s0 = source0:1;
+	local s1 = source1:1;
+	subflags(s0, s1, dst_OF, dst_CF);
+	local d = (s1 - s0);
+	dest = zext(d);
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
+	build seqword_post;
+}
+
 
 :xor^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x006 | opcode = 0x046 | opcode = 0x086 | opcode = 0x0c6) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;

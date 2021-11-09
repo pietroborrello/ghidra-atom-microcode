@@ -2018,3 +2018,10 @@ define pcodeop lbsync;
 	lbsync(imm0:8);
 	build seqword_post;
 }
+
+define pcodeop is_non_canonical_address; 
+:test_addr dest source1 seqword_pre^seqword_post is opcode = 0x25d & dest & source1 & dst_ZF; seqword_pre & seqword_post {
+	build seqword_pre;
+	dst_ZF = is_non_canonical_address(source1);
+	build seqword_post;
+}

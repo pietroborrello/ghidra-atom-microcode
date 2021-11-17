@@ -2033,3 +2033,10 @@ define pcodeop is_non_canonical_address;
 	dst_ZF = is_non_canonical_address(source1);
 	build seqword_post;
 }
+
+define pcodeop bswap; 
+:bswap dest single_source seqword_pre^seqword_post is opcode = 0x33c & dest & single_source & dst_ZF; seqword_pre & seqword_post {
+	build seqword_pre;
+	dest = bswap(single_source);
+	build seqword_post;
+}

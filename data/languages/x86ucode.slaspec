@@ -973,12 +973,16 @@ define pcodeop readaflags;
 	build seqword_pre;
 	dest = source1;
 	local tmp = source0;
-	# TODO: understand bit patterns
-	dst_OF = setoflag(tmp);
-	dst_CF = setcflag(tmp);
-	dst_ZF = setzflag(tmp);
-	dst_SF = setsflag(tmp);
-	dst_PF = setpflag(tmp);
+	local cf = (tmp >> 0);
+	dst_CF = cf:1;
+	local pf = (tmp >> 1);
+	dst_PF = pf:1;
+	local zf = (tmp >> 3);
+	dst_ZF = zf:1;
+	local sf = (tmp >> 4);
+	dst_SF = sf:1;
+	local of = (tmp >> 5);
+	dst_OF = of:1;
 	build seqword_post;
 }
 :genflgs source0, source1 seqword_pre^seqword_post is opcode = 0x37d & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF & src1_OF & src1_CF & src1_ZF & src1_SF & src1_PF & source0 & source1; seqword_pre & seqword_post {

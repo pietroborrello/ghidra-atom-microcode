@@ -158,7 +158,11 @@
                     <register name="r64idx"/>
                 </pentry>
             </input>
-            <output></output>
+            <output>
+                <pentry minsize="1" maxsize="8">
+                    <register name="tmp0"/>
+                </pentry>
+            </output>
         </prototype>
     </default_proto>
 </compiler_spec>

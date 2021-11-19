@@ -650,6 +650,54 @@ define pcodeop unknown;
 	build seqword_post;
 }
 
+# operands are read once to avoid double fetches on volatile values
+:adc^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x33e | opcode = 0x37e | opcode = 0x3be | opcode = 0x3fe) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_sel=0; seqword_pre & seqword_post {
+	build seqword_pre;
+	local s0 = source0:4;
+	local s1 = source1:4;
+	addflags(s0, s1, dst_OF, dst_CF);
+	local d = (s0 + s1);
+	dest = zext(d);
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
+	build seqword_post;
+}
+
+# operands are read once to avoid double fetches on volatile values
+:adc^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x33e | opcode = 0x37e | opcode = 0x3be | opcode = 0x3fe) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_sel=1; seqword_pre & seqword_post {
+	build seqword_pre;
+	local s0 = source0;
+	local s1 = source1;
+	addflags(s0, s1, dst_OF, dst_CF);
+	local d = (s0 + s1);
+	dest = d;
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
+	build seqword_post;
+}
+
+# operands are read once to avoid double fetches on volatile values
+:adc^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x33e | opcode = 0x37e | opcode = 0x3be | opcode = 0x3fe) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_sel=2; seqword_pre & seqword_post {
+	build seqword_pre;
+	local s0 = source0:2;
+	local s1 = source1:2;
+	addflags(s0, s1, dst_OF, dst_CF);
+	local d = (s0 + s1);
+	dest = zext(d);
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
+	build seqword_post;
+}
+
+# operands are read once to avoid double fetches on volatile values
+:adc^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x33e | opcode = 0x37e | opcode = 0x3be | opcode = 0x3fe) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_sel=3; seqword_pre & seqword_post {
+	build seqword_pre;
+	local s0 = source0:1;
+	local s1 = source1:1;
+	addflags(s0, s1, dst_OF, dst_CF);
+	local d = (s0 + s1);
+	dest = zext(d);
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
+	build seqword_post;
+}
+
 :or^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x001 | opcode = 0x041 | opcode = 0x081 | opcode = 0x0c1) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;
 	logicalflags(dst_OF, dst_CF);
@@ -765,6 +813,50 @@ define pcodeop unknown;
 <skip>
 }
 
+:subb^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x33f | opcode = 0x37f | opcode = 0x3bf | opcode = 0x3ff) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_sel=0; seqword_pre & seqword_post {
+	build seqword_pre;
+	local s0 = source0:4;
+	local s1 = source1:4;
+	subflags(s1, s0, dst_OF, dst_CF);
+	local d = (s1 - s0);
+	dest = zext(d);
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
+	build seqword_post;
+}
+
+:subb^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x33f | opcode = 0x37f | opcode = 0x3bf | opcode = 0x3ff) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_sel=1; seqword_pre & seqword_post {
+	build seqword_pre;
+	local s0 = source0;
+	local s1 = source1;
+	subflags(s1, s0, dst_OF, dst_CF);
+	local d = (s1 - s0);
+	dest = d;
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
+	build seqword_post;
+}
+
+:subb^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x33f | opcode = 0x37f | opcode = 0x3bf | opcode = 0x3ff) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_sel=2; seqword_pre & seqword_post {
+	build seqword_pre;
+	local s0 = source0:2;
+	local s1 = source1:2;
+	subflags(s1, s0, dst_OF, dst_CF);
+	local d = (s1 - s0);
+	dest = zext(d);
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
+	build seqword_post;
+}
+
+:subb^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x33f | opcode = 0x37f | opcode = 0x3bf | opcode = 0x3ff) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_sel=3; seqword_pre & seqword_post {
+	build seqword_pre;
+	local s0 = source0:1;
+	local s1 = source1:1;
+	subflags(s1, s0, dst_OF, dst_CF);
+	local d = (s1 - s0);
+	dest = zext(d);
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
+	build seqword_post;
+}
+
 :imul^"_64" dest source0, source1 seqword_pre^seqword_post is opcode=0x264 & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1; seqword_pre & seqword_post {
 	build seqword_pre;
 	local d = source0 * source1;
@@ -875,6 +967,19 @@ define pcodeop concat;
 	build seqword_pre;
 	dummy_F = 0;
 	dest = source0;
+	dst_OF = src0_OF;
+	dst_CF = src0_CF;
+	dst_ZF = src0_ZF;
+	dst_SF = src0_SF;
+	dst_PF = src0_PF;
+	build seqword_post;
+}
+
+:movsx32^"_"^dst_size dest source0 seqword_pre^seqword_post is (opcode = 0x02a) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF & source0 & dst_size; seqword_pre & seqword_post {
+	build seqword_pre;
+	dummy_F = 0;
+	local src = source0:4;
+	dest = sext(src);
 	dst_OF = src0_OF;
 	dst_CF = src0_CF;
 	dst_ZF = src0_ZF;

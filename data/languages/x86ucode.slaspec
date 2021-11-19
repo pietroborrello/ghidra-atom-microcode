@@ -975,7 +975,7 @@ define pcodeop concat;
 	build seqword_post;
 }
 
-:movsx32^"_"^dst_size dest source0 seqword_pre^seqword_post is (opcode = 0x02a) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF & source0 & dst_size; seqword_pre & seqword_post {
+:movsdq dest source0 seqword_pre^seqword_post is (opcode = 0x02a) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & src0_OF & src0_CF & src0_ZF & src0_SF & src0_PF & source0 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;
 	dummy_F = 0;
 	local src = source0:4;
@@ -1695,9 +1695,10 @@ updustate_imm: immediate is imm0 & imm1 & src1_sel [
 	build seqword_post;
 }
 
-:wmsloopctr single_imm seqword_pre^seqword_post is single_imm & msloopctr & opcode=0x00e; seqword_pre & seqword_post {
+:wmsloopctr dest single_imm seqword_pre^seqword_post is dest & single_imm & msloopctr & opcode=0x00e; seqword_pre & seqword_post {
 	build seqword_pre;
 	msloopctr = single_imm;
+	dest = single_imm;
 	build seqword_post;
 }
 

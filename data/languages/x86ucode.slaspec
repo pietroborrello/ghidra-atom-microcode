@@ -768,7 +768,7 @@ define pcodeop unknown;
 	local d = (s0 - s1);
 	dest = d;
 	resultflags(d, dst_ZF,dst_SF, dst_PF);
-	if (d == 0) goto <skip>;
+	if (d s< 0) goto <skip>;
 	build seqword_post;
 <skip>
 }
@@ -781,7 +781,7 @@ define pcodeop unknown;
 	local d = (s0 - s1);
 	dest = zext(d);
 	resultflags(d, dst_ZF,dst_SF, dst_PF);
-	if (d == 0) goto <skip>;
+	if (d s< 0) goto <skip>;
 	build seqword_post;
 <skip>
 }
@@ -794,7 +794,7 @@ define pcodeop unknown;
 	local d = (s0 - s1);
 	dest = zext(d);
 	resultflags(d, dst_ZF,dst_SF, dst_PF);
-	if (d == 0) goto <skip>;
+	if (d s< 0) goto <skip>;
 	build seqword_post;
 <skip>
 }
@@ -808,7 +808,7 @@ define pcodeop unknown;
 	local d = (s0 - s1);
 	dest = zext(d);
 	resultflags(d, dst_ZF,dst_SF, dst_PF);
-	if (d == 0) goto <skip>;
+	if (d s< 0) goto <skip>;
 	build seqword_post;
 <skip>
 }
@@ -1527,7 +1527,7 @@ testustate_cond: immediate is imm0 & imm1 & src1_sel [
 	# if the condition is not met, skip the seqword
 	# check if the corresponding bit is clear, if not skip the seqword
 	msloopctr = msloopctr -1;
-	if (msloopctr == 0) goto <skip>;
+	if (msloopctr s< 0) goto <skip>;
 	build seqword_post;
 	<skip>
 }
@@ -1536,7 +1536,7 @@ testustate_cond: immediate is imm0 & imm1 & src1_sel [
 	# if the condition is met, skip the seqword
 	# check if the corresponding bit is clear, if yes skip the seqword
 	msloopctr = msloopctr -1;
-	if (msloopctr != 0) goto <skip>;
+	if (msloopctr s>= 0) goto <skip>;
 	build seqword_post;
 	<skip>
 }

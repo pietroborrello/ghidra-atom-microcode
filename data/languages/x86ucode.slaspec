@@ -942,11 +942,32 @@ define pcodeop unknown;
 }
 
 define pcodeop concat;
-# TODO: what does concat really do? How are the eflags defined for the operation?
-:concat^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x021 | opcode = 0x0a1 | opcode = 0x0e1) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_val; seqword_pre & seqword_post {
+:concat^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x021 | opcode = 0x0a1 | opcode = 0x0e1) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_val & dst_size_sel=0; seqword_pre & seqword_post {
 	build seqword_pre;
-	local d = (source0 << dst_size_val) | source1;
-	dest = d;
+	local s0:8 = zext(source0:4);
+	local s1:8 = zext(source1:4);
+	local d = (s0 << dst_size_val) | s1;
+	dest = zext(d);
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
+	build seqword_post;
+}
+
+:concat^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x021 | opcode = 0x0a1 | opcode = 0x0e1) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_val & dst_size_sel=2; seqword_pre & seqword_post {
+	build seqword_pre;
+	local s0:8 = zext(source0:2);
+	local s1:8 = zext(source1:2);
+	local d = (s0 << dst_size_val) | s1;
+	dest = zext(d);
+	resultflags(d, dst_ZF,dst_SF, dst_PF);
+	build seqword_post;
+}
+
+:concat^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x021 | opcode = 0x0a1 | opcode = 0x0e1) & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF & source0 & source1 & dst_size & dst_size_val & dst_size_sel=3; seqword_pre & seqword_post {
+	build seqword_pre;
+	local s0:8 = zext(source0:1);
+	local s1:8 = zext(source1:1);
+	local d = (s0 << dst_size_val) | s1;
+	dest = zext(d);
 	resultflags(d, dst_ZF,dst_SF, dst_PF);
 	build seqword_post;
 }
@@ -1031,7 +1052,7 @@ define pcodeop concat;
 :sel^cc^"_"^dst_size dest source0, source1 seqword_pre^seqword_post is (opcode = 0x030 | opcode = 0x031 | opcode = 0x032 | opcode = 0x033 | opcode = 0x070 | opcode = 0x071 | opcode = 0x072 | opcode = 0x073 | opcode = 0x130 | opcode = 0x131 | opcode = 0x132 | opcode = 0x133 | opcode = 0x170 | opcode = 0x171 | opcode = 0x172 | opcode = 0x173 | opcode = 0x230 | opcode = 0x231 | opcode = 0x232 | opcode = 0x233 | opcode = 0x270 | opcode = 0x271 | opcode = 0x272 | opcode = 0x273 | opcode = 0x330 | opcode = 0x331 | opcode = 0x332 | opcode = 0x333 | opcode = 0x370 | opcode = 0x371 | opcode = 0x372 | opcode = 0x373) & dest & cc & source0 & source1 & dst_size; seqword_pre & seqword_post {
 	build seqword_pre;
 	local res = 0:8;
-	if (!cc) goto <done>;
+	if (cc) goto <done>;
 	res = source1;
 	<done>
 	dest = res;
@@ -1106,6 +1127,20 @@ define pcodeop readaflags;
 	build seqword_pre;
 	# TODO: understand what does it actually read
 	dest = readaflags(single_source);
+	build seqword_post;
+}
+
+:clc dst_CF seqword_pre^seqword_post is opcode = 0x338 & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF; seqword_pre & seqword_post {
+	build seqword_pre;
+	dummy_F = 0;
+	dst_CF = 0;
+	build seqword_post;
+}
+
+:stc dst_CF seqword_pre^seqword_post is opcode = 0x33a & dest & dst_OF & dst_CF & dst_ZF & dst_SF & dst_PF; seqword_pre & seqword_post {
+	build seqword_pre;
+	dummy_F = 0;
+	dst_CF = 1;
 	build seqword_post;
 }
 

@@ -1135,15 +1135,15 @@ define pcodeop readaflags;
 	build seqword_pre;
 	dest = source1;
 	local tmp = source0;
-	local cf = (tmp >> 0);
+	local cf = tmp & 1;
 	dst_CF = cf:1;
-	local pf = (tmp >> 1);
+	local pf = (tmp >> 1) & 1;
 	dst_PF = pf:1;
-	local zf = (tmp >> 3);
+	local zf = (tmp >> 3) & 1;
 	dst_ZF = zf:1;
-	local sf = (tmp >> 4);
+	local sf = (tmp >> 4) & 1;
 	dst_SF = sf:1;
-	local of = (tmp >> 5);
+	local of = (tmp >> 5) & 1;
 	dst_OF = of:1;
 	build seqword_post;
 }
@@ -2224,5 +2224,12 @@ define pcodeop bswap;
 :bswap dest single_source seqword_pre^seqword_post is opcode = 0x33c & dest & single_source & dst_ZF; seqword_pre & seqword_post {
 	build seqword_pre;
 	dest = bswap(single_source);
+	build seqword_post;
+}
+
+define pcodeop readrom; 
+:rdrom dest single_source seqword_pre^seqword_post is opcode = 0x716 & dest & single_source & dst_ZF; seqword_pre & seqword_post {
+	build seqword_pre;
+	dest = readrom(single_source);
 	build seqword_post;
 }

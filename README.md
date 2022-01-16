@@ -8,7 +8,7 @@ This module has been tested on Ghidra `9.2` and `10.0`.
 
 1. Clone this repo in `<ghidra install dir>/Ghidra/Processors/`
 2. `git clone https://github.com/chip-red-pill/uCodeDisasm`  and copy `lib/txt2ghidra.py` from this repo to the `uCodeDisasm` folder.
-3. run `./txt2ghidra.py ../ucode/ms_array0.txt`, that will produce a `glm.ucode` binary file
+3. run `./txt2ghidra.py ../ucode/`, that will produce a `glm.ucode` binary file (or what specified by the `-o <outfile.ucode>` option). `../ucode/` must be the folder that contains the dumps `ms_array0.txt, ms_array1.txt, ms_array0.txt`
 4. Run Ghidra and load `glm.ucode` selecting `x86ucode` as Language for the binary as shown in the screenshot:
    
     <img src="images/Screenshot2.png" width="400px">
@@ -38,6 +38,23 @@ Each ghidra instruction will be composed by a microcode instruction and possibly
 
 `chip-red-pill/uCodeDisasm` already identified and named lot of functions inside the dumped code. All of these symbols are automatically loaded in Ghidra. The autoanalysis starts from these defined functions and performs recursive disassembly. To disassemble code not reached by the autoanalysis, press `D`. Then press `F` to define function starting from the address under the cursor, that will be analysed and decompiled.
 
+### ucode patches
+The decompiler supports decrypted ucode patches. To generate an ucode blob with a patch applied pass `-p <PATCH_FILE>` to `txt2ghidra.py`.
+The `PATCH_FILE` must be in the format:
+```
+0000:  000000000000 00003ecb3a3b 00003eb96ef7 00003e8c6217 -
+[...]                                                       | match & patch
+001c:  00003e9f31a5 00003efb758f 000000000000 000000000000 -
+0000:  c0053d03ffc8 4152f45c027f c21e0303d23d 000000000000 -
+[...]                                                       | ucode RAM
+01fc:  000000000000 000000000000 000000000000 000000000000 -
+0000:  0000070000ce 000018201a50 000018201a50 0000384c0600 -
+[...]                                                       | seqword RAM
+007c:  000031805140 000011fc9192 000031f59040 000000000000 -
+```
+
+The patches will be shown in the decompilers as conditionals statements under the condition `if (PATCH_ENABLED() != 0) { [...] }` to show both the patch and the original instructions.
+
 ## Open Problems
 
 Most of the instructions' semantics is correctly defined, and decompilation should generally work.  
@@ -45,8 +62,7 @@ There are a few remaining open problems to tackle. PR and issues to discuss them
 
 - We identify function calls as instructions doing `saveuip + jmp` (usually combining instructions and sequence words), but this may not always be true.
 - How do function calls take parameters and return values? Seems a mix of temporary registers, but not always the same registers.
-- Load and store operations have modifiers with unclear semantics (`PPHYS`, `TICKLE`, `PPHYSTICKLE`). What do they mean?
-- There is still unclear semantics on some operations (uflow uret parameters meaning, operations on arithmetic flags, segment selectors packing, ...) marked by `TODO` in the `.slaspec` file
+- There is still unclear semantics on some operations (uflow uret parameters meaning, segment selectors packing, ...) marked by `TODO` in the `.slaspec` file
 
 There is also some missing implementation details: 
 

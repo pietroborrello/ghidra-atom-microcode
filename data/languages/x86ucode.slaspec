@@ -285,7 +285,9 @@ define token _seqword(64)
 	seq_pad0   = (30, 31)
 	with_testustate = (32, 32)
 	seqw_with_saveuip_next = (33, 33)
-	seq_pad1   = (34 ,63)
+	seq_pad1    = (34, 39)
+	seq_match_patch = (40, 55)
+	seq_pad2    = (56, 63)
 ;
 
 define pcodeop lfencewait;
@@ -462,11 +464,23 @@ seqword_goto:" SEQW GOTO" seqword_target is up1=1 & seqword_target & seqw_with_s
 }
 seqword_goto:"" is up1=0 & next_uaddr {}
 
-seqword_pre:""^seqword_eflow_pre^seqword_sync is seqword_eflow_pre & seqword_sync {
+###### match & patch
+patch_target: target is seq_match_patch [ target = seq_match_patch*$(INSTR_LEN); ] {
+  export *[ucode]:8 target;
+}
+define pcodeop PATCH_ENABLED;
+match_patch:" PATCH" patch_target is patch_target {
+	if (PATCH_ENABLED() != 0:8) goto patch_target;
+}
+match_patch:"" is patch_target & seq_match_patch=0 {}
+######################
+
+# model the match & patch before the sequence word
+seqword_pre:""^match_patch^seqword_eflow_pre^seqword_sync is match_patch & seqword_eflow_pre & seqword_sync {
 	build seqword_sync;
 	build seqword_eflow_pre;
 }
-seqword_pre:"" is full_seqword=0 {}
+seqword_pre:""^match_patch is match_patch & full_seqword=0 {}
 
 seqword_post:""^seqword_eflow^seqword_goto is seqword_eflow & seqword_goto {
 	build seqword_eflow;

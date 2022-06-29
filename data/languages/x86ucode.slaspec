@@ -1437,7 +1437,7 @@ define pcodeop write_ustate;
 	build seqword_post;
 }
 
-source1_cmpj: src1 is src1 & src1_sel { export *[const]:8 src1; }
+source1_cmpj: src1 is src1 & src1_sel { export src1; }
 source1_cmpj: first_imm is imm0_sel0 & imm1_sel=0 & src1_sel = 16 [first_imm = (imm0_sel0) >> 15;] {export *[const]:8 first_imm;}
 source1_cmpj: first_imm is imm0_sel1 & imm1_sel=1 & src1_sel = 16 [first_imm = (imm0_sel1) >> 15;] {export *[const]:8 first_imm;}
 source1_cmpj: first_imm is imm0_sel2 & imm1_sel=2 & src1_sel = 16 [first_imm = (imm0_sel2) >> 15;] {export *[const]:8 first_imm;}

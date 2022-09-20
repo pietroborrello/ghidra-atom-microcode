@@ -5,11 +5,11 @@
 <processor_spec>
         <programcounter register="PC"/> 
         <default_memory_blocks>
-                <memory_block name="uram"    start_address="uram:0x0000"    length="0x1000"      mode="rw"/>
-                <memory_block name="crbus"   start_address="crbus:0x0000"   length="0x10000"     mode="rw"/>
-                <memory_block name="alias"   start_address="alias:0x0000"   length="0x800"       mode="rw"/>
-                <memory_block name="segdesc" start_address="segdesc:0x0000" length="0x600"       mode="rw"/>
-                <memory_block name="mem"     start_address="mem:0x0000"     length="0x100000000" mode="rw"/>
+                <memory_block name="uram"    start_address="uram:0x0000"    length="0x1000"      mode="rw" initialized="false"/>
+                <memory_block name="crbus"   start_address="crbus:0x0000"   length="0x10000"     mode="rw" initialized="false"/>
+                <memory_block name="alias"   start_address="alias:0x0000"   length="0x800"       mode="rw" initialized="false"/>
+                <memory_block name="segdesc" start_address="segdesc:0x0000" length="0x600"       mode="rw" initialized="false"/>
+                <memory_block name="mem"     start_address="mem:0x0000"     length="0x100000000" mode="rw" initialized="false"/>
         </default_memory_blocks>
 
         <volatile outputop="write" inputop="read">

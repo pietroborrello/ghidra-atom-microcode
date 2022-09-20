@@ -4,7 +4,7 @@ Ghidra Processor Module to disassemble and decompile the x86 Intel Atom microcod
 <img src="https://user-images.githubusercontent.com/18199462/131227675-5c65de2e-6370-4996-80ab-6294e7d674b7.png" width="1280px">
 
 ## Install and Run
-This module has been tested on Ghidra `9.2` and `10.0`.
+This module has been tested on Ghidra from `9.2` to `10.1.5`.
 
 1. Clone this repo in `<ghidra install dir>/Ghidra/Processors/`
 2. `git clone https://github.com/chip-red-pill/uCodeDisasm`  and copy `lib/txt2ghidra.py` from this repo to the `uCodeDisasm` folder.

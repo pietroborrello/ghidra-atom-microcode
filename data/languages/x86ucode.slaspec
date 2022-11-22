@@ -292,11 +292,11 @@ define token _seqword(64)
 
 define pcodeop lfencewait;
 define pcodeop lfencemark;
-define pcodeop lfencewritemark;
+define pcodeop lfencewaitmark;
 define pcodeop syncfull;
 define pcodeop syncwait;
 define pcodeop syncmark;
-define pcodeop syncwritemark;
+define pcodeop syncwaitmark;
 define pcodeop sync_unknown;
 attach names [sync_cmd] [
 	"UNKNOWN_SYNC" "LFNCEWAIT" "LFNCEMARK" "LFNCEWTMRK" "SYNCFULL" "SYNCWAIT" "SYNCMARK" "SYNCWTMRK"
@@ -420,11 +420,11 @@ macro shrflags(op1,result,count, OF, CF) {
 # or sync words pcode will get evaluated after the instruction executed
 seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync=1 {lfencewait();}
 seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync=2 {lfencemark();}
-seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync=3 {lfencewritemark();}
+seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync=3 {lfencewaitmark();}
 seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync=4 {syncfull();}
 seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync=5 {syncwait();}
 seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync=6 {syncmark();}
-seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync=7 {syncwritemark();}
+seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync=7 {syncwaitmark();}
 seqword_sync: [sync_cmd] is up2=1 & sync_cmd & sync   {sync_unknown();}
 seqword_sync:"" is up2=0 & sync {}
 

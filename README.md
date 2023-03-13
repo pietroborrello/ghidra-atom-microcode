@@ -1,4 +1,7 @@
 # Intel Atom Microcode - Ghidra Processor Module
+
+[![DOI](https://zenodo.org/badge/376316556.svg)](https://zenodo.org/badge/latestdoi/376316556)
+
 Ghidra Processor Module to disassemble and decompile the x86 Intel Atom microcode provided in [chip-red-pill/uCodeDisasm](https://github.com/chip-red-pill/uCodeDisasm).
 
 <img src="https://user-images.githubusercontent.com/18199462/131227675-5c65de2e-6370-4996-80ab-6294e7d674b7.png" width="1280px">
